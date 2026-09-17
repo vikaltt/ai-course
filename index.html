@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Искусственный интеллект для подготовки учебных материалов | 16-часовой курс</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #030712;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --primary: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.25);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.1) 0%, transparent 45%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* Top Bar */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 48px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      font-size: 20px;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .brand-badge {
+      background: linear-gradient(135deg, #0284c7, #6366f1);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Hero */
+    .hero {
+      margin-bottom: 48px;
+      text-align: left;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 30px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 19px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 820px;
+    }
+
+    /* Progress Widget */
+    .progress-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-bottom: 48px;
+      backdrop-filter: blur(16px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .progress-info {
+      flex: 1;
+      min-width: 260px;
+    }
+    .progress-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .progress-status {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      margin-top: 12px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #10b981);
+      width: 0%;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reset-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #64748b;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .reset-btn:hover {
+      color: #cbd5e1;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Modules Section */
+    .module-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 32px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .module-card.locked {
+      opacity: 0.55;
+    }
+    .module-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .module-num {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .module-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .module-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.45;
+    }
+    .module-badge {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .badge-active {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    .badge-locked {
+      background: rgba(255, 255, 255, 0.05);
+      color: #64748b;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Lessons Grid */
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+    }
+    .lesson-item {
+      background: rgba(3, 7, 18, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .lesson-item:not(.locked):hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    .lesson-item.locked {
+      opacity: 0.6;
+    }
+    .lesson-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .lesson-duration {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #64748b;
+    }
+    .lesson-status-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .status-completed {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+    }
+    .status-ready {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+    }
+    .status-locked {
+      background: rgba(255, 255, 255, 0.05);
+      color: #64748b;
+    }
+    .status-wip {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+    }
+    .lesson-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #f1f5f9;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .lesson-desc {
+      font-size: 13px;
+      color: #94a3b8;
+      line-height: 1.45;
+      margin-bottom: 18px;
+    }
+
+    .btn-lesson {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-play {
+      background: #0284c7;
+      color: #fff;
+    }
+    .btn-play:hover {
+      background: #0369a1;
+    }
+    .btn-completed {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .btn-completed:hover {
+      background: rgba(16, 185, 129, 0.25);
+    }
+    .btn-locked {
+      background: rgba(255, 255, 255, 0.05);
+      color: #64748b;
+      cursor: not-allowed;
+    }
+
+    /* Quiz Item */
+    .quiz-card {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(6, 78, 59, 0.15));
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      color: #475569;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Top Nav -->
+    <div class="top-nav">
+      <div class="brand">
+        <span>⚡</span> ИИ для преподавателей
+        <span class="brand-badge">16 часов</span>
+      </div>
+      <button class="reset-btn" onclick="resetProgress()" title="Сбросить прогресс для тестирования">Сбросить прогресс ⟲</button>
+    </div>
+
+    <!-- Hero Header -->
+    <div class="hero">
+      <div class="hero-tag">🎓 Практический онлайн-курс</div>
+      <h1>Искусственный интеллект для подготовки учебных материалов</h1>
+      <p>
+        От базовых принципов и истории развития до практической генерации презентаций, методических пособий, тестов и совместной работы с интеллектуальными агентами.
+      </p>
+    </div>
+
+    <!-- Progress Card -->
+    <div class="progress-card">
+      <div class="progress-info">
+        <div class="progress-title">Ваш прогресс освоения</div>
+        <div class="progress-status" id="progressStatusText">
+          Завершено 0 из 2 доступных уроков (0%)
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="progressBarFill"></div>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-size: 12px; color: #64748b; font-weight: 700; text-transform: uppercase;">Текущий этап</div>
+        <div style="font-size: 16px; font-weight: 800; color: #38bdf8;">Модуль 1. Занятие 1</div>
+      </div>
+    </div>
+
+    <!-- MODULE 1 -->
+    <div class="module-card">
+      <div class="module-header">
+        <div>
+          <div class="module-num">Модуль 1 • Занятие 1</div>
+          <div class="module-title">Что такое ИИ: от правил к машинному обучению</div>
+          <div class="module-desc">
+            Знакомство с технологией, почему жестких программных правил стало недостаточно, символический ИИ, Deep Blue и разворот к обучению на данных.
+          </div>
+        </div>
+        <span class="module-badge badge-active">В процессе изучения</span>
+      </div>
+
+      <div class="lessons-grid">
+        <!-- Lesson 1.1 -->
+        <div class="lesson-item" id="card_l1_p1">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-ready" id="badge_l1_p1">Доступно</span>
+            </div>
+            <div class="lesson-title">Часть 1.1: Вступление в мир ИИ</div>
+            <div class="lesson-desc">
+              Знакомство с целями курса, структурой программы, ключевыми терминами и прикладной задачей подготовки учебных материалов.
+            </div>
+          </div>
+          <a href="lesson_1_1.html" class="btn-lesson btn-play" id="btn_l1_p1">
+            ▶ Смотреть урок
+          </a>
+        </div>
+
+        <!-- Lesson 1.2 -->
+        <div class="lesson-item" id="card_l1_p2">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-locked" id="badge_l1_p2">После 1.1</span>
+            </div>
+            <div class="lesson-title">Часть 1.2: Два пути ИИ (Правила vs Обучение)</div>
+            <div class="lesson-desc">
+              Классический код («Если... то...»), триумф Deep Blue над Каспаровым, барьер живого мира, датасеты и концепция математической «модели».
+            </div>
+          </div>
+          <a href="lesson_1_2.html" class="btn-lesson btn-locked" id="btn_l1_p2">
+            🔒 Откроется после 1.1
+          </a>
+        </div>
+
+        <!-- Lesson 1.3 (WIP) -->
+        <div class="lesson-item locked">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-wip">В производстве</span>
+            </div>
+            <div class="lesson-title">Часть 1.3: История ИИ: от Дартмута до нейросетей</div>
+            <div class="lesson-desc">
+              Дартмутский семинар 1956 года, появление термина «ИИ», амбициозные обещания ученых и рождение первых перцептронов.
+            </div>
+          </div>
+          <span class="btn-lesson btn-locked">🛠️ В производстве</span>
+        </div>
+
+        <!-- Lesson 1.4 (WIP) -->
+        <div class="lesson-item locked">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-wip">В производстве</span>
+            </div>
+            <div class="lesson-title">Часть 1.4: Зимы ИИ и триумф больших данных</div>
+            <div class="lesson-desc">
+              Кризисы финансирования, крах завышенных ожиданий и взрывной триумф глубокого обучения 2010-х годов.
+            </div>
+          </div>
+          <span class="btn-lesson btn-locked">🛠️ В производстве</span>
+        </div>
+
+        <!-- Module 1 Quiz -->
+        <div class="lesson-item quiz-card locked" id="card_quiz_1">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration" style="color: #10b981;">🎯 Итоговый рубежный контроль</span>
+              <span class="lesson-status-badge status-locked" id="badge_quiz_1">После Занятия 1</span>
+            </div>
+            <div class="lesson-title" style="color: #6ee7b7;">Проверочный этап по Занятию 1</div>
+            <div class="lesson-desc" style="color: #a7f3d0;">
+              Комплексный проверочный тест из 5 вопросов по материалам всего первого занятия. Сдача теста открывает доступ к Занятию 2 («Возможности и ограничения ИИ»).
+            </div>
+          </div>
+          <span class="btn-lesson btn-locked" id="btn_quiz_1">🔒 Откроется после завершения всех частей Занятия 1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 2 (Locked) -->
+    <div class="module-card locked">
+      <div class="module-header">
+        <div>
+          <div class="module-num">Модуль 2 • Занятие 2</div>
+          <div class="module-title">Возможности и ограничения современных моделей</div>
+          <div class="module-desc">
+            Где ИИ незаменим, а где опасен: галлюцинации, проверка фактов, выбор доступных инструментов и моделей в РФ.
+          </div>
+        </div>
+        <span class="module-badge badge-locked">🔒 Заблокировано</span>
+      </div>
+    </div>
+
+    <!-- MODULE 3 (Locked) -->
+    <div class="module-card locked">
+      <div class="module-header">
+        <div>
+          <div class="module-num">Модуль 3 • Занятие 3</div>
+          <div class="module-title">Как всё устроено: «Мозг, Руки и Навыки» (Архитектура и MCP)</div>
+          <div class="module-desc">
+            Разница между чистым чатом и агентным ИИ. Модель («Мозг»), инструкции («Навыки») и плагины/MCP («Руки»).
+          </div>
+        </div>
+        <span class="module-badge badge-locked">🔒 Заблокировано</span>
+      </div>
+    </div>
+
+    <!-- MODULE 4 (Locked) -->
+    <div class="module-card locked">
+      <div class="module-header">
+        <div>
+          <div class="module-num">Модуль 4 • Занятие 4</div>
+          <div class="module-title">Запросы, диалог и промпт-инжиниринг для педагога</div>
+          <div class="module-desc">
+            Как правильно ставить педагогические задачи: контекст, роль, структура ответа и итеративная доработка материала.
+          </div>
+        </div>
+        <span class="module-badge badge-locked">🔒 Заблокировано</span>
+      </div>
+    </div>
+
+    <!-- MODULE 5 (Locked) -->
+    <div class="module-card locked">
+      <div class="module-header">
+        <div>
+          <div class="module-num">Модуль 5 • Занятия 5–8</div>
+          <div class="module-title">Практикум: создание полного учебного комплекта по методичке</div>
+          <div class="module-desc">
+            Сквозной проект: от фрагмента методички по электротехнике до готовой интерактивной лекции, видеоряда, конспекта и проверочных заданий.
+          </div>
+        </div>
+        <span class="module-badge badge-locked">🔒 Заблокировано</span>
+      </div>
+    </div>
+
+    <footer>
+      16-часовой учебный курс по искусственному интеллекту • Разработано для преподавателей • 2026
+    </footer>
+  </div>
+
+  <script>
+    function updateLMSState() {
+      const p1Completed = localStorage.getItem('ai_course_l1_p1_completed') === 'true';
+      const p2Completed = localStorage.getItem('ai_course_l1_p2_completed') === 'true';
+
+      let totalCompleted = 0;
+      if (p1Completed) totalCompleted++;
+      if (p2Completed) totalCompleted++;
+
+      // Update Lesson 1.1
+      const badge1 = document.getElementById('badge_l1_p1');
+      const btn1 = document.getElementById('btn_l1_p1');
+      if (p1Completed) {
+        badge1.className = 'lesson-status-badge status-completed';
+        badge1.innerText = '✓ Пройдено';
+        btn1.className = 'btn-lesson btn-completed';
+        btn1.innerText = '✓ Пройдено (Смотреть снова)';
+      } else {
+        badge1.className = 'lesson-status-badge status-ready';
+        badge1.innerText = 'Доступно';
+        btn1.className = 'btn-lesson btn-play';
+        btn1.innerText = '▶ Смотреть урок';
+      }
+
+      // Update Lesson 1.2
+      const card2 = document.getElementById('card_l1_p2');
+      const badge2 = document.getElementById('badge_l1_p2');
+      const btn2 = document.getElementById('btn_l1_p2');
+
+      if (p1Completed) {
+        card2.classList.remove('locked');
+        if (p2Completed) {
+          badge2.className = 'lesson-status-badge status-completed';
+          badge2.innerText = '✓ Пройдено';
+          btn2.className = 'btn-lesson btn-completed';
+          btn2.innerText = '✓ Пройдено (Смотреть снова)';
+        } else {
+          badge2.className = 'lesson-status-badge status-ready';
+          badge2.innerText = 'Доступно';
+          btn2.className = 'btn-lesson btn-play';
+          btn2.innerText = '▶ Смотреть урок';
+        }
+        btn2.setAttribute('href', 'lesson_1_2.html');
+      } else {
+        card2.classList.add('locked');
+        badge2.className = 'lesson-status-badge status-locked';
+        badge2.innerText = 'После 1.1';
+        btn2.className = 'btn-lesson btn-locked';
+        btn2.innerText = '🔒 Откроется после 1.1';
+        btn2.removeAttribute('href');
+      }
+
+      // Update Progress Bar
+      const pct = Math.round((totalCompleted / 2) * 100);
+      document.getElementById('progressBarFill').style.width = pct + '%';
+      document.getElementById('progressStatusText').innerText = 
+        `Завершено ${totalCompleted} из 2 доступных уроков (${pct}%)`;
+    }
+
+    function resetProgress() {
+      if (confirm('Сбросить весь сохраненный прогресс обучения для проверки?')) {
+        localStorage.removeItem('ai_course_l1_p1_completed');
+        localStorage.removeItem('ai_course_l1_p2_completed');
+        localStorage.removeItem('ai_course_completed_list');
+        updateLMSState();
+      }
+    }
+
+    // Run on load
+    updateLMSState();
+  </script>
+</body>
+</html>
