@@ -710,9 +710,9 @@
           Вы полностью освоили материал части: <strong style="color: #f1f5f9;">«Лекция 1. Часть 2: Два пути ИИ (Правила vs Обучение на данных)»</strong>.<br>Ваш прогресс сохранён в учебном профиле.
         </div>
         <div style="display: flex; flex-direction: column; gap: 14px;">
-          <div style="font-size: 16px; color: #38bdf8; font-weight: 700; background: rgba(56,189,248,0.12); padding: 14px 20px; border-radius: 12px; margin-bottom: 6px;">
-            🚀 Часть 1.3 находится в производстве и скоро будет открыта!
-          </div>
+          <a href="lesson_1_3.html" class="btn btn-primary" style="text-decoration: none; padding: 14px 24px; font-size: 16px; font-weight: 800; text-align: center;">
+            Перейти к следующему уроку: Часть 1.3: История ИИ →
+          </a>
           <div style="display: flex; gap: 12px; justify-content: center; margin-top: 6px;">
             <button class="btn" onclick="restartLesson()" style="padding: 10px 18px; font-size: 14px; font-weight: 600;">⟲ Смотреть снова</button>
             <a href="index.html" class="btn" style="text-decoration: none; padding: 10px 18px; font-size: 14px; font-weight: 600;">К программе курса</a>
@@ -764,88 +764,149 @@
               <p class="slide-subtitle" style="font-size: 22px;">${this.subtitle}</p>
             </div>
             <div class="slide-body">
-              <div class="card-row" style="flex: 1; margin-bottom: 16px; gap: 24px;">
-                <!-- Card 1: Classic Code -->
-                <div class="glass-card ${step >= 1 ? (step === 1 || step === 2 ? 'highlighted' : '') : 'hidden'}" style="flex: 1; border-top: 6px solid #38bdf8; display: flex; flex-direction: column; justify-content: space-between; padding: 26px;">
+              ${step === 0 ? `
+                <!-- STEP 0 HERO CONTEXT: Инструкции vs Интуиция (00:00 - 00:18) -->
+                <div class="glass-card highlighted" style="flex: 1; padding: 30px 36px; display: flex; flex-direction: column; justify-content: space-between; border-top: 6px solid #38bdf8; background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.85));">
                   <div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                      <span style="font-size: 48px;">⚙️</span>
-                      <span style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 6px 14px; border-radius: 8px; font-weight: 700; font-size: 16px;">ЖЁСТКИЙ КОД</span>
-                    </div>
-                    <h2 style="font-size: 31px; font-weight: 800; color: #fff; margin-bottom: 12px;">Классический код («Если... то...»)</h2>
-                    <p style="font-size: 21px; color: #cbd5e1; line-height: 1.45; margin-bottom: 16px;">
-                      Программист заранее продумывает 100% ситуаций и закладывает строгую формулу.
-                    </p>
-                    <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 10px; padding: 12px 18px; font-family: monospace; font-size: 18px; color: #38bdf8; margin-bottom: 16px; line-height: 1.4;">
-                      if (temperature > 30) { turnOnFan(); }<br>
-                      if (signal === "RED") { stopVehicle(); }
-                    </div>
-                    <!-- Sub-items revealed at step >= 2 -->
-                    <div style="display: flex; flex-direction: column; gap: 10px; font-size: 20px; color: #e2e8f0; opacity: ${step >= 2 ? 1 : 0.25}; transition: opacity 0.4s;">
-                      <div style="background: rgba(255,255,255,0.06); padding: 10px 16px; border-radius: 10px; border-left: 3px solid #38bdf8;">🧮 <strong>Калькулятор:</strong> 2 + 2 = 4 (без исключений и сомнений)</div>
-                      <div style="background: rgba(255,255,255,0.06); padding: 10px 16px; border-radius: 10px; border-left: 3px solid #38bdf8;">🚦 <strong>Светофор:</strong> переключение строго по таймеру и фазам</div>
-                      <div style="background: rgba(255,255,255,0.06); padding: 10px 16px; border-radius: 10px; border-left: 3px solid #38bdf8;">🧺 <strong>Стиральная машина:</strong> алгоритм по датчику воды</div>
-                    </div>
-                  </div>
-                  <div style="margin-top: 18px; font-size: 18px; color: #38bdf8; font-weight: 700; background: rgba(56, 189, 248, 0.15); padding: 14px 18px; border-radius: 12px; text-align: center; opacity: ${step >= 2 ? 1 : 0.3}; transition: opacity 0.4s;">
-                    ✓ Безупречная математическая точность в предсказуемой среде
-                  </div>
-                </div>
-
-                <!-- Card 2: Real World Barrier -->
-                <div class="glass-card ${step >= 3 ? (step === 3 || step === 4 ? 'highlighted' : '') : 'hidden'}" style="flex: 1; border-top: 6px solid #ef4444; background: rgba(239, 68, 68, 0.04); display: flex; flex-direction: column; justify-content: space-between; padding: 26px;">
-                  <div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                      <span style="font-size: 48px;">🐱</span>
-                      <span style="background: rgba(239, 68, 68, 0.2); color: #f87171; padding: 6px 14px; border-radius: 8px; font-weight: 700; font-size: 16px;">БАРЬЕР РЕАЛЬНОСТИ</span>
-                    </div>
-                    <h2 style="font-size: 31px; font-weight: 800; color: #fff; margin-bottom: 12px;">Стена сложности (Кошка на фото)</h2>
-                    <p style="font-size: 21px; color: #cbd5e1; line-height: 1.45; margin-bottom: 16px;">
-                      Попытка описать живой мир правилами «уши + усы + хвост» заходит в бесконечный тупик.
-                    </p>
-                    <div style="background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 10px; padding: 12px 18px; font-family: monospace; font-size: 17px; color: #fca5a5; margin-bottom: 16px; line-height: 1.4;">
-                      if (hasEars &amp;&amp; hasWhiskers &amp;&amp; hasTail)<br>
-                      // ОШИБКА: 1 000 000 непредсказуемых исключений!
-                    </div>
-                    <!-- Sub-items revealed at step >= 4 -->
-                    <div style="display: flex; flex-direction: column; gap: 10px; font-size: 20px; color: #fecaca; opacity: ${step >= 4 ? 1 : 0.25}; transition: opacity 0.4s;">
-                      <div style="background: rgba(239,68,68,0.1); padding: 10px 16px; border-radius: 10px; border-left: 3px solid #ef4444;">⚠️ <strong>Форма ушей:</strong> прижала уши ➔ формула формы не сработала</div>
-                      <div style="background: rgba(239,68,68,0.1); padding: 10px 16px; border-radius: 10px; border-left: 3px solid #ef4444;">⚠️ <strong>Освещение:</strong> тени, сумерки, блик ➔ цвета пикселей изменились</div>
-                      <div style="background: rgba(239,68,68,0.1); padding: 10px 16px; border-radius: 10px; border-left: 3px solid #ef4444;">⚠️ <strong>Ракурс:</strong> повернулась спиной / спит клубком ➔ хвост скрыт</div>
-                    </div>
-                  </div>
-                  <div style="margin-top: 18px; font-size: 18px; color: #fca5a5; font-weight: 700; background: rgba(239, 68, 68, 0.18); padding: 14px 18px; border-radius: 12px; text-align: center; opacity: ${step >= 4 ? 1 : 0.3}; transition: opacity 0.4s;">
-                    ✗ Исключений в живом мире всегда больше, чем самих правил
-                  </div>
-                </div>
-
-                <!-- Card 3: Analogy Traffic Rules vs Driving -->
-                <div class="glass-card ${step >= 5 ? 'highlighted' : 'hidden'}" style="flex: 1; border-top: 6px solid #f59e0b; display: flex; flex-direction: column; justify-content: space-between; padding: 26px;">
-                  <div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                      <span style="font-size: 48px;">🚗</span>
-                      <span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 6px 14px; border-radius: 8px; font-weight: 700; font-size: 16px;">НАГЛЯДНАЯ АНАЛОГИЯ</span>
-                    </div>
-                    <h2 style="font-size: 31px; font-weight: 800; color: #fff; margin-bottom: 12px;">ПДД против вождения в потоке</h2>
-                    <p style="font-size: 21px; color: #cbd5e1; line-height: 1.45; margin-bottom: 18px;">
-                      Фундаментальная разница между знанием правил и выработкой реального навыка.
-                    </p>
-                    <div style="display: flex; flex-direction: column; gap: 14px; font-size: 20px;">
-                      <div style="background: rgba(56,189,248,0.12); border-left: 4px solid #38bdf8; padding: 14px 18px; border-radius: 10px; color: #e0f2fe; line-height: 1.4;">
-                        📘 <strong>Знаки в тетрадке (Правила):</strong><br>
-                        Свод правил можно выучить наизусть за пару дней, но это не даёт умения водить.
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px;">
+                      <div style="display: flex; align-items: center; gap: 14px;">
+                        <span style="font-size: 42px;">🧭</span>
+                        <div>
+                          <div style="font-size: 14px; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 1px;">Ключевой водораздел информатики</div>
+                          <div style="font-size: 28px; font-weight: 900; color: #fff;">Главная развилка: Жёсткие инструкции против Живой интуиции</div>
+                        </div>
                       </div>
-                      <div style="background: rgba(34,197,94,0.12); border-left: 4px solid #22c55e; padding: 14px 18px; border-radius: 10px; color: #dcfce7; line-height: 1.4;">
-                        🚦 <strong>Живой поток машин (Опыт):</strong><br>
-                        Пешеход в капюшоне, гололёд, ямы — решение принимается интуитивно на базе практики.
+                      <span style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8; padding: 8px 18px; border-radius: 10px; font-weight: 800; font-size: 16px;">ПАРАДИГМЫ ИИ</span>
+                    </div>
+
+                    <!-- Contrast Comparison Grid -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                      <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 16px; padding: 22px 26px;">
+                        <div style="color: #38bdf8; font-weight: 800; font-size: 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                          <span>💻</span> Классический софт (60+ лет опыта)
+                        </div>
+                        <div style="font-size: 19px; color: #e0f2fe; line-height: 1.45; margin-bottom: 12px;">
+                          «Человек вручную формулирует 100% инструкций: <code>ЕСЛИ... ТО...</code> Калькуляторы, светофоры, базы данных».
+                        </div>
+                        <div style="font-size: 16px; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px;">
+                          ✓ Абсолютный детерминизм, но нулевая способность понимать живой мир.
+                        </div>
+                      </div>
+
+                      <div style="background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.25); border-radius: 16px; padding: 22px 26px;">
+                        <div style="color: #4ade80; font-weight: 800; font-size: 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                          <span>🧠</span> Системы машинного обучения (Новый век)
+                        </div>
+                        <div style="font-size: 19px; color: #dcfce7; line-height: 1.45; margin-bottom: 12px;">
+                          «Человек даёт массив примеров — система сама выводит скрытые правила и тонкие визуальные паттерны».
+                        </div>
+                        <div style="font-size: 16px; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px;">
+                          ✓ Адаптивность к непредсказуемой реальности и работа с хаосом.
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Core Question of the Lecture -->
+                    <div style="background: rgba(3, 7, 18, 0.55); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 18px 24px; display: flex; align-items: center; gap: 18px;">
+                      <span style="font-size: 32px;">❓</span>
+                      <div style="font-size: 19px; color: #cbd5e1; line-height: 1.45;">
+                        <strong style="color: #fff;">Центральный парадокс лекции:</strong> почему программы, безупречно управляющие космическими аппаратами и банками, десятилетиями пасовали перед распознаванием простой фотографии кошки?
                       </div>
                     </div>
                   </div>
-                  <div style="margin-top: 18px; font-size: 18px; color: #fde68a; font-weight: 700; background: rgba(245, 158, 11, 0.18); padding: 14px 18px; border-radius: 12px; text-align: center;">
-                    💡 Итог: для хаоса реальности нужен алгоритм, обучающийся на опыте
+
+                  <div style="margin-top: 18px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 14px; padding: 14px 22px; display: flex; align-items: center; gap: 14px;">
+                    <span style="font-size: 26px;">💡</span>
+                    <span style="font-size: 18px; color: #e0f2fe; font-weight: 600; line-height: 1.4;">
+                      <strong>Прикладная цель для слушателя:</strong> научиться безошибочно определять границу — когда задачу нужно решать строгим кодом, а когда писать правила бесполезно и требуется обучение на данных.
+                    </span>
                   </div>
                 </div>
-              </div>
+              ` : `
+                <!-- STEP >= 1 DETAILED CARDS -->
+                <div class="card-row" style="flex: 1; margin-bottom: 16px; gap: 24px;">
+                  <!-- Card 1: Classic Code -->
+                  <div class="glass-card ${step === 1 || step === 2 ? 'highlighted' : ''}" style="flex: 1; border-top: 6px solid #38bdf8; display: flex; flex-direction: column; justify-content: space-between; padding: 26px;">
+                    <div>
+                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <span style="font-size: 48px;">⚙️</span>
+                        <span style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 6px 14px; border-radius: 8px; font-weight: 700; font-size: 16px;">ЖЁСТКИЙ КОД</span>
+                      </div>
+                      <h2 style="font-size: 31px; font-weight: 800; color: #fff; margin-bottom: 12px;">Классический код («Если... то...»)</h2>
+                      <p style="font-size: 21px; color: #cbd5e1; line-height: 1.45; margin-bottom: 16px;">
+                        Программист заранее продумывает 100% ситуаций и закладывает строгую формулу.
+                      </p>
+                      <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 10px; padding: 12px 18px; font-family: monospace; font-size: 18px; color: #38bdf8; margin-bottom: 16px; line-height: 1.4;">
+                        if (temperature > 30) { turnOnFan(); }<br>
+                        if (signal === "RED") { stopVehicle(); }
+                      </div>
+                      <!-- Sub-items revealed at step >= 2 -->
+                      <div style="display: flex; flex-direction: column; gap: 10px; font-size: 20px; color: #e2e8f0; opacity: ${step >= 2 ? 1 : 0.25}; transition: opacity 0.4s;">
+                        <div style="background: rgba(255,255,255,0.06); padding: 10px 16px; border-radius: 10px; border-left: 3px solid #38bdf8;">🧮 <strong>Калькулятор:</strong> 2 + 2 = 4 (без исключений и сомнений)</div>
+                        <div style="background: rgba(255,255,255,0.06); padding: 10px 16px; border-radius: 10px; border-left: 3px solid #38bdf8;">🚦 <strong>Светофор:</strong> переключение строго по таймеру и фазам</div>
+                        <div style="background: rgba(255,255,255,0.06); padding: 10px 16px; border-radius: 10px; border-left: 3px solid #38bdf8;">🧺 <strong>Стиральная машина:</strong> алгоритм по датчику воды</div>
+                      </div>
+                    </div>
+                    <div style="margin-top: 18px; font-size: 18px; color: #38bdf8; font-weight: 700; background: rgba(56, 189, 248, 0.15); padding: 14px 18px; border-radius: 12px; text-align: center; opacity: ${step >= 2 ? 1 : 0.3}; transition: opacity 0.4s;">
+                      ✓ Безупречная математическая точность в предсказуемой среде
+                    </div>
+                  </div>
+
+                  <!-- Card 2: Real World Barrier -->
+                  <div class="glass-card ${step >= 3 ? (step === 3 || step === 4 ? 'highlighted' : '') : 'hidden'}" style="flex: 1; border-top: 6px solid #ef4444; background: rgba(239, 68, 68, 0.04); display: flex; flex-direction: column; justify-content: space-between; padding: 26px;">
+                    <div>
+                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <span style="font-size: 48px;">🐱</span>
+                        <span style="background: rgba(239, 68, 68, 0.2); color: #f87171; padding: 6px 14px; border-radius: 8px; font-weight: 700; font-size: 16px;">БАРЬЕР РЕАЛЬНОСТИ</span>
+                      </div>
+                      <h2 style="font-size: 31px; font-weight: 800; color: #fff; margin-bottom: 12px;">Стена сложности (Кошка на фото)</h2>
+                      <p style="font-size: 21px; color: #cbd5e1; line-height: 1.45; margin-bottom: 16px;">
+                        Попытка описать живой мир правилами «уши + усы + хвост» заходит в бесконечный тупик.
+                      </p>
+                      <div style="background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 10px; padding: 12px 18px; font-family: monospace; font-size: 17px; color: #fca5a5; margin-bottom: 16px; line-height: 1.4;">
+                        if (hasEars &amp;&amp; hasWhiskers &amp;&amp; hasTail)<br>
+                        // ОШИБКА: 1 000 000 непредсказуемых исключений!
+                      </div>
+                      <!-- Sub-items revealed at step >= 4 -->
+                      <div style="display: flex; flex-direction: column; gap: 10px; font-size: 20px; color: #fecaca; opacity: ${step >= 4 ? 1 : 0.25}; transition: opacity 0.4s;">
+                        <div style="background: rgba(239,68,68,0.1); padding: 10px 16px; border-radius: 10px; border-left: 3px solid #ef4444;">⚠️ <strong>Форма ушей:</strong> прижала уши ➔ формула формы не сработала</div>
+                        <div style="background: rgba(239,68,68,0.1); padding: 10px 16px; border-radius: 10px; border-left: 3px solid #ef4444;">⚠️ <strong>Освещение:</strong> тени, сумерки, блик ➔ цвета пикселей изменились</div>
+                        <div style="background: rgba(239,68,68,0.1); padding: 10px 16px; border-radius: 10px; border-left: 3px solid #ef4444;">⚠️ <strong>Ракурс:</strong> повернулась спиной / спит клубком ➔ хвост скрыт</div>
+                      </div>
+                    </div>
+                    <div style="margin-top: 18px; font-size: 18px; color: #fca5a5; font-weight: 700; background: rgba(239, 68, 68, 0.18); padding: 14px 18px; border-radius: 12px; text-align: center; opacity: ${step >= 4 ? 1 : 0.3}; transition: opacity 0.4s;">
+                      ✗ Исключений в живом мире всегда больше, чем самих правил
+                    </div>
+                  </div>
+
+                  <!-- Card 3: Analogy Traffic Rules vs Driving -->
+                  <div class="glass-card ${step >= 5 ? 'highlighted' : 'hidden'}" style="flex: 1; border-top: 6px solid #f59e0b; display: flex; flex-direction: column; justify-content: space-between; padding: 26px;">
+                    <div>
+                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <span style="font-size: 48px;">🚗</span>
+                        <span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 6px 14px; border-radius: 8px; font-weight: 700; font-size: 16px;">НАГЛЯДНАЯ АНАЛОГИЯ</span>
+                      </div>
+                      <h2 style="font-size: 31px; font-weight: 800; color: #fff; margin-bottom: 12px;">ПДД против вождения в потоке</h2>
+                      <p style="font-size: 21px; color: #cbd5e1; line-height: 1.45; margin-bottom: 18px;">
+                        Фундаментальная разница между знанием правил и выработкой реального навыка.
+                      </p>
+                      <div style="display: flex; flex-direction: column; gap: 14px; font-size: 20px;">
+                        <div style="background: rgba(56,189,248,0.12); border-left: 4px solid #38bdf8; padding: 14px 18px; border-radius: 10px; color: #e0f2fe; line-height: 1.4;">
+                          📘 <strong>Знаки в тетрадке (Правила):</strong><br>
+                          Свод правил можно выучить наизусть за пару дней, но это не даёт умения водить.
+                        </div>
+                        <div style="background: rgba(34,197,94,0.12); border-left: 4px solid #22c55e; padding: 14px 18px; border-radius: 10px; color: #dcfce7; line-height: 1.4;">
+                          🚦 <strong>Живой поток машин (Опыт):</strong><br>
+                          Пешеход в капюшоне, гололёд, ямы — решение принимается интуитивно на базе практики.
+                        </div>
+                      </div>
+                    </div>
+                    <div style="margin-top: 18px; font-size: 18px; color: #fde68a; font-weight: 700; background: rgba(245, 158, 11, 0.18); padding: 14px 18px; border-radius: 12px; text-align: center;">
+                      💡 Итог: для хаоса реальности нужен алгоритм, обучающийся на опыте
+                    </div>
+                  </div>
+                </div>
+              `}
             </div>
           `;
         }

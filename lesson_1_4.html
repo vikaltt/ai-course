@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекция 1. Часть 4: Интерактивный практикум и тест</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #030712;
+      color: #f8fafc;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Navigation Header */
+    header {
+      background: rgba(11, 17, 32, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f8fafc;
+      padding: 9px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      border: 1px solid #38bdf8;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0369a1, #1d4ed8);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Progress & Stats Bar */
+    .status-bar {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      backdrop-filter: blur(10px);
+    }
+
+    .progress-track {
+      flex: 1;
+      max-width: 400px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 0 20px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      transition: width 0.4s ease;
+    }
+
+    /* Question Card */
+    .quiz-card {
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.6));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 36px 40px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      position: relative;
+    }
+
+    .case-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #38bdf8;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      align-self: flex-start;
+    }
+
+    .situation-box {
+      background: rgba(3, 7, 18, 0.6);
+      border-left: 4px solid #38bdf8;
+      border-radius: 12px;
+      padding: 18px 22px;
+      font-size: 19px;
+      line-height: 1.5;
+      color: #cbd5e1;
+    }
+
+    .question-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.35;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .btn-audio-speak {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: #38bdf8;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-audio-speak:hover {
+      background: rgba(56, 189, 248, 0.2);
+    }
+
+    .btn-audio-speak.speaking {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+      color: #fca5a5;
+    }
+
+    /* Options List */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .option-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 14px;
+      padding: 18px 22px;
+      font-size: 18px;
+      color: #e2e8f0;
+      line-height: 1.45;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateX(4px);
+    }
+
+    .option-letter {
+      background: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.15) !important;
+      border-color: #22c55e !important;
+      color: #dcfce7 !important;
+    }
+    .option-btn.correct .option-letter {
+      background: #22c55e;
+      color: #030712;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: #ef4444 !important;
+      color: #fee2e2 !important;
+      opacity: 0.8;
+    }
+    .option-btn.wrong .option-letter {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    /* Hint Box */
+    .hint-box {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 12px;
+      padding: 16px 20px;
+      color: #fde68a;
+      font-size: 17px;
+      line-height: 1.45;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* Explanation Box */
+    .explain-box {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 14px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .explain-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #38bdf8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .explain-text {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #e0f2fe;
+    }
+
+    /* Action Footer */
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    /* Results Screen */
+    .results-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 28px;
+      padding: 48px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+    }
+
+    .trophy-icon {
+      font-size: 64px;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header>
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <a href="index.html" class="btn">← К программе</a>
+      <div style="font-weight: 800; font-size: 18px; color: #38bdf8; display: flex; align-items: center; gap: 8px;">
+        <span>🎯</span> Лекция 1. Часть 4: Интерактивный практикум и тест
+      </div>
+    </div>
+    <div>
+      <button class="btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="Полноэкранный режим (F)">
+        ⛶ Во весь экран
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Quiz Area -->
+  <main id="appContainer">
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div style="font-weight: 800; font-size: 16px; color: #94a3b8;" id="stepCounter">
+        Вопрос 1 из 7
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressBar"></div>
+      </div>
+      <div style="font-weight: 800; font-size: 16px; color: #38bdf8;">
+        Баллы: <span id="currentScore" style="color: #fff; font-family: 'JetBrains Mono', monospace;">0</span>
+      </div>
+    </div>
+
+    <!-- Active Question Container -->
+    <div id="cardRoot"></div>
+  </main>
+
+  <script>
+    const FULL_QUESTION_BANK = [{"id": 1, "badge": "Символический ИИ vs Обучение", "topic": "Предел алгоритмов на жестких правилах", "situation": "Преподаватель хочет создать систему автоматической проверки творческих эссе студентов по физике. Программист предлагает написать 5 000 правил if/else с поиском ключевых слов и шаблонов.", "question": "В чём главная концептуальная ошибка такого подхода?", "options": [{"id": "A", "text": "5 000 правил займут слишком много оперативной памяти сервера.", "correct": false}, {"id": "B", "text": "Живой язык вариативен; предусмотреть правила для всех исключений и метафор человека невозможно.", "correct": true}, {"id": "C", "text": "Классические правила работают медленнее, чем современные нейросети на видеокартах.", "correct": false}, {"id": "D", "text": "Программы на правилах принципиально способны работать только с числами, но не с текстами.", "correct": false}], "hints": ["Вспомните аналогию с распознаванием кошки: сколько бы правил мы ни описали (уши, хвост), реальность всегда найдёт новый ракурс.", "Студент может выразить точную научную мысль своими словами, не попав ни в одно заготовленное правило программиста."], "explanation": "Символический ИИ требует полного формального описания всех ситуаций. Но живая речь полна исключений и образности. Попытка описать язык правилами ведёт к комбинаторному тупику. Здесь эффективно работает машинное обучение, обученное на миллионах примеров текстов."}, {"id": 2, "badge": "Тест Тьюринга", "topic": "Критерий разумности системы", "situation": "В 1950 году Алан Тьюринг предложил «Игру в имитацию» вместо абстрактного философского спора «Может ли машина мыслить?».", "question": "Что именно является строгим критерием успешного прохождения теста Тьюринга?", "options": [{"id": "A", "text": "Машина обретает субъективное самосознание, эмоции и способность чувствовать боль.", "correct": false}, {"id": "B", "text": "Машина решает дифференциальные уравнения быстрее любого существующего суперкомпьютера.", "correct": false}, {"id": "C", "text": "Человек-судья в текстовом диалоге не может достоверно отличить ответы машины от ответов живого человека.", "correct": true}, {"id": "D", "text": "Алгоритм безошибочно проходит школьный выпускной экзамен по математике и физике.", "correct": false}], "hints": ["Тьюринг был прагматиком: он заменил неразрешимый вопрос о наличии «души» у кремния на измеримое поведение.", "Вспомните схему теста: судья общается с невидимым собеседником исключительно через экран и клавиатуру."], "explanation": "Тьюринг предложил функциональный поведенческий подход: если внешне в текстовом общении поведение системы неотличимо от разумного человека, практичнее признать её поведение разумным, чем бесконечно спорить о природе сознания."}, {"id": 3, "badge": "Уроки истории", "topic": "Причины наступления Зим ИИ", "situation": "В 1970-х (после доклада Лайтхилла) и в конце 1980-х наступали «зимы ИИ» — закрытие лабораторий, заморозка госфинансирования и банкротства компаний.", "question": "Какая главная системная причина каждый раз приводила к наступлению кризиса?", "options": [{"id": "A", "text": "Недостаток электроэнергии для питания мощных вычислительных серверов.", "correct": false}, {"id": "B", "text": "Колоссальный разрыв между рекламными обещаниями ученых и реальными возможностями технологий того времени.", "correct": true}, {"id": "C", "text": "Законодательный запрет правительств на использование алгоритмов в образовании и бизнесе.", "correct": false}, {"id": "D", "text": "Математики доказали, что создать искусственный интеллект в принципе теоретически невозможно.", "correct": false}], "hints": ["В 1956 году обещали решить все задачи разума за одно лето, а в 1980-х обещали полную замену специалистов экспертными базами.", "Когда грантодатели и бизнес тратят миллиарды и не получают обещанной магии, наступает болезненное разочарование."], "explanation": "Главный исторический урок для педагогов: завышенные ожидания разрушительны. Рекламный хайп, не подкреплённый зрелостью технологий, неизбежно ведёт к потере доверия и закрытию проектов."}, {"id": 4, "badge": "Триумф 2012 года", "topic": "Факторы прорыва глубокого обучения (AlexNet)", "situation": "Теория многослойных нейросетей существовала ещё в 1980-е годы, но взрывной триумф произошёл только на конкурсе ImageNet в октябре 2012 года.", "question": "Какие три ключевых фактора соединились в 2012 году, сделав революцию глубокого обучения возможной?", "options": [{"id": "A", "text": "Квантовые процессоры, спутниковый интернет и появление новых языков программирования.", "correct": false}, {"id": "B", "text": "Массивы оцифрованных данных (ImageNet), вычислительная мощь видеокарт (GPU) и алгоритмы глубоких сетей.", "correct": true}, {"id": "C", "text": "Государственное обязательство всех университетов внедрить системы искусственного интеллекта.", "correct": false}, {"id": "D", "text": "Появление мобильных телефонов с сенсорными экранами и голосовых ассистентов.", "correct": false}], "hints": ["Нейросетям для обучения требуются миллионы примеров и параллельные микросхемы, создававшиеся для 3D-видеоигр.", "Метафора идеального шторма: топливо (данные) + мощный мотор (видеокарты) + чертёж (архитектура AlexNet)."], "explanation": "В 2012 году произошёл «идеальный шторм»: проект ImageNet предоставил миллионы размеченных фото (топливо), видеокарты NVIDIA обеспечили параллельный расчет матриц (мощность), а Хинтон и Крижевский применили глубокую архитектуру AlexNet."}, {"id": 5, "badge": "Выбор инструмента", "topic": "Где классические правила незаменимы", "situation": "Университет обновляет цифровые сервисы. Молодой энтузиаст предлагает заменить вообще все старые программы генеративными нейросетями.", "question": "Для какой из следующих задач категорически НЕОБХОДИМО использовать детерминированные правила («Белый ящик»), а не нейросети?", "options": [{"id": "A", "text": "Написание увлекательного вступительного примера к лекции по физике.", "correct": false}, {"id": "B", "text": "Автоматический расчёт стипендии студента по утверждённой ведомости оценок и льгот.", "correct": true}, {"id": "C", "text": "Составление наводящих вопросов для самопроверки по прочитанной главе методички.", "correct": false}, {"id": "D", "text": "Генерация вариантов тем для студенческих проектных работ.", "correct": false}], "hints": ["Подумайте, в какой задаче допустима даже малейшая вероятность фантазии или статистической неточности.", "В финансовых, юридических и аттестационных расчётах критически важна 100% повторяемость и строгий аудит формулы."], "explanation": "Нейросети вероятностны: они подбирают наиболее правдоподобный ответ, но могут ошибиться в арифметике или галлюцинировать. Финансовые и юридические расчеты требуют детерминированного алгоритма («Белый ящик»), где каждый шаг проверяем до копейки."}, {"id": 6, "badge": "Основы ИИ", "topic": "Определение ИИ простыми словами", "situation": "На педсовете возник спор: преподаватель информатики утверждает, что ИИ — это только самосознающие роботы из фантастики.", "question": "Какое определение наиболее точно и профессионально описывает искусственный интеллект сегодня?", "options": [{"id": "A", "text": "Компьютер, обладающий живой душой, свободным сознанием и человеческими чувствами.", "correct": false}, {"id": "B", "text": "Научное направление и комплекс технологий, позволяющих программам решать творческие и интеллектуальные задачи человека.", "correct": true}, {"id": "C", "text": "Любая программа, написанная на языке Python и использующая оператор if/else.", "correct": false}, {"id": "D", "text": "Устройство, способное двигаться и выполнять физическую работу на заводе вместо рабочих.", "correct": false}], "hints": ["ИИ — это не биологическая магия, а область информатики и математики.", "Главный признак: программа справляется с задачами (распознавание, текст, прогноз), которые раньше считались исключительной монополией человека."], "explanation": "ИИ — это широкая научно-прикладная дисциплина, нацеленная на создание систем, способных выполнять функции, традиционно считавшиеся прерогативой человеческого разума (понимание речи, зрение, синтез выводов, обучение)."}, {"id": 7, "badge": "Парадигма обучения", "topic": "Формула машинного обучения vs код", "situation": "Методист изучает разницу между программированием и обучением моделей на данных.", "question": "Как схематично выглядит фундаментальное отличие машинного обучения от классического программирования?", "options": [{"id": "A", "text": "В классике: Данные + Правила ➔ Ответы. В машинном обучении: Данные + Ответы ➔ Модель (Правила).", "correct": true}, {"id": "B", "text": "Классическое программирование выполняется на компьютере, а машинное обучение — в облаке.", "correct": false}, {"id": "C", "text": "В классическом коде используются числа, а в машинном обучении — только слова.", "correct": false}, {"id": "D", "text": "Классические программы не ошибаются, а нейросети ошибаются в 100% случаев.", "correct": false}], "hints": ["В классическом программировании человек сам формулирует правила. В машинном обучении компьютер выводит правила из примеров."], "explanation": "В классическом подходе программист вручную пишет правила и подает данные, получая ответ. В машинном обучении системе показывают тысячи примеров с готовыми ответами, и алгоритм сам подбирает внутренние математические закономерности (модель)."}, {"id": 8, "badge": "Курьёзы истории", "topic": "Урок машинного перевода 1970-х", "situation": "В 1960-е годы военные лаборатории пытались создать пословный машинный переводчик с русского языка на английский.", "question": "Фраза «Дух бодр, но плоть немощна» была переведена как «Водка хорошая, но мясо протухло». Какой урок из этого извлекла наука?", "options": [{"id": "A", "text": "Русский язык в принципе невозможно перевести на другие языки программными методами.", "correct": false}, {"id": "B", "text": "Язык — не таблица соответствия слов; без понимания широкого контекста и метафор буквальный перевод абсурден.", "correct": true}, {"id": "C", "text": "Компьютеры плохо работают с религиозными и философскими текстами.", "correct": false}, {"id": "D", "text": "Программистам следовало использовать язык C++ вместо ассемблера.", "correct": false}], "hints": ["Слова «spirit» (дух/спирт) и «meat/flesh» (плоть/мясо) имеют множество смыслов, определяемых окружением фразы."], "explanation": "Этот знаменитый курьёз доказал ограниченность механической пословной замены. Язык держится на контексте, культуре и многозначности, которые невозможно учесть плоским словарем без обучения на связных текстах."}, {"id": 9, "badge": "Экспертные системы", "topic": "Взлёт и предел системы XCON", "situation": "В 1980 году система XCON экономила корпорации DEC $40 млн в год при подборе конфигураций серверов VAX.", "question": "Почему, несмотря на такой триумф, экспертные системы на правилах в конце 80-х потерпели крах?", "options": [{"id": "A", "text": "Корпорация DEC обанкротилась из-за отказа от использования компьютеров.", "correct": false}, {"id": "B", "text": "С ростом базы до десятков тысяч правил их поддержка, обновление и поиск противоречий стали непомерно дорогими.", "correct": true}, {"id": "C", "text": "Правительство США запретило коммерческим компаниям экономить деньги на автоматизации.", "correct": false}, {"id": "D", "text": "Инженеры объявили забастовку и отказались работать с экспертными программами.", "correct": false}], "hints": ["Вспомните: добавление одного нового правила в базу из 10 000 правил могло сломать логику в 50 других местах."], "explanation": "Экспертные системы столкнулись с проблемой масштабирования: по мере разрастания базы правил они начинали конфликтовать между собой. Каждое изменение требовало месяцев ручного тестирования экспертами-людьми, что сделало системы экономически нерентабельными."}, {"id": 10, "badge": "Исторические проекты", "topic": "Японский проект 5-го поколения (1981)", "situation": "Япония вложила около миллиарда долларов в проект ЭВМ 5-го поколения на базе логического языка Prolog.", "question": "Почему этот амбициозный национальный проект не достиг заявленной цели создания общего интеллекта?", "options": [{"id": "A", "text": "Японские инженеры случайно удалили исходный код операционной системы.", "correct": false}, {"id": "B", "text": "Чистая дедуктивная логика оказалась неспособна эффективно обрабатывать неполные, зашумленные данные реального мира.", "correct": true}, {"id": "C", "text": "В Японии закончились запасы кремния для производства процессоров.", "correct": false}, {"id": "D", "text": "США заблокировали поставки мониторов в японские университеты.", "correct": false}], "hints": ["Подумайте о том, как мыслит человек: мы редко оперируем абсолютными строгими формулами логики первого порядка."], "explanation": "Японский проект делал ставку исключительно на строгий параллельный логический вывод. Но реальный мир — это вероятности, нечеткие образы, неполная информация и шум, где статистические методы и нейросети на порядки эффективнее формальной логики."}, {"id": 11, "badge": "Аппаратное ускорение", "topic": "Почему нейросетям нужны видеокарты (GPU)", "situation": "При закупке оборудования для ИИ-лаборатории преподаватель заказывает компьютеры с мощными игровыми видеокартами.", "question": "Почему графические чипы (GPU) стали основой современного машинного обучения?", "options": [{"id": "A", "text": "Видеокарты имеют красивые светодиоды, показывающие активность алгоритма.", "correct": false}, {"id": "B", "text": "Архитектура GPU оптимизирована для параллельного выполнения тысяч простых операций умножения матриц одновременно.", "correct": true}, {"id": "C", "text": "Нейросети выводят результаты работы только в виде трехмерных видеороликов.", "correct": false}, {"id": "D", "text": "Обычные центральные процессоры (CPU) не умеют работать с числами с плавающей запятой.", "correct": false}], "hints": ["Центральный процессор (CPU) — это несколько очень быстрых ядер для последовательных задач. GPU — это тысячи маленьких ядер для параллельных вычислений."], "explanation": "Обучение нейросети сводится к миллиардам операций умножения матриц весов. Игровые видеокарты десятилетиями развивались именно для параллельного расчета пикселей и 3D-полигонов, что идеально совпало с математикой нейронных сетей."}, {"id": 12, "badge": "Эра Big Data", "topic": "Значение проекта ImageNet", "situation": "В 2009 году профессор Стэнфорда Фей-Фей Ли завершила создание базы данных ImageNet из 14 млн размеченных фото.", "question": "В чём заключалась революционная педагогическая и научная идея проекта ImageNet?", "options": [{"id": "A", "text": "Показать, что главное в ИИ — не изобретение сверхсложной формулы, а обеспечение модели огромным объемом качественных учебных примеров.", "correct": true}, {"id": "B", "text": "Создать первый в мире сайт для бесплатного скачивания фотографий обоев рабочего стола.", "correct": false}, {"id": "C", "text": "Доказать, что компьютеры никогда не научатся распознавать породы собак.", "correct": false}, {"id": "D", "text": "Заменить всех профессиональных фотографов алгоритмами автоматической съемки.", "correct": false}], "hints": ["Аналогия с обучением ребенка: ребенок учится узнавать собаку не по анатомическому учебнику, а видя тысячи собак в жизни."], "explanation": "До ImageNet ученые считали, что нужно придумывать более хитрые алгоритмы. Фей-Фей Ли доказала обратное: мощным алгоритмам просто не хватало масштабных «учебников». ImageNet дал нейросетям гигантское разнообразие жизненных примеров."}, {"id": 13, "badge": "Архитектура Трансформер", "topic": "Революция статьи Google 2017 года", "situation": "В 2017 году вышла историческая научная статья Google «Attention Is All You Need» («Внимание — это всё, что вам нужно»).", "question": "В чём главная инновация архитектуры Transformer по сравнению со старыми рекуррентными сетями?", "options": [{"id": "A", "text": "Трансформеры работают полностью без электричества на оптических световодах.", "correct": false}, {"id": "B", "text": "Механизм внимания (Self-Attention) позволяет модели видеть все слова текста одновременно и связывать их смысл независимо от расстояния.", "correct": true}, {"id": "C", "text": "Трансформеры могут обрабатывать только тексты на английском языке.", "correct": false}, {"id": "D", "text": "В архитектуре Трансформера отказались от использования математики и матриц.", "correct": false}], "hints": ["Раньше сети читали текст строго по одному слову слева направо и к концу длинной фразы забывали начало. Трансформер видит всю страницу разом."], "explanation": "Механизм Self-Attention вычисляет смысловую связь между каждой парой слов в тексте сразу. Это позволило эффективно параллелить обучение на суперкомпьютерах и удерживать контекст огромных документов."}, {"id": 14, "badge": "Большие языковые модели", "topic": "Закон масштабирования (Scaling Laws)", "situation": "Создатели моделей GPT обнаружили поразительную закономерность при увеличении параметров с 100 млн до 175 млрд.", "question": "В чём заключается суть так называемого закона масштабирования (Scaling Law) для языковых моделей?", "options": [{"id": "A", "text": "С увеличением размера модель начинает потреблять меньше электроэнергии.", "correct": false}, {"id": "B", "text": "При пропорциональном росте объема данных, вычислений и числа параметров качество рассуждений растет предсказуемо и скачкообразно рождает новые навыки.", "correct": true}, {"id": "C", "text": "Любая большая модель автоматически начинает испытывать симпатию к пользователю.", "correct": false}, {"id": "D", "text": "Большие модели теряют способность говорить на человеческих языках.", "correct": false}], "hints": ["Эмерджентные способности: решение задач по логике и кодингу появилось у моделей не от специальных правил, а от гигантского масштаба обучения."], "explanation": "Исследования показали: простое масштабирование архитектуры трансформера (больше качественных данных + больше параметров + больше GPU-часов) приводит к качественному скачку способностей модели — она начинает понимать тонкую логику и решать задачи без явного перепрограммирования."}, {"id": 15, "badge": "Ограничения ИИ", "topic": "Природа галлюцинаций нейросетей", "situation": "Преподаватель попросил нейросеть найти научную литературу по теме лекции. Модель выдала 5 идеально оформленных ссылок на статьи с фамилиями реальных профессоров, но этих статей никогда не существовало.", "question": "Почему языковая модель сгенерировала правдоподобную, но выдуманную информацию («галлюцинацию»)?", "options": [{"id": "A", "text": "Модель решила пошутить над преподавателем из-за плохого настроения.", "correct": false}, {"id": "B", "text": "Нейросеть генерирует наиболее вероятную последовательность слов по статистике языка, а не сверяется с базой абсолютных фактов.", "correct": true}, {"id": "C", "text": "В компьютере преподавателя произошел аппаратный сбой оперативной памяти.", "correct": false}, {"id": "D", "text": "Интернет-провайдер заблокировал доступ к библиотечным серверам.", "correct": false}], "hints": ["Языковая модель — это не поисковик по фактам, а статистический предсказатель продолжения текста."], "explanation": "LLM обучается предсказывать правдоподобное следующее слово. Формат научной библиографии (Автор, Название, Журнал, Год) ей отлично знаком, и она статистически синтезирует идеальный по форме список, даже если конкретного факта в реальности не было. Человек обязан проверять фактуру!"}, {"id": 16, "badge": "Педагогическая этика", "topic": "Роль преподавателя в эпоху ИИ", "situation": "На конференции обсуждается вопрос: заменит ли искусственный интеллект преподавателей вузов и колледжей в ближайшие годы?", "question": "Какая формулировка наиболее точно отражает современный консенсус экспертов об интеграции ИИ в образование?", "options": [{"id": "A", "text": "Преподаватели станут полностью не нужны, студенты будут учиться исключительно у виртуальных аватаров.", "correct": false}, {"id": "B", "text": "ИИ — это интеллектуальный ассистент, снимающий рутину; учитель не будет заменен машиной, но будет вытеснен учителем, владеющим ИИ.", "correct": true}, {"id": "C", "text": "Использование любых технологий ИИ в образовании должно быть полностью запрещено на законодательном уровне.", "correct": false}, {"id": "D", "text": "ИИ не способен оказать никакого влияния на сферу подготовки учебных материалов.", "correct": false}], "hints": ["Эмпатия, воспитание, критический замысел и личный контакт со студентом не поддаются алгоритмизации."], "explanation": "ИИ выступает мощнейшим катализатором продуктивности: он берет на себя рутину подготовки вариантов заданий, поиска иллюстраций и черновиков презентаций. Но смыслы, педагогическая стратегия и эмоциональный контакт всегда остаются за человеком."}, {"id": 17, "badge": "Рождение дисциплины", "topic": "Дартмутский семинар 1956 года", "situation": "Летом 1956 года в Дартмутском колледже США состоялась двухмесячная научная встреча молодых исследователей.", "question": "Кто из ученых организовал этот семинар и предложил закрепить термин «Artificial Intelligence» (Искусственный интеллект)?", "options": [{"id": "A", "text": "Билл Гейтс", "correct": false}, {"id": "B", "text": "Джон Маккарти", "correct": true}, {"id": "C", "text": "Стив Джобс", "correct": false}, {"id": "D", "text": "Илон Маск", "correct": false}], "hints": ["Вместе с ним во встрече участвовали Марвин Минский, Клод Шеннон и Натаниэль Рочестер."], "explanation": "Именно математик Джон Маккарти выбрал фразу «Artificial Intelligence», чтобы отделить новую область от популярной тогда «кибернетики» Норберта Винера и сфокусироваться на символическом моделировании мыслительных процессов."}, {"id": 18, "badge": "Прозрачность систем", "topic": "Проблема «Черного ящика» (Black Box)", "situation": "Медицинский диагностический совет обсуждает внедрение нейросети для расшифровки сложных томограмм.", "question": "В чём заключается суть проблемы «Черного ящика» при использовании глубоких нейросетей?", "options": [{"id": "A", "text": "Корпус серверов с нейросетью всегда окрашен в черный цвет из соображений защиты от пыли.", "correct": false}, {"id": "B", "text": "Внутри модели миллионы нелинейных математических связей, из-за чего человек не может пошагово проследить логическую цепочку принятия решения.", "correct": true}, {"id": "C", "text": "Нейросеть отказывается показывать результаты своей работы на обычном мониторе.", "correct": false}, {"id": "D", "text": "Программы машинного обучения могут работать только при выключенном освещении в комнате.", "correct": false}], "hints": ["В классическом коде можно поставить точку останова и прочитать строчку правила. В нейросети ответ — это сумма миллиардов коэффициентов."], "explanation": "«Черный ящик» означает отсутствие прямой интерпретируемости. Нейросеть дает высокоточный результат, но не может выдать юридически строгое пошаговое обоснование, почему пиксель А в сочетании с пикселем Б указывает на патологию."}];
+    const SESSION_COUNT = 7;
+
+    // Session State
+    let sessionQuestions = [];
+    let currentIdx = 0;
+    let score = 0;
+    let currentAttempts = 0;
+    let userHistory = [];
+    let isSpeaking = false;
+
+    // Shuffle options using Fisher-Yates and assign fresh letter IDs (A, B, C, D)
+    function shuffleOptions(options) {
+      const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+      const cloned = options.map(o => ({ text: o.text, correct: !!o.correct }));
+      for (let i = cloned.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cloned[i], cloned[j]] = [cloned[j], cloned[i]];
+      }
+      return cloned.map((o, idx) => ({
+        id: letters[idx] || String.fromCharCode(65 + idx),
+        text: o.text,
+        correct: o.correct
+      }));
+    }
+
+    // Shuffle and pick 7 questions for this session with freshly randomized answer choices
+    function startNewSession() {
+      const shuffled = [...FULL_QUESTION_BANK].sort(() => 0.5 - Math.random());
+      sessionQuestions = shuffled.slice(0, SESSION_COUNT).map(q => ({
+        ...q,
+        options: shuffleOptions(q.options)
+      }));
+      currentIdx = 0;
+      score = 0;
+      userHistory = [];
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      stopSpeech();
+      currentAttempts = 0;
+      const q = sessionQuestions[currentIdx];
+      
+      // Update progress
+      document.getElementById('stepCounter').innerText = `Вопрос ${currentIdx + 1} из ${SESSION_COUNT}`;
+      const pct = Math.round((currentIdx / SESSION_COUNT) * 100);
+      document.getElementById('progressBar').style.width = `${pct}%`;
+      document.getElementById('currentScore').innerText = score;
+
+      const root = document.getElementById('cardRoot');
+      root.innerHTML = `
+        <div class="quiz-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="case-badge">${q.badge}</div>
+            <div style="font-size: 14px; color: #94a3b8;">Попытка: <span id="attemptDisplay" style="color: #fff; font-weight: 800;">1</span> из 3</div>
+          </div>
+
+          <div class="situation-box">
+            💡 <strong>Контекст:</strong> ${q.situation}
+          </div>
+
+          <div class="question-title">
+            <span>${q.question}</span>
+            <button class="btn-audio-speak" id="speakQBtn" onclick="toggleSpeakQuestion()" title="Озвучить вопрос вслух для удобства">
+              🔊 Озвучить
+            </button>
+          </div>
+
+          <div class="options-grid" id="optionsGrid">
+            ${q.options.map((opt, i) => `
+              <button class="option-btn" id="opt_${opt.id}" onclick="handleSelect('${opt.id}')">
+                <span class="option-letter">${opt.id}</span>
+                <span>${opt.text}</span>
+              </button>
+            `).join('')}
+          </div>
+
+          <div id="hintContainer" style="display: none;"></div>
+          <div id="explainContainer" style="display: none;"></div>
+
+          <div class="quiz-footer" id="footerActions" style="display: none;">
+            <div style="color: #94a3b8; font-size: 14px;" id="roundResultText"></div>
+            <button class="btn btn-primary" onclick="handleNextQuestion()" style="padding: 12px 24px; font-size: 16px;">
+              ${currentIdx < SESSION_COUNT - 1 ? 'Следующий вопрос →' : 'Завершить практикум 🏁'}
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleSelect(optId) {
+      const q = sessionQuestions[currentIdx];
+      const selected = q.options.find(o => o.id === optId);
+      if (!selected) return;
+
+      currentAttempts++;
+      document.getElementById('attemptDisplay').innerText = Math.min(currentAttempts, 3);
+      const btn = document.getElementById(`opt_${optId}`);
+
+      if (selected.correct) {
+        // CORRECT ANSWER!
+        btn.classList.add('correct');
+        disableAllOptions();
+        
+        // Calculate score earned:
+        let earned = 3;
+        if (currentAttempts === 2) earned = 2;
+        if (currentAttempts >= 3) earned = 1;
+        score += earned;
+        document.getElementById('currentScore').innerText = score;
+
+        showExplanation(q, true, earned);
+      } else {
+        // WRONG ANSWER
+        btn.classList.add('wrong');
+        btn.disabled = true;
+
+        if (currentAttempts === 1 && q.hints && q.hints[0]) {
+          showHint(q.hints[0], 1);
+        } else if (currentAttempts === 2 && q.hints && q.hints[1]) {
+          showHint(q.hints[1], 2);
+        } else if (currentAttempts >= 3) {
+          // 3rd failure: reveal correct option
+          disableAllOptions();
+          const correctOpt = q.options.find(o => o.correct);
+          if (correctOpt) {
+            const cBtn = document.getElementById(`opt_${correctOpt.id}`);
+            if (cBtn) cBtn.classList.add('correct');
+          }
+          showExplanation(q, false, 0);
+        }
+      }
+    }
+
+    function disableAllOptions() {
+      const btns = document.querySelectorAll('.option-btn');
+      btns.forEach(b => b.disabled = true);
+    }
+
+    function showHint(text, hintNum) {
+      const box = document.getElementById('hintContainer');
+      box.style.display = 'flex';
+      box.className = 'hint-box';
+      box.innerHTML = `
+        <span style="font-size: 24px;">💡</span>
+        <div>
+          <strong>Подсказка ${hintNum}:</strong> ${text}
+        </div>
+      `;
+    }
+
+    function showExplanation(q, isPassed, earned) {
+      const explainBox = document.getElementById('explainContainer');
+      explainBox.style.display = 'flex';
+      explainBox.className = 'explain-box';
+      explainBox.innerHTML = `
+        <div class="explain-title">
+          <span>${isPassed ? '✓ Верно! Методический разбор:' : '❌ Разбор ситуации:'}</span>
+          <button class="btn-audio-speak" id="speakExpBtn" onclick="toggleSpeakExplanation()" title="Озвучить методический разбор">
+            🔊 Озвучить разбор
+          </button>
+        </div>
+        <div class="explain-text" id="explainTextContent">
+          ${q.explanation}
+        </div>
+      `;
+
+      // Footer
+      const footer = document.getElementById('footerActions');
+      footer.style.display = 'flex';
+      const roundText = document.getElementById('roundResultText');
+      if (isPassed) {
+        roundText.innerHTML = `<span style="color: #22c55e; font-weight: 700;">+${earned} балла</span> (попыток: ${currentAttempts})`;
+      } else {
+        roundText.innerHTML = `<span style="color: #f87171; font-weight: 700;">0 баллов</span> (использованы все 3 попытки)`;
+      }
+
+      userHistory.push({
+        badge: q.badge,
+        question: q.question,
+        earned: earned,
+        attempts: currentAttempts,
+        passed: isPassed
+      });
+    }
+
+    function handleNextQuestion() {
+      if (currentIdx < SESSION_COUNT - 1) {
+        currentIdx++;
+        renderQuestion();
+      } else {
+        renderResults();
+      }
+    }
+
+    function renderResults() {
+      stopSpeech();
+      document.getElementById('progressBar').style.width = '100%';
+      document.getElementById('stepCounter').innerText = 'Практикум завершён!';
+
+      const maxScore = SESSION_COUNT * 3;
+      const pct = Math.round((score / maxScore) * 100);
+
+      let trophy = '🎓';
+      let title = 'Базовый уровень';
+      if (pct >= 85) {
+        trophy = '🏆';
+        title = 'Эксперт концепций ИИ';
+      } else if (pct >= 65) {
+        trophy = '⭐';
+        title = 'Уверенный практик';
+      }
+
+      // Save completion status
+      try {
+        localStorage.setItem('ai_course_l1_p4_completed', 'true');
+        let completed = JSON.parse(localStorage.getItem('ai_course_completed_list') || '[]');
+        if (!completed.includes('l1_p4')) {
+          completed.push('l1_p4');
+          localStorage.setItem('ai_course_completed_list', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      const container = document.getElementById('appContainer');
+      container.innerHTML = `
+        <div class="results-card">
+          <div class="trophy-icon">${trophy}</div>
+          <h1 style="font-size: 34px; font-weight: 900; color: #fff;">${title}</h1>
+          <p style="font-size: 19px; color: #94a3b8; max-width: 650px; line-height: 1.5;">
+            Вы завершили интерактивный практикум первого учебного блока. Ваши знания по классическим правилам, машинному обучению и 70-летней истории ИИ проверены.
+          </p>
+
+          <div style="background: rgba(56, 189, 248, 0.12); border: 2px solid #38bdf8; border-radius: 20px; padding: 20px 40px; margin: 8px 0;">
+            <div style="font-size: 48px; font-weight: 900; color: #38bdf8; font-family: 'JetBrains Mono', monospace;">
+              ${score} / ${maxScore}
+            </div>
+            <div style="font-size: 16px; color: #cbd5e1; font-weight: 700;">${pct}% успешных ответов</div>
+          </div>
+
+          <div style="width: 100%; max-width: 700px; text-align: left; background: rgba(3, 7, 18, 0.5); border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.08);">
+            <div style="font-size: 16px; font-weight: 800; color: #38bdf8; margin-bottom: 12px;">📊 Детализация по темам сессии:</div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              ${userHistory.map((h, i) => `
+                <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.04); padding: 10px 14px; border-radius: 8px; font-size: 15px;">
+                  <span>${i+1}. <strong>${h.badge}</strong></span>
+                  <span style="font-weight: 700; color: ${h.passed ? '#4ade80' : '#f87171'};">
+                    ${h.earned} б. (${h.attempts} ${(h.attempts===1?'попытка':'попытки')})
+                  </span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 12px;">
+            <button class="btn btn-primary" onclick="startNewSession()" style="padding: 14px 26px; font-size: 16px;">
+              🔄 Пройти другой вариант (7 новых вопросов)
+            </button>
+            <button class="btn" onclick="copyProtocol()" style="padding: 14px 20px;">
+              📋 Скопировать протокол
+            </button>
+            <a href="index.html" class="btn" style="padding: 14px 20px;">
+              К программе курса
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    function copyProtocol() {
+      let text = '=== ПРОТОКОЛ ТЕСТИРОВАНИЯ: КУРС ПО ИИ (УРОК 1) ===\n';
+      text += `Итоговый результат: ${score} из ${SESSION_COUNT * 3} баллов\n`;
+      text += `Дата: ${new Date().toLocaleString('ru-RU')}\n\n`;
+      userHistory.forEach((h, i) => {
+        text += `${i+1}. ${h.badge}: ${h.earned} б. (попыток: ${h.attempts})\n`;
+      });
+      text += '==================================================';
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Протокол успешно скопирован в буфер обмена!');
+      });
+    }
+
+    // =========================================================================
+    // OPTIONAL TEXT-TO-SPEECH (Opt-In only, NEVER autoplaying)
+    // =========================================================================
+    function toggleSpeakQuestion() {
+      const q = sessionQuestions[currentIdx];
+      const textToSpeak = `${q.situation}. Вопрос: ${q.question}.`;
+      toggleSpeech(textToSpeak, 'speakQBtn');
+    }
+
+    function toggleSpeakExplanation() {
+      const q = sessionQuestions[currentIdx];
+      const textToSpeak = `Разбор ответа: ${q.explanation}`;
+      toggleSpeech(textToSpeak, 'speakExpBtn');
+    }
+
+    function toggleSpeech(text, btnId) {
+      const btn = document.getElementById(btnId);
+      if (isSpeaking) {
+        stopSpeech();
+        if (btn) btn.innerText = '🔊 Озвучить';
+        return;
+      }
+
+      if (!('speechSynthesis' in window)) {
+        alert('Синтез речи не поддерживается вашим браузером.');
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ru-RU';
+      utterance.rate = 1.0;
+
+      utterance.onstart = () => {
+        isSpeaking = true;
+        if (btn) {
+          btn.innerText = '⏹ Стоп';
+          btn.classList.add('speaking');
+        }
+      };
+
+      utterance.onend = utterance.onerror = () => {
+        isSpeaking = false;
+        if (btn) {
+          btn.innerText = '🔊 Озвучить';
+          btn.classList.remove('speaking');
+        }
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function stopSpeech() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      isSpeaking = false;
+      const qBtn = document.getElementById('speakQBtn');
+      if (qBtn) {
+        qBtn.innerText = '🔊 Озвучить';
+        qBtn.classList.remove('speaking');
+      }
+      const expBtn = document.getElementById('speakExpBtn');
+      if (expBtn) {
+        expBtn.innerText = '🔊 Озвучить разбор';
+        expBtn.classList.remove('speaking');
+      }
+    }
+
+    // Fullscreen Support
+    function isFullscreenActive() {
+      return !!(document.fullscreenElement || document.webkitFullscreenElement || document.body.classList.contains('is-fullscreen'));
+    }
+
+    function updateFullscreenBtn() {
+      const btn = document.getElementById('fullscreenBtn');
+      if (!btn) return;
+      if (isFullscreenActive()) {
+        btn.innerHTML = '🗗 Свернуть экран';
+        btn.title = 'Свернуть полноэкранный режим (F / Esc)';
+      } else {
+        btn.innerHTML = '⛶ Во весь экран';
+        btn.title = 'Полноэкранный режим (Горячая клавиша: F)';
+      }
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().catch(() => {
+            document.body.classList.toggle('is-fullscreen');
+            updateFullscreenBtn();
+          });
+        } else {
+          document.body.classList.toggle('is-fullscreen');
+          updateFullscreenBtn();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        }
+        document.body.classList.remove('is-fullscreen');
+        updateFullscreenBtn();
+      }
+      setTimeout(updateFullscreenBtn, 100);
+    }
+
+    document.addEventListener('fullscreenchange', updateFullscreenBtn);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenBtn);
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'KeyF' && !e.target.closest('input, textarea')) {
+        e.preventDefault();
+        toggleFullscreen();
+      }
+    });
+
+    // Initialize Quiz Session on load
+    startNewSession();
+  </script>
+</body>
+</html>
