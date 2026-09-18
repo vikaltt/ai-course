@@ -382,7 +382,7 @@
       </div>
       <div style="text-align: right;">
         <div style="font-size: 12px; color: #64748b; font-weight: 700; text-transform: uppercase;">Текущий этап</div>
-        <div style="font-size: 16px; font-weight: 800; color: #38bdf8;">Модуль 1. Занятие 1</div>
+        <div style="font-size: 16px; font-weight: 800; color: #38bdf8;" id="currentStageText">Модуль 2. Занятие 2</div>
       </div>
     </div>
 
@@ -470,17 +470,81 @@
       </div>
     </div>
 
-    <!-- MODULE 2 (Locked) -->
-    <div class="module-card locked">
+    <!-- MODULE 2 (Active) -->
+    <div class="module-card" id="module2_card">
       <div class="module-header">
         <div>
           <div class="module-num">Модуль 2 • Занятие 2</div>
           <div class="module-title">Возможности и ограничения современных моделей</div>
           <div class="module-desc">
-            Где ИИ незаменим, а где опасен: галлюцинации, проверка фактов, выбор доступных инструментов и моделей в РФ.
+            Где ИИ незаменим, а где опасен: карта прикладных задач (распознавание, прогноз, генерация), галлюцинации и проверка фактов, обзор моделей 2026 года (GPT-6 Astra, Claude Fable, DeepSeek, Z.ai) и доступ к сервисам без запрещённых технологий.
           </div>
         </div>
-        <span class="module-badge badge-locked">🔒 Заблокировано</span>
+        <span class="module-badge badge-active">В процессе изучения</span>
+      </div>
+
+      <div class="lessons-grid">
+        <!-- Lesson 2.1 -->
+        <div class="lesson-item" id="card_l2_p1">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-ready" id="badge_l2_p1">Доступно</span>
+            </div>
+            <div class="lesson-title">Часть 2.1: Карта задач ИИ (Распознавание, Прогноз, Генерация)</div>
+            <div class="lesson-desc">
+              Иерархическая «матрёшка» понятий (DL ⊂ ML ⊂ AI), зрение и Whisper для оцифровки лекций, 4 ступени аналитики, генеративный синтез (LLM, 3D, тренажёры) и матрица выбора инструментов.
+            </div>
+          </div>
+          <a href="lesson_2_1.html" class="btn-lesson btn-play" id="btn_l2_p1">
+            ▶ Смотреть урок
+          </a>
+        </div>
+
+        <!-- Lesson 2.2 -->
+        <div class="lesson-item" id="card_l2_p2" style="opacity: 0.75;">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge" style="background: rgba(255,255,255,0.06); color: #94a3b8;" id="badge_l2_p2">В производстве</span>
+            </div>
+            <div class="lesson-title">Часть 2.2: Ловушка уверенного тона и галлюцинации</div>
+            <div class="lesson-desc">
+              Почему нейросеть уверенно ошибается, вероятностная природа вывода следующего токена, как выявлять галлюцинации и золотые правила фактчекинга для педагога.
+            </div>
+          </div>
+          <span class="btn-lesson btn-locked">Скоро выйдет</span>
+        </div>
+
+        <!-- Lesson 2.3 -->
+        <div class="lesson-item" id="card_l2_p3" style="opacity: 0.75;">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~9 минут</span>
+              <span class="lesson-status-badge" style="background: rgba(255,255,255,0.06); color: #94a3b8;" id="badge_l2_p3">В производстве</span>
+            </div>
+            <div class="lesson-title">Часть 2.3: Ландшафт моделей 2026 и доступ в РФ</div>
+            <div class="lesson-desc">
+              Сравнение флагманов 2026 года (GPT-6 Astra, Claude Fable, DeepSeek-V4.1, Z.ai GLM-5), облачные и локальные решения, экосистема маркетплейсов (Plati.Market) без запрещённых технологий.
+            </div>
+          </div>
+          <span class="btn-lesson btn-locked">Скоро выйдет</span>
+        </div>
+
+        <!-- Lesson 2.4 (Practicum) -->
+        <div class="lesson-item quiz-card" id="card_l2_p4" style="opacity: 0.75;">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration" style="color: #38bdf8;">🎯 Практикум • 7 вопросов</span>
+              <span class="lesson-status-badge" style="background: rgba(255,255,255,0.06); color: #94a3b8;" id="badge_l2_p4">В производстве</span>
+            </div>
+            <div class="lesson-title" style="color: #6ee7b7;">Часть 2.4: Интерактивный практикум и фактчекинг</div>
+            <div class="lesson-desc" style="color: #a7f3d0;">
+              Тренажёр по фактчекингу и поиску скрытых ошибок в материалах, сгенерированных ИИ, и выбор оптимальной модели под конкретные педагогические задачи.
+            </div>
+          </div>
+          <span class="btn-lesson btn-locked">Скоро выйдет</span>
+        </div>
       </div>
     </div>
 
@@ -537,12 +601,14 @@
       const p2Completed = localStorage.getItem('ai_course_l1_p2_completed') === 'true';
       const p3Completed = localStorage.getItem('ai_course_l1_p3_completed') === 'true';
       const p4Completed = localStorage.getItem('ai_course_l1_p4_completed') === 'true';
+      const p5Completed = localStorage.getItem('ai_course_l2_p1_completed') === 'true';
 
       let totalCompleted = 0;
       if (p1Completed) totalCompleted++;
       if (p2Completed) totalCompleted++;
       if (p3Completed) totalCompleted++;
       if (p4Completed) totalCompleted++;
+      if (p5Completed) totalCompleted++;
 
       // Update Lesson 1.1
       const badge1 = document.getElementById('badge_l1_p1');
@@ -605,11 +671,39 @@
         btn4.innerText = '🎯 Начать практикум';
       }
 
+      // Update Lesson 2.1
+      const badge5 = document.getElementById('badge_l2_p1');
+      const btn5 = document.getElementById('btn_l2_p1');
+      if (badge5 && btn5) {
+        if (p5Completed) {
+          badge5.className = 'lesson-status-badge status-completed';
+          badge5.innerText = '✓ Пройдено';
+          btn5.className = 'btn-lesson btn-completed';
+          btn5.innerText = '✓ Пройдено (Смотреть снова)';
+        } else {
+          badge5.className = 'lesson-status-badge status-ready';
+          badge5.innerText = 'Доступно';
+          btn5.className = 'btn-lesson btn-play';
+          btn5.innerText = '▶ Смотреть урок';
+        }
+      }
+
+      // Update Stage text
+      const stageText = document.getElementById('currentStageText');
+      if (stageText) {
+        if (p1Completed && p2Completed && p3Completed && p4Completed) {
+          stageText.innerText = 'Модуль 2. Занятие 2';
+        } else {
+          stageText.innerText = 'Модуль 1. Занятие 1';
+        }
+      }
+
       // Update Progress Bar
-      const pct = Math.round((totalCompleted / 4) * 100);
+      const totalAvailable = 5;
+      const pct = Math.round((totalCompleted / totalAvailable) * 100);
       document.getElementById('progressBarFill').style.width = pct + '%';
       document.getElementById('progressStatusText').innerText = 
-        `Завершено ${totalCompleted} из 4 доступных частей (${pct}%)`;
+        `Завершено ${totalCompleted} из ${totalAvailable} доступных частей (${pct}%)`;
     }
 
     function resetProgress() {
@@ -618,6 +712,7 @@
         localStorage.removeItem('ai_course_l1_p2_completed');
         localStorage.removeItem('ai_course_l1_p3_completed');
         localStorage.removeItem('ai_course_l1_p4_completed');
+        localStorage.removeItem('ai_course_l2_p1_completed');
         localStorage.removeItem('ai_course_completed_list');
         updateLMSState();
       }
