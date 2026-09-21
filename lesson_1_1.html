@@ -654,6 +654,123 @@
     .btn-review {
       display: none !important;
     }
+  
+    /* =========================================================================
+       MOBILE & TABLET RESPONSIVE ADAPTATIONS (Down to 320px & Mobile Landscape)
+       ========================================================================= */
+    @media (max-width: 768px) {
+      header {
+        padding: 8px 14px !important;
+      }
+      header a.btn {
+        padding: 6px 10px !important;
+        font-size: 12px !important;
+      }
+      .header-title-text {
+        font-size: 13px !important;
+        max-width: 46vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #fullscreenBtn {
+        padding: 6px 10px !important;
+        font-size: 12px !important;
+      }
+
+      .controls-bar {
+        padding: 8px 12px !important;
+        gap: 6px !important;
+      }
+      .playback-row {
+        flex-direction: column !important;
+        gap: 6px !important;
+        align-items: stretch !important;
+      }
+      .playback-controls-subrow {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+      }
+      .timeline-subrow {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        width: 100% !important;
+      }
+      .left-controls {
+        gap: 6px !important;
+      }
+      .left-controls .btn {
+        padding: 6px 8px !important;
+        font-size: 12px !important;
+      }
+      .right-controls {
+        gap: 8px !important;
+        width: 100% !important;
+      }
+      #audioSeek {
+        flex: 1 !important;
+        width: 100% !important;
+        min-width: 0 !important;
+      }
+      #audioTimer {
+        font-size: 12px !important;
+        min-width: 80px !important;
+        text-align: right !important;
+      }
+      #playBtn {
+        min-width: 110px !important;
+        font-size: 13px !important;
+      }
+      .speed-btn-group {
+        scale: 0.9;
+        transform-origin: right center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-title-text {
+        font-size: 12px !important;
+        max-width: 38vw;
+      }
+      header a.btn {
+        padding: 5px 8px !important;
+        font-size: 11px !important;
+      }
+      #fullscreenBtn {
+        padding: 5px 8px !important;
+        font-size: 11px !important;
+      }
+      .left-controls .btn {
+        padding: 5px 6px !important;
+        font-size: 11px !important;
+      }
+      #playBtn {
+        min-width: 95px !important;
+        font-size: 12px !important;
+      }
+      .speed-btn {
+        padding: 4px 6px !important;
+        font-size: 11px !important;
+      }
+    }
+
+    @media (max-height: 500px) and (orientation: landscape) {
+      :fullscreen header,
+      body.is-fullscreen header {
+        padding: 6px 16px !important;
+      }
+      :fullscreen .controls-bar,
+      body.is-fullscreen .controls-bar {
+        padding: 6px 20px 8px !important;
+      }
+      .header-title-text {
+        font-size: 13px !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -664,7 +781,7 @@
       <a href="index.html" class="btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; background: rgba(255,255,255,0.08);">
         ← К программе
       </a>
-      <div style="font-weight: 800; font-size: 18px; color: #38bdf8; display: flex; align-items: center; gap: 10px;">
+      <div class="header-title-text" style="font-weight: 800; font-size: 18px; color: #38bdf8; display: flex; align-items: center; gap: 10px;">
         <img src="favicon.svg" width="22" height="22" style="border-radius: 4px; box-shadow: 0 0 8px rgba(56,189,248,0.4);" alt="ИИ"> Лекция 1: Знакомимся с искусственным интеллектом
       </div>
     </div>
@@ -692,20 +809,21 @@
       <!-- Playback and Stepper Controls Bar -->
       <div class="controls-bar">
         <div class="playback-row">
-          <div class="left-controls" style="display: flex; align-items: center; gap: 12px;">
-            <button class="btn" onclick="seekDelta(-5)" title="Перемотка назад на 5 секунд">⏪ -5с</button>
-            <button class="btn btn-primary" id="playBtn" onclick="toggleAudio()" style="min-width: 150px; font-weight: 800; font-size: 15px;" title="Воспроизведение / Пауза (Пробел)">▶ Воспроизвести</button>
-            <button class="btn" onclick="seekDelta(5)" title="Перемотка вперёд на 5 секунд">+5с ⏩</button>
-          </div>
-
-          <div class="right-controls" style="display: flex; align-items: center; gap: 16px;">
+          <div class="playback-controls-subrow">
+            <div class="left-controls" style="display: flex; align-items: center; gap: 12px;">
+              <button class="btn" onclick="seekDelta(-5)" title="Перемотка назад на 5 секунд">⏪ -5с</button>
+              <button class="btn btn-primary" id="playBtn" onclick="toggleAudio()" style="min-width: 150px; font-weight: 800; font-size: 15px;" title="Воспроизведение / Пауза (Пробел)">▶ Воспроизвести</button>
+              <button class="btn" onclick="seekDelta(5)" title="Перемотка вперёд на 5 секунд">+5с ⏩</button>
+            </div>
             <div class="speed-btn-group">
               <button class="speed-btn active" onclick="setPlaybackSpeed(1.0, this)">1x</button>
               <button class="speed-btn" onclick="setPlaybackSpeed(1.25, this)">1.25x</button>
               <button class="speed-btn" onclick="setPlaybackSpeed(1.5, this)">1.5x</button>
             </div>
-            <input type="range" id="audioSeek" min="0" max="100" value="0" style="width: 280px; accent-color: #38bdf8;" oninput="seekAudio(this.value)" onchange="seekAudio(this.value)">
-            <span id="audioTimer" style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #cbd5e1; min-width: 100px; font-weight: 600;">00:00 / 00:00</span>
+          </div>
+          <div class="timeline-subrow">
+            <input type="range" id="audioSeek" min="0" max="100" value="0" style="flex: 1; width: 100%; accent-color: #38bdf8;" oninput="seekAudio(this.value)" onchange="seekAudio(this.value)">
+            <span id="audioTimer" style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #cbd5e1; min-width: 90px; text-align: right; font-weight: 600;">00:00 / 00:00</span>
           </div>
         </div>
       </div>
@@ -1461,20 +1579,25 @@
       const isFs = isFullscreenActive();
       document.body.classList.remove('cinema-idle');
       clearTimeout(cinemaIdleTimer);
+      if (!isFs) return;
+
       const audio = getAudioElement();
       const active = isPlaying || (audio && !audio.paused);
-      if (isFs && active) {
-        cinemaIdleTimer = setTimeout(() => {
-          const a = getAudioElement();
-          if (isFullscreenActive() && (isPlaying || (a && !a.paused))) {
-            document.body.classList.add('cinema-idle');
-          }
-        }, 1500);
-      }
+      // При воспроизведении: скрываем через 1.5с. При паузе в полноэкранном режиме: скрываем через 3.0с, чтобы не закрывать слайд
+      const timeoutMs = active ? 1500 : 3000;
+      cinemaIdleTimer = setTimeout(() => {
+        if (isFullscreenActive()) {
+          document.body.classList.add('cinema-idle');
+        }
+      }, timeoutMs);
     }
 
     window.addEventListener('mousemove', resetCinemaIdleTimer);
     window.addEventListener('mousedown', resetCinemaIdleTimer);
+    window.addEventListener('touchstart', resetCinemaIdleTimer, { passive: true });
+    window.addEventListener('touchend', resetCinemaIdleTimer, { passive: true });
+    window.addEventListener('touchstart', resetCinemaIdleTimer, { passive: true });
+    window.addEventListener('touchend', resetCinemaIdleTimer, { passive: true });
 
 
 
@@ -1891,13 +2014,22 @@
     const container = document.querySelector('.canvas-container') || document.getElementById('viewport');
     if (container) {
       container.addEventListener('click', (e) => {
-        if (e.target.closest('button, input, textarea, a, select, .controls-bar, #lessonEndOverlay')) return;
-        toggleAudio();
+        if (e.target.closest('button, input, textarea, a, select, .controls-bar, #lessonEndOverlay, .reviewer-drawer, #reviewerDrawer, .nav-tabs')) return;
+        if (isFullscreenActive()) {
+          // В полноэкранном режиме клик/тап по слайду скрывает/показывает панели управления
+          if (document.body.classList.contains('cinema-idle')) {
+            resetCinemaIdleTimer();
+          } else {
+            document.body.classList.add('cinema-idle');
+            clearTimeout(cinemaIdleTimer);
+          }
+        } else {
+          toggleAudio();
+        }
       });
     }
 
-    
-    function restartLesson() {
+        function restartLesson() {
       const overlay = document.getElementById('lessonEndOverlay');
       if (overlay) overlay.style.display = 'none';
       switchSlide(1, true);
