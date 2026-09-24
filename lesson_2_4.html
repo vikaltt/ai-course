@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекция 2. Часть 4: Интерактивный практикум и тест (Банк 18 / Выдача 7)</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #030712;
+      color: #f8fafc;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Navigation Header */
+    header {
+      background: rgba(11, 17, 32, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f8fafc;
+      padding: 9px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      border: 1px solid #38bdf8;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0369a1, #1d4ed8);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Progress & Stats Bar */
+    .status-bar {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      backdrop-filter: blur(10px);
+    }
+
+    .progress-track {
+      flex: 1;
+      max-width: 380px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 0 20px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    /* Quiz Card */
+    .quiz-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 36px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(16px);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .case-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #38bdf8;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .situation-box {
+      background: rgba(30, 41, 59, 0.6);
+      border-left: 4px solid #38bdf8;
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 17px;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .question-title {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.35;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .btn-audio-speak {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #38bdf8;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .btn-audio-speak:hover {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: #38bdf8;
+    }
+
+    /* Options */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 16px 20px;
+      color: #f8fafc;
+      font-size: 17px;
+      line-height: 1.45;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateX(4px);
+    }
+
+    .option-letter {
+      width: 34px;
+      height: 34px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+      color: #94a3b8;
+      flex-shrink: 0;
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.18) !important;
+      border-color: #22c55e !important;
+      color: #4ade80 !important;
+    }
+
+    .option-btn.correct .option-letter {
+      background: #22c55e;
+      color: #fff;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.18) !important;
+      border-color: #ef4444 !important;
+      color: #f87171 !important;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    /* Hints & Explanation */
+    .hint-box {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 14px;
+      padding: 16px 20px;
+      color: #fde68a;
+      font-size: 15px;
+      line-height: 1.5;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .explain-box {
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      border-radius: 16px;
+      padding: 20px 24px;
+      color: #dcfce7;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .explain-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #4ade80;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .explain-text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #bbf7d0;
+    }
+
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    /* Results Screen */
+    .results-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 28px;
+      padding: 48px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+    }
+
+    .trophy-icon {
+      font-size: 64px;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-8px); }
+    }
+
+    /* Reviewer Slide-over Drawer */
+    .reviewer-drawer {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 400px;
+      height: 100vh;
+      background: rgba(11, 17, 32, 0.98);
+      border-left: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(20px);
+    }
+
+    .reviewer-drawer.open {
+      right: 0;
+    }
+
+    .drawer-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .drawer-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .capture-box {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .capture-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      color: #38bdf8;
+      text-transform: uppercase;
+    }
+
+    .capture-quote {
+      font-size: 13px;
+      line-height: 1.4;
+      color: #cbd5e1;
+      font-style: italic;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px 10px;
+      border-radius: 6px;
+      border-left: 2px solid #38bdf8;
+    }
+
+    .capture-input {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      width: 100%;
+    }
+
+    .capture-input:focus {
+      outline: none;
+      border-color: #38bdf8;
+    }
+
+    .notes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .note-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .note-item-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 700;
+    }
+
+    .note-item-delete {
+      color: #ef4444;
+      cursor: pointer;
+    }
+
+    .note-item-text {
+      font-size: 13px;
+      line-height: 1.4;
+      color: #f8fafc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <a href="index.html" class="btn">← К программе</a>
+      <div style="font-weight: 800; font-size: 18px; color: #38bdf8; display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 20px;">🤖</span> Лекция 2. Часть 4: Интерактивный практикум и тест
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="btn" onclick="toggleReviewerDrawer()" title="Панель рецензента (M)">
+        🚩 Замечания (M) <span id="notesBadge" style="background:#ef4444; color:#fff; border-radius:10px; padding:1px 6px; font-size:11px; font-weight:800; display:inline-block;">0</span>
+      </button>
+      <button class="btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="Полноэкранный режим (F)">
+        ⛶ Во весь экран
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Quiz Area -->
+  <main id="appContainer">
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div style="font-weight: 800; font-size: 16px; color: #94a3b8;" id="stepCounter">
+        Вопрос 1 из 7
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressBar"></div>
+      </div>
+      <div style="font-weight: 800; font-size: 16px; color: #38bdf8;">
+        Баллы: <span id="currentScore" style="color: #fff; font-family: 'JetBrains Mono', monospace;">0</span> / 700
+      </div>
+    </div>
+
+    <!-- Active Question Container -->
+    <div id="cardRoot"></div>
+  </main>
+
+  <script>
+    const FULL_QUESTION_BANK = [{"id": 1, "badge": "Типология задач • Компьютерное зрение", "topic": "Оцифровка рукописных материалов", "situation": "Преподаватель проверяет контрольные работы студентов по физике, написанные от руки. Он фотографирует страницу смартфоном, и сервис за 3 секунды распознаёт формулы и графики в редактируемый Word-документ.", "question": "К какому классу технологий относится эта система?", "options": [{"id": "A", "text": "Компьютерное зрение и оптическое распознавание символов (OCR).", "correct": true}, {"id": "B", "text": "Генеративный искусственный интеллект (сочинение нового текста).", "correct": false}, {"id": "C", "text": "Рекомендательная система (прогноз академической успеваемости).", "correct": false}, {"id": "D", "text": "Символический алгоритм на базе 10 000 логических правил if/else.", "correct": false}], "hints": ["Обратите внимание: программа не создаёт новых фактов, а переводит графические пиксели в машиночитаемые символы.", "Это классическая задача визуального восприятия формы объектов (OCR)."], "explanation": "Распознавание рукописного текста, формул и чертежей — фундаментальная задача компьютерного зрения (Computer Vision / OCR). Модель сопоставляет визуальные паттерны пикселей с эталонами символов."}, {"id": 2, "badge": "Типология задач • Речевые технологии", "topic": "Транскрибация лекций и синтез голоса", "situation": "Лектор записал 90-минутное аудио практического занятия на диктофон и хочет мгновенно получить точный текстовый конспект с таймкодами и разделением реплик студентов.", "question": "Какая связка речевых технологий ИИ решает данную педагогическую задачу?", "options": [{"id": "A", "text": "Автоматическое распознавание речи (ASR) с диаризацией дикторов.", "correct": true}, {"id": "B", "text": "Синтез речи (Text-to-Speech) с генерацией 3D-аватара.", "correct": false}, {"id": "C", "text": "Рекуррентная сеть прогнозирования временных рядов.", "correct": false}, {"id": "D", "text": "Оптическое распознавание символов (OCR).", "correct": false}], "hints": ["Задача обратна озвучке: нужно превратить аудиоволну в текст и понять, кто именно сейчас говорит.", "Диаризация — это процесс маркировки «кто когда сказал» (лектор vs студент)."], "explanation": "Перевод живой речи в текст называется ASR (Automatic Speech Recognition). Разделение звуковой дорожки по голосам разных участников называется диаризацией (Diarization)."}, {"id": 3, "badge": "Типология задач • Рекомендательные алгоритмы", "topic": "Адаптивные образовательные траектории", "situation": "Онлайн-платформа университета анализирует ошибки студента в тестах по электротехнике и автоматически предлагает ему индивидуальную подборку коротких видеороликов и задач разного уровня сложности.", "question": "Какой алгоритмический принцип лежит в основе этой системы?", "options": [{"id": "A", "text": "Коллаборативная фильтрация и рекомендательные модели на основе графов знаний.", "correct": true}, {"id": "B", "text": "Случайный выбор материалов из общего архива вуза.", "correct": false}, {"id": "C", "text": "Генерация текста с нуля без учёта предыдущих ответов учащегося.", "correct": false}, {"id": "D", "text": "Жесткий линейный переход от 1-й главы к 10-й без ветвлений.", "correct": false}], "hints": ["Система сравнивает профиль ошибок студента с похожими профилями тысяч других учащихся.", "По такому же принципу работают умные ленты академических публикаций и обучающих курсов."], "explanation": "Адаптивное обучение строится на рекомендательных системах (Recommender Systems). Алгоритм сопоставляет текущие пробелы учащегося с графом учебных компетенций и рекомендует оптимальный следующий шаг."}, {"id": 4, "badge": "Типология задач • Предиктивная аналитика", "topic": "Прогнозирование успеваемости и отсева", "situation": "Деканат загружает в систему статистику посещаемости, сдачи лабораторных работ и баллов за первые 4 недели семестра, чтобы заранее выявить студентов из группы академического риска.", "question": "Какую математическую задачу решает предиктивная модель ИИ в этом сценарии?", "options": [{"id": "A", "text": "Бинарную классификацию вероятности отчисления (риск: да/нет) или регрессию итогового балла.", "correct": true}, {"id": "B", "text": "Генерацию стихов об учебе для поднятия настроения студентов.", "correct": false}, {"id": "C", "text": "Синтез аудиозаписи поздравления с успешной сдачей сессии.", "correct": false}, {"id": "D", "text": "Архивацию базы данных в zip-архив.", "correct": false}], "hints": ["Предиктивный ИИ отвечает на вопрос: «Что скорее всего произойдёт в будущем на основе закономерностей прошлого?».", "Модель предсказывает вероятность события на основе табличных числовых данных."], "explanation": "Прогнозирование отсева — классическая задача контролируемого машинного обучения (Supervised ML: классификация вероятности риска или регрессия числового балла на экзамене)."}, {"id": 5, "badge": "Типология задач • Генеративный бум", "topic": "Генерация против распознавания", "situation": "Преподаватель сравнивает работу шахматной программы 1997 года (Deep Blue) и современной генеративной модели (GPT-4 / Claude).", "question": "В чём качественный водораздел генеративного ИИ по сравнению с классическими аналитическими системами?", "options": [{"id": "A", "text": "Генеративный ИИ синтезирует новые связные объекты (текст, код, схемы), а не только выбирает лучший вариант из заданного списка.", "correct": true}, {"id": "B", "text": "Генеративный ИИ никогда не ошибается, в отличие от шахматных программ.", "correct": false}, {"id": "C", "text": "Генеративные модели не требуют серверов и работают на солнечных батареях.", "correct": false}, {"id": "D", "text": "Классические программы не способны производить математические вычисления.", "correct": false}], "hints": ["Deep Blue искал лучший ход среди миллионов возможных. Языковая модель пишет с нуля авторский рассказ или скрипт.", "Ключевое слово — создание принципиально нового контента на основе усвоенных законов языка."], "explanation": "Генеративный ИИ (Generative AI) совершил переход от задач дискриминации (сортировка, распознавание, поиск оптимума) к задачам синтеза качественно новых текстов, изображений и программного кода."}, {"id": 6, "badge": "Типология задач • Матрица задач педагога", "topic": "Зона ответственности человека и ИИ", "situation": "Кафедра составляет регламент использования нейросетей при разработке рабочих программ дисциплин (РПД).", "question": "Какую часть работы методически грамотно делегировать ИИ, а какую обязан оставить за собой преподаватель?", "options": [{"id": "A", "text": "ИИ — черновики формулировок компетенций, списки тем и примеры; Человек — проверка стандартов, утверждение логики и критериев оценки.", "correct": true}, {"id": "B", "text": "ИИ полностью формирует РПД и сразу отправляет в министерство без проверки преподавателя.", "correct": false}, {"id": "C", "text": "Преподаватель пишет всё вручную, а нейросеть только ставит электронную подпись.", "correct": false}, {"id": "D", "text": "ИИ используется исключительно для перевода методички на иностранные языки.", "correct": false}], "hints": ["Принцип «Человек в контуре» (Human-in-the-loop): черновая рутина автоматизируется, ответственность за качество остаётся за экспертом.", "Педагогический замысел и валидация фактуры не могут быть отданы машине."], "explanation": "ИИ ускоряет сборку черновика в 3–5 раз, генерируя варианты и форматируя таблицы. Но юридическая, академическая и смысловая ответственность всегда лежит на преподавателе-эксперте."}, {"id": 7, "badge": "Анатомия ошибок • Механизм галлюцинаций", "topic": "Статистическая природа автодополнения", "situation": "Нейросеть сгенерировала биографию ученого-физика. Текст звучит солидно и научно, но содержит выдуманный номер патента и несуществующую монографию 1974 года.", "question": "Какова истинная техническая причина этой ошибки?", "options": [{"id": "A", "text": "Модель максимизирует правдоподобие фразы по статистике языка, не имея физического доступа к проверке фактов в реальности.", "correct": true}, {"id": "B", "text": "В дата-центре провайдера произошел перегрев оперативной памяти видеокарты.", "correct": false}, {"id": "C", "text": "Алгоритм специально соврал, чтобы проверить внимательность преподавателя.", "correct": false}, {"id": "D", "text": "Нейросеть подключилась к засекреченной базе данных спецслужб.", "correct": false}], "hints": ["Нейросеть не хранит Википедию в виде архива файлов; она рассчитывает вероятности следующего слога (токена).", "Для математики модели истинный факт и убедительный вымысел формируются одним и тем же уравнением."], "explanation": "Языковая модель — статистический генератор следующего токена. Она знает структуру научной библиографии (Автор, Название, Издательство, Год) и собирает правдоподобно звучащую строку, не проверяя существование книги."}, {"id": 8, "badge": "Анатомия ошибок • Психологическая ловушка", "topic": "Уверенный академический тон", "situation": "Преподаватель читает ответ нейросети на сложный физический вопрос. Формулировки безупречны, логические связки идеальны, но в расчете закона Ома перепутаны числитель и знаменатель.", "question": "Почему человеку особенно трудно заметить фактическую ошибку в ответах современных LLM?", "options": [{"id": "A", "text": "Высокая стилистическая грамотность и уверенный тон усыпляют критическое восприятие человека (эффект ореола экспертности).", "correct": true}, {"id": "B", "text": "Нейросети используют гипнотические частоты при отображении букв на мониторе.", "correct": false}, {"id": "C", "text": "Ошибки в формулах физически невозможно обнаружить без суперкомпьютера.", "correct": false}, {"id": "D", "text": "Текст нейросети стирается из памяти читателя через 10 секунд.", "correct": false}], "hints": ["Люди привыкли: если собеседник говорит без запинки и академическим языком — он эксперт. С ИИ это правило не работает.", "Форма ответа идеальна, а содержание может содержать грубую ошибку."], "explanation": "Ловушка уверенного тона: человеческий мозг связывает беглость речи и грамотность с компетентностью. LLM всегда звучат на 100% уверенно, даже когда транслируют полную бессмыслицу."}, {"id": 9, "badge": "Правила фактчекинга • Принцип нулевого доверия", "topic": "Критические зоны проверки", "situation": "Преподаватель подготовил с помощью ИИ конспект лекции по материаловедению на 15 страниц.", "question": "К каким элементам сгенерированного материала педагог обязан применить «принцип нулевого доверия» и сверить по первоисточникам?", "options": [{"id": "A", "text": "К точным числовым константам, номерам ГОСТов, формулам, цитатам и историческим датам.", "correct": true}, {"id": "B", "text": "Только к вводным словам и расстановке знаков препинания.", "correct": false}, {"id": "C", "text": "К цвету шрифта заголовков в документе.", "correct": false}, {"id": "D", "text": "Ни к чему, современные платные модели никогда не ошибаются в точных науках.", "correct": false}], "hints": ["Именно точные данные (числа, стандарты, артикулы, фамилии) чаще всего подвергаются вероятностному искажению.", "Общий смысл абзаца обычно верен, но конкретная цифра в формуле может быть сгенерирована наугад."], "explanation": "Принцип нулевого доверия: любые формулы, ГОСТы, числовые коэффициенты и цитаты в обязательном порядке верифицируются экспертом по официальным справочникам и стандартам."}, {"id": 10, "badge": "Ограничения данных • Garbage In, Garbage Out", "topic": "Зависимость качества от датасета", "situation": "Для помощи первокурсникам в вузе настроили модель, обученную на немодерируемых студенческих форумах за последние 10 лет.", "question": "С каким фундаментальным ограничением машинного обучения столкнется эта система?", "options": [{"id": "A", "text": "«Мусор на входе — мусор на выходе» (GIGO): модель впитает и будет уверенно воспроизводить студенческие заблуждения и мифы.", "correct": true}, {"id": "B", "text": "Модель откажется отвечать на русском языке.", "correct": false}, {"id": "C", "text": "Сервер сгорит от переизбытка неформальной лексики.", "correct": false}, {"id": "D", "text": "Система начнет требовать стипендию от ректората.", "correct": false}], "hints": ["Модель — это зеркало данных, на которых она обучалась.", "Если в учебных текстах содержались фактические ошибки, алгоритм закрепит их как норму."], "explanation": "Принцип GIGO (Garbage In, Garbage Out): нейросеть не обладает врождённым чувством истины. Если обучающая выборка содержит предвзятость, ошибки или слухи, модель неизбежно экстраполирует их в ответах."}, {"id": 11, "badge": "Безопасность и право • Федеральный закон 152-ФЗ", "topic": "Защита персональных данных студентов", "situation": "Преподаватель решил сэкономить время и загрузил в публичный бесплатный чат-бот Excel-файл с ФИО студентов, паспортными данными и результатами экзаменов для сортировки.", "question": "Какую грубую правовую и этическую ошибку совершил преподаватель?", "options": [{"id": "A", "text": "Нарушил закон 152-ФЗ «О персональных данных», передав конфиденциальные сведения на сторонние серверы без согласия субъектов.", "correct": true}, {"id": "B", "text": "Слишком быстро выполнил работу деканата.", "correct": false}, {"id": "C", "text": "Не перевел фамилии студентов на английский язык.", "correct": false}, {"id": "D", "text": "Использовал формат .xlsx вместо .csv.", "correct": false}], "hints": ["Публичные облачные сервисы сохраняют историю запросов и могут использовать её для дообучения моделей.", "Персональные данные (ФИО + оценки/паспорта) защищены федеральным законодательством РФ."], "explanation": "Загрузка реальных персональных данных учащихся в публичные облачные чаты является прямым нарушением 152-ФЗ. Для анализа данных требуется обязательная анонимизация («Студент 1», «Студент 2»)."}, {"id": 12, "badge": "Практика фактчекинга • Метод перекрёстной проверки", "topic": "Инструменты выявления галлюцинаций", "situation": "Преподаватель сомневается в достоверности сложного математического доказательства, выданного нейросетью.", "question": "Какой из приемов работы с ИИ наиболее эффективен для выявления скрытых логических ошибок?", "options": [{"id": "A", "text": "Попросить другую независимую модель провести аудит рассуждений или заставить модель проверить себя пошагово («Найди ошибки в этом доказательстве»).", "correct": true}, {"id": "B", "text": "Перезагрузить монитор компьютера.", "correct": false}, {"id": "C", "text": "Написать в чат капслоком: «НЕ ВРИ МНЕ!».", "correct": false}, {"id": "D", "text": "Удалить браузер и установить его заново.", "correct": false}], "hints": ["Принцип «модель-критик» и пошаговая рефлексия (Chain-of-Thought verification) резко повышают точность.", "Смена роли нейросети с «автора» на «строгого рецензента» позволяет вскрыть до 80% галлюцинаций."], "explanation": "Эффективные методы борьбы с галлюцинациями: запрос пошаговой проверки («Проверь каждый шаг решения на соответствие правилам»), привлечение второй независимой модели в роли рецензента и сверка с эталонной литературой."}, {"id": 13, "badge": "Ландшафт моделей • Западные суперфлагманы", "topic": "Особенности GPT-6 Astra и Claude Fable", "situation": "Кафедра планирует сложный полугодовой проект по разработке адаптивного электронного учебника с интеграцией интерактивного кода и академических эссе.", "question": "В чём главное преимущество западных флагманских моделей класса GPT-6 Astra и Claude Fable 5.1?", "options": [{"id": "A", "text": "Максимальная глубина многошаговых рассуждений, способность писать сложный программный код и автономно действовать в среде разработки.", "correct": true}, {"id": "B", "text": "Они полностью бесплатны для любых коммерческих организаций без регистрации.", "correct": false}, {"id": "C", "text": "Они работают на компьютерах 1990-х годов без подключения к интернету.", "correct": false}, {"id": "D", "text": "Они автоматически ставят оценки студентам в ведомость без участия вуза.", "correct": false}], "hints": ["Флагманы лидируют в мировых бенчмарках рассуждений (reasoning), программирования и выполнения длинных агентских инструкций.", "Однако доступ к ним требует решения вопросов с подписками и сетевыми каналами."], "explanation": "Модели первого эшелона (GPT-6 Astra, Claude Fable) обладают наивысшим качеством сложного синтеза, программирования и архитектурного анализа, выступая золотым эталоном комплексных задач."}, {"id": 14, "badge": "Ландшафт моделей • Восточный прорыв", "topic": "Экосистема Z.ai: GLM-5 и GLM-4-Flash", "situation": "Университет ищет мощную языковую модель для внедрения во внутреннюю систему проверки домашних заданий, но не имеет валютного бюджета на оплату зарубежных подписок.", "question": "Почему экосистема Z.ai (модели линейки GLM) стала главным выбором для сотен образовательных учреждений?", "options": [{"id": "A", "text": "Z.ai предоставляет модель GLM-4-Flash с бесплатным неограниченным API-доступом, прямой работой из РФ и полной совместимостью с форматом OpenAI.", "correct": true}, {"id": "B", "text": "Модели Z.ai созданы специально для изучения только китайского языка.", "correct": false}, {"id": "C", "text": "Сервис Z.ai требует обязательной отправки бумажного письма в Пекин.", "correct": false}, {"id": "D", "text": "Компания Z.ai дарит каждому преподавателю новый ноутбук при регистрации.", "correct": false}], "hints": ["Бесплатный ключ API к быстрой флагманской модели Flash позволяет интегрировать ИИ в боты и сайты с нулевыми затратами.", "Прямой доступ без гео-блокировок и совместимость с кодом OpenAI делают интеграцию мгновенной."], "explanation": "Z.ai (Zhipu AI) произвела революцию доступности: модель GLM-4-Flash предоставляется по API абсолютно бесплатно, работает стабильно из РФ и заменяет платные аналоги в 90% рутинных задач вуза."}, {"id": 15, "badge": "Ландшафт моделей • Открытый Восток", "topic": "Феномен DeepSeek и сверхдлинный контекст Kimi", "situation": "Преподавателю необходимо проанализировать 5 полных диссертаций (более 1 000 страниц текста) и найти в них пересечения по методологии исследований.", "question": "На какие модели восточной школы стоит обратить внимание для таких ресурсоёмких задач?", "options": [{"id": "A", "text": "Moonshot Kimi (сверхдлинное окно контекста от 2 млн токенов) и DeepSeek (архитектура сжатия кэша и глубокие рассуждения).", "correct": true}, {"id": "B", "text": "Обычный текстовый редактор «Блокнот».", "correct": false}, {"id": "C", "text": "Шахматные программы 1980-х годов.", "correct": false}, {"id": "D", "text": "Сервисы автоматической отправки SMS-сообщений.", "correct": false}], "hints": ["Для работы с книгами целиком требуется гигантское контекстное окно (Context Window), исчисляемое миллионами символов.", "Kimi и DeepSeek стали мировыми лидерами по эффективной работе со сверхдлинными текстами."], "explanation": "Модели вроде Moonshot Kimi специализируются на анализе книг целиком (2M+ токенов), а архитектура DeepSeek-V4/R1 обеспечивает глубокую аналитику при минимальной стоимости вычислений."}, {"id": 16, "badge": "Ландшафт моделей • Отечественные сервисы", "topic": "YandexGPT 5 и GigaChat MAX", "situation": "Школа закупает программное обеспечение для автоматизации проверки школьных сочинений и составления отчётов по требованиям ФГОС.", "question": "В чём ключевое практическое преимущество отечественных моделей (YandexGPT, GigaChat) для российских учебных заведений?", "options": [{"id": "A", "text": "Полное соответствие законодательству РФ, знание школьных стандартов (ФГОС/ЕГЭ), встроенная оплата в рублях и серверы внутри страны.", "correct": true}, {"id": "B", "text": "Они умеют проверять работы только по предмету «Труд».", "correct": false}, {"id": "C", "text": "Отечественные модели не используют электричество для вычислений.", "correct": false}, {"id": "D", "text": "Их можно запускать только на смартфонах отечественного производства.", "correct": false}], "hints": ["Юридическая чистота: серверы находятся в юрисдикции РФ, нет риска внезапных блокировок, безналичная оплата по договору для юрлиц.", "Обучение на отечественных учебных программах и стандартах оформления документации."], "explanation": "Российские решения (Сбер GigaChat, Яндекс YandexGPT) обеспечивают 100% юридическую безопасность по 152-ФЗ, прямую оплату по госконтрактам и глубокое понимание контекста отечественной системы образования."}, {"id": 17, "badge": "Ландшафт моделей • Локальный запуск", "topic": "Ollama и защита закрытых данных", "situation": "Преподаватель спецкафедры готовит варианты экзаменационных билетов с грифом конфиденциальности или коммерческой тайны предприятия-партнера.", "question": "Какой способ развёртывания ИИ гарантирует 100% защиту от утечки закрытой информации во внешнюю сеть?", "options": [{"id": "A", "text": "Запуск открытой модели (Llama, Qwen, DeepSeek) локально на собственном компьютере через Ollama или LM Studio без подключения к интернету.", "correct": true}, {"id": "B", "text": "Отправка текста билетов в публичный телеграм-бот.", "correct": false}, {"id": "C", "text": "Публикация билетов на личной странице в социальной сети.", "correct": false}, {"id": "D", "text": "Использование зарубежного веб-чата в режиме «Инкогнито».", "correct": false}], "hints": ["При локальном запуске (Local LLM) данные физически не покидают оперативную память вашего ПК.", "Режим «Инкогнито» в браузере защищает только историю на компьютере, но текст всё равно улетает на сервер компании."], "explanation": "Локальные модели (через утилиты Ollama, LM Studio) работают автономно на видеокарте или процессоре ПК. Ни один байт конфиденциальных данных физически не передаётся в интернет."}, {"id": 18, "badge": "Практика выбора • Тарифы и подписки", "topic": "Когда преподавателю действительно нужен Plus/Pro", "situation": "Преподаватель решает, стоит ли ему тратить личные средства на платную подписку ($20/мес) к зарубежным нейросетям.", "question": "В каком случае оформление платной подписки объективно оправдано для профессиональной деятельности?", "options": [{"id": "A", "text": "Когда преподаватель ежедневно анализирует огромные книги/диссертации, генерирует код в агентских средах и не может ждать в очередях в часы пик.", "correct": true}, {"id": "B", "text": "Для составления коротких тестов из 5 вопросов раз в две недели.", "correct": false}, {"id": "C", "text": "Потому что бесплатные версии нейросетей принципиально не понимают русский язык.", "correct": false}, {"id": "D", "text": "Без платной подписки нейросети работают только по ночам.", "correct": false}], "hints": ["Бесплатные версии (ChatGPT Free, Claude Free, Z.ai GLM-4-Flash) закрывают 85–90% базовых преподавательских задач.", "Платный тариф — инструмент для профессионалов с большими объемами данных и жесткими дедлайнами."], "explanation": "Для составления планов, тестов и конспектов бесплатных лимитов хватает с избытком. Платная подписка оправдана только при масштабной работе с книгами, программным кодом или требовании гарантированной доступности 24/7."}];
+    const SESSION_COUNT = 7;
+
+    // Session State
+    let sessionQuestions = [];
+    let currentIdx = 0;
+    let score = 0;
+    let currentAttempts = 0;
+    let userHistory = [];
+    let isSpeaking = false;
+
+    // Shuffle options using Fisher-Yates and assign fresh letter IDs (A, B, C, D)
+    function shuffleOptions(options) {
+      const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+      const cloned = options.map(o => ({ text: o.text, correct: !!o.correct }));
+      for (let i = cloned.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cloned[i], cloned[j]] = [cloned[j], cloned[i]];
+      }
+      return cloned.map((o, idx) => ({
+        id: letters[idx] || String.fromCharCode(65 + idx),
+        text: o.text,
+        correct: o.correct
+      }));
+    }
+
+    // Shuffle and pick 7 questions for this session with freshly randomized answer choices
+    function startNewSession() {
+      const shuffled = [...FULL_QUESTION_BANK].sort(() => 0.5 - Math.random());
+      sessionQuestions = shuffled.slice(0, SESSION_COUNT).map(q => ({
+        ...q,
+        options: shuffleOptions(q.options)
+      }));
+      currentIdx = 0;
+      score = 0;
+      userHistory = [];
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      stopSpeech();
+      currentAttempts = 0;
+      const q = sessionQuestions[currentIdx];
+      
+      // Update progress
+      document.getElementById('stepCounter').innerText = `Вопрос ${currentIdx + 1} из ${SESSION_COUNT}`;
+      const pct = Math.round((currentIdx / SESSION_COUNT) * 100);
+      document.getElementById('progressBar').style.width = `${pct}%`;
+      document.getElementById('currentScore').innerText = score;
+
+      const root = document.getElementById('cardRoot');
+      root.innerHTML = `
+        <div class="quiz-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="case-badge">${q.badge}</div>
+            <div style="font-size: 14px; color: #94a3b8;">Попытка: <span id="attemptDisplay" style="color: #fff; font-weight: 800;">1</span> из 3</div>
+          </div>
+
+          <div class="situation-box">
+            💡 <strong>Ситуация:</strong> ${q.situation}
+          </div>
+
+          <div class="question-title">
+            <span>${q.question}</span>
+            <button class="btn-audio-speak" id="speakQBtn" onclick="toggleSpeakQuestion()" title="Озвучить вопрос вслух для удобства">
+              🔊 Озвучить
+            </button>
+          </div>
+
+          <div class="options-grid" id="optionsGrid">
+            ${q.options.map((opt, i) => `
+              <button class="option-btn" id="opt_${opt.id}" onclick="handleSelect('${opt.id}')">
+                <span class="option-letter">${opt.id}</span>
+                <span>${opt.text}</span>
+              </button>
+            `).join('')}
+          </div>
+
+          <div id="hintContainer" style="display: none;"></div>
+          <div id="explainContainer" style="display: none;"></div>
+
+          <div class="quiz-footer" id="footerActions" style="display: none;">
+            <div id="roundResultText" style="font-size: 15px;"></div>
+            <button class="btn btn-primary" onclick="handleNextQuestion()" style="padding: 12px 24px;">
+              <span>${currentIdx === SESSION_COUNT - 1 ? 'Завершить практикум ★' : 'Следующий кейс →'}</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      markCurrentContext();
+    }
+
+    function handleSelect(chosenId) {
+      const q = sessionQuestions[currentIdx];
+      const opt = q.options.find(o => o.id === chosenId);
+      if (!opt) return;
+
+      currentAttempts++;
+      const optBtn = document.getElementById(`opt_${chosenId}`);
+      const attemptDisplay = document.getElementById('attemptDisplay');
+      if (attemptDisplay) attemptDisplay.innerText = Math.min(currentAttempts + 1, 3);
+
+      if (opt.correct) {
+        optBtn.classList.add('correct');
+        disableAllOptions();
+
+        // 100 on attempt 1, 70 on attempt 2, 40 on attempt 3
+        const earned = currentAttempts === 1 ? 100 : (currentAttempts === 2 ? 70 : 40);
+        score += earned;
+        document.getElementById('currentScore').innerText = score;
+
+        showExplanation(q, true, earned);
+      } else {
+        optBtn.classList.add('wrong');
+        optBtn.disabled = true;
+
+        if (currentAttempts === 1) {
+          showHint(q.hints[0], 1);
+        } else if (currentAttempts === 2) {
+          showHint(q.hints[1] || q.hints[0], 2);
+        } else {
+          // 3 attempts exhausted
+          disableAllOptions();
+          const correctOpt = q.options.find(o => o.correct);
+          if (correctOpt) {
+            const cBtn = document.getElementById(`opt_${correctOpt.id}`);
+            if (cBtn) cBtn.classList.add('correct');
+          }
+          showExplanation(q, false, 0);
+        }
+      }
+    }
+
+    function disableAllOptions() {
+      const btns = document.querySelectorAll('.option-btn');
+      btns.forEach(b => b.disabled = true);
+    }
+
+    function showHint(text, hintNum) {
+      const box = document.getElementById('hintContainer');
+      box.style.display = 'flex';
+      box.className = 'hint-box';
+      box.innerHTML = `
+        <span style="font-size: 24px;">💡</span>
+        <div>
+          <strong>Подсказка ${hintNum}:</strong> ${text}
+        </div>
+      `;
+    }
+
+    function showExplanation(q, isPassed, earned) {
+      const explainBox = document.getElementById('explainContainer');
+      explainBox.style.display = 'flex';
+      explainBox.className = 'explain-box';
+      explainBox.innerHTML = `
+        <div class="explain-title">
+          <span>${isPassed ? '✓ Верно! Методический разбор:' : '❌ Разбор ситуации:'}</span>
+          <button class="btn-audio-speak" id="speakExpBtn" onclick="toggleSpeakExplanation()" title="Озвучить методический разбор">
+            🔊 Озвучить разбор
+          </button>
+        </div>
+        <div class="explain-text" id="explainTextContent">
+          ${q.explanation}
+        </div>
+      `;
+
+      // Footer
+      const footer = document.getElementById('footerActions');
+      footer.style.display = 'flex';
+      const roundText = document.getElementById('roundResultText');
+      if (isPassed) {
+        roundText.innerHTML = `<span style="color: #22c55e; font-weight: 700;">+${earned} баллов</span> (попытка: ${currentAttempts})`;
+      } else {
+        roundText.innerHTML = `<span style="color: #f87171; font-weight: 700;">0 баллов</span> (использованы все 3 попытки)`;
+      }
+
+      userHistory.push({
+        badge: q.badge,
+        question: q.question,
+        earned: earned,
+        attempts: currentAttempts,
+        passed: isPassed
+      });
+    }
+
+    function handleNextQuestion() {
+      if (currentIdx < SESSION_COUNT - 1) {
+        currentIdx++;
+        renderQuestion();
+      } else {
+        renderResults();
+      }
+    }
+
+    function renderResults() {
+      stopSpeech();
+      document.getElementById('progressBar').style.width = '100%';
+      document.getElementById('stepCounter').innerText = 'Практикум завершён!';
+
+      const maxScore = SESSION_COUNT * 100;
+      const pct = Math.round((score / maxScore) * 100);
+
+      let trophy = '🎓';
+      let title = 'Базовый уровень освоения';
+      if (pct >= 85) {
+        trophy = '🏆';
+        title = 'Эксперт инструментов и методов ИИ';
+      } else if (pct >= 65) {
+        trophy = '⭐';
+        title = 'Уверенный преподаватель-практик';
+      }
+
+      // Save completion status
+      try {
+        localStorage.setItem('ai_course_l2_p4_completed', 'true');
+      } catch(e) {}
+
+      const container = document.getElementById('appContainer');
+      container.innerHTML = `
+        <div class="results-card">
+          <div class="trophy-icon">${trophy}</div>
+          <h1 style="font-size: 34px; font-weight: 900; color: #fff;">${title}</h1>
+          <p style="font-size: 19px; color: #94a3b8; max-width: 650px; line-height: 1.5;">
+            Вы завершили интерактивный практикум Урока 2. Знания типологии задач, природы галлюцинаций, 152-ФЗ и выбора тарифов успешно закреплены.
+          </p>
+
+          <div style="background: rgba(56, 189, 248, 0.12); border: 2px solid #38bdf8; border-radius: 20px; padding: 20px 40px; margin: 8px 0;">
+            <div style="font-size: 48px; font-weight: 900; color: #38bdf8; font-family: 'JetBrains Mono', monospace;">
+              ${score} / ${maxScore}
+            </div>
+            <div style="font-size: 16px; color: #cbd5e1; font-weight: 700;">${pct}% успешных ответов</div>
+          </div>
+
+          <div style="width: 100%; max-width: 700px; text-align: left; background: rgba(3, 7, 18, 0.5); border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.08);">
+            <div style="font-size: 16px; font-weight: 800; color: #38bdf8; margin-bottom: 12px;">📊 Детализация по темам сессии:</div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              ${userHistory.map((h, i) => `
+                <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.04); padding: 10px 14px; border-radius: 8px; font-size: 15px;">
+                  <span>${i+1}. <strong>${h.badge}</strong></span>
+                  <span style="font-weight: 700; color: ${h.passed ? '#4ade80' : '#f87171'};">
+                    ${h.earned} б. (${h.attempts} ${h.attempts===1?'попытка':'попытки'})
+                  </span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 12px;">
+            <button class="btn btn-primary" onclick="startNewSession()" style="padding: 14px 26px; font-size: 16px;">
+              🔄 Пройти другой вариант (7 новых вопросов из банка 18)
+            </button>
+            <button class="btn" onclick="copyProtocol()" style="padding: 14px 20px;">
+              📋 Скопировать протокол
+            </button>
+            <a href="index.html" class="btn" style="padding: 14px 20px;">
+              К программе курса
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    function copyProtocol() {
+      let text = '=== ПРОТОКОЛ ТЕСТИРОВАНИЯ: КУРС ПО ИИ (УРОК 2) ===\n';
+      text += `Итоговый результат: ${score} из ${SESSION_COUNT * 100} баллов\n`;
+      text += `Дата: ${new Date().toLocaleString('ru-RU')}\n\n`;
+      userHistory.forEach((h, i) => {
+        text += `${i+1}. ${h.badge}: ${h.earned} б. (попыток: ${h.attempts})\n`;
+      });
+      text += '==================================================';
+      navigator.clipboard.writeText(text).then(() => alert('Протокол скопирован в буфер!'));
+    }
+
+    // Speech Synthesis
+    function stopSpeech() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      isSpeaking = false;
+      const qBtn = document.getElementById('speakQBtn');
+      if (qBtn) qBtn.innerText = '🔊 Озвучить';
+      const expBtn = document.getElementById('speakExpBtn');
+      if (expBtn) expBtn.innerText = '🔊 Озвучить разбор';
+    }
+
+    function toggleSpeakQuestion() {
+      if (isSpeaking) {
+        stopSpeech();
+        return;
+      }
+      const q = sessionQuestions[currentIdx];
+      const textToSpeak = `${q.situation}. Вопрос: ${q.question}`;
+      speakText(textToSpeak, 'speakQBtn');
+    }
+
+    function toggleSpeakExplanation() {
+      if (isSpeaking) {
+        stopSpeech();
+        return;
+      }
+      const q = sessionQuestions[currentIdx];
+      speakText(q.explanation, 'speakExpBtn');
+    }
+
+    function speakText(text, btnId) {
+      if (!('speechSynthesis' in window)) {
+        alert('Синтез речи не поддерживается браузером.');
+        return;
+      }
+      stopSpeech();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'ru-RU';
+      utter.rate = 1.0;
+      utter.onend = () => stopSpeech();
+      utter.onerror = () => stopSpeech();
+
+      isSpeaking = true;
+      const btn = document.getElementById(btnId);
+      if (btn) btn.innerText = '⏹ Остановить';
+      window.speechSynthesis.speak(utter);
+    }
+
+    // Fullscreen
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    // Reviewer Notes Storage & Handling
+    const NOTES_STORAGE_KEY = 'ai_course_notes_l2_p4';
+    let reviewerNotes = JSON.parse(localStorage.getItem(NOTES_STORAGE_KEY) || '[]');
+
+    function toggleReviewerDrawer() {
+      const d = document.getElementById('reviewerDrawer');
+      d.classList.toggle('open');
+      if (d.classList.contains('open')) {
+        markCurrentContext();
+        renderNotesList();
+        setTimeout(() => document.getElementById('noteInput').focus(), 200);
+      }
+    }
+
+    function markCurrentContext() {
+      const qNum = currentIdx + 1;
+      const sNum = currentIdx + 1;
+      const slideEl = document.getElementById('captureSlide');
+      const timeEl = document.getElementById('captureTime');
+      const quoteEl = document.getElementById('captureQuote');
+      if (slideEl) slideEl.innerText = `ВОПРОС ${qNum} ИЗ ${SESSION_COUNT}`;
+      if (timeEl) timeEl.innerText = `СИТУАЦИЯ ${sNum}`;
+      if (sessionQuestions.length > currentIdx && quoteEl) {
+        const q = sessionQuestions[currentIdx];
+        quoteEl.innerText = `«${q.situation.substring(0, 100)}...»`;
+      }
+    }
+
+    function saveNote() {
+      const input = document.getElementById('noteInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const note = {
+        id: Date.now(),
+        slide: `Вопрос ${currentIdx + 1}`,
+        time: `Ситуация ${currentIdx + 1}`,
+        quote: document.getElementById('captureQuote').innerText,
+        text: text,
+        timestamp: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
+      };
+
+      reviewerNotes.push(note);
+      localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(reviewerNotes));
+      input.value = '';
+      renderNotesList();
+      updateNotesBadge();
+    }
+
+    function deleteNote(id) {
+      reviewerNotes = reviewerNotes.filter(n => n.id !== id);
+      localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(reviewerNotes));
+      renderNotesList();
+      updateNotesBadge();
+    }
+
+    function quickTag(tag) {
+      const input = document.getElementById('noteInput');
+      input.value = `[${tag}] ${input.value}`;
+      input.focus();
+    }
+
+    function renderNotesList() {
+      const list = document.getElementById('notesList');
+      if (!list) return;
+      if (reviewerNotes.length === 0) {
+        list.innerHTML = '<div style="color:#64748b; font-size:13px; text-align:center; padding:20px 0;">Заметок пока нет. Нажмите Enter, чтобы добавить.</div>';
+        return;
+      }
+      list.innerHTML = reviewerNotes.map(n => `
+        <div class="note-item">
+          <div class="note-item-header">
+            <span>${n.slide} • ${n.time}</span>
+            <span class="note-item-delete" onclick="deleteNote(${n.id})">✕ Удалить</span>
+          </div>
+          <div class="note-item-text">${n.text}</div>
+        </div>
+      `).join('');
+    }
+
+    function updateNotesBadge() {
+      const badge = document.getElementById('notesBadge');
+      if (badge) badge.innerText = reviewerNotes.length;
+    }
+
+    function copyNotesMarkdown() {
+      if (reviewerNotes.length === 0) {
+        alert('Нет заметок для копирования');
+        return;
+      }
+      const md = reviewerNotes.map(n => `- **${n.slide} (${n.time})**: ${n.text}`).join('\n');
+      navigator.clipboard.writeText(md).then(() => alert('Заметки скопированы в буфер!'));
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.key === 'm' || e.key === 'M' || e.key === 'ь' || e.key === 'Ь') && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        toggleReviewerDrawer();
+      }
+      if ((e.key === 'f' || e.key === 'F' || e.key === 'а' || e.key === 'А') && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        toggleFullscreen();
+      }
+    });
+
+    // Initialize session on load
+    window.addEventListener('DOMContentLoaded', () => {
+      startNewSession();
+      updateNotesBadge();
+    });
+  </script>
+
+  <!-- Reviewer Slide-over Drawer -->
+  <div class="reviewer-drawer" id="reviewerDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <span>🚩</span> Панель рецензента (Замечания к квизу)
+      </div>
+      <button class="btn" style="padding: 4px 8px; font-size: 12px;" onclick="toggleReviewerDrawer()">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <div class="capture-box">
+        <div class="capture-meta">
+          <span id="captureSlide">ВОПРОС 1</span>
+          <span id="captureTime">СИТУАЦИЯ 1</span>
+        </div>
+        <div class="capture-quote" id="captureQuote">
+          Нажмите кнопку «M» или зафиксируйте замечание к текущему вопросу.
+        </div>
+        <input type="text" class="capture-input" id="noteInput" placeholder="Что исправить? (Нажмите Enter для сохранения)..." onkeydown="if(event.key === 'Enter') { event.preventDefault(); saveNote(); }">
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-primary" style="flex:1; justify-content:center; background:#0284c7; color:#fff; border:none; padding:8px 12px; border-radius:6px; font-weight:700; cursor:pointer;" onclick="saveNote()">+ Сохранить метку</button>
+          <button class="btn" style="background:#1e293b; color:#fff; border:1px solid #334155; padding:6px 10px; border-radius:6px; cursor:pointer;" onclick="quickTag('Формулировка')">Формулировка</button>
+          <button class="btn" style="background:#1e293b; color:#fff; border:1px solid #334155; padding:6px 10px; border-radius:6px; cursor:pointer;" onclick="quickTag('Озвучка')">Озвучка</button>
+          <button class="btn" style="background:#1e293b; color:#fff; border:1px solid #334155; padding:6px 10px; border-radius:6px; cursor:pointer;" onclick="quickTag('Ответ')">Ответ</button>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size: 13px; font-weight: 700; color: #94a3b8;">Список правок:</span>
+        <button class="btn" style="background:#1e293b; color:#fff; border:1px solid #334155; font-size: 11px; padding: 4px 8px; border-radius:6px; cursor:pointer;" onclick="copyNotesMarkdown()">📋 Скопировать для чата</button>
+      </div>
+
+      <div class="notes-list" id="notesList">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

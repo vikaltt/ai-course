@@ -3,8 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="alternate icon" href="favicon.ico">
   <title>Урок 1: Введение в искусственный интеллект (Лекция 1.1)</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap');
@@ -633,28 +631,6 @@
     }
 
   
-    /* Student Edition Overrides */
-    .slide-counter {
-      display: inline-block !important;
-      color: #94a3b8 !important;
-      font-size: 16px !important;
-      font-weight: 700 !important;
-      background: rgba(255, 255, 255, 0.06);
-      padding: 6px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      letter-spacing: 1px;
-    }
-    .reviewer-drawer {
-      display: none !important;
-    }
-    .prompter-box {
-      display: none !important;
-    }
-    .btn-review {
-      display: none !important;
-    }
-  
     /* =========================================================================
        MOBILE & TABLET RESPONSIVE ADAPTATIONS (Down to 320px & Mobile Landscape)
        ========================================================================= */
@@ -683,9 +659,9 @@
         gap: 6px !important;
       }
       .playback-row {
-        flex-direction: column !important;
+        flex-wrap: wrap !important;
         gap: 6px !important;
-        align-items: stretch !important;
+        justify-content: space-between !important;
       }
       .playback-controls-subrow {
         display: flex !important;
@@ -727,6 +703,10 @@
       .speed-btn-group {
         scale: 0.9;
         transform-origin: right center;
+      }
+      .step-indicator {
+        font-size: 12px !important;
+        min-width: 80px !important;
       }
     }
 
@@ -777,17 +757,24 @@
 
   <!-- Top Header -->
   <header>
-    <div style="display: flex; align-items: center; gap: 16px;">
-      <a href="index.html" class="btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; background: rgba(255,255,255,0.08);">
-        ← К программе
-      </a>
-      <div class="header-title-text" style="font-weight: 800; font-size: 18px; color: #38bdf8; display: flex; align-items: center; gap: 10px;">
-        <img src="favicon.svg" width="22" height="22" style="border-radius: 4px; box-shadow: 0 0 8px rgba(56,189,248,0.4);" alt="ИИ"> Лекция 1: Знакомимся с искусственным интеллектом
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <div class="header-title-text" style="font-weight: 800; font-size: 17px; color: #38bdf8; display: flex; align-items: center; gap: 8px;">
+        <span>🎬</span> Лекция 1: Знакомимся с искусственным интеллектом
+      </div>
+      <div class="nav-tabs">
+        <button class="slide-tab active" onclick="switchSlide(1)">Слайд 1</button>
+        <button class="slide-tab" onclick="switchSlide(2)">Слайд 2</button>
+        <button class="slide-tab" onclick="switchSlide(3)">Слайд 3</button>
+        <button class="slide-tab" onclick="switchSlide(4)">Слайд 4</button>
+        <button class="slide-tab" onclick="switchSlide(5)">Слайд 5</button>
       </div>
     </div>
     <div class="header-actions">
       <button class="btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="Полноэкранный режим (Горячая клавиша: F)">
         ⛶ Во весь экран
+      </button>
+      <button class="btn btn-review" onclick="toggleReviewerDrawer()">
+        🚩 Панель рецензента <span id="notesBadge" style="background: rgba(244,63,94,0.3); padding: 2px 7px; border-radius: 10px; font-size: 11px;">0</span>
       </button>
     </div>
   </header>
@@ -809,42 +796,77 @@
       <!-- Playback and Stepper Controls Bar -->
       <div class="controls-bar">
         <div class="playback-row">
-          <div class="playback-controls-subrow">
-            <div class="left-controls" style="display: flex; align-items: center; gap: 12px;">
-              <button class="btn" onclick="seekDelta(-5)" title="Перемотка назад на 5 секунд">⏪ -5с</button>
-              <button class="btn btn-primary" id="playBtn" onclick="toggleAudio()" style="min-width: 150px; font-weight: 800; font-size: 15px;" title="Воспроизведение / Пауза (Пробел)">▶ Воспроизвести</button>
-              <button class="btn" onclick="seekDelta(5)" title="Перемотка вперёд на 5 секунд">+5с ⏩</button>
-            </div>
+          <div class="left-controls">
+            <button class="btn" onclick="prevStep()" title="Предыдущий шаг (Стрелка влево / PageUp)">◀ Шаг</button>
+            <button class="btn" onclick="seekDelta(-5)" title="Перемотка назад на 5 секунд">⏪ -5с</button>
+            <button class="btn btn-primary" id="playBtn" onclick="toggleAudio()" title="Воспроизведение / Пауза (Пробел)">▶ Воспроизвести</button>
+            <button class="btn" onclick="seekDelta(5)" title="Перемотка вперёд на 5 секунд">+5с ⏩</button>
+            <button class="btn" onclick="nextStep()" title="Следующий шаг (Стрелка вправо / PageDown)">Шаг ▶</button>
+            <button class="btn btn-review" onclick="markCurrentTimestamp()" title="Зафиксировать текущую секунду для правки (M)">
+              ⏱ Отметить секунду (M)
+            </button>
+            <span class="step-indicator" id="stepIndicator">Шаг 0 из 4</span>
+          </div>
+
+          <div class="right-controls">
+            <button class="btn" id="subtitlesBtn" onclick="toggleSubtitles()" title="Показать/скрыть субтитры (CC)">
+              💬 CC
+            </button>
             <div class="speed-btn-group">
               <button class="speed-btn active" onclick="setPlaybackSpeed(1.0, this)">1x</button>
               <button class="speed-btn" onclick="setPlaybackSpeed(1.25, this)">1.25x</button>
               <button class="speed-btn" onclick="setPlaybackSpeed(1.5, this)">1.5x</button>
+              <button class="speed-btn" onclick="setPlaybackSpeed(2.0, this)">2x</button>
             </div>
+            <input type="range" id="audioSeek" min="0" max="100" value="0" style="width: 240px; accent-color: #38bdf8;" oninput="seekAudio(this.value)" onchange="seekAudio(this.value)">
+            <span id="audioTimer" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #94a3b8; min-width: 90px;">00:00 / 00:00</span>
           </div>
-          <div class="timeline-subrow">
-            <input type="range" id="audioSeek" min="0" max="100" value="0" style="flex: 1; width: 100%; accent-color: #38bdf8;" oninput="seekAudio(this.value)" onchange="seekAudio(this.value)">
-            <span id="audioTimer" style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #cbd5e1; min-width: 90px; text-align: right; font-weight: 600;">00:00 / 00:00</span>
-          </div>
+        </div>
+
+        <!-- Prompter line showing spoken words (Single line with ellipsis) -->
+        <div class="prompter-box">
+          <span class="prompter-label">СУФЛЁР РЕЧИ</span>
+          <span class="prompter-text" id="prompterText">Загрузка текста...</span>
+          <span class="prompter-time" id="prompterTime">0:00 - 0:00</span>
         </div>
       </div>
     </div>
-    
-    <!-- End of Lesson Modal Overlay -->
-    <div id="lessonEndOverlay" style="display: none; position: fixed; inset: 0; background: rgba(3, 7, 18, 0.9); backdrop-filter: blur(16px); z-index: 500; align-items: center; justify-content: center;">
-      <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.98)); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 24px; padding: 44px; max-width: 600px; text-align: center; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);">
-        <div style="font-size: 56px; margin-bottom: 16px;">🎉</div>
-        <div style="font-size: 28px; font-weight: 900; color: #fff; margin-bottom: 12px;">Урок успешно пройден!</div>
-        <div style="font-size: 17px; color: #94a3b8; line-height: 1.5; margin-bottom: 28px;">
-          Вы полностью освоили материал части: <strong style="color: #f1f5f9;">«Лекция 1: Знакомимся с искусственным интеллектом»</strong>.<br>Ваш прогресс сохранён в учебном профиле.
+
+    <!-- Reviewer / Notes Slide-over Drawer -->
+    <div class="reviewer-drawer" id="reviewerDrawer">
+      <div class="drawer-header">
+        <div class="drawer-title">
+          <span>🚩</span> Панель рецензента (Ударения и оговорки)
         </div>
-        <div style="display: flex; flex-direction: column; gap: 14px;">
-          <a href="lesson_1_2.html" class="btn btn-primary" style="text-decoration: none; padding: 14px 24px; font-size: 16px; font-weight: 800; text-align: center;">
-            Перейти к следующему уроку: Часть 1.2: Два пути ИИ →
-          </a>
-          <div style="display: flex; gap: 12px; justify-content: center; margin-top: 6px;">
-            <button class="btn" onclick="restartLesson()" style="padding: 10px 18px; font-size: 14px; font-weight: 600;">⟲ Смотреть снова</button>
-            <a href="index.html" class="btn" style="text-decoration: none; padding: 10px 18px; font-size: 14px; font-weight: 600;">К программе курса</a>
+        <button class="btn" style="padding: 4px 8px; font-size: 12px;" onclick="toggleReviewerDrawer()">✕</button>
+      </div>
+
+      <div class="drawer-body">
+        <div class="capture-box">
+          <div class="capture-meta">
+            <span id="captureSlide">СЛАЙД 1</span>
+            <span id="captureTime">ТАЙМКОД: 00:00</span>
           </div>
+          <div class="capture-quote" id="captureQuote">
+            Нажмите кнопку «Отметить секунду» во время воспроизведения, чтобы зафиксировать фразу.
+          </div>
+          <input type="text" class="capture-input" id="noteInput" placeholder="Что исправить? (Нажмите Enter для сохранения)..." onkeydown="if(event.key === 'Enter') { event.preventDefault(); saveNote(); }">
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-primary" style="flex:1; justify-content:center;" onclick="saveNote()">+ Сохранить метку</button>
+            <button class="btn" onclick="quickTag('Ударение')">Ударение</button>
+            <button class="btn" onclick="quickTag('Оговорка')">Оговорка</button>
+            <button class="btn" onclick="quickTag('Тайминг')">Тайминг</button>
+            <button class="btn" onclick="quickTag('Текст')">Текст</button>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size: 13px; font-weight: 700; color: #94a3b8;">Список правок:</span>
+          <button class="btn" style="font-size: 11px; padding: 4px 8px;" onclick="copyNotesMarkdown()">📋 Скопировать для чата</button>
+        </div>
+
+        <div class="notes-list" id="notesList">
+          <!-- Populated dynamically -->
         </div>
       </div>
     </div>
@@ -1567,8 +1589,10 @@
       }
     };
 
+    const STORAGE_KEY = 'ai_course_notes_l1_p1';
+
     // =========================================================================
-    // 2D RESPONSIVE CANVAS FITTING (Prevents any vertical or horizontal clipping)
+    // 2D RESPONSIVE CANVAS FITTING & CINEMA MODE
     // =========================================================================
     function isFullscreenActive() {
       return !!(document.fullscreenElement || document.webkitFullscreenElement || document.body.classList.contains('is-fullscreen'));
@@ -1583,7 +1607,7 @@
 
       const audio = getAudioElement();
       const active = isPlaying || (audio && !audio.paused);
-      // При воспроизведении: скрываем через 1.5с. При паузе в полноэкранном режиме: скрываем через 3.0с, чтобы не закрывать слайд
+      // При воспроизведении: скрываем через 1.5с. При паузе: скрываем через 3.0с
       const timeoutMs = active ? 1500 : 3000;
       cinemaIdleTimer = setTimeout(() => {
         if (isFullscreenActive()) {
@@ -1596,10 +1620,6 @@
     window.addEventListener('mousedown', resetCinemaIdleTimer);
     window.addEventListener('touchstart', resetCinemaIdleTimer, { passive: true });
     window.addEventListener('touchend', resetCinemaIdleTimer, { passive: true });
-    window.addEventListener('touchstart', resetCinemaIdleTimer, { passive: true });
-    window.addEventListener('touchend', resetCinemaIdleTimer, { passive: true });
-
-
 
     function fitSlide() {
       const container = document.querySelector('.canvas-container');
@@ -1658,24 +1678,30 @@
     });
 
     // =========================================================================
-    // UI LOGIC & CONTROLS
+    // UI LOGIC & CONTROLS (Single Source of Truth)
     // =========================================================================
     function renderCurrentState() {
       const data = slidesData[currentSlide];
       const root = document.getElementById('slide-root');
+      if (!data || !root) return;
       root.innerHTML = data.render(currentStep);
 
       // Update Step Indicator
       const maxSteps = data.steps.length - 1;
-      const _si = document.getElementById('stepIndicator'); if (_si) _si.innerText = `Шаг ${currentStep} из ${maxSteps}`;
+      const stepInd = document.getElementById('stepIndicator');
+      if (stepInd) stepInd.innerText = `Шаг ${currentStep} из ${maxSteps}`;
 
-      // Update Prompter (clean single line)
+      // Update Prompter
       const currentStepData = data.steps[currentStep];
-      const cleanPrompter = (currentStepData.prompter || '').replace(/\s+/g, ' ').trim();
-      const _pt = document.getElementById('prompterText'); if (_pt) _pt.innerText = cleanPrompter;
-      const _pm = document.getElementById('prompterTime'); if (_pm) _pm.innerText = currentStepData.time || '';
-      const cinemaSub = document.getElementById('cinemaSubtitle');
-      if (cinemaSub) cinemaSub.innerText = cleanPrompter;
+      if (currentStepData) {
+        const cleanPrompter = (currentStepData.prompter || '').replace(/\s+/g, ' ').trim();
+        const pText = document.getElementById('prompterText');
+        const pTime = document.getElementById('prompterTime');
+        const cSub = document.getElementById('cinemaSubtitle');
+        if (pText) pText.innerText = cleanPrompter;
+        if (pTime) pTime.innerText = currentStepData.time || '';
+        if (cSub) cSub.innerText = cleanPrompter;
+      }
 
       // Update Active Slide Tab
       document.querySelectorAll('.slide-tab').forEach((tab, index) => {
@@ -1702,18 +1728,19 @@
         if (audio) {
           audio.playbackRate = playbackSpeed;
           isPlaying = true;
-          document.getElementById('playBtn').innerText = '⏸ Пауза';
+          const playBtn = document.getElementById('playBtn');
+          if (playBtn) playBtn.innerText = '⏸ Пауза';
           const p = audio.play();
           if (p !== undefined) {
             p.then(() => {
               isPlaying = true;
-              document.getElementById('playBtn').innerText = '⏸ Пауза';
+              if (playBtn) playBtn.innerText = '⏸ Пауза';
               if (wasCinemaIdle) {
                 document.body.classList.add('cinema-idle');
               }
             }).catch(err => {
               isPlaying = false;
-              document.getElementById('playBtn').innerText = '▶ Воспроизвести';
+              if (playBtn) playBtn.innerText = '▶ Воспроизвести';
               console.warn('Auto-play blocked:', err);
             });
           }
@@ -1745,19 +1772,20 @@
       if (audio) {
         audio.currentTime = steps[stepIdx].audioTime;
         if (audio.duration) {
-          document.getElementById('audioSeek').value = (audio.currentTime / audio.duration) * 100;
-          document.getElementById('audioTimer').innerText = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+          const aSeek = document.getElementById('audioSeek');
+          const aTimer = document.getElementById('audioTimer');
+          if (aSeek) aSeek.value = (audio.currentTime / audio.duration) * 100;
+          if (aTimer) aTimer.innerText = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
         }
       }
     }
 
     function nextStep() {
-      const maxSteps = slidesData[currentSlide].steps.length - 1;
-      if (currentStep < maxSteps) {
+      const steps = slidesData[currentSlide].steps;
+      if (currentStep < steps.length - 1) {
         goToStep(currentStep + 1);
       } else if (currentSlide < 5) {
-        switchSlide(currentSlide + 1, isPlaying);
-        goToStep(0);
+        switchSlide(currentSlide + 1);
       }
     }
 
@@ -1765,13 +1793,14 @@
       if (currentStep > 0) {
         goToStep(currentStep - 1);
       } else if (currentSlide > 1) {
-        switchSlide(currentSlide - 1, isPlaying);
-        goToStep(slidesData[currentSlide].steps.length - 1);
+        switchSlide(currentSlide - 1);
+        const prevSteps = slidesData[currentSlide].steps;
+        goToStep(prevSteps.length - 1);
       }
     }
 
     // =========================================================================
-    // AUDIO PLAYBACK & SYNC
+    // AUDIO ENGINE
     // =========================================================================
     function getAudioElement() {
       return document.getElementById(`audio${currentSlide}`);
@@ -1779,52 +1808,40 @@
 
     function setupAudioForCurrentSlide() {
       const audio = getAudioElement();
-      const playBtn = document.getElementById('playBtn');
-      playBtn.innerText = '▶ Воспроизвести';
-      isPlaying = false;
-      if (!audio) return;
+      const seek = document.getElementById('audioSeek');
+      const timer = document.getElementById('audioTimer');
+
+      if (!audio) {
+        if (timer) timer.innerText = '00:00 / 00:00';
+        if (seek) seek.value = 0;
+        return;
+      }
 
       audio.playbackRate = playbackSpeed;
+
       audio.ontimeupdate = () => {
-        if (!audio.duration) return;
-        const cur = audio.currentTime;
-        const dur = audio.duration;
-        document.getElementById('audioSeek').value = (cur / dur) * 100;
-        document.getElementById('audioTimer').innerText = `${formatTime(cur)} / ${formatTime(dur)}`;
-
-        // Sync steps with audio
-        if (isPlaying) {
-          const steps = slidesData[currentSlide].steps;
-          for (let i = steps.length - 1; i >= 0; i--) {
-            if (cur >= steps[i].audioTime) {
-              if (currentStep !== i) {
-                currentStep = i;
-                renderCurrentState();
-              }
-              break;
-            }
-          }
+        if (audio.duration) {
+          if (seek) seek.value = (audio.currentTime / audio.duration) * 100;
+          if (timer) timer.innerText = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+          syncStepWithTime(audio.currentTime);
         }
+      };
 
-        // Dynamic quote update for reviewer capture
-        updateLiveTranscript(cur);
+      audio.onloadedmetadata = () => {
+        if (timer) timer.innerText = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
       };
 
       audio.onended = () => {
         if (currentSlide < 5) {
-          const wasCinemaIdle = document.body.classList.contains('cinema-idle');
-          setTimeout(() => {
-            switchSlide(currentSlide + 1, true);
-            if (wasCinemaIdle) {
-              document.body.classList.add('cinema-idle');
-            }
-          }, 400);
+          switchSlide(currentSlide + 1, true);
         } else {
-          playBtn.innerText = '▶ Воспроизвести';
           isPlaying = false;
-          if (isFullscreenActive()) {
-            document.body.classList.remove('cinema-idle');
-          }
+          const playBtn = document.getElementById('playBtn');
+          if (playBtn) playBtn.innerText = '▶ Воспроизвести';
+          document.body.classList.remove('cinema-idle');
+          clearTimeout(cinemaIdleTimer);
+          const overlay = document.getElementById('lessonEndOverlay');
+          if (overlay) overlay.style.display = 'flex';
         }
       };
     }
@@ -1832,33 +1849,34 @@
     function toggleAudio() {
       const audio = getAudioElement();
       if (!audio) return;
+      const playBtn = document.getElementById('playBtn');
 
       if (!audio.paused) {
-        // Audio is PLAYING → pause it
         audio.pause();
         isPlaying = false;
-        document.getElementById('playBtn').innerText = '▶ Воспроизвести';
+        if (playBtn) playBtn.innerText = '▶ Воспроизвести';
         if (isFullscreenActive()) {
-          document.body.classList.remove('cinema-idle');
-          clearTimeout(cinemaIdleTimer);
+          resetCinemaIdleTimer();
         }
       } else {
-        // Audio is PAUSED → play it
         for (let i = 1; i <= 5; i++) {
           const a = document.getElementById(`audio${i}`);
           if (a && a !== audio) { a.pause(); }
         }
         audio.playbackRate = playbackSpeed;
         isPlaying = true;
-        document.getElementById('playBtn').innerText = '⏸ Пауза';
-        audio.play().then(() => {
-          isPlaying = true;
-          document.getElementById('playBtn').innerText = '⏸ Пауза';
-        }).catch(err => {
-          isPlaying = false;
-          document.getElementById('playBtn').innerText = '▶ Воспроизвести';
-          console.warn('Audio play blocked:', err);
-        });
+        if (playBtn) playBtn.innerText = '⏸ Пауза';
+        const p = audio.play();
+        if (p !== undefined) {
+          p.then(() => {
+            isPlaying = true;
+            if (playBtn) playBtn.innerText = '⏸ Пауза';
+          }).catch(err => {
+            isPlaying = false;
+            if (playBtn) playBtn.innerText = '▶ Воспроизвести';
+            console.warn('Audio play blocked:', err);
+          });
+        }
       }
     }
 
@@ -1871,7 +1889,8 @@
         }
       }
       isPlaying = false;
-      document.getElementById('playBtn').innerText = '▶ Воспроизвести';
+      const playBtn = document.getElementById('playBtn');
+      if (playBtn) playBtn.innerText = '▶ Воспроизвести';
     }
 
     function seekDelta(deltaSec) {
@@ -1882,8 +1901,10 @@
       if (target > audio.duration) target = audio.duration;
       audio.currentTime = target;
       syncStepWithTime(target);
-      document.getElementById('audioSeek').value = (target / audio.duration) * 100;
-      document.getElementById('audioTimer').innerText = `${formatTime(target)} / ${formatTime(audio.duration)}`;
+      const aSeek = document.getElementById('audioSeek');
+      const aTimer = document.getElementById('audioTimer');
+      if (aSeek) aSeek.value = (target / audio.duration) * 100;
+      if (aTimer) aTimer.innerText = `${formatTime(target)} / ${formatTime(audio.duration)}`;
       resetCinemaIdleTimer();
     }
 
@@ -1893,7 +1914,8 @@
         const target = (percent / 100) * audio.duration;
         audio.currentTime = target;
         syncStepWithTime(target);
-        document.getElementById('audioTimer').innerText = `${formatTime(target)} / ${formatTime(audio.duration)}`;
+        const aTimer = document.getElementById('audioTimer');
+        if (aTimer) aTimer.innerText = `${formatTime(target)} / ${formatTime(audio.duration)}`;
         resetCinemaIdleTimer();
       }
     }
@@ -1975,21 +1997,150 @@
     // =========================================================================
     function updateLiveTranscript(currentTime) {
       const data = slidesData[currentSlide];
+      if (!data) return;
       const curStepData = data.steps[currentStep];
       if (curStepData && curStepData.prompter) {
-        const _cq = document.getElementById('captureQuote'); if (_cq) _cq.innerText = `"${curStepData.prompter}"`;
+        const _cq = document.getElementById('captureQuote');
+        if (_cq) _cq.innerText = `"${curStepData.prompter}"`;
       }
     }
 
-    function toggleReviewerDrawer() {}
-    function markCurrentTimestamp() {}
-    function showToast(msg) {}
-    function renderNotesList() {}
-    function saveNote() {}
-    function deleteNote() {}
-    function clearAllNotes() {}
-    function exportNotes() {}
-    function updateLiveTranscript(currentTime) {}
+    function toggleReviewerDrawer() {
+      const drawer = document.getElementById('reviewerDrawer');
+      if (!drawer) return;
+      const isOpen = drawer.classList.contains('open');
+      if (!isOpen) {
+        drawer.classList.add('open');
+        markCurrentTimestamp();
+        renderNotesList();
+      } else {
+        drawer.classList.remove('open');
+      }
+    }
+
+    function markCurrentTimestamp() {
+      const audio = getAudioElement();
+      const curSec = audio ? audio.currentTime : 0;
+      const timeStr = formatTime(curSec);
+
+      const capTime = document.getElementById('captureTime');
+      const capSlide = document.getElementById('captureSlide');
+      if (capTime) capTime.innerText = `ТАЙМКОД: ${timeStr} (${Math.round(curSec)}с)`;
+      if (capSlide) capSlide.innerText = `СЛАЙД ${currentSlide}`;
+
+      const drawer = document.getElementById('reviewerDrawer');
+      if (drawer && !drawer.classList.contains('open')) {
+        drawer.classList.add('open');
+      }
+
+      updateLiveTranscript(curSec);
+
+      const input = document.getElementById('noteInput');
+      if (input) {
+        input.focus();
+        input.value = '';
+      }
+    }
+
+    function quickTag(tag) {
+      const input = document.getElementById('noteInput');
+      if (input) {
+        input.value = `[${tag}] ` + input.value;
+        input.focus();
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastMsg');
+      if (!toast) return;
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2000);
+    }
+
+    function renderNotesList() {
+      const list = document.getElementById('notesList');
+      const count = document.getElementById('notesCount');
+      const badge = document.getElementById('notesBadge');
+      if (!list) return;
+
+      list.innerHTML = '';
+      if (count) count.innerText = savedNotes.length;
+      if (badge) badge.innerText = savedNotes.length;
+
+      if (savedNotes.length === 0) {
+        list.innerHTML = '<div style="color: #64748b; font-size: 13px; text-align: center; padding: 20px 0;">Заметок пока нет. Нажмите ⏱ на нужной секунде.</div>';
+        return;
+      }
+
+      savedNotes.forEach((n, idx) => {
+        const item = document.createElement('div');
+        item.className = 'note-item';
+        item.innerHTML = `
+          <div class="note-top">
+            <span><strong>Слайд ${n.slide}</strong> • ${n.time}</span>
+            <button class="btn" style="padding: 2px 6px; font-size: 11px; background: rgba(244,63,94,0.2); border-color: #f43f5e;" onclick="deleteNote(${idx})">✕</button>
+          </div>
+          <div class="note-quote">"${n.quote}"</div>
+          <div class="note-text">${n.text}</div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function saveNote() {
+      const input = document.getElementById('noteInput');
+      const text = input ? input.value.trim() : '';
+      if (!text) return;
+
+      const audio = getAudioElement();
+      const curSec = audio ? audio.currentTime : 0;
+      const data = slidesData[currentSlide];
+      const curStepData = data ? data.steps[currentStep] : null;
+
+      const note = {
+        slide: currentSlide,
+        time: formatTime(curSec),
+        sec: Math.round(curSec),
+        quote: curStepData ? (curStepData.prompter || '').slice(0, 100) + '...' : '',
+        text: text,
+        timestamp: Date.now()
+      };
+
+      savedNotes.unshift(note);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
+      renderNotesList();
+      if (input) input.value = '';
+      showToast('Метка сохранена!');
+    }
+
+    function deleteNote(idx) {
+      savedNotes.splice(idx, 1);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
+      renderNotesList();
+    }
+
+    function clearAllNotes() {
+      if (confirm('Удалить все сохранённые замечания рецензента?')) {
+        savedNotes = [];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
+        renderNotesList();
+      }
+    }
+
+    function exportNotes() {
+      if (savedNotes.length === 0) {
+        showToast('Список заметок пуст');
+        return;
+      }
+      let md = `# Замечания рецензента (${STORAGE_KEY})\n\n`;
+      savedNotes.forEach(n => {
+        md += `- **Слайд ${n.slide} (${n.time}):** ${n.text}\n  *Цитата:* "${n.quote}"\n\n`;
+      });
+      navigator.clipboard.writeText(md).then(() => {
+        showToast('Отчёт скопирован в буфер в формате Markdown!');
+      });
+    }
 
     // =========================================================================
     // KEYBOARD SHORTCUTS
@@ -2003,42 +2154,42 @@
         toggleAudio();
         resetCinemaIdleTimer();
       }
-      
+      if (e.code === 'KeyM') {
+        e.preventDefault();
+        const audio = getAudioElement();
+        if (audio && !audio.paused) audio.pause();
+        isPlaying = false;
+        const playBtn = document.getElementById('playBtn');
+        if (playBtn) playBtn.innerText = '▶ Воспроизвести';
+        markCurrentTimestamp();
+      }
       if (e.code === 'KeyF') { e.preventDefault(); toggleFullscreen(); }
       if (e.key >= '1' && e.key <= '5') switchSlide(parseInt(e.key));
     });
 
     // =========================================================================
-    // CANVAS / VIEWPORT CLICK TO TOGGLE AUDIO
+    // CANVAS CLICK TO TOGGLE AUDIO & CINEMA CONTROLS
     // =========================================================================
-    const container = document.querySelector('.canvas-container') || document.getElementById('viewport');
+                const container = document.querySelector('.canvas-container') || document.getElementById('viewport');
     if (container) {
       container.addEventListener('click', (e) => {
         if (e.target.closest('button, input, textarea, a, select, .controls-bar, #lessonEndOverlay, .reviewer-drawer, #reviewerDrawer, .nav-tabs')) return;
-        if (isFullscreenActive()) {
-          // В полноэкранном режиме клик/тап по слайду скрывает/показывает панели управления
-          if (document.body.classList.contains('cinema-idle')) {
-            resetCinemaIdleTimer();
-          } else {
-            document.body.classList.add('cinema-idle');
-            clearTimeout(cinemaIdleTimer);
-          }
-        } else {
-          toggleAudio();
-        }
+        toggleAudio();
       });
     }
 
-        function restartLesson() {
+    function restartLesson() {
       const overlay = document.getElementById('lessonEndOverlay');
       if (overlay) overlay.style.display = 'none';
       switchSlide(1, true);
     }
-    
-    // Initialize
+
+    // =========================================================================
+    // INITIALIZATION ON LOAD
+    // =========================================================================
     renderCurrentState();
     setupAudioForCurrentSlide();
-    // renderNotesList();
+    renderNotesList();
     setTimeout(fitSlide, 50);
   </script>
 </body>
