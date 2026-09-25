@@ -554,16 +554,89 @@
       </div>
     </div>
 
-    <!-- MODULE 3 (Locked) -->
-    <div class="module-card locked">
+        <!-- MODULE 3 (Active) -->
+    <div class="module-card" id="module3_card">
       <div class="module-header">
         <div>
           <div class="module-num">Модуль 3 • Занятие 3</div>
           <div class="module-title">Как всё устроено: «Мозг, Руки и Навыки» (Архитектура и MCP)</div>
           <div class="module-desc">
-            Разница между чистым чатом и агентным ИИ. Модель («Мозг»), инструкции («Навыки») и плагины/MCP («Руки»).
+            Разница между пассивным чат-ботом и автономным агентом. Семантическое ядро («Мозг»), агентская среда (Харнесс), инструменты («Руки») и открытый протокол MCP как универсальный USB-C для нейросетей.
           </div>
         </div>
+        <span class="module-badge badge-active">В процессе изучения</span>
+      </div>
+
+      <div class="lessons-grid">
+        <!-- Lesson 3.1 -->
+        <div class="lesson-item" id="card_l3_p1">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~9 минут</span>
+              <span class="lesson-status-badge status-ready" id="badge_l3_p1">Доступно</span>
+            </div>
+            <div class="lesson-title">Часть 3.1: От чат-бота к агенту: «Мозг, Руки и Навыки»</div>
+            <div class="lesson-desc">
+              Почему чат-боты упёрлись в барьер ручного труда. Архитектура агентного ИИ: семантическое ядро, системные роли, граница между моделью и средой.
+            </div>
+          </div>
+          <a href="lesson_3_1.html" class="btn-lesson btn-play" id="btn_l3_p1">
+            ▶ Смотреть урок
+          </a>
+        </div>
+
+        <!-- Lesson 3.2 -->
+        <div class="lesson-item" id="card_l3_p2">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-ready" id="badge_l3_p2">Доступно</span>
+            </div>
+            <div class="lesson-title">Часть 3.2: Харнесс, инструменты и цикл ReAct</div>
+            <div class="lesson-desc">
+              Цикл ReAct (Рассуждение ➔ Действие ➔ Наблюдение), автономная самокоррекция ошибок в коде, профессиональные среды (Claude Code, Cursor, Antigravity, Windsurf, OpenHands).
+            </div>
+          </div>
+          <a href="lesson_3_2.html" class="btn-lesson btn-play" id="btn_l3_p2">
+            ▶ Смотреть урок
+          </a>
+        </div>
+
+        <!-- Lesson 3.3 -->
+        <div class="lesson-item" id="card_l3_p3">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~6 минут</span>
+              <span class="lesson-status-badge status-ready" id="badge_l3_p3">Доступно</span>
+            </div>
+            <div class="lesson-title">Часть 3.3: Протокол MCP: универсальный USB-разъём для ИИ</div>
+            <div class="lesson-desc">
+              Проблема интеграций M×N, архитектура MCP (Хост, Клиент, Сервер), транспорты stdio и SSE/HTTP, примитивы (Ресурсы, Промпты, Инструменты), настройка JSON и безопасность.
+            </div>
+          </div>
+          <a href="lesson_3_3.html" class="btn-lesson btn-play" id="btn_l3_p3">
+            ▶ Смотреть урок
+          </a>
+        </div>
+
+        <!-- Lesson 3.4 (Practicum) -->
+        <div class="lesson-item quiz-card" id="card_l3_p4">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration" style="color: #38bdf8;">🎯 Практикум • 7 вопросов</span>
+              <span class="lesson-status-badge status-ready" id="badge_l3_p4">Доступно</span>
+            </div>
+            <div class="lesson-title" style="color: #6ee7b7;">Часть 3.4: Интерактивный практикум: Агентные системы и MCP</div>
+            <div class="lesson-desc" style="color: #a7f3d0;">
+              Комплексный тренажёр-практикум по архитектуре агентов и протоколу MCP. Случайная выборка 7 вопросов из базы 18, 3 попытки с подсказками и методический разбор.
+            </div>
+          </div>
+          <a href="lesson_3_4.html" class="btn-lesson btn-play" id="btn_l3_p4" style="background: linear-gradient(135deg, #0284c7, #10b981);">
+            🎯 Начать практикум
+          </a>
+        </div>
+      </div>
+    </div>
         <span class="module-badge badge-locked">🔒 Заблокировано</span>
       </div>
     </div>
@@ -603,185 +676,79 @@
 
   <script>
     function updateLMSState() {
-      const p1Completed = localStorage.getItem('ai_course_l1_p1_completed') === 'true';
-      const p2Completed = localStorage.getItem('ai_course_l1_p2_completed') === 'true';
-      const p3Completed = localStorage.getItem('ai_course_l1_p3_completed') === 'true';
-      const p4Completed = localStorage.getItem('ai_course_l1_p4_completed') === 'true';
-      const p5Completed = localStorage.getItem('ai_course_l2_p1_completed') === 'true';
-      const p6Completed = localStorage.getItem('ai_course_l2_p2_completed') === 'true';
-      const p7Completed = localStorage.getItem('ai_course_l2_p3_completed') === 'true';
-      const p8Completed = localStorage.getItem('ai_course_l2_p4_completed') === 'true';
-
-      let totalCompleted = 0;
-      if (p1Completed) totalCompleted++;
-      if (p2Completed) totalCompleted++;
-      if (p3Completed) totalCompleted++;
-      if (p4Completed) totalCompleted++;
-      if (p5Completed) totalCompleted++;
-      if (p6Completed) totalCompleted++;
-      if (p7Completed) totalCompleted++;
-      if (p8Completed) totalCompleted++;
-
-      // Update Lesson 1.1
-      const badge1 = document.getElementById('badge_l1_p1');
-      const btn1 = document.getElementById('btn_l1_p1');
-      if (p1Completed) {
-        badge1.className = 'lesson-status-badge status-completed';
-        badge1.innerText = '✓ Пройдено';
-        btn1.className = 'btn-lesson btn-completed';
-        btn1.innerText = '✓ Пройдено (Смотреть снова)';
-      } else {
-        badge1.className = 'lesson-status-badge status-ready';
-        badge1.innerText = 'Доступно';
-        btn1.className = 'btn-lesson btn-play';
-        btn1.innerText = '▶ Смотреть урок';
-      }
-
-      // Update Lesson 1.2
-      const badge2 = document.getElementById('badge_l1_p2');
-      const btn2 = document.getElementById('btn_l1_p2');
-      if (p2Completed) {
-        badge2.className = 'lesson-status-badge status-completed';
-        badge2.innerText = '✓ Пройдено';
-        btn2.className = 'btn-lesson btn-completed';
-        btn2.innerText = '✓ Пройдено (Смотреть снова)';
-      } else {
-        badge2.className = 'lesson-status-badge status-ready';
-        badge2.innerText = 'Доступно';
-        btn2.className = 'btn-lesson btn-play';
-        btn2.innerText = '▶ Смотреть урок';
-      }
-
-      // Update Lesson 1.3
-      const badge3 = document.getElementById('badge_l1_p3');
-      const btn3 = document.getElementById('btn_l1_p3');
-      if (p3Completed) {
-        badge3.className = 'lesson-status-badge status-completed';
-        badge3.innerText = '✓ Пройдено';
-        btn3.className = 'btn-lesson btn-completed';
-        btn3.innerText = '✓ Пройдено (Смотреть снова)';
-      } else {
-        badge3.className = 'lesson-status-badge status-ready';
-        badge3.innerText = 'Доступно';
-        btn3.className = 'btn-lesson btn-play';
-        btn3.innerText = '▶ Смотреть урок';
-      }
-
-      // Update Lesson 1.4 (Quiz & Practicum)
-      const badge4 = document.getElementById('badge_l1_p4');
-      const btn4 = document.getElementById('btn_l1_p4');
-      if (p4Completed) {
-        badge4.className = 'lesson-status-badge status-completed';
-        badge4.innerText = '✓ Пройдено';
-        btn4.className = 'btn-lesson btn-completed';
-        btn4.innerText = '✓ Пройдено (Пройти снова)';
-      } else {
-        badge4.className = 'lesson-status-badge status-ready';
-        badge4.innerText = 'Доступно';
-        btn4.className = 'btn-lesson btn-play';
-        btn4.style.background = 'linear-gradient(135deg, #0284c7, #10b981)';
-        btn4.innerText = '🎯 Начать практикум';
-      }
-
-      // Update Lesson 2.1
-      const badge5 = document.getElementById('badge_l2_p1');
-      const btn5 = document.getElementById('btn_l2_p1');
-      if (badge5 && btn5) {
-        if (p5Completed) {
-          badge5.className = 'lesson-status-badge status-completed';
-          badge5.innerText = '✓ Пройдено';
-          btn5.className = 'btn-lesson btn-completed';
-          btn5.innerText = '✓ Пройдено (Смотреть снова)';
-        } else {
-          badge5.className = 'lesson-status-badge status-ready';
-          badge5.innerText = 'Доступно';
-          btn5.className = 'btn-lesson btn-play';
-          btn5.innerText = '▶ Смотреть урок';
+      const p = [];
+      for (let l = 1; l <= 3; l++) {
+        for (let pt = 1; pt <= 4; pt++) {
+          p.push(localStorage.getItem(`ai_course_l${l}_p${pt}_completed`) === 'true');
         }
       }
 
-      // Update Lesson 2.2
-      const badge6 = document.getElementById('badge_l2_p2');
-      const btn6 = document.getElementById('btn_l2_p2');
-      if (badge6 && btn6) {
-        if (p6Completed) {
-          badge6.className = 'lesson-status-badge status-completed';
-          badge6.innerText = '✓ Пройдено';
-          btn6.className = 'btn-lesson btn-completed';
-          btn6.innerText = '✓ Пройдено (Смотреть снова)';
-        } else {
-          badge6.className = 'lesson-status-badge status-ready';
-          badge6.innerText = 'Доступно';
-          btn6.className = 'btn-lesson btn-play';
-          btn6.innerText = '▶ Смотреть урок';
-        }
-      }
+      let totalCompleted = p.filter(Boolean).length;
 
-      // Update Lesson 2.3
-      const badge7 = document.getElementById('badge_l2_p3');
-      const btn7 = document.getElementById('btn_l2_p3');
-      if (badge7 && btn7) {
-        if (p7Completed) {
-          badge7.className = 'lesson-status-badge status-completed';
-          badge7.innerText = '✓ Пройдено';
-          btn7.className = 'btn-lesson btn-completed';
-          btn7.innerText = '✓ Пройдено (Смотреть снова)';
-        } else {
-          badge7.className = 'lesson-status-badge status-ready';
-          badge7.innerText = 'Доступно';
-          btn7.className = 'btn-lesson btn-play';
-          btn7.innerText = '▶ Смотреть урок';
-        }
-      }
+      // Update badges and buttons for all 12 lessons
+      const lessonIds = [
+        'l1_p1', 'l1_p2', 'l1_p3', 'l1_p4',
+        'l2_p1', 'l2_p2', 'l2_p3', 'l2_p4',
+        'l3_p1', 'l3_p2', 'l3_p3', 'l3_p4'
+      ];
 
-      // Update Lesson 2.4 (Quiz)
-      const badge8 = document.getElementById('badge_l2_p4');
-      const btn8 = document.getElementById('btn_l2_p4');
-      if (badge8 && btn8) {
-        if (p8Completed) {
-          badge8.className = 'lesson-status-badge status-completed';
-          badge8.innerText = '✓ Пройдено';
-          btn8.className = 'btn-lesson btn-completed';
-          btn8.innerText = '✓ Пройдено (Пройти снова)';
-        } else {
-          badge8.className = 'lesson-status-badge status-ready';
-          badge8.innerText = 'Доступно';
-          btn8.className = 'btn-lesson btn-play';
-          btn8.style.background = 'linear-gradient(135deg, #0284c7, #10b981)';
-          btn8.innerText = '🎯 Начать практикум';
-        }
-      }
+      lessonIds.forEach((id, idx) => {
+        const badge = document.getElementById(`badge_${id}`);
+        const btn = document.getElementById(`btn_${id}`);
+        const isDone = p[idx];
+        const isQuiz = id.endsWith('_p4');
 
-      // Update Stage text
+        if (badge && btn) {
+          if (isDone) {
+            badge.className = 'lesson-status-badge status-completed';
+            badge.innerText = '✓ Пройдено';
+            btn.className = 'btn-lesson btn-completed';
+            btn.innerText = isQuiz ? '✓ Пройдено (Пройти снова)' : '✓ Пройдено (Смотреть снова)';
+          } else {
+            badge.className = 'lesson-status-badge status-ready';
+            badge.innerText = 'Доступно';
+            btn.className = 'btn-lesson btn-play';
+            if (isQuiz) {
+              btn.style.background = 'linear-gradient(135deg, #0284c7, #10b981)';
+              btn.innerText = '🎯 Начать практикум';
+            } else {
+              btn.style.background = '';
+              btn.innerText = '▶ Смотреть урок';
+            }
+          }
+        }
+      });
+
+      // Update Current Stage Text
       const stageText = document.getElementById('currentStageText');
       if (stageText) {
-        if (p1Completed && p2Completed && p3Completed && p4Completed && p5Completed && p6Completed && p7Completed && p8Completed) {
-          stageText.innerText = 'Модуль 3. Занятие 3 (в разработке)';
-        } else if (p1Completed && p2Completed && p3Completed && p4Completed) {
+        if (totalCompleted === 12) {
+          stageText.innerText = 'Все 3 модуля завершены! 🎉';
+        } else if (p[0] && p[1] && p[2] && p[3] && p[4] && p[5] && p[6] && p[7]) {
+          stageText.innerText = 'Модуль 3. Занятие 3';
+        } else if (p[0] && p[1] && p[2] && p[3]) {
           stageText.innerText = 'Модуль 2. Занятие 2';
         } else {
           stageText.innerText = 'Модуль 1. Занятие 1';
         }
       }
 
-      // Update Progress Bar
-      const totalAvailable = 8;
+      // Update Progress Bar (12 parts total)
+      const totalAvailable = 12;
       const pct = Math.round((totalCompleted / totalAvailable) * 100);
-      document.getElementById('progressBarFill').style.width = pct + '%';
-      document.getElementById('progressStatusText').innerText = 
-        `Завершено ${totalCompleted} из ${totalAvailable} доступных частей (${pct}%)`;
+      const barFill = document.getElementById('progressBarFill');
+      const statusText = document.getElementById('progressStatusText');
+      if (barFill) barFill.style.width = pct + '%';
+      if (statusText) statusText.innerText = `Завершено ${totalCompleted} из ${totalAvailable} доступных частей (${pct}%)`;
     }
 
     function resetProgress() {
       if (confirm('Сбросить весь сохраненный прогресс обучения для проверки?')) {
-        localStorage.removeItem('ai_course_l1_p1_completed');
-        localStorage.removeItem('ai_course_l1_p2_completed');
-        localStorage.removeItem('ai_course_l1_p3_completed');
-        localStorage.removeItem('ai_course_l1_p4_completed');
-        localStorage.removeItem('ai_course_l2_p1_completed');
-        localStorage.removeItem('ai_course_l2_p2_completed');
-        localStorage.removeItem('ai_course_l2_p3_completed');
-        localStorage.removeItem('ai_course_l2_p4_completed');
+        for (let l = 1; l <= 3; l++) {
+          for (let pt = 1; pt <= 4; pt++) {
+            localStorage.removeItem(`ai_course_l${l}_p${pt}_completed`);
+          }
+        }
         localStorage.removeItem('ai_course_completed_list');
         updateLMSState();
       }
