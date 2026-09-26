@@ -386,6 +386,42 @@
       </div>
     </div>
 
+        <!-- PROLOGUE MODULE (Module 0.0) -->
+    <div class="module-card" id="module0_card" style="border: 1px solid rgba(56, 189, 248, 0.4); background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); box-shadow: 0 10px 30px rgba(56, 189, 248, 0.1);">
+      <div class="module-header" style="border-bottom: 1px solid rgba(56, 189, 248, 0.2); padding-bottom: 16px; margin-bottom: 20px;">
+        <div>
+          <div class="module-num" style="color: #38bdf8; font-weight: 800;">Пролог курса • С чего всё началось</div>
+          <div class="module-title" style="font-size: 22px;">От Word-методички по электротехнике к интерактивным лабораториям</div>
+          <div class="module-desc" style="color: #cbd5e1; font-size: 14px;">
+            Подлинная история рождения этого курса: как кафедральный файл методички был скормлен нейросети и превратился в живые симуляторы электрических цепей (Лабораторные работы №11 и №12) без привлечения программистов.
+          </div>
+        </div>
+        <span class="module-badge badge-active" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4);">✨ Предыстория автора</span>
+      </div>
+
+      <div class="lessons-grid" style="grid-template-columns: 1fr;">
+        <div class="lesson-item" id="card_prologue" style="background: rgba(11, 15, 25, 0.7); border: 1px solid rgba(56, 189, 248, 0.25);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+            <div style="flex: 1; min-width: 280px;">
+              <div class="lesson-top">
+                <span class="lesson-duration" style="color: #38bdf8;">⏱ ~7 минут • 5 экранов со скриншотами</span>
+                <span class="lesson-status-badge status-ready" id="badge_prologue">Доступно</span>
+              </div>
+              <div class="lesson-title" style="font-size: 18px; color: #fff;">Вводная лекция-пролог: «От идеи к 16-часовому курсу»</div>
+              <div class="lesson-desc" style="margin-bottom: 0;">
+                Разбор реального кейса: анализ методички, инженерное ТЗ, постоянный ток и законы Кирхгофа (Лаб 11), переменный ток и векторные диаграммы (Лаб 12).
+              </div>
+            </div>
+            <div style="min-width: 200px; display: flex; align-items: center;">
+              <a href="prologue.html" class="btn-lesson btn-play" id="btn_prologue" style="background: linear-gradient(135deg, #0284c7, #38bdf8); font-size: 15px; padding: 12px 24px;">
+                ▶ Смотреть пролог
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- MODULE 1 -->
     <div class="module-card">
       <div class="module-header">
@@ -641,16 +677,89 @@
       </div>
     </div>
 
-    <!-- MODULE 4 (Locked) -->
-    <div class="module-card locked">
+        <!-- MODULE 4 (Active) -->
+    <div class="module-card" id="module4_card">
       <div class="module-header">
         <div>
           <div class="module-num">Модуль 4 • Занятие 4</div>
-          <div class="module-title">Запросы, диалог и промпт-инжиниринг для педагога</div>
+          <div class="module-title">Запросы, диалог и промпт-инжиниринг для преподавателя</div>
           <div class="module-desc">
-            Как правильно ставить педагогические задачи: контекст, роль, структура ответа и итеративная доработка материала.
+            Инженерный подход к диалогу с моделями: анатомия запроса, формулы RTIE и CLEAR, управление окном контекста, Few-Shot, Chain-of-Thought и мультимодальный анализ чертежей.
           </div>
         </div>
+        <span class="module-badge badge-active">В процессе изучения</span>
+      </div>
+
+      <div class="lessons-grid">
+        <!-- Lesson 4.1 -->
+        <div class="lesson-item" id="card_l4_p1">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-ready" id="badge_l4_p1">Доступно</span>
+            </div>
+            <div class="lesson-title">Часть 4.1: Основы промптинга: анатомия запроса и формулы RTIE / CLEAR</div>
+            <div class="lesson-desc">
+              Анатомия профессионального промпта: роль, задача, инструкция, ограничения и формат. Практические шаблоны формул RTIE и CLEAR для подготовки лекций и методичек.
+            </div>
+          </div>
+          <a href="lesson_4_1.html" class="btn-lesson btn-play" id="btn_l4_p1">
+            ▶ Смотреть урок
+          </a>
+        </div>
+
+        <!-- Lesson 4.2 -->
+        <div class="lesson-item" id="card_l4_p2">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-ready" id="badge_l4_p2">Доступно</span>
+            </div>
+            <div class="lesson-title">Часть 4.2: Контекстное окно и управление памятью</div>
+            <div class="lesson-desc">
+              Как работает контекстное окно LLM, эффект «потери в середине» (Lost in the Middle), деградация внимания и методы управления длинными документами при составлении пособий.
+            </div>
+          </div>
+          <a href="lesson_4_2.html" class="btn-lesson btn-play" id="btn_l4_p2">
+            ▶ Смотреть урок
+          </a>
+        </div>
+
+        <!-- Lesson 4.3 -->
+        <div class="lesson-item" id="card_l4_p3">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-ready" id="badge_l4_p3">Доступно</span>
+            </div>
+            <div class="lesson-title">Часть 4.3: Продвинутый промптинг и мультимодальность</div>
+            <div class="lesson-desc">
+              Few-Shot промптинг, цепочка рассуждений (CoT), мультимодальная подача рукописных формул, графиков и генерация академических иллюстраций без артефактов.
+            </div>
+          </div>
+          <a href="lesson_4_3.html" class="btn-lesson btn-play" id="btn_l4_p3">
+            ▶ Смотреть урок
+          </a>
+        </div>
+
+        <!-- Lesson 4.4 (Practicum) -->
+        <div class="lesson-item quiz-card" id="card_l4_p4">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration" style="color: #38bdf8;">🎯 Практикум • 7 заданий</span>
+              <span class="lesson-status-badge status-ready" id="badge_l4_p4">Доступно</span>
+            </div>
+            <div class="lesson-title" style="color: #6ee7b7;">Часть 4.4: Интерактивный практикум: Лаборатория промпт-инжиниринга</div>
+            <div class="lesson-desc" style="color: #a7f3d0;">
+              Комплексный тренажёр по составлению промптов для педагогов: исправление наивных запросов, Few-Shot калибровка, CoT-разборы и анализ мультимодальных схем. Банк 18 / Выдача 7.
+            </div>
+          </div>
+          <a href="lesson_4_4.html" class="btn-lesson btn-play" id="btn_l4_p4" style="background: linear-gradient(135deg, #0284c7, #10b981);">
+            🎯 Начать практикум
+          </a>
+        </div>
+      </div>
+    </div>
         <span class="module-badge badge-locked">🔒 Заблокировано</span>
       </div>
     </div>
@@ -675,21 +784,40 @@
   </div>
 
   <script>
-    function updateLMSState() {
+        function updateLMSState() {
+      // 1. Prologue
+      const prologueDone = localStorage.getItem('ai_course_prologue_completed') === 'true';
+      const badgePrologue = document.getElementById('badge_prologue');
+      const btnPrologue = document.getElementById('btn_prologue');
+      if (badgePrologue && btnPrologue) {
+        if (prologueDone) {
+          badgePrologue.className = 'lesson-status-badge status-completed';
+          badgePrologue.innerText = '✓ Пройдено';
+          btnPrologue.className = 'btn-lesson btn-completed';
+          btnPrologue.innerText = '✓ Пройдено (Смотреть снова)';
+        } else {
+          badgePrologue.className = 'lesson-status-badge status-ready';
+          badgePrologue.innerText = 'Доступно';
+          btnPrologue.className = 'btn-lesson btn-play';
+          btnPrologue.innerText = '▶ Смотреть пролог';
+        }
+      }
+
+      // 2. Lessons 1-4 (16 parts)
       const p = [];
-      for (let l = 1; l <= 3; l++) {
+      for (let l = 1; l <= 4; l++) {
         for (let pt = 1; pt <= 4; pt++) {
           p.push(localStorage.getItem(`ai_course_l${l}_p${pt}_completed`) === 'true');
         }
       }
 
-      let totalCompleted = p.filter(Boolean).length;
+      let totalCompleted = (prologueDone ? 1 : 0) + p.filter(Boolean).length;
 
-      // Update badges and buttons for all 12 lessons
       const lessonIds = [
         'l1_p1', 'l1_p2', 'l1_p3', 'l1_p4',
         'l2_p1', 'l2_p2', 'l2_p3', 'l2_p4',
-        'l3_p1', 'l3_p2', 'l3_p3', 'l3_p4'
+        'l3_p1', 'l3_p2', 'l3_p3', 'l3_p4',
+        'l4_p1', 'l4_p2', 'l4_p3', 'l4_p4'
       ];
 
       lessonIds.forEach((id, idx) => {
@@ -719,22 +847,26 @@
         }
       });
 
-      // Update Current Stage Text
+      // 3. Update Current Stage Text
       const stageText = document.getElementById('currentStageText');
       if (stageText) {
-        if (totalCompleted === 12) {
-          stageText.innerText = 'Все 3 модуля завершены! 🎉';
-        } else if (p[0] && p[1] && p[2] && p[3] && p[4] && p[5] && p[6] && p[7]) {
+        if (totalCompleted >= 17) {
+          stageText.innerText = 'Все 4 модуля и Пролог завершены! 🎉';
+        } else if (p[11]) { // Module 3 done
+          stageText.innerText = 'Модуль 4. Занятие 4';
+        } else if (p[7]) { // Module 2 done
           stageText.innerText = 'Модуль 3. Занятие 3';
-        } else if (p[0] && p[1] && p[2] && p[3]) {
+        } else if (p[3]) { // Module 1 done
           stageText.innerText = 'Модуль 2. Занятие 2';
-        } else {
+        } else if (prologueDone) {
           stageText.innerText = 'Модуль 1. Занятие 1';
+        } else {
+          stageText.innerText = 'Пролог курса';
         }
       }
 
-      // Update Progress Bar (12 parts total)
-      const totalAvailable = 12;
+      // 4. Update Progress Bar (17 parts total)
+      const totalAvailable = 17;
       const pct = Math.round((totalCompleted / totalAvailable) * 100);
       const barFill = document.getElementById('progressBarFill');
       const statusText = document.getElementById('progressStatusText');
@@ -744,7 +876,8 @@
 
     function resetProgress() {
       if (confirm('Сбросить весь сохраненный прогресс обучения для проверки?')) {
-        for (let l = 1; l <= 3; l++) {
+        localStorage.removeItem('ai_course_prologue_completed');
+        for (let l = 1; l <= 4; l++) {
           for (let pt = 1; pt <= 4; pt++) {
             localStorage.removeItem(`ai_course_l${l}_p${pt}_completed`);
           }
