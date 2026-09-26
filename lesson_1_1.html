@@ -2413,6 +2413,8 @@
       }
     }
 
+    function copyNotesMarkdown() { exportNotes(); }
+
     function exportNotes() {
       if (savedNotes.length === 0) {
         showToast('Список заметок пуст');
