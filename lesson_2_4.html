@@ -533,7 +533,7 @@
         <div class="progress-fill" id="progressBar"></div>
       </div>
       <div style="font-weight: 800; font-size: 16px; color: #38bdf8;">
-        Баллы: <span id="currentScore" style="color: #fff; font-family: 'JetBrains Mono', monospace;">0</span> / 700
+        Баллы: <span id="currentScore" style="color: #fff; font-family: 'JetBrains Mono', monospace;">0</span> / 21
       </div>
     </div>
 
@@ -649,8 +649,7 @@
         optBtn.classList.add('correct');
         disableAllOptions();
 
-        // 100 on attempt 1, 70 on attempt 2, 40 on attempt 3
-        const earned = currentAttempts === 1 ? 100 : (currentAttempts === 2 ? 70 : 40);
+        let earned = 3; if (currentAttempts === 2) earned = 2; if (currentAttempts >= 3) earned = 1;
         score += earned;
         document.getElementById('currentScore').innerText = score;
 
@@ -714,7 +713,7 @@
       footer.style.display = 'flex';
       const roundText = document.getElementById('roundResultText');
       if (isPassed) {
-        roundText.innerHTML = `<span style="color: #22c55e; font-weight: 700;">+${earned} баллов</span> (попытка: ${currentAttempts})`;
+        const suffix = earned === 1 ? '\u0431\u0430\u043B\u043B' : '\u0431\u0430\u043B\u043B\u0430'; roundText.innerHTML = `<span style="color: #22c55e; font-weight: 700;">+${earned} ${suffix}</span> (\u043F\u043E\u043F\u044B\u0442\u043A\u0430: ${currentAttempts})`;
       } else {
         roundText.innerHTML = `<span style="color: #f87171; font-weight: 700;">0 баллов</span> (использованы все 3 попытки)`;
       }
@@ -742,7 +741,7 @@
       document.getElementById('progressBar').style.width = '100%';
       document.getElementById('stepCounter').innerText = 'Практикум завершён!';
 
-      const maxScore = SESSION_COUNT * 100;
+      const maxScore = SESSION_COUNT * 3;
       const pct = Math.round((score / maxScore) * 100);
 
       let trophy = '🎓';
@@ -807,7 +806,7 @@
 
     function copyProtocol() {
       let text = '=== ПРОТОКОЛ ТЕСТИРОВАНИЯ: КУРС ПО ИИ (УРОК 2) ===\n';
-      text += `Итоговый результат: ${score} из ${SESSION_COUNT * 100} баллов\n`;
+      text += `Итоговый результат: ${score} из ${SESSION_COUNT * 3} баллов\n`;
       text += `Дата: ${new Date().toLocaleString('ru-RU')}\n\n`;
       userHistory.forEach((h, i) => {
         text += `${i+1}. ${h.badge}: ${h.earned} б. (попыток: ${h.attempts})\n`;
