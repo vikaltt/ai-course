@@ -652,38 +652,48 @@
        ========================================================================= */
     @media (max-width: 768px) {
       header {
-        padding: 6px 12px !important;
-        gap: 8px !important;
+        padding: 6px 10px !important;
+        gap: 6px !important;
         justify-content: space-between !important;
       }
       .header-title-text {
+        font-size: 12px !important;
+        max-width: 44vw !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+      .header-actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 5px !important;
+        flex-shrink: 0 !important;
+      }
+      .header-actions a.btn {
+        margin-right: 0 !important;
+        padding: 5px 8px !important;
+        font-size: 11px !important;
+      }
+      #fullscreenBtn {
+        padding: 5px 8px !important;
         font-size: 13px !important;
-        max-width: 55vw;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        min-width: 34px !important;
+        justify-content: center !important;
+      }
+      #fullscreenBtn .fs-text {
+        display: none !important; /* Hide button text on mobile so button NEVER overflows */
       }
       .nav-tabs {
         display: none !important; /* Hide slide tabs on mobile: single continuous lecture flow */
       }
-      header a.btn {
-        padding: 5px 9px !important;
-        font-size: 12px !important;
-        white-space: nowrap !important;
-      }
-      #fullscreenBtn {
-        padding: 5px 9px !important;
-        font-size: 12px !important;
-        white-space: nowrap !important;
-      }
 
       .controls-bar {
-        padding: 8px 10px !important;
-        gap: 6px !important;
+        padding: 6px 8px !important;
+        gap: 5px !important;
       }
       .playback-row {
         flex-direction: column !important;
-        gap: 6px !important;
+        gap: 5px !important;
         align-items: stretch !important;
       }
       .playback-controls-subrow {
@@ -699,28 +709,31 @@
         width: 100% !important;
       }
       .left-controls {
-        gap: 4px !important;
+        gap: 3px !important;
+        align-items: center !important;
       }
       .left-controls .btn {
-        padding: 5px 7px !important;
+        padding: 4px 6px !important;
         font-size: 11px !important;
       }
       #playBtn {
-        min-width: 96px !important;
+        min-width: 80px !important;
         font-size: 11px !important;
-        padding: 5px 8px !important;
+        padding: 4px 7px !important;
       }
       .step-indicator {
-        font-size: 11px !important;
-        min-width: 65px !important;
+        font-size: 10px !important;
+        min-width: 50px !important;
+        padding: 2px 4px !important;
       }
       .speed-btn-group {
-        scale: 0.88;
-        transform-origin: right center;
+        scale: 0.82 !important;
+        transform-origin: right center !important;
+        margin-right: 0 !important;
       }
       .speed-btn {
-        padding: 4px 6px !important;
-        font-size: 11px !important;
+        padding: 3px 5px !important;
+        font-size: 10px !important;
       }
       #audioSeek {
         flex: 1 !important;
@@ -729,31 +742,17 @@
       }
       #audioTimer {
         font-size: 11px !important;
-        min-width: 75px !important;
+        min-width: 70px !important;
         text-align: right !important;
       }
     }
 
-    @media (max-width: 480px) {
-      .header-title-text {
-        font-size: 11px !important;
-        max-width: 48vw;
-      }
-      .left-controls .btn {
-        padding: 4px 5px !important;
-        font-size: 10px !important;
-      }
-      #playBtn {
-        min-width: 82px !important;
-        font-size: 10px !important;
-      }
+    @media (max-width: 380px) {
       .step-indicator {
-        font-size: 10px !important;
-        min-width: 50px !important;
+        display: none !important;
       }
       .speed-btn-group {
-        scale: 0.8;
-        transform-origin: right center;
+        scale: 0.78 !important;
       }
     }
 
@@ -796,8 +795,8 @@
     </div>
     <div class="header-actions">
       <a href="index.html" class="btn" style="text-decoration:none; margin-right:8px;" title="Вернуться к витрине курса">⌂ Портал</a>
-      <button class="btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="Полноэкранный режим (Горячая клавиша: F)">
-        ⛶ Во весь экран
+      <button class="btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="РџРѕР»РЅРѕСЌРєСЂР°РЅРЅС‹Р№ СЂРµР¶РёРј (Р“РѕСЂСЏС‡Р°СЏ РєР»Р°РІРёС€Р°: F)">
+        <span class="fs-icon">в›¶</span><span class="fs-text"> Р’Рѕ РІРµСЃСЊ СЌРєСЂР°РЅ</span>
       </button>
       </div>
   </header>
@@ -2276,6 +2275,7 @@
     function clearAllNotes() {}
     function copyNotesMarkdown() {}
     function exportNotes() {}
+    function exportNotes() {}
 
     function exportNotes() {
       if (savedNotes.length === 0) {
@@ -2330,7 +2330,7 @@
     // =========================================================================
     renderCurrentState();
     setupAudioForCurrentSlide();
-    // renderNotesList();
+    // // renderNotesList();
     setTimeout(fitSlide, 50);
     // Auto-fullscreen & landscape cinema on phone rotation
     function handleAutoFullscreenOnOrientation() {
