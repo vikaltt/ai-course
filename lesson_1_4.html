@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -331,6 +331,49 @@
     @keyframes bounce {
       from { transform: translateY(0); }
       to { transform: translateY(-8px); }
+    }
+      @media (max-width: 640px) {
+      header {
+        padding: 10px 14px !important;
+      }
+      .header-title {
+        font-size: 13px !important;
+        max-width: 55vw !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+      main {
+        padding: 14px 12px 40px !important;
+      }
+      .status-bar {
+        flex-direction: column !important;
+        gap: 12px !important;
+        align-items: stretch !important;
+        padding: 12px 14px !important;
+      }
+      .progress-track {
+        max-width: 100% !important;
+        margin: 0 !important;
+      }
+      .quiz-card {
+        padding: 20px 14px !important;
+        border-radius: 18px !important;
+        gap: 16px !important;
+      }
+      .situation-box {
+        font-size: 15px !important;
+        padding: 12px 14px !important;
+      }
+      .question-title {
+        font-size: 16px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+      }
+      .option-btn {
+        padding: 12px 14px !important;
+        font-size: 13px !important;
+      }
     }
   </style>
 </head>

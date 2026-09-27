@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -298,8 +298,23 @@
 
     .playback-row {
       display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .playback-controls-subrow {
+      display: flex;
       justify-content: space-between;
       align-items: center;
+      width: 100%;
+    }
+    .timeline-subrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+    .prompter-box, .cinema-subtitle, .reviewer-drawer, .btn-review, .slide-counter {
+      display: none !important;
     }
     .left-controls {
       display: flex;
@@ -637,32 +652,39 @@
        ========================================================================= */
     @media (max-width: 768px) {
       header {
-        padding: 8px 14px !important;
-      }
-      header a.btn {
-        padding: 6px 10px !important;
-        font-size: 12px !important;
+        padding: 6px 12px !important;
+        gap: 8px !important;
+        justify-content: space-between !important;
       }
       .header-title-text {
         font-size: 13px !important;
-        max-width: 46vw;
+        max-width: 55vw;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      #fullscreenBtn {
-        padding: 6px 10px !important;
+      .nav-tabs {
+        display: none !important; /* Hide slide tabs on mobile: single continuous lecture flow */
+      }
+      header a.btn {
+        padding: 5px 9px !important;
         font-size: 12px !important;
+        white-space: nowrap !important;
+      }
+      #fullscreenBtn {
+        padding: 5px 9px !important;
+        font-size: 12px !important;
+        white-space: nowrap !important;
       }
 
       .controls-bar {
-        padding: 8px 12px !important;
+        padding: 8px 10px !important;
         gap: 6px !important;
       }
       .playback-row {
-        flex-wrap: wrap !important;
+        flex-direction: column !important;
         gap: 6px !important;
-        justify-content: space-between !important;
+        align-items: stretch !important;
       }
       .playback-controls-subrow {
         display: flex !important;
@@ -673,19 +695,32 @@
       .timeline-subrow {
         display: flex !important;
         align-items: center !important;
-        gap: 10px !important;
+        gap: 8px !important;
         width: 100% !important;
       }
       .left-controls {
-        gap: 6px !important;
+        gap: 4px !important;
       }
       .left-controls .btn {
-        padding: 6px 8px !important;
-        font-size: 12px !important;
+        padding: 5px 7px !important;
+        font-size: 11px !important;
       }
-      .right-controls {
-        gap: 8px !important;
-        width: 100% !important;
+      #playBtn {
+        min-width: 96px !important;
+        font-size: 11px !important;
+        padding: 5px 8px !important;
+      }
+      .step-indicator {
+        font-size: 11px !important;
+        min-width: 65px !important;
+      }
+      .speed-btn-group {
+        scale: 0.88;
+        transform-origin: right center;
+      }
+      .speed-btn {
+        padding: 4px 6px !important;
+        font-size: 11px !important;
       }
       #audioSeek {
         flex: 1 !important;
@@ -693,62 +728,53 @@
         min-width: 0 !important;
       }
       #audioTimer {
-        font-size: 12px !important;
-        min-width: 80px !important;
+        font-size: 11px !important;
+        min-width: 75px !important;
         text-align: right !important;
-      }
-      #playBtn {
-        min-width: 110px !important;
-        font-size: 13px !important;
-      }
-      .speed-btn-group {
-        scale: 0.9;
-        transform-origin: right center;
-      }
-      .step-indicator {
-        font-size: 12px !important;
-        min-width: 80px !important;
       }
     }
 
     @media (max-width: 480px) {
       .header-title-text {
-        font-size: 12px !important;
-        max-width: 38vw;
-      }
-      header a.btn {
-        padding: 5px 8px !important;
         font-size: 11px !important;
-      }
-      #fullscreenBtn {
-        padding: 5px 8px !important;
-        font-size: 11px !important;
+        max-width: 48vw;
       }
       .left-controls .btn {
-        padding: 5px 6px !important;
-        font-size: 11px !important;
+        padding: 4px 5px !important;
+        font-size: 10px !important;
       }
       #playBtn {
-        min-width: 95px !important;
-        font-size: 12px !important;
+        min-width: 82px !important;
+        font-size: 10px !important;
       }
-      .speed-btn {
-        padding: 4px 6px !important;
-        font-size: 11px !important;
+      .step-indicator {
+        font-size: 10px !important;
+        min-width: 50px !important;
+      }
+      .speed-btn-group {
+        scale: 0.8;
+        transform-origin: right center;
       }
     }
 
     @media (max-height: 500px) and (orientation: landscape) {
-      :fullscreen header,
-      body.is-fullscreen header {
-        padding: 6px 16px !important;
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
       }
-      :fullscreen .controls-bar,
-      body.is-fullscreen .controls-bar {
-        padding: 6px 20px 8px !important;
+      header {
+        padding: 4px 10px !important;
       }
-      .header-title-text {
-        font-size: 13px !important;
+      .header-title-text, .nav-tabs {
+        display: none !important;
+      }
+      .controls-bar {
+        padding: 4px 12px 6px !important;
+      }
+      .canvas-container {
+        width: 100vw !important;
+        height: 100vh !important;
       }
     }
 
@@ -772,10 +798,7 @@
       <button class="btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="Полноэкранный режим (Горячая клавиша: F)">
         ⛶ Во весь экран
       </button>
-      <button class="btn btn-review" onclick="toggleReviewerDrawer()">
-        🚩 Панель рецензента <span id="notesBadge" style="background: rgba(244,63,94,0.3); padding: 2px 7px; border-radius: 10px; font-size: 11px;">0</span>
-      </button>
-    </div>
+      </div>
   </header>
 
   <!-- Main Work Area -->
@@ -795,81 +818,28 @@
       <!-- Playback and Stepper Controls Bar -->
       <div class="controls-bar">
         <div class="playback-row">
-          <div class="left-controls">
+            <div class="playback-controls-subrow">
+            <div class="left-controls">
             <button class="btn" onclick="prevStep()" title="Предыдущий шаг (Стрелка влево / PageUp)">◀ Шаг</button>
-            <button class="btn" onclick="seekDelta(-5)" title="Перемотка назад на 5 секунд">⏪ -5с</button>
             <button class="btn btn-primary" id="playBtn" onclick="toggleAudio()" title="Воспроизведение / Пауза (Пробел)">▶ Воспроизвести</button>
-            <button class="btn" onclick="seekDelta(5)" title="Перемотка вперёд на 5 секунд">+5с ⏩</button>
             <button class="btn" onclick="nextStep()" title="Следующий шаг (Стрелка вправо / PageDown)">Шаг ▶</button>
-            <button class="btn btn-review" onclick="markCurrentTimestamp()" title="Зафиксировать текущую секунду для правки (M)">
-              ⏱ Отметить секунду (M)
-            </button>
             <span class="step-indicator" id="stepIndicator">Шаг 0 из 4</span>
           </div>
-
-          <div class="right-controls">
-            <button class="btn" id="subtitlesBtn" onclick="toggleSubtitles()" title="Показать/скрыть субтитры (CC)">
-              💬 CC
-            </button>
             <div class="speed-btn-group">
               <button class="speed-btn active" onclick="setPlaybackSpeed(1.0, this)">1x</button>
               <button class="speed-btn" onclick="setPlaybackSpeed(1.25, this)">1.25x</button>
               <button class="speed-btn" onclick="setPlaybackSpeed(1.5, this)">1.5x</button>
               <button class="speed-btn" onclick="setPlaybackSpeed(2.0, this)">2x</button>
             </div>
-            <input type="range" id="audioSeek" min="0" max="100" value="0" style="width: 240px; accent-color: #38bdf8;" oninput="seekAudio(this.value)" onchange="seekAudio(this.value)">
+          </div>
+          <div class="timeline-subrow">
+            <input type="range" id="audioSeek" min="0" max="100" value="0" style="flex: 1; width: 100%; accent-color: #38bdf8;" oninput="seekAudio(this.value)" onchange="seekAudio(this.value)">
             <span id="audioTimer" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #94a3b8; min-width: 90px;">00:00 / 00:00</span>
           </div>
         </div>
-
-        <!-- Prompter line showing spoken words (Single line with ellipsis) -->
-        <div class="prompter-box">
-          <span class="prompter-label">СУФЛЁР РЕЧИ</span>
-          <span class="prompter-text" id="prompterText">Загрузка текста...</span>
-          <span class="prompter-time" id="prompterTime">0:00 - 0:00</span>
-        </div>
       </div>
     </div>
-
-    <!-- Reviewer / Notes Slide-over Drawer -->
-    <div class="reviewer-drawer" id="reviewerDrawer">
-      <div class="drawer-header">
-        <div class="drawer-title">
-          <span>🚩</span> Панель рецензента (Ударения и оговорки)
-        </div>
-        <button class="btn" style="padding: 4px 8px; font-size: 12px;" onclick="toggleReviewerDrawer()">✕</button>
-      </div>
-
-      <div class="drawer-body">
-        <div class="capture-box">
-          <div class="capture-meta">
-            <span id="captureSlide">СЛАЙД 1</span>
-            <span id="captureTime">ТАЙМКОД: 00:00</span>
-          </div>
-          <div class="capture-quote" id="captureQuote">
-            Нажмите кнопку «Отметить секунду» во время воспроизведения, чтобы зафиксировать фразу.
-          </div>
-          <input type="text" class="capture-input" id="noteInput" placeholder="Что исправить? (Нажмите Enter для сохранения)..." onkeydown="if(event.key === 'Enter') { event.preventDefault(); saveNote(); }">
-          <div style="display: flex; gap: 8px;">
-            <button class="btn btn-primary" style="flex:1; justify-content:center;" onclick="saveNote()">+ Сохранить метку</button>
-            <button class="btn" onclick="quickTag('Ударение')">Ударение</button>
-            <button class="btn" onclick="quickTag('Оговорка')">Оговорка</button>
-            <button class="btn" onclick="quickTag('Тайминг')">Тайминг</button>
-            <button class="btn" onclick="quickTag('Текст')">Текст</button>
-          </div>
-        </div>
-
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span style="font-size: 13px; font-weight: 700; color: #94a3b8;">Список правок:</span>
-          <button class="btn" style="font-size: 11px; padding: 4px 8px;" onclick="copyNotesMarkdown()">📋 Скопировать для чата</button>
-        </div>
-
-        <div class="notes-list" id="notesList">
-          <!-- Populated dynamically -->
-        </div>
-      </div>
-    </div>
-  </main>
+</main>
 
   <div class="toast" id="toastMsg">Скопировано в буфер обмена!</div>
 
@@ -2277,130 +2247,15 @@
       }
     }
 
-    function toggleReviewerDrawer() {
-      const drawer = document.getElementById('reviewerDrawer');
-      if (!drawer) return;
-      const isOpen = drawer.classList.contains('open');
-      if (!isOpen) {
-        drawer.classList.add('open');
-        markCurrentTimestamp();
-        renderNotesList();
-      } else {
-        drawer.classList.remove('open');
-      }
-    }
-
-    function markCurrentTimestamp() {
-      const audio = getAudioElement();
-      const curSec = audio ? audio.currentTime : 0;
-      const timeStr = formatTime(curSec);
-
-      const capTime = document.getElementById('captureTime');
-      const capSlide = document.getElementById('captureSlide');
-      if (capTime) capTime.innerText = `ТАЙМКОД: ${timeStr} (${Math.round(curSec)}с)`;
-      if (capSlide) capSlide.innerText = `СЛАЙД ${currentSlide}`;
-
-      const drawer = document.getElementById('reviewerDrawer');
-      if (drawer && !drawer.classList.contains('open')) {
-        drawer.classList.add('open');
-      }
-
-      updateLiveTranscript(curSec);
-
-      const input = document.getElementById('noteInput');
-      if (input) {
-        input.focus();
-        input.value = '';
-      }
-    }
-
-    function quickTag(tag) {
-      const input = document.getElementById('noteInput');
-      if (input) {
-        input.value = `[${tag}] ` + input.value;
-        input.focus();
-      }
-    }
-
-    function showToast(msg) {
-      const toast = document.getElementById('toastMsg');
-      if (!toast) return;
-      toast.innerText = msg;
-      toast.style.display = 'block';
-      setTimeout(() => { toast.style.display = 'none'; }, 2000);
-    }
-
-    function renderNotesList() {
-      const list = document.getElementById('notesList');
-      const count = document.getElementById('notesCount');
-      const badge = document.getElementById('notesBadge');
-      if (!list) return;
-
-      list.innerHTML = '';
-      if (count) count.innerText = savedNotes.length;
-      if (badge) badge.innerText = savedNotes.length;
-
-      if (savedNotes.length === 0) {
-        list.innerHTML = '<div style="color: #64748b; font-size: 13px; text-align: center; padding: 20px 0;">Заметок пока нет. Нажмите ⏱ на нужной секунде.</div>';
-        return;
-      }
-
-      savedNotes.forEach((n, idx) => {
-        const item = document.createElement('div');
-        item.className = 'note-item';
-        item.innerHTML = `
-          <div class="note-top">
-            <span><strong>Слайд ${n.slide}</strong> • ${n.time}</span>
-            <button class="btn" style="padding: 2px 6px; font-size: 11px; background: rgba(244,63,94,0.2); border-color: #f43f5e;" onclick="deleteNote(${idx})">✕</button>
-          </div>
-          <div class="note-quote">"${n.quote}"</div>
-          <div class="note-text">${n.text}</div>
-        `;
-        list.appendChild(item);
-      });
-    }
-
-    function saveNote() {
-      const input = document.getElementById('noteInput');
-      const text = input ? input.value.trim() : '';
-      if (!text) return;
-
-      const audio = getAudioElement();
-      const curSec = audio ? audio.currentTime : 0;
-      const data = slidesData[currentSlide];
-      const curStepData = data ? data.steps[currentStep] : null;
-
-      const note = {
-        slide: currentSlide,
-        time: formatTime(curSec),
-        sec: Math.round(curSec),
-        quote: curStepData ? (curStepData.prompter || '').slice(0, 100) + '...' : '',
-        text: text,
-        timestamp: Date.now()
-      };
-
-      savedNotes.unshift(note);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
-      renderNotesList();
-      if (input) input.value = '';
-      showToast('Метка сохранена!');
-    }
-
-    function deleteNote(idx) {
-      savedNotes.splice(idx, 1);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
-      renderNotesList();
-    }
-
-    function clearAllNotes() {
-      if (confirm('Удалить все сохранённые замечания рецензента?')) {
-        savedNotes = [];
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
-        renderNotesList();
-      }
-    }
-
-    function copyNotesMarkdown() { exportNotes(); }
+    function toggleReviewerDrawer() {}
+    function markCurrentTimestamp() {}
+    function updateLiveTranscript() {}
+    function renderNotesList() {}
+    function saveNote() {}
+    function deleteNote() {}
+    function clearAllNotes() {}
+    function copyNotesMarkdown() {}
+    function exportNotes() {}
 
     function exportNotes() {
       if (savedNotes.length === 0) {
@@ -2428,15 +2283,7 @@
         toggleAudio();
         resetCinemaIdleTimer();
       }
-      if (e.code === 'KeyM') {
-        e.preventDefault();
-        const audio = getAudioElement();
-        if (audio && !audio.paused) audio.pause();
-        isPlaying = false;
-        const playBtn = document.getElementById('playBtn');
-        if (playBtn) playBtn.innerText = '▶ Воспроизвести';
-        markCurrentTimestamp();
-      }
+      /* KeyM disabled for web */
       if (e.code === 'KeyF') { e.preventDefault(); toggleFullscreen(); }
       if (e.key >= '1' && e.key <= '5') switchSlide(parseInt(e.key));
     });
@@ -2463,8 +2310,24 @@
     // =========================================================================
     renderCurrentState();
     setupAudioForCurrentSlide();
-    renderNotesList();
+    // renderNotesList();
     setTimeout(fitSlide, 50);
+    // Auto-fullscreen & landscape cinema on phone rotation
+    function handleAutoFullscreenOnOrientation() {
+      const isLandscape = window.matchMedia('(orientation: landscape)').matches && window.innerHeight < 600;
+      if (isLandscape && !isFullscreenActive()) {
+        try {
+          const docEl = document.documentElement;
+          const req = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.mozRequestFullScreen || docEl.msRequestFullscreen;
+          if (req) {
+            req.call(docEl).catch(() => {});
+          }
+        } catch (err) {}
+      }
+      setTimeout(fitSlide, 150);
+    }
+    window.addEventListener('orientationchange', handleAutoFullscreenOnOrientation);
+    window.matchMedia('(orientation: landscape)').addEventListener('change', handleAutoFullscreenOnOrientation);
   </script>
 </body>
 </html>
