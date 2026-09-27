@@ -795,9 +795,7 @@
     </div>
     <div class="header-actions">
       <a href="index.html" class="btn" style="text-decoration:none; margin-right:8px;" title="Вернуться к витрине курса">⌂ Портал</a>
-      <button class="btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="РџРѕР»РЅРѕСЌРєСЂР°РЅРЅС‹Р№ СЂРµР¶РёРј (Р“РѕСЂСЏС‡Р°СЏ РєР»Р°РІРёС€Р°: F)">
-        <span class="fs-icon">в›¶</span><span class="fs-text"> Р’Рѕ РІРµСЃСЊ СЌРєСЂР°РЅ</span>
-      </button>
+      <button class="btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="&#x41F;&#x43E;&#x43B;&#x43D;&#x43E;&#x44D;&#x43A;&#x440;&#x430;&#x43D;&#x43D;&#x44B;&#x439; &#x440;&#x435;&#x436;&#x438;&#x43C; (F)"><span class="fs-icon">&#x26F6;</span><span class="fs-text"> &#x412;&#x43E; &#x432;&#x435;&#x441;&#x44C; &#x44D;&#x43A;&#x440;&#x430;&#x43D;</span></button>
       </div>
   </header>
 
@@ -2162,12 +2160,18 @@
       const btn = document.getElementById('fullscreenBtn');
       if (!btn) return;
       const isFs = isFullscreenActive();
+      const icon = btn.querySelector('.fs-icon');
+      const text = btn.querySelector('.fs-text');
       if (isFs) {
-        btn.innerHTML = '🗗 Свернуть экран';
-        btn.title = 'Свернуть полноэкранный режим (F / Esc)';
+        if (icon) icon.textContent = '\uD83D\uDDD7';
+        if (text) text.textContent = ' \u0421\u0432\u0435\u0440\u043D\u0443\u0442\u044C';
+        if (!icon && !text) btn.innerHTML = '<span class="fs-icon">\uD83D\uDDD7</span><span class="fs-text"> \u0421\u0432\u0435\u0440\u043D\u0443\u0442\u044C</span>';
+        btn.title = '\u0421\u0432\u0435\u0440\u043D\u0443\u0442\u044C (F / Esc)';
       } else {
-        btn.innerHTML = '⛶ Во весь экран';
-        btn.title = 'Полноэкранный режим (Горячая клавиша: F)';
+        if (icon) icon.textContent = '\u26F6';
+        if (text) text.textContent = ' \u0412\u043E \u0432\u0435\u0441\u044C \u044D\u043A\u0440\u0430\u043D';
+        if (!icon && !text) btn.innerHTML = '<span class="fs-icon">\u26F6</span><span class="fs-text"> \u0412\u043E \u0432\u0435\u0441\u044C \u044D\u043A\u0440\u0430\u043D</span>';
+        btn.title = '\u0412\u043E \u0432\u0435\u0441\u044C \u044D\u043A\u0440\u0430\u043D (F)';
       }
     }
 
