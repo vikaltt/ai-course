@@ -313,8 +313,11 @@
       gap: 12px;
       width: 100%;
     }
-    .prompter-box, .cinema-subtitle, .reviewer-drawer, .btn-review {
+    .prompter-box, .reviewer-drawer, .btn-review, .slide-counter {
       display: none !important;
+    }
+    body.show-subtitles .cinema-subtitle {
+      display: block !important;
     }
     .left-controls {
       display: flex;
@@ -796,7 +799,7 @@
       </div>
     </div>
     <div class="header-actions">
-      <a href="index.html" class="btn" style="text-decoration:none; margin-right:8px;" title="Вернуться к витрине курса">⌂ Портал</a>
+      <a href="index.html" class="btn" style="text-decoration:none; margin-right:8px;" title="К каталогу курса">📋 Каталог</a>
       <button class="btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="&#x41F;&#x43E;&#x43B;&#x43D;&#x43E;&#x44D;&#x43A;&#x440;&#x430;&#x43D;&#x43D;&#x44B;&#x439; &#x440;&#x435;&#x436;&#x438;&#x43C; (F)"><span class="fs-icon">&#x26F6;</span><span class="fs-text"> &#x412;&#x43E; &#x432;&#x435;&#x441;&#x44C; &#x44D;&#x43A;&#x440;&#x430;&#x43D;</span></button>
       </div>
   </header>
@@ -825,6 +828,7 @@
             <button class="btn" onclick="nextStep()" title="Следующий шаг (Стрелка вправо / PageDown)">Шаг ▶</button>
             <span class="step-indicator" id="stepIndicator">Шаг 0 из 4</span>
           </div>
+            <button class="btn" id="subtitlesBtn" onclick="toggleSubtitles()" title="Показать/скрыть субтитры (CC)">💬 CC</button>
             <div class="speed-btn-group">
               <button class="speed-btn active" onclick="setPlaybackSpeed(1.0, this)">1x</button>
               <button class="speed-btn" onclick="setPlaybackSpeed(1.25, this)">1.25x</button>
