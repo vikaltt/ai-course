@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Лабораторная №11 · Разветвлённая цепь постоянного тока</title>
+<style>
+:root{--bg:#f3f5f8;--paper:#fff;--ink:#17243a;--muted:#64738a;--line:#dae1eb;--r1:#276dd3;--r2:#13825b;--r3:#d56920;--u:#784dc7;--soft:#eef2f7;--danger:#b64032;--shadow:0 5px 22px #17243a06}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI",Arial,sans-serif}button,input,select,textarea{font:inherit}button,select{cursor:pointer}button{border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);padding:8px 13px;font-weight:600;transition:background .15s,border-color .15s}button:hover:not(:disabled){background:#f0f4fa;border-color:#99adc9}button:disabled{cursor:default;opacity:.45}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[role=button]:focus-visible{outline:3px solid #6c9be7;outline-offset:3px}input,select,textarea{border:1px solid #c9d4e2;border-radius:6px;padding:7px;background:#fff;color:var(--ink)}input[type=range]{width:100%;padding:0;border:0;accent-color:var(--u)}input[type=checkbox]{accent-color:var(--u)}input[type=number]{font-variant-numeric:tabular-nums}button.primary{background:var(--u);border-color:var(--u);color:white}button.primary:hover:not(:disabled){background:#633daf}button.secondary{background:#f1ebfb;color:#6536af;border-color:#dbcef0}button.small{padding:5px 9px;font-size:12px}[hidden]{display:none!important}.muted{color:var(--muted)}.tiny{font-size:11px}.subtle{font-size:12px;color:var(--muted)}.mono{font-family:Consolas,"Courier New",monospace;font-variant-numeric:tabular-nums}.wrap{max-width:1700px;margin:auto;padding:20px 24px 30px}.topbar{display:flex;align-items:center;gap:14px;margin-bottom:19px}.lab-number{width:52px;height:52px;background:var(--ink);color:white;border-radius:13px;display:grid;place-items:center;font:600 26px Consolas,monospace;flex:none}.eyebrow{font-size:10px;font-weight:700;letter-spacing:1.8px;color:var(--muted);text-transform:uppercase}h1{font-size:clamp(20px,2.1vw,29px);line-height:1.2;margin:4px 0 0;font-weight:650;letter-spacing:-.5px}h2{font-size:17px;margin:0 0 10px}h3{font-size:14px;margin:0 0 8px}.header-actions{display:flex;gap:7px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}.steps{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:10px;background:white;margin-bottom:15px;overflow:hidden}.step{padding:10px 16px;display:flex;gap:10px;align-items:center;border-right:1px solid var(--line)}.step:last-child{border:0}.step-number{height:25px;width:25px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:11px;font-weight:700}.step.active{background:#f4effb}.step.active .step-number{background:var(--u);color:white}.step.done .step-number{background:#e1f2e9;color:#16704e}.step-name{font-weight:650;font-size:12px}.step-note{font-size:11px;color:var(--muted)}.bench{display:grid;grid-template-columns:235px minmax(400px,1fr) 255px;gap:13px;align-items:stretch}.panel{background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);min-width:0}.control-panel{padding:15px}.panel-label{font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);font-weight:750;margin-bottom:10px}.psu{background:#202e40;border:1px solid #35455c;border-radius:9px;padding:12px;color:#fff;margin-bottom:12px}.psu-brand{display:flex;justify-content:space-between;color:#aab7c8;font-size:10px;letter-spacing:1px;margin-bottom:9px}.psu-display{background:#101b27;border:1px solid #49505a;border-radius:4px;padding:7px 10px;box-shadow:inset 0 2px 10px #0005}.display-line{display:flex;align-items:baseline;justify-content:space-between;gap:5px}.display-line output{font:29px/1.25 Consolas,monospace;color:#a6e8c2;letter-spacing:1px}.display-line.current output{color:#eacfa1;font-size:24px}.display-unit{color:#91a2b4;font-size:11px}.psu-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:10px}.status-led{font-size:10px;color:#b7c4d4;display:flex;align-items:center;gap:5px}.status-led:before{content:"";width:6px;height:6px;background:#64748b;border-radius:50%}.status-led.on:before{background:#71d7a2;box-shadow:0 0 5px #71d7a2}.status-led.cc:before{background:#f6b25a;box-shadow:0 0 5px #f6b25a}#power{padding:6px 10px;border-color:#526277;background:#35475e;color:white;font-size:12px}#power[aria-pressed=true]{background:#9b413b;border-color:#b96560}.setting{margin:9px 0}.setting-head{display:flex;justify-content:space-between;align-items:center;gap:5px}.setting label{font-size:12px;font-weight:650}.setting input[type=number]{width:76px;padding:4px 6px;font-size:13px}.setting .unit{font-size:11px;color:var(--muted)}.divider{height:1px;background:var(--line);margin:14px 0}.r1{color:var(--r1)}.r2{color:var(--r2)}.r3{color:var(--r3)}.u{color:var(--u)}#r1-range{accent-color:var(--r1)}#r2-range{accent-color:var(--r2)}#r3-range{accent-color:var(--r3)}.profile-select{width:100%;font-size:12px}.lock-note{padding:8px 9px;margin-top:10px;border-radius:7px;background:var(--soft);font-size:11px;color:var(--muted);min-height:48px}.circuit-panel{display:flex;flex-direction:column;overflow:hidden}.circuit-head{padding:13px 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line)}.circuit-head h2{margin:0;font-size:15px}.chip{font-size:10px;font-weight:700;white-space:nowrap;border-radius:20px;padding:4px 8px;background:var(--soft);color:var(--muted)}.chip.live{color:#146848;background:#e2f3e9}.modes{display:flex;gap:4px;padding:11px 14px 0}.modes button{flex:1;font-size:11px;padding:7px 5px}.modes button[aria-pressed=true]{background:#f1ebfb;color:#6939b0;border-color:#bc9fe2}.circuit-stage{padding:0 9px;flex:1;display:flex;align-items:center;min-height:260px;background-image:radial-gradient(#d4ddeb88 .6px,transparent .6px);background-size:16px 16px}svg{display:block;width:100%;height:auto}#circuit{font-family:"Segoe UI",Arial,sans-serif;overflow:visible}.wire{stroke:#34455e;stroke-width:3;stroke-linejoin:round;stroke-linecap:round;fill:none}.sense{stroke:#abb7c7;stroke-width:1.5;fill:none}.component{fill:white;stroke-width:3}.c-r1{stroke:var(--r1)}.c-r2{stroke:var(--r2)}.c-r3{stroke:var(--r3)}.node{fill:#17243a}.circuit-label{font-size:16px;font-weight:650;fill:var(--ink)}.circuit-note{font-size:13px;fill:var(--muted)}.meter{cursor:pointer}.meter circle{stroke:#91a1b6;stroke-width:2;fill:#fff;transition:fill .2s,stroke .2s}.meter:hover circle,.meter.selected circle{stroke:var(--u);fill:#f3edff;stroke-width:3}.meter text{pointer-events:none;text-anchor:middle;fill:var(--ink);font-weight:700;font-size:15px}.meter .reading{font:14px Consolas,monospace;fill:var(--u)}.flow{stroke-width:5;stroke-dasharray:1 25;stroke-linecap:round;fill:none;pointer-events:none;opacity:0}.arrow{fill:none;stroke-width:2}.r-name{font-size:17px;font-weight:700}.r-value{font:13px Consolas,monospace}.circuit-foot{padding:10px 14px;border-top:1px solid var(--line)}.laws-strip{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:9px}.law{border-radius:7px;background:#f6f8fb;padding:7px 10px}.law-label{font-size:10px;color:var(--muted);display:block}.law-value{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}.motion-row{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:10px;color:var(--muted)}.motion-row label{white-space:nowrap;display:flex;align-items:center;gap:4px}.inspector{padding:15px;display:flex;flex-direction:column}.instrument-title{display:flex;justify-content:space-between;align-items:center}.instrument-title h2{font-size:16px;margin:0}.instrument-unit{font-size:11px;background:var(--soft);padding:2px 7px;border-radius:5px}.gauge{background:#fafbf9;border:1px solid #dbe0df;border-radius:10px;margin:12px 0 8px;overflow:hidden;box-shadow:inset 0 1px 5px #17243a08}.big-reading{font:35px/1.2 Consolas,monospace;text-align:center;color:var(--u)}.reading-caption{text-align:center;font-size:11px;color:var(--muted);min-height:18px;margin-top:3px}.meter-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:11px 0}.meter-choices button{font-size:11px;padding:5px}.meter-choices button[aria-pressed=true]{border-color:var(--u);background:#f2ecfc;color:var(--u)}#meter-info{font-size:11px;color:var(--muted);min-height:52px}.experiment-guide{background:#f4effb;border-radius:8px;padding:11px 12px;margin-top:auto}.experiment-guide h3{font-size:12px;color:#673bb0;margin-bottom:4px}.experiment-guide p{font-size:11px;margin:0;line-height:1.6;color:#6b5b83}.capture-row{display:flex;align-items:center;gap:13px;margin:14px 0}.capture-row .primary{min-width:240px}.capture-row p{margin:0;font-size:12px;color:var(--muted)}#status-message{min-height:19px;font-size:12px;color:var(--muted);margin-top:2px}#status-message.error{color:var(--danger)}.workbook{overflow:hidden}.tabs{display:flex;gap:3px;padding:0 14px;border-bottom:1px solid var(--line);overflow-x:auto}.tabs button{border:0;border-bottom:3px solid transparent;border-radius:0;padding:13px 16px;font-size:12px;white-space:nowrap;background:transparent}.tabs button[aria-selected=true]{color:var(--u);border-bottom-color:var(--u)}.tab-content{padding:19px 20px}.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:12px}.section-head h2{margin-bottom:3px}.section-head p{font-size:12px;margin:0;color:var(--muted)}.table-scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:12px}th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}th{font-weight:650;color:var(--muted);background:#f6f8fb;font-size:11px}th:first-child,td:first-child{text-align:left}td .unit,th .unit{font-weight:400;color:var(--muted)}.empty-cell{text-align:center!important;color:var(--muted);padding:21px}.experiment-records{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}.record{background:#f7f9fc;border:1px solid var(--line);border-radius:9px;padding:12px 14px}.record-title{font-size:12px;font-weight:650;margin-bottom:3px;display:flex;justify-content:space-between}.record p{font-size:12px;color:var(--muted);margin:4px 0}.record .values{font-size:15px;color:var(--ink);font-weight:650}.record.done{border-color:#adcfbb;background:#f5fbf7}.checks{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.check-chip{font-size:11px;padding:4px 8px;border-radius:5px;background:var(--soft);color:var(--muted)}.check-chip.pass{background:#e8f5ed;color:#16734e}.person-row{display:grid;grid-template-columns:1fr 180px;gap:12px;margin-top:17px;max-width:620px}.person-row label,.notes-label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.person-row input{width:100%;font-size:12px}.notes-box{margin-top:12px}textarea{display:block;width:100%;resize:vertical;min-height:75px;font-size:12px}.journal-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:12px}.journal-actions .subtle{margin-left:auto}.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.calc-grid .subtle{margin:0 0 10px}.calc-grid table th,.calc-grid table td{white-space:normal}.formula{font-family:"Cambria Math",Georgia,serif;font-size:15px}.comparison{margin-top:18px}.comparison-bars{display:grid;gap:9px;margin-top:12px}.comparison-row{display:grid;grid-template-columns:205px 1fr 105px;gap:12px;align-items:center;font-size:12px}.bar-track{height:9px;background:#edf0f5;border-radius:3px;overflow:hidden}.bar-fill{height:100%;background:var(--u);border-radius:3px}.comparison-row:first-child .bar-fill{background:var(--r3)}.comparison-number{text-align:right;font-family:Consolas,monospace}.result-summary{padding:12px 15px;border-radius:8px;background:#f2eff9;margin-top:16px;font-size:12px}.student-check{margin-top:20px;border-top:1px solid var(--line);padding-top:16px}.answer-fields{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:12px;align-items:end}.answer-fields label{display:block;font-size:11px;margin-bottom:5px}.answer-fields input{width:100%}.answer-feedback{min-height:20px;font-size:12px;margin-top:8px}.eq-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.eq-card{padding:14px;border:1px solid var(--line);border-radius:9px}.eq-switch{display:flex;gap:5px;flex-wrap:wrap}.eq-switch button[aria-pressed=true]{background:#efe9fa;border-color:#c1a9e3;color:#653cad}.eq-stats{display:flex;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:10px;margin-top:10px;font-size:12px}.eq-stats strong{display:block;font:20px Consolas,monospace;color:var(--u)}#eq-description{font-size:12px;color:var(--muted);margin:9px 0 0;min-height:38px}.method-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px}.method-grid p,.method-grid li{font-size:12px;color:#4d5f76}.method-grid ol{padding-left:18px;margin-top:6px}.method-grid li{margin-bottom:7px}.model-table td,.model-table th{font-size:11px;padding:6px;white-space:normal}.footer{padding:13px 2px 0;display:flex;justify-content:space-between;font-size:10px;color:var(--muted);gap:10px}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#21334b;color:white;padding:11px 18px;border-radius:8px;font-size:12px;box-shadow:0 5px 25px #0003;z-index:10;max-width:90vw}.modal{max-width:400px;border:1px solid var(--line);border-radius:14px;padding:25px;color:var(--ink);box-shadow:0 15px 80px #17243a33}.modal::backdrop{background:#17243a66}.modal p{font-size:13px;color:var(--muted)}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}.sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0,0,0,0)}
+.control-panel{padding:12px}.control-panel>.panel-label{margin-bottom:7px}.psu{padding:9px;margin-bottom:8px}.psu-brand{margin-bottom:5px;font-size:9px}.psu-display{padding:5px 9px}.display-line output{font-size:27px;line-height:1.1}.display-line.current output{font-size:23px}.psu-bottom{margin-top:7px}.setting{margin:5px 0}.setting input[type=number]{padding:2px 5px}.setting input[type=range]{height:15px;margin:3px 0}.divider{margin:9px 0}.lock-note{min-height:0;padding:6px 8px;font-size:10px}.profile-select{padding:5px;font-size:11px}.meter .reading{font-size:17px}.r-value{font-size:15px}.circuit-note{font-size:14px}
+@media(min-width:1001px) and (max-height:850px){.wrap{padding-top:12px}.topbar{margin-bottom:11px}.lab-number{width:42px;height:42px;font-size:23px}h1{font-size:24px}.eyebrow{font-size:9px}.step{padding-top:7px;padding-bottom:7px}.steps{margin-bottom:11px}.inspector{padding:12px}.gauge{margin-top:9px}.capture-row{margin:10px 0}.control-panel .setting{margin:3px 0}.lock-note{margin-top:6px}.control-panel .panel-label{font-size:9px}.control-panel .divider{margin:7px 0}.psu{margin-bottom:7px}}
+.circuit-stage{min-height:0}#circuit{max-height:340px}.gauge svg{max-height:120px}.gauge{flex-shrink:0}.psu{padding:7px}.psu-brand{font-size:8px;margin-bottom:3px}.psu-display{padding:4px 8px}.display-line output{font-size:25px}.display-line.current output{font-size:21px}.psu-bottom{margin-top:5px}#power{padding:4px 8px;font-size:11px}.mobile-hint{display:none}.circuit-panel.expanded{position:fixed;inset:12px;z-index:25;box-shadow:0 0 0 20px #17243abb;max-height:calc(100vh - 24px)}.circuit-panel.expanded #circuit{height:100%;max-height:none}.circuit-panel.expanded .circuit-stage{min-height:0}.circuit-header-actions{display:flex;align-items:center;gap:7px}#zoom-circuit{padding:3px 7px;font-size:10px}.circuit-panel.expanded .circuit-stage{flex:1;overflow:auto}input[aria-invalid=true]{border-color:var(--danger);background:#fff4f2}.meter .reading.side-reading{text-anchor:start}
+@media(max-width:1200px){.wrap{padding:15px}.bench{grid-template-columns:210px minmax(350px,1fr) 215px;gap:9px}.inspector,.control-panel{padding:12px}.header-actions button{font-size:11px}.big-reading{font-size:29px}.step{padding:9px 12px}.circuit-stage{min-height:270px}}
+@media(max-width:1000px){.bench{grid-template-columns:210px minmax(350px,1fr)}.inspector{grid-column:1/-1;display:grid;grid-template-columns:180px 200px 1fr;column-gap:18px}.inspector .panel-label{display:none}.instrument-title{grid-column:1}.gauge{grid-column:1;grid-row:2/6;margin:5px 0 0}.big-reading{grid-column:2;grid-row:1/3;align-self:center}.reading-caption{grid-column:2;grid-row:3}.meter-choices{grid-column:2;grid-row:4}.inspector #meter-info{grid-column:3;grid-row:1/3}.experiment-guide{grid-column:3;grid-row:3/6;margin-top:3px}.topbar{flex-wrap:wrap}.header-actions{margin-left:66px}.step-note{display:none}}
+@media(max-width:700px){.wrap{padding:10px}.topbar{gap:9px;margin-bottom:12px}.lab-number{width:42px;height:42px;font-size:22px}.eyebrow{font-size:8px;letter-spacing:1px}h1{font-size:19px;max-width:310px}.header-actions{margin:4px 0 0 51px}.steps{margin-bottom:10px}.step{padding:8px 4px;flex-direction:column;gap:4px;text-align:center}.step-name{font-size:10px}.step-number{width:22px;height:22px}.bench{display:flex;flex-direction:column}.control-panel{display:grid;grid-template-columns:1fr 1fr;gap:8px 15px}.control-panel>.panel-label{grid-column:1/-1;margin:0}.psu{grid-column:1;grid-row:2/5;margin:0}.control-panel .setting{margin:2px 0}.control-panel .divider{display:none}.control-panel .resistor-title{grid-column:1/-1;margin:5px 0}.resistance-settings{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.resistance-settings .setting-head{flex-wrap:wrap}.resistance-settings .setting input[type=number]{width:60px}.control-panel .profile-box{grid-column:1}.lock-note{grid-column:2;margin:0;align-self:end;min-height:0}.circuit-stage{min-height:0;padding:8px 3px}.inspector{grid-template-columns:145px 1fr;gap:6px 15px}.inspector #meter-info{display:none}.experiment-guide{grid-column:1/-1;grid-row:6;margin-top:4px}.meter-choices{margin:0}.big-reading{font-size:30px}.capture-row{flex-direction:column;align-items:stretch;gap:7px}.capture-row p{font-size:11px}.tabs{padding:0 5px}.tabs button{padding:12px 10px;font-size:11px}.tab-content{padding:14px 12px}.experiment-records,.calc-grid,.eq-grid,.method-grid{grid-template-columns:1fr}.person-row{grid-template-columns:1fr 110px}.section-head{flex-wrap:wrap;gap:7px}.comparison-row{grid-template-columns:135px 1fr 82px;gap:6px;font-size:11px}.answer-fields{grid-template-columns:1fr 1fr}.motion-row{align-items:flex-start}.motion-row span{max-width:55%;text-align:right;font-size:9px}.law{padding:6px}.law-value{font-size:10px}.footer{flex-direction:column;gap:3px}.journal-actions .subtle{margin-left:0}.circuit-head{padding:10px}.modes{padding:8px 8px 0}.modes button{font-size:10px}}
+@media(max-width:700px){.circuit-stage{display:block;overflow-x:auto}#circuit{min-width:640px;max-height:none}.mobile-hint{display:block;font-size:10px;color:var(--muted);text-align:center;margin:6px 0 0}.setting input[type=number]{width:62px}.setting .setting-head{gap:2px}.circuit-panel.expanded #circuit{height:auto}.circuit-head h2{font-size:13px}.circuit-header-actions .chip{display:none}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}.flow{display:none}}
+@media print{body{background:white}.wrap{padding:0}.topbar,.steps,.bench,.capture-row,.tabs,.footer,.journal-actions,.header-actions,.student-check{display:none}.workbook{border:0}.tab-content{display:block!important;page-break-inside:avoid}.tab-content[hidden]{display:block!important}#view-method,#view-equivalent{display:none!important}button{display:none}.panel{box-shadow:none}input,textarea{border:0}}
+.onboarding-beacon{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--u);color:white;font-size:11px;font-weight:700;margin-right:6px;vertical-align:middle;box-shadow:0 0 0 0 rgba(120,77,199,0.7);transition:all .3s}
+.onboarding-beacon.active{animation:pulse-beacon 1.8s infinite;background:#4f46e5}
+.onboarding-beacon.completed{background:#10b981}
+@keyframes pulse-beacon{0%{box-shadow:0 0 0 0 rgba(79,70,229,.7)}70%{box-shadow:0 0 0 9px rgba(79,70,229,0)}100%{box-shadow:0 0 0 0 rgba(79,70,229,0)}}
+.onboarding-guide-strip{display:flex;align-items:center;gap:12px;background:#f8f6fc;border:1px solid #dfd5f5;border-radius:9px;padding:9px 15px;margin-bottom:14px;font-size:12px;color:#3c2a63}
+.guide-beacon-icon{font-weight:700;color:var(--u);display:flex;align-items:center;gap:5px;flex-shrink:0}
+.guide-text-msg{font-weight:600}
+.meter-reading-box{display:flex;flex-direction:column;align-items:center;gap:5px;margin:6px 0}
+.big-reading.blurred{filter:blur(7px);user-select:none;opacity:0.55;transition:filter .2s,opacity .2s;cursor:pointer}
+.big-reading.revealed{filter:none;opacity:1}
+.eye-btn{font-size:11px;padding:3px 9px;border-radius:6px;background:var(--soft);color:var(--muted);border:1px solid var(--line)}
+.eye-btn:hover{background:#e2e8f0;color:var(--ink)}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="topbar"><div class="lab-number" aria-hidden="true">11</div><div><div class="eyebrow">Электротехника · Виртуальная лаборатория</div><h1>Разветвлённая цепь постоянного тока</h1></div><div class="header-actions"><a href="index.html" class="portal-back-btn" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:7px 12px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;font-size:12px;font-weight:600;color:#334155;">← Главная курса</a><button id="help-button">Как выполнить работу</button><button id="save-report" class="secondary">Скачать отчёт</button></div></header>
+<nav class="steps" aria-label="Ход лабораторной работы">
+ <div class="step active" data-step="load"><span class="step-number">01</span><div><div class="step-name">Рабочий режим</div><div class="step-note">Токи и напряжения</div></div></div>
+ <div class="step" data-step="open"><span class="step-number">02</span><div><div class="step-name">Холостой ход</div><div class="step-note">Измерение U₃х</div></div></div>
+ <div class="step" data-step="short"><span class="step-number">03</span><div><div class="step-name">Короткое замыкание</div><div class="step-note">Измерение I₃к</div></div></div>
+ <div class="step" data-step="results"><span class="step-number">04</span><div><div class="step-name">Сравнение</div><div class="step-note">Эквивалентный генератор</div></div></div>
+</nav>
+<div class="onboarding-guide-strip" id="onboarding-strip">
+  <span class="guide-beacon-icon">💡 Навигатор шагов:</span>
+  <span class="guide-text-msg" id="guide-step-msg">Шаг 1: Задайте напряжение E (24 В) и включите кнопку «Включить».</span>
+</div>
+<section class="bench" aria-label="Лабораторный стенд">
+ <aside class="panel control-panel">
+  <div class="panel-label"><span class="onboarding-beacon" id="beacon-1">1</span>01 / Источник и нагрузка</div>
+  <div class="psu"><div class="psu-brand"><span>DC POWER SUPPLY</span><span>0–30 V</span></div><div class="psu-display"><div class="display-line"><output id="psu-voltage" aria-label="Напряжение выхода">0.00</output><span class="display-unit">V</span></div><div class="display-line current"><output id="psu-current" aria-label="Ток источника">0.0000</output><span class="display-unit">A</span></div></div><div class="psu-bottom"><span id="power-led" class="status-led">ВЫХОД ВЫКЛ.</span><button id="power" aria-pressed="false">Включить</button></div></div>
+  <div class="setting"><div class="setting-head"><label for="E-number">Напряжение</label><span><input id="E-number" type="number" min="1" max="30" step="0.1" value="24" data-config="E"> <span class="unit">В</span></span></div><input id="E-range" type="range" min="1" max="30" step="0.1" value="24" aria-label="Регулятор напряжения" data-config="E"></div>
+  <div class="setting"><div class="setting-head"><label for="limit-number">Предел тока</label><span><input id="limit-number" type="number" min="0.05" max="2" step="0.05" value="0.5" data-config="limit"> <span class="unit">А</span></span></div></div>
+  <div class="divider"></div><div class="panel-label resistor-title">Резисторы · 10 Вт (100–1000 Ом)</div>
+  <div class="resistance-settings">
+   <div class="setting"><div class="setting-head"><label class="r1" for="r1-number">R<sub>1</sub></label><span><input id="r1-number" type="number" min="100" max="1000" step="1" value="100" data-config="r1"> <span class="unit">Ом</span></span></div><input id="r1-range" type="range" min="100" max="1000" step="1" value="100" aria-label="Регулятор R1" data-config="r1"></div>
+   <div class="setting"><div class="setting-head"><label class="r2" for="r2-number">R<sub>2</sub></label><span><input id="r2-number" type="number" min="100" max="1000" step="1" value="220" data-config="r2"> <span class="unit">Ом</span></span></div><input id="r2-range" type="range" min="100" max="1000" step="1" value="220" aria-label="Регулятор R2" data-config="r2"></div>
+   <div class="setting"><div class="setting-head"><label class="r3" for="r3-number">R<sub>3</sub></label><span><input id="r3-number" type="number" min="100" max="1000" step="1" value="330" data-config="r3"> <span class="unit">Ом</span></span></div><input id="r3-range" type="range" min="100" max="1000" step="1" value="330" aria-label="Регулятор R3" data-config="r3"></div>
+  </div>
+  <div class="profile-box"><label for="profile" class="subtle">Модель стенда</label><select id="profile" class="profile-select"><option value="real">Реалистичные приборы</option><option value="ideal">Идеальная цепь</option></select></div>
+  <div class="lock-note" id="lock-note">Задайте параметры. После первого измерения они фиксируются на всю серию.</div>
+ </aside>
+ <section class="panel circuit-panel">
+  <div class="circuit-head"><h2><span class="onboarding-beacon" id="beacon-2">2</span>02 / Электрическая схема</h2><div class="circuit-header-actions"><span class="chip" id="circuit-status">Питание выключено</span><button id="zoom-circuit" aria-expanded="false">Крупнее</button></div></div>
+  <div class="modes" aria-label="Соединение ветви R3"><button data-mode="load" aria-pressed="true">R₃ · Нагрузка</button><button data-mode="open" aria-pressed="false">Холостой ход</button><button data-mode="short" aria-pressed="false">КЗ ветви R₃</button></div>
+  <p class="mobile-hint">Прокручивайте схему влево и вправо, чтобы увидеть все ветви.</p>
+  <div class="circuit-stage" tabindex="0" aria-label="Область схемы с горизонтальной прокруткой на узком экране">
+   <svg id="circuit" viewBox="0 0 900 470" role="img" aria-label="Источник U и R1 последовательно с параллельными ветвями R2 и R3. Приборы можно выбирать щелчком.">
+    <defs><marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--r1)"/></marker><marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--r2)"/></marker><marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--r3)"/></marker></defs>
+    <path class="wire" d="M90 232V90H215M265 90H315M415 90H785V130M785 180V235M90 308V410H785M500 90V165M500 215V250M500 335V410"/>
+    <path class="sense" d="M160 90V287M160 333V410M190 90V170H327M373 170H470V90M660 90V267M660 313V410"/>
+    <path id="flow-1" class="flow c-r1" d="M500 410H90V90H500"/><path id="flow-2" class="flow c-r2" d="M500 90V410"/><path id="flow-3" class="flow c-r3" d="M500 90H785V410H500"/>
+    <circle cx="90" cy="270" r="38" fill="white" stroke="var(--u)" stroke-width="3"/><text x="90" y="257" text-anchor="middle" font-size="24" fill="var(--u)">+</text><text x="90" y="293" text-anchor="middle" font-size="27" fill="var(--u)">−</text><text x="33" y="276" class="circuit-label" fill="var(--u)">U</text>
+    <rect x="315" y="75" width="100" height="30" class="component c-r1"/><text x="365" y="40" text-anchor="middle" class="r-name" fill="var(--r1)">R₁</text><text id="label-r1" x="365" y="60" text-anchor="middle" class="r-value" fill="var(--r1)">100 Ом</text>
+    <rect x="485" y="250" width="30" height="85" class="component c-r2"/><text x="534" y="283" class="r-name" fill="var(--r2)">R₂</text><text id="label-r2" x="534" y="304" class="r-value" fill="var(--r2)">220 Ом</text>
+    <g id="branch-load"><rect x="770" y="235" width="30" height="100" class="component c-r3"/><path d="M785 335V410" class="wire"/><text x="814" y="276" class="r-name" fill="var(--r3)">R₃</text><text id="label-r3" x="814" y="297" class="r-value" fill="var(--r3)">330 Ом</text></g>
+    <g id="branch-short" hidden><path d="M785 235V410" stroke="var(--r3)" stroke-width="5" fill="none"/><text x="803" y="286" class="circuit-note">Перемычка</text></g>
+    <g id="branch-open" hidden><rect x="756" y="124" width="58" height="112" fill="white"/><path d="M785 90V209M785 335V410" class="wire"/><circle cx="785" cy="209" r="5" fill="white" stroke="var(--r3)" stroke-width="2"/><circle cx="785" cy="335" r="5" fill="white" stroke="var(--r3)" stroke-width="2"/><path d="M785 209L750 243" stroke="var(--r3)" stroke-width="3"/><text x="781" y="290" text-anchor="middle" class="circuit-note">R₃ снят</text></g>
+    <g class="meter" data-meter="A1" tabindex="0" role="button" aria-label="Выбрать амперметр A1"><circle cx="240" cy="90" r="25"/><text x="240" y="96">A₁</text><text id="read-A1" x="240" y="132" class="reading">0,0000 А</text></g>
+    <g class="meter" data-meter="A2" tabindex="0" role="button" aria-label="Выбрать амперметр A2"><circle cx="500" cy="190" r="25"/><text x="500" y="196">A₂</text><text id="read-A2" x="545" y="195" class="reading side-reading">0,0000 А</text></g>
+    <g class="meter" id="meter-a3" data-meter="A3" tabindex="0" role="button" aria-label="Выбрать амперметр A3"><circle cx="785" cy="155" r="25"/><text x="785" y="161">A₃</text><text id="read-A3" x="785" y="65" class="reading">0,0000 А</text></g>
+    <g class="meter" data-meter="V" tabindex="0" role="button" aria-label="Выбрать вольтметр V"><circle cx="160" cy="310" r="23"/><text x="160" y="316">V</text><text id="read-V" x="221" y="317" class="reading">0,00 В</text></g>
+    <g class="meter" data-meter="V1" tabindex="0" role="button" aria-label="Выбрать вольтметр V1"><circle cx="350" cy="170" r="23"/><text x="350" y="176">V₁</text><text id="read-V1" x="350" y="211" class="reading">0,00 В</text></g>
+    <g class="meter selected" data-meter="V3" tabindex="0" role="button" aria-label="Выбрать вольтметр V3"><circle cx="660" cy="290" r="23"/><text x="660" y="296">V₃</text><text id="read-V3" x="695" y="296" class="reading side-reading">0,00 В</text></g>
+    <circle cx="500" cy="90" r="5" class="node"/><circle cx="500" cy="410" r="5" class="node"/><text x="498" y="63" class="circuit-label">A</text><text x="499" y="444" class="circuit-label">B</text><text x="521" y="444" class="circuit-note">0 В</text>
+    <path d="M267 43H306" class="arrow c-r1" marker-end="url(#arrow-blue)"/><text x="274" y="32" fill="var(--r1)" font-size="15">I₁</text><path d="M449 258V306" class="arrow c-r2" marker-end="url(#arrow-green)"/><text x="429" y="285" fill="var(--r2)" font-size="15">I₂</text><path id="arrow-i3" d="M738 340V380" class="arrow c-r3" marker-end="url(#arrow-orange)"/><text id="text-i3" x="715" y="365" fill="var(--r3)" font-size="15">I₃</text>
+    <text id="node-potential" x="594" y="61" class="circuit-note">UAB = 0,00 В</text><text id="power-note" x="285" y="378" text-anchor="middle" class="circuit-note">Источник выключен</text>
+   </svg>
+  </div>
+  <div class="circuit-foot"><div class="laws-strip"><div class="law"><span class="law-label">Узел A · I₁ ≈ I₂ + I₃</span><span id="kcl-live" class="law-value">0,0000 ≈ 0,0000 + 0,0000 А</span></div><div class="law"><span class="law-label">Контур · U ≈ U₁ + U₃</span><span id="kvl-live" class="law-value">0,00 ≈ 0,00 + 0,00 В</span></div></div><div class="motion-row"><label><input id="motion" type="checkbox" checked> Движение тока</label><span>Условные маркеры: от «+» к «−» по внешней цепи.</span></div></div>
+ </section>
+ <aside class="panel inspector"><div class="panel-label"><span class="onboarding-beacon" id="beacon-3">3</span>03 / Измерительный прибор</div><div class="instrument-title"><h2 id="meter-title">Вольтметр V₃</h2><span class="instrument-unit" id="meter-range">Предел 30 В · 30 дел.</span></div><div class="gauge"><svg viewBox="0 0 240 152" aria-label="Стрелочный индикатор выбранного прибора" role="img"><path d="M42 123A78 78 0 0 1 198 123" fill="none" stroke="#d5dde5" stroke-width="4"/><path d="M34 123A86 86 0 0 1 206 123" fill="none" stroke="#334155" stroke-width="1.8"/><g id="gauge-ticks"></g><text id="gauge-symbol" x="120" y="85" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="600" fill="#24334b">V · Кл. 1.0</text><line id="gauge-needle" x1="120" y1="123" x2="39" y2="123" stroke="#b23b32" stroke-width="2.5"/><circle cx="120" cy="123" r="5" fill="#37475c"/><text x="120" y="145" text-anchor="middle" font-size="9" fill="#829098">ПОСТОЯННЫЙ ТОК · СТРЕЛОЧНЫЙ ОТСЧЁТ</text></svg></div><div class="meter-reading-box"><div class="big-reading blurred" id="selected-value" title="Нажмите, чтобы показать точное значение">0,00 В</div><button id="toggle-value-btn" class="small eye-btn" type="button">👁 Проверить себя</button></div><div class="reading-caption" id="meter-quantity">Напряжение между узлами A и B</div><div class="meter-choices" aria-label="Выбор прибора"><button data-meter="V" aria-pressed="false">V</button><button data-meter="V1" aria-pressed="false">V₁</button><button data-meter="V3" aria-pressed="true">V₃</button><button data-meter="A1" aria-pressed="false">A₁</button><button data-meter="A2" aria-pressed="false">A₂</button><button data-meter="A3" aria-pressed="false">A₃</button></div><div id="meter-info">Входное сопротивление 10 МОм.</div><div class="experiment-guide"><h3 id="guide-title">Опыт 1 · Рабочий режим</h3><p id="guide-text">Включите источник. Снимите показания трёх амперметров и вольтметров по стрелке. Кнопка ниже запишет их в таблицу 11.1.</p></div></aside>
+</section>
+<div class="capture-row"><div style="display:flex;align-items:center;gap:10px"><span class="onboarding-beacon" id="beacon-4">4</span><button id="capture" class="primary" disabled>Записать рабочий режим</button></div><div><p id="capture-hint">Собранная схема готова. Включите выход источника.</p><div id="status-message" role="status" aria-live="polite"></div></div></div>
+<section class="panel workbook">
+ <div class="tabs" role="tablist" aria-label="Материалы лабораторной"><button role="tab" id="tab-journal" aria-selected="true" aria-controls="view-journal" data-tab="journal">Журнал опытов <span id="sample-count">0/3</span></button><button role="tab" id="tab-calculations" aria-selected="false" aria-controls="view-calculations" data-tab="calculations">Расчёт и сравнение</button><button role="tab" id="tab-equivalent" aria-selected="false" aria-controls="view-equivalent" data-tab="equivalent">Эквивалентный генератор</button><button role="tab" id="tab-method" aria-selected="false" aria-controls="view-method" data-tab="method">Методика и модель</button></div>
+ <div class="tab-content" id="view-journal" role="tabpanel" aria-labelledby="tab-journal">
+  <div class="section-head"><div><h2>Измерения вашей серии</h2><p>Таблица 11.1 · Показания снимаются одновременно после установления индикации.</p></div><button id="new-series" class="small">Новая серия</button></div>
+  <div class="table-scroll"><table aria-label="Таблица 11.1 — измеренные величины"><thead><tr><th>Опыт</th><th>U, В</th><th>I₁, А</th><th>I₂, А</th><th>I₃, А</th><th>U₁, В</th><th>U₂ = U₃, В</th></tr></thead><tbody id="table-measured"><tr><td colspan="7" class="empty-cell">Показаний пока нет. Включите источник и запишите рабочий режим.</td></tr></tbody></table></div>
+  <div class="experiment-records"><div class="record" id="record-open"><div class="record-title"><span>02 / Холостой ход</span><span id="open-badge" class="muted">Не измерен</span></div><div id="open-values" class="values">U₃х = — В</div><p>R₃ удалён. V₃ остаётся на выводах ветви.</p></div><div class="record" id="record-short"><div class="record-title"><span>03 / Короткое замыкание ветви</span><span id="short-badge" class="muted">Не измерено</span></div><div id="short-values" class="values">I₃к = — А</div><p>R₃ заменён перемычкой. A₃ измеряет ток.</p></div></div>
+  <div class="checks" id="series-checks"><span class="check-chip">U постоянно в пределах серии</span><span class="check-chip">R₁, R₂ и исходное R₃ фиксируются</span></div>
+  <div class="person-row"><div><label for="student-name">Студент</label><input id="student-name" placeholder="Фамилия и имя" maxlength="150" autocomplete="off"></div><div><label for="student-group">Группа</label><input id="student-group" placeholder="Номер группы" maxlength="150" autocomplete="off"></div></div><div class="notes-box"><label class="notes-label" for="notes">Наблюдения и вывод</label><textarea id="notes" maxlength="6000" placeholder="Что изменилось при разрыве и замыкании R₃? Совпали ли четыре результата для I₃? Чем объясняются расхождения?"></textarea></div>
+  <div class="journal-actions"><button id="save-project" class="small">Сохранить опыт</button><button id="load-project" class="small">Продолжить из файла</button><input id="project-file" type="file" accept=".json,application/json" hidden><span class="subtle">Сохранение — в файл на вашем устройстве.</span></div>
+ </div>
+ <div class="tab-content" id="view-calculations" role="tabpanel" aria-labelledby="tab-calculations" hidden>
+  <div class="section-head"><div><h2>От измерений к результату</h2><p>Формулы соответствуют таблицам 11.2–11.4. Для расчётов R определяются из записанных U и I.</p></div><button id="show-solution" class="secondary small">Показать расчёт</button></div>
+  <div id="calculation-empty" class="result-summary">Сначала запишите рабочий режим. Для экспериментального генератора также нужны холостой ход и КЗ ветви.</div>
+  <div class="student-check"><h3>Рассчитайте самостоятельно</h3><div class="answer-fields"><div><label for="answer-kcl">I₃ = I₁ − I₂, А</label><input id="answer-kcl" type="text" inputmode="decimal" placeholder="Ваш результат"></div><div><label for="answer-req">Rэк = U₃х / I₃к, Ом</label><input id="answer-req" type="text" inputmode="decimal" placeholder="Ваш результат"></div><div><label for="answer-ieq">I₃ = Eэк / (Rэк + R₃), А</label><input id="answer-ieq" type="text" inputmode="decimal" placeholder="Ваш результат"></div><button id="check-answers">Проверить</button></div><div id="answer-feedback" class="answer-feedback" aria-live="polite"></div></div>
+  <div id="solution" hidden><div class="calc-grid"><div><h3>Таблица 11.2 · Законы цепи</h3><div id="table-calculated"></div></div><div><h3>Таблица 11.3 · Аналитический генератор</h3><div id="table-analytic"></div><h3 style="margin-top:20px">Таблица 11.4 · Генератор по опытам</h3><div id="table-experimental"></div></div></div><div class="comparison"><h3>Один ток I₃ — четыре способа</h3><div class="comparison-bars" id="comparison-bars"></div><div id="result-summary" class="result-summary"></div></div></div>
+ </div>
+ <div class="tab-content" id="view-equivalent" role="tabpanel" aria-labelledby="tab-equivalent" hidden>
+  <div class="section-head"><div><h2>Что видит ветвь R₃</h2><p>Остальная цепь заменяется источником Eэк и сопротивлением Rэк · Рис. 11.3.</p></div></div>
+  <div class="eq-grid"><div class="eq-card"><div class="eq-switch"><button class="small" data-eq="generator" aria-pressed="true">Генератор</button><button class="small" data-eq="open" aria-pressed="false">Получение Eэк</button><button class="small" data-eq="resistance" aria-pressed="false">Получение Rэк</button></div><svg id="equivalent-svg" viewBox="0 0 560 260" role="img" aria-label="Схема эквивалентного генератора"></svg><p id="eq-description"></p><div class="eq-stats"><div>Eэк<strong id="eq-e">16,50 В</strong></div><div>Rэк<strong id="eq-r">68,75 Ом</strong></div><div>I₃к<strong id="eq-isc">0,2400 А</strong></div></div></div><div class="eq-card"><h3>Нагрузочная характеристика</h3><svg id="load-chart" viewBox="0 0 550 290" role="img" aria-label="Линейная зависимость напряжения на выводах от тока нагрузки"></svg><p class="subtle">Линия: U₃ = Eэк − I₃Rэк для идеальной цепи с заданными номиналами. Точка: текущий режим стенда. Отклонение точки учитывает приборы и ограничение тока.</p></div></div>
+ </div>
+ <div class="tab-content" id="view-method" role="tabpanel" aria-labelledby="tab-method" hidden>
+  <div class="method-grid"><div><h2>Порядок выполнения</h2><ol><li>Установите напряжение и сопротивления, заданные преподавателем. Начальные 24 В и 100/220/330 Ом — пример, поскольку в методичке номиналы не указаны.</li><li>В режиме «R₃ · Нагрузка» включите источник и запишите показания. V₁ включён параллельно A₁ + R₁, как на рис. 11.1. V₃ измеряет U₂ = U₃.</li><li>Выключите выход, выберите «Холостой ход», снова включите и запишите U₃х. Удалена только ветвь R₃; источник, R₁ и R₂ остаются подключёнными.</li><li>Выключите выход, выберите «КЗ ветви R₃», включите и запишите I₃к. Ток ограничивают R₁, провода, амперметр и, при необходимости, защита источника.</li><li>По журналу вычислите R₁, R₂, R₃, проверьте законы Кирхгофа и баланс мощностей. Найдите Eэк, Rэк и ток R₃ аналитически и по опытам.</li><li>Сравните четыре значения I₃. Запишите вывод и скачайте отчёт. JSON опыта позволяет продолжить работу позже.</li></ol><h3>Основные зависимости</h3><p class="formula">I₁ = I₂ + I₃; U = U₁ + U₂; U₂ = U₃</p><p class="formula">U<sub>AB</sub> = (E/R₁) / (1/R₁ + 1/R₂ + 1/R₃)</p><p class="formula">Eэк = ER₂/(R₁ + R₂); Rэк = R₁R₂/(R₁ + R₂)</p><p class="formula">Rэк = U₃х/I₃к; I₃ = Eэк/(Rэк + R₃)</p><p class="formula">EI₁ = R₁I₁² + R₂I₂² + R₃I₃²</p></div><div><h2>Как моделируется реальная установка</h2><p>Это модель линейной цепи в установившемся режиме. В режиме «Реалистичные приборы» учитывается влияние подключённых приборов и проводов. Параметры учебные, не паспорт конкретного стенда.</p><table class="model-table"><tbody><tr><td>Амперметры A₁–A₃</td><td>0,1 Ом; шаг 0,0001 А</td></tr><tr><td>Вольтметры V, V₁, V₃</td><td>10 МОм; шаг 0,01 В</td></tr><tr><td>Провода каждой токовой ветви</td><td>Суммарно 0,06 Ом</td></tr><tr><td>Фиксированная ошибка показаний</td><td>V: +0,15%; V₁: −0,1%; V₃: +0,2%; A₁: +0,1%; A₂: −0,2%; A₃: +0,15%</td></tr><tr><td>Источник</td><td>Стабилизация напряжения CV; при превышении заданного тока — CC со снижением U</td></tr><tr><td>Резисторы</td><td>Линейные, 10 Вт; превышение мощности отмечается на стенде</td></tr></tbody></table><p>При холостом ходе вольтметр потребляет малый ток. При КЗ перемычка и амперметр имеют ненулевое сопротивление, поэтому U₃ и I₂ могут быть малыми, но не строго нулевыми. Это отражается в расчётах.</p><p>В идеальном режиме приборы не влияют на цепь, систематические ошибки отключены, источник сохраняет заданное U без ограничения тока. Округление цифровой индикации остаётся.</p><p>Стрелка плавно устанавливается как индикатор; это не переходный процесс цепи. Скорость маркеров тока условная, относительные скорости пропорциональны токам. Температурная зависимость резисторов, искрение и паразитные L/C не моделируются.</p><p>Расхождение баланса по показаниям обусловлено округлением, ошибками измерения и потреблением приборов. Сам расчёт сети сохраняет ток и энергию с учётом всех элементов.</p><p class="subtle">Источник: «Лабораторная работа №11.docx», рис. 11.1–11.3, таблицы 11.1–11.4.</p></div></div>
+ </div>
+</section>
+<footer class="footer"><span>Лабораторная №11 · Законы Кирхгофа, баланс мощностей, эквивалентный генератор</span><span>Автономная страница · Работает без интернета</span></footer>
+</main>
+<div id="toast" class="toast" role="status" hidden></div>
+<dialog id="reset-dialog" class="modal"><h2>Начать новую серию?</h2><p>Текущие измерения будут очищены. Сначала сохраните опыт, если он ещё нужен. Номиналы останутся прежними.</p><div class="modal-actions"><button id="cancel-reset">Отмена</button><button id="confirm-reset" class="primary">Начать новую серию</button></div></dialog>
+<noscript>Для работы лаборатории включите JavaScript в браузере.</noscript>
+<script id="lab11-model">
+'use strict';
+/* DC network from figures 11.1–11.3. All internal quantities are SI. */
+const Lab11 = (() => {
+  const DEFAULTS = Object.freeze({E:24,r1:100,r2:220,r3:330,limit:0.5,profile:'real'});
+  const BIAS = Object.freeze({V:0.0015,V1:-0.001,V3:0.002,A1:0.001,A2:-0.002,A3:0.0015});
+  const MODES = ['load','open','short'];
+  function config(value) {
+    if (!value || typeof value !== 'object') throw Error('Не удалось прочитать параметры стенда.');
+    const c = {};
+    for (const [k,min,max] of [['E',1,30],['r1',100,1000],['r2',100,1000],['r3',100,1000],['limit',0.05,2]]) {
+      if (typeof value[k] !== 'number' || !Number.isFinite(value[k]) || value[k]<min || value[k]>max) throw Error('Недопустимое значение '+k+'.');
+      c[k]=value[k];
+    }
+    if (!['ideal','real'].includes(value.profile)) throw Error('Неизвестная модель приборов.');
+    c.profile=value.profile;
+    return c;
+  }
+  function solve(settings, mode='load', powered=true) {
+    const c=config(settings);
+    if(!MODES.includes(mode)) throw Error('Неизвестное соединение R3.');
+    const real=c.profile==='real', ra=real?0.1:0, rw=real?0.06:0, gv=real?1e-7:0;
+    const a=c.r1+ra+rw, b=c.r2+ra+rw;
+    const r3path=mode==='open'?Infinity:mode==='short'?ra+rw:c.r3+ra+rw;
+    const g1=1/a+gv, gp=1/b+gv+1/r3path;
+    const idealShort=r3path===0;
+    const inputG=(idealShort?g1:g1*gp/(g1+gp))+gv;
+    const cvCurrent=c.E*inputG;
+    const limited=powered&&real&&cvCurrent>c.limit;
+    const U=powered?(limited?c.limit/inputG:c.E):0;
+    const Uab=idealShort?0:U*g1/(g1+gp);
+    const I1=(U-Uab)/a, I2=Uab/b;
+    const Iv1=(U-Uab)*gv, Iv3=Uab*gv, Iv=U*gv;
+    const I3=idealShort?I1:mode==='open'?0:Uab/r3path;
+    const Is=I1+Iv1+Iv;
+    const P1=I1*I1*c.r1, P2=I2*I2*c.r2, P3=mode==='load'?I3*I3*c.r3:0;
+    const Paux=(I1*I1+I2*I2+I3*I3)*(ra+rw)+(U-Uab)*Iv1+Uab*Iv3+U*Iv;
+    return {mode,powered,limited,U,Uab,U1:U-Uab,I1,I2,I3,Is,Iv,Iv1,Iv3,P1,P2,P3,Paux,Ps:U*Is,ra,rw,rv:gv?1/gv:Infinity};
+  }
+  function equivalent(c) {
+    return {Eeq:c.E*c.r2/(c.r1+c.r2),Req:c.r1*c.r2/(c.r1+c.r2),Isc:c.E/c.r1};
+  }
+  function readings(c,s) {
+    const raw={V:s.U,V1:s.U1,V3:s.Uab,A1:s.I1,A2:s.I2,A3:s.I3};
+    const r={};
+    for(const k of Object.keys(raw)) {
+      const digits=k[0]==='A'?4:2;
+      r[k]=Number((raw[k]*(1+(c.profile==='real'?BIAS[k]:0))).toFixed(digits));
+    }
+    return r;
+  }
+  function analysis(samples,c) {
+    const m=samples.load?.readings;
+    if(!m)return null;
+    const safe=(a,b)=>Math.abs(b)>1e-12?a/b:null;
+    const r1=safe(m.V1,m.A1),r2=safe(m.V3,m.A2),r3=safe(m.V3,m.A3);
+    const valid=[r1,r2,r3].every(x=>x!==null&&x>0);
+    const Uab=valid?(m.V/r1)/(1/r1+1/r2+1/r3):null;
+    const Eeq=valid?m.V*r2/(r1+r2):null,Req=valid?r1*r2/(r1+r2):null;
+    const Uoc=samples.open?.readings.V3??null,Isc=samples.short?.readings.A3??null;
+    const ReqExp=Uoc!==null&&Isc!==null?safe(Uoc,Isc):null;
+    return {r1,r2,r3,Uab,Uk:m.V-m.V3,Ik:m.A1-m.A2,Ps:m.V*m.A1,
+      Pl:m.V1*m.A1+m.V3*m.A2+m.V3*m.A3,
+      Inode:valid?(m.V-Uab)/r1:null,I2node:valid?Uab/r2:null,I3node:valid?Uab/r3:null,
+      Eeq,Req,Ieq:valid?Eeq/(Req+r3):null,Uoc,Isc,ReqExp,
+      Iexp:ReqExp!==null&&r3!==null?Uoc/(ReqExp+r3):null,
+      nominal:equivalent(c)};
+  }
+  function validateProject(p) {
+    if(!p||p.kind!=='lab11-dc'||p.version!==1)throw Error('Это не проект лабораторной работы №11.');
+    const c=config(p.config),samples={};
+    if(!p.samples||typeof p.samples!=='object')throw Error('Нет журнала измерений.');
+    for(const mode of MODES) {
+      const s=p.samples[mode];if(s===undefined)continue;
+      if(!s||s.mode!==mode||typeof s.time!=='string'||!Number.isFinite(Date.parse(s.time)))throw Error('Повреждена запись опыта.');
+      const r={};
+      for(const k of Object.keys(BIAS)) {
+        const n=s.readings?.[k];
+        if(typeof n!=='number'||!Number.isFinite(n)||n<0||n>(k[0]==='V'?31:4))throw Error('Некорректное показание '+k+'.');
+        r[k]=n;
+      }
+      if(r.V<=0||(mode==='load'&&[r.A1,r.A2,r.A3,r.V1,r.V3].some(v=>v<=0))||(mode==='short'&&r.A3<=0))throw Error('Запись не содержит измеримого рабочего режима.');
+      const network=solve(c,mode,true),expected=readings(c,network);
+      if(network.limited||Math.max(network.P1,network.P2,network.P3)>10+1e-9)throw Error('Измерение выполнено за пределами рабочего режима стенда.');
+      if(Object.keys(BIAS).some(k=>Math.abs(r[k]-expected[k])>1e-9))throw Error('Показания не соответствуют сохранённым параметрам стенда.');
+      samples[mode]={mode,time:s.time,readings:r};
+    }
+    if((samples.open||samples.short)&&!samples.load||samples.short&&!samples.open)throw Error('Нарушена последовательность опытов.');
+    const person={};for(const k of ['name','group','notes'])person[k]=String(p.person?.[k]??'').slice(0,k==='notes'?6000:150);
+    return {kind:'lab11-dc',version:1,config:c,samples,person};
+  }
+  return Object.freeze({DEFAULTS,MODES,config,solve,equivalent,readings,analysis,validateProject});
+})();
+if(typeof module!=='undefined'&&module.exports)module.exports=Lab11;
+
+</script>
+<script id="lab11-app">
+'use strict';
+(() => {
+  const $=id=>document.getElementById(id);
+  const $$=selector=>[...document.querySelectorAll(selector)];
+  const fmt=(n,d=2)=>typeof n==='number'&&Number.isFinite(n)?n.toLocaleString('ru-RU',{minimumFractionDigits:d,maximumFractionDigits:d}):'—';
+  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const names={load:'Рабочий режим',open:'Холостой ход',short:'КЗ ветви R₃'};
+  const descriptions={V:['Вольтметр V','Напряжение источника'],V1:['Вольтметр V₁','Напряжение на A₁ + R₁'],V3:['Вольтметр V₃','Напряжение между узлами A и B'],A1:['Амперметр A₁','Ток через R₁'],A2:['Амперметр A₂','Ток через R₂'],A3:['Амперметр A₃','Ток исследуемой ветви R₃']};
+  let c={...Lab11.DEFAULTS},mode='load',powered=false,samples={},selected='V3',eqView='generator',showSolution=false;
+  let s=Lab11.solve(c,mode,powered),m=Lab11.readings(c,s),settleUntil=0,settleTimer,toastTimer;
+  let gaugeRange=30,gaugeFraction=0,lastFrame=0,phase=[0,0,0],motion=$('motion').checked;
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4500)}
+  function message(text,error=false){$('status-message').textContent=text;$('status-message').classList.toggle('error',error)}
+  function tab(name){
+    $$('[data-tab]').forEach(b=>{const active=b.dataset.tab===name;b.setAttribute('aria-selected',active);b.tabIndex=active?0:-1});
+    for(const name2 of ['journal','calculations','equivalent','method'])$('view-'+name2).hidden=name2!==name;
+  }
+  function selectedMeter(id){selected=id;renderMeter();$$('[data-meter]').forEach(el=>{el.classList.toggle('selected',el.dataset.meter===id);if(el.tagName==='BUTTON')el.setAttribute('aria-pressed',el.dataset.meter===id)})}
+  function drawGauge(){
+    const isA=selected[0]==='A';
+    gaugeRange=isA?0.3:30;
+    $('meter-range').textContent=isA?'Предел 300 мА · 30 делений':'Предел 30 В · 30 делений';
+    $('gauge-symbol').textContent=isA?'mA · Кл. 1.0':'V · Кл. 1.0';
+    const parts=[];
+    for(let i=0;i<=30;i++){
+      const t=i/30*Math.PI,major=i%5===0,r=major?76:82;
+      parts.push(`<line x1="${120-86*Math.cos(t)}" y1="${123-86*Math.sin(t)}" x2="${120-r*Math.cos(t)}" y2="${123-r*Math.sin(t)}" stroke="#475569" stroke-width="${major?1.6:.8}"/>`);
+      if(major){
+        const valLabel=isA?(i*10):i;
+        parts.push(`<text x="${120-65*Math.cos(t)}" y="${127-65*Math.sin(t)}" text-anchor="middle" font-size="9" font-family="Segoe UI,Arial,sans-serif" font-weight="600" fill="#334155">${valLabel}</text>`);
+      }
+    }
+    $('gauge-ticks').innerHTML=parts.join('');
+  }
+  function renderMeter(){
+    const isA=selected[0]==='A';
+    $('meter-title').textContent=descriptions[selected][0];
+    const mA=(m[selected]*1000).toFixed(1);
+    $('selected-value').textContent=isA?`${fmt(m[selected],4)} А (${mA} мА)`:`${fmt(m[selected],2)} В`;
+    $('meter-quantity').textContent=mode==='open'&&selected==='A3'?'Амперметр отключён от ветви':descriptions[selected][1];
+    $('meter-info').textContent=c.profile==='real'?(isA?'Шкала: 0–300 мА (30 делений). Сопротивление 0,1 Ом.':'Шкала: 0–30 В (30 делений). Входное сопротивление 10 МОм.'):'Идеальный прибор без влияния на цепь.';
+    drawGauge();
+  }
+  function blockingReason(){
+    if($$('[data-config][aria-invalid="true"]').length)return 'Исправьте значение регулятора или выйдите из поля, чтобы восстановить прежнее.';
+    if(!powered)return 'Включите выход источника для снятия показаний.';
+    if(performance.now()<settleUntil)return 'Подождите установления показаний прибора…';
+    if(s.limited)return 'Источник в режиме CC: напряжение снизилось. Для опыта нужен CV. Начните новую серию с меньшим U или подходящим пределом тока.';
+    const overloaded=[1,2,3].filter(i=>s['P'+i]>10+1e-9);
+    if(overloaded.length)return 'Превышена мощность 10 Вт: '+overloaded.map(i=>'R'+i+' ('+fmt(s['P'+i])+' Вт)').join(', ')+'. Уменьшите напряжение перед новой серией.';
+    if(mode!=='load'&&!samples.load)return 'Сначала запишите измерения рабочего режима с R₃.';
+    if(mode==='short'&&!samples.open)return 'Сначала выполните и запишите опыт холостого хода.';
+    if(mode==='load'&&[m.A1,m.A2,m.A3,m.V1,m.V3].some(v=>v<=0))return 'Часть показаний ниже разрешения приборов. Увеличьте напряжение или измените номиналы перед записью серии.';
+    if(mode==='short'&&m.A3<=0)return 'Ток короткого замыкания ниже разрешения прибора.';
+    return '';
+  }
+  function updateOnboarding(){
+    const b1=$('beacon-1'),b2=$('beacon-2'),b3=$('beacon-3'),b4=$('beacon-4');
+    const msg=$('guide-step-msg');
+    if(!msg)return;
+    const beacons=[b1,b2,b3,b4].filter(Boolean);
+    beacons.forEach(b=>{b.classList.remove('active','completed')});
+    const allDone=Object.keys(samples).length===3;
+    if(allDone){
+      beacons.forEach(b=>b.classList.add('completed'));
+      msg.innerHTML='<strong>✓ Все 3 опыта записаны в журнал!</strong> Перейдите во вкладку «Расчёт и сравнение» для формульного анализа и проверки законов.';
+      return;
+    }
+    if(!powered){
+      if(b1)b1.classList.add('active');
+      msg.innerHTML='<strong>Шаг 1 из 4:</strong> Задайте параметры U и R (≥100 Ом) на панели источника и включите питание («Включить»).';
+    }else if(blockingReason()){
+      if(b1)b1.classList.add('active');
+      msg.innerHTML='<strong>Внимание:</strong> '+esc(blockingReason());
+    }else if(!samples[mode]){
+      if(b1)b1.classList.add('completed');
+      if(b2)b2.classList.add('completed');
+      if(b3)b3.classList.add('active');
+      if(b4)b4.classList.add('active');
+      msg.innerHTML=`<strong>Шаги 3–4:</strong> Снимите показания прибора <em>${descriptions[selected][0]}</em> по стрелке (шкала 30 дел.). Для проверки нажмите «👁 Проверить себя», затем кнопку записи опыта.`;
+    }else{
+      beacons.forEach(b=>b.classList.add('completed'));
+      if(!samples.open){
+        msg.innerHTML='<strong>Следующий опыт:</strong> Выключите выход источника, переключите ветвь на «Холостой ход» и включите питание.';
+      }else if(!samples.short){
+        msg.innerHTML='<strong>Следующий опыт:</strong> Выключите выход источника, переключите ветвь на «КЗ ветви R₃» и включите питание.';
+      }
+    }
+  }
+  function renderStatus(){
+    const reason=blockingReason();$('capture').disabled=!!reason;
+    const labels={load:'Записать рабочий режим',open:'Записать U₃х',short:'Записать I₃к'};
+    $('capture').textContent=samples[mode]?'Повторить измерение · '+names[mode]:labels[mode];
+    $('capture-hint').textContent=reason||(samples[mode]?'Повторная запись обновит этот опыт в текущей серии.':'Показания установились. Можно записать опыт.');
+    $('capture-hint').style.color=powered&&(s.limited||Math.max(s.P1,s.P2,s.P3)>10)?'var(--danger)':'';
+    $('circuit-status').textContent=!powered?'Питание выключено':s.limited?'CC · ограничение тока':names[mode];
+    $('circuit-status').classList.toggle('live',powered&&!s.limited);
+    $('power-led').textContent=!powered?'ВЫХОД ВЫКЛ.':s.limited?'CC · I = const':'CV · U = const';
+    $('power-led').className='status-led'+(powered?' on':'')+(s.limited?' cc':'');
+    $('power').textContent=powered?'Выключить':'Включить';$('power').setAttribute('aria-pressed',powered);
+    $$('[data-mode]').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.mode===mode);b.disabled=powered;b.title=powered?'Для изменения соединения выключите выход источника.':''});
+    const locked=!!samples.load;
+    $$('[data-config]').forEach(el=>el.disabled=locked||(powered&&el.dataset.config.startsWith('r'))||(el.dataset.config==='limit'&&c.profile==='ideal'));
+    $('profile').disabled=locked||powered;
+    $('lock-note').textContent=locked?'Номиналы зафиксированы. Изменить их можно в новой серии.':powered?'Для изменения R выключите выход. U пока можно регулировать.':'Настройте параметры до первой записи опыта.';
+    const next=!samples.load?'load':!samples.open?'open':!samples.short?'short':'results';
+    $$('[data-step]').forEach(el=>{el.classList.toggle('active',el.dataset.step===next);el.classList.toggle('done',el.dataset.step!=='results'&&!!samples[el.dataset.step]);el.setAttribute('aria-current',el.dataset.step===next?'step':'false')});
+    const guide={load:['Опыт 1 · Рабочий режим','Включите источник и запишите показания. Нажмите на прибор, чтобы рассмотреть его крупнее.'],open:['Опыт 2 · Холостой ход','R₃ отключён. Измерьте U₃х — это ЭДС эквивалентного генератора.'],short:['Опыт 3 · КЗ ветви R₃','Измерьте I₃к при включённой перемычке. Rэк = U₃х / I₃к. Источник должен оставаться в CV.']}[mode];
+    $('guide-title').textContent=guide[0];$('guide-text').textContent=guide[1];
+    updateOnboarding();
+  }
+  function renderBench(){
+    $('psu-voltage').textContent=s.U.toFixed(2);$('psu-current').textContent=s.Is.toFixed(4);
+    for(const k of Object.keys(descriptions))$('read-'+k).textContent=fmt(m[k],k[0]==='A'?4:2)+' '+(k[0]==='A'?'А':'В');
+    for(const i of [1,2,3])$('label-r'+i).textContent=fmt(c['r'+i],0)+' Ом';
+    for(const name of Lab11.MODES)$('branch-'+name).toggleAttribute('hidden',name!==mode);
+    for(const id of ['meter-a3','arrow-i3','text-i3'])$(id).toggleAttribute('hidden',mode==='open');
+    $('node-potential').textContent='UAB = '+fmt(m.V3)+' В';
+    $('power-note').textContent=powered?'Pист = '+fmt(s.Ps)+' Вт':'Источник выключен';
+    const sign=' ≈ ';
+    $('kcl-live').textContent=fmt(m.A1,4)+sign+fmt(m.A2,4)+' + '+fmt(m.A3,4)+' А';
+    $('kvl-live').textContent=fmt(m.V)+sign+fmt(m.V1)+' + '+fmt(m.V3)+' В';
+    renderMeter();renderStatus();
+  }
+  function update(){
+    s=Lab11.solve(c,mode,powered);m=Lab11.readings(c,s);
+    settleUntil=performance.now()+(powered?(reduced.matches?150:900):0);
+    clearTimeout(settleTimer);settleTimer=setTimeout(renderStatus,powered?930:0);
+    renderBench();renderEquivalent();
+  }
+  function valueRows(a){
+    const val=(v,d,unit)=>fmt(v,d)+' '+unit;
+    return {
+      calculated:[['U₁ = U − U₃',val(a.Uk,2,'В')],['I₃ = I₁ − I₂',val(a.Ik,4,'А')],['R₁ = U₁/I₁',val(a.r1,2,'Ом')],['R₂ = U₃/I₂',val(a.r2,2,'Ом')],['R₃ = U₃/I₃',val(a.r3,2,'Ом')],['PИ = U · I₁',val(a.Ps,3,'Вт')],['PП = R₁I₁² + R₂I₂² + R₃I₃²',val(a.Pl,3,'Вт')],['UAB = (E/R₁) / (1/R₁ + 1/R₂ + 1/R₃)',val(a.Uab,3,'В')],['I₁ = (E − UAB)/R₁',val(a.Inode,4,'А')],['I₂ = UAB/R₂',val(a.I2node,4,'А')],['I₃ = UAB/R₃',val(a.I3node,4,'А')]],
+      analytic:[['Eэк = E · R₂/(R₁ + R₂)',val(a.Eeq,3,'В')],['Rэк = R₁R₂/(R₁ + R₂)',val(a.Req,3,'Ом')],['I₃ = Eэк/(Rэк + R₃)',val(a.Ieq,4,'А')]],
+      experimental:[['U источника (опыт Х.Х.)',val(samples.open?.readings.V,2,'В')],['U₃х = Eэк',val(a.Uoc,2,'В')],['I₃к',val(a.Isc,4,'А')],['Rэк = U₃х/I₃к',val(a.ReqExp,3,'Ом')],['I₃ = Eэк/(Rэк + R₃)',val(a.Iexp,4,'А')]]
+    };
+  }
+  function tableHtml(rows){return '<table><thead><tr><th>Величина / формула</th><th>Результат</th></tr></thead><tbody>'+rows.map(row=>'<tr><td>'+esc(row[0])+'</td><td>'+esc(row[1])+'</td></tr>').join('')+'</tbody></table>'}
+  function comparisonValues(a){return [['1 · Прямое измерение',samples.load.readings.A3],['2 · Законы Кирхгофа',a.Ik],['3 · Генератор: расчёт',a.Ieq],['4 · Генератор: опыт',a.Iexp]]}
+  function summary(a){
+    if(a.Iexp===null)return 'Запишите холостой ход и короткое замыкание ветви R₃, чтобы сравнить все четыре результата.';
+    const ref=samples.load.readings.A3;
+    const error=Math.max(...comparisonValues(a).map(([,v])=>Math.abs(v-ref)))/ref*100;
+    const powerDiff=Math.abs(a.Ps-a.Pl)/a.Ps*100;
+    return 'Наибольшее расхождение с прямым измерением I₃: '+fmt(error,2)+'%. Невязка баланса по приборам: '+fmt(powerDiff,2)+'%. '+(c.profile==='real'?'На результат влияют сопротивления приборов и проводов, фиксированные ошибки и округление показаний.':'В идеальной цепи остаточное расхождение связано с округлением показаний.')+' Сформулируйте вывод по полученным значениям.';
+  }
+  function renderCalculations(){
+    const a=Lab11.analysis(samples,c);
+    $('calculation-empty').hidden=!!a;
+    $('solution').hidden=!a||!showSolution;
+    $('show-solution').textContent=showSolution?'Скрыть расчёт':'Показать расчёт';
+    if(!a)return;
+    const rows=valueRows(a);
+    $('table-calculated').innerHTML=tableHtml(rows.calculated);
+    $('table-analytic').innerHTML=tableHtml(rows.analytic);
+    $('table-experimental').innerHTML=tableHtml(rows.experimental);
+    const values=comparisonValues(a),max=Math.max(...values.map(([,v])=>v||0),1e-9)*1.13;
+    $('comparison-bars').innerHTML=values.map(([label,v])=>`<div class="comparison-row"><span>${label}</span><div class="bar-track"><div class="bar-fill" style="width:${v===null?0:Math.max(0,v)/max*100}%"></div></div><span class="comparison-number">${fmt(v,4)} А</span></div>`).join('');
+    $('result-summary').textContent=summary(a);
+  }
+  function renderJournal(){
+    const load=samples.load;
+    $('sample-count').textContent=Object.keys(samples).length+'/3';
+    $('table-measured').innerHTML=load?'<tr><td>R₃ · Нагрузка</td>'+['V','A1','A2','A3','V1','V3'].map(k=>'<td>'+fmt(load.readings[k],k[0]==='A'?4:2)+'</td>').join('')+'</tr>':'<tr><td colspan="7" class="empty-cell">Показаний пока нет. Включите источник и запишите рабочий режим.</td></tr>';
+    for(const which of ['open','short']){
+      const recorded=!!samples[which];$('record-'+which).classList.toggle('done',recorded);
+      $(which+'-badge').textContent=recorded?'Записан':'Не измерен';
+    }
+    $('open-values').textContent='U₃х = '+fmt(samples.open?.readings.V3)+' В';
+    $('short-values').textContent='I₃к = '+fmt(samples.short?.readings.A3,4)+' А';
+    const all=Object.keys(samples).length===3;
+    $('series-checks').innerHTML='<span class="check-chip '+(load?'pass':'')+'">'+(load?'✓ Параметры зафиксированы':'U постоянно в пределах серии')+'</span><span class="check-chip '+(all?'pass':'')+'">'+(all?'✓ Три опыта записаны':'Запишите нагрузку, Х.Х. и КЗ')+'</span>';
+    renderCalculations();renderStatus();
+  }
+  function capture(){
+    const reason=blockingReason();if(reason){message(reason,true);return}
+    samples[mode]={mode,time:new Date().toISOString(),readings:{...m}};
+    renderJournal();message(names[mode]+': показания записаны.');
+    if(mode==='load')toast('Таблица 11.1 заполнена. Выключите источник и перейдите к холостому ходу.');
+    else if(mode==='open')toast('U₃х записано. Выключите источник и включите перемычку R₃.');
+    else {toast('Три опыта готовы. Откройте расчёт и сравнение.');tab('calculations')}
+  }
+  function svgText(x,y,text,fill='#17243a',size=15,anchor='middle'){return `<text x="${x}" y="${y}" fill="${fill}" font-size="${size}" text-anchor="${anchor}" font-family="Segoe UI,Arial,sans-serif">${esc(text)}</text>`}
+  function renderEquivalent(){
+    const eq=Lab11.equivalent(c),line=(d,color='#354861',width=3)=>`<path d="${d}" stroke="${color}" stroke-width="${width}" fill="none" stroke-linejoin="round"/>`;
+    const resistor=(x,y,w,h,color)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="white" stroke="${color}" stroke-width="3"/>`;
+    let drawing='';
+    if(eqView==='generator'){
+      drawing=line('M100 96V55H405V220H100V150')+`<circle cx="100" cy="123" r="27" fill="white" stroke="#784dc7" stroke-width="2.5"/>`+svgText(100,130,'E','#784dc7',20)+resistor(211,42,92,26,'#784dc7')+resistor(392,107,26,70,'#d56920')+svgText(257,30,'Rэк = '+fmt(eq.Req)+' Ом','#784dc7',14)+svgText(69,173,'Eэк','#784dc7',16)+svgText(449,146,'R₃','#d56920',17)+svgText(258,248,'I₃ = Eэк / (Rэк + R₃)','#17243a',16);
+      $('eq-description').textContent='Эквивалентный источник воспроизводит тот же ток нагрузки, что исходная идеальная цепь. Здесь показаны значения по заданным номиналам.';
+    }else{
+      drawing=line('M100 96V55H405M100 150V220H405M285 55V107M285 177V220')+resistor(165,42,75,26,'#276dd3')+resistor(272,107,26,70,'#13825b')+svgText(201,29,'R₁','#276dd3')+svgText(328,147,'R₂','#13825b')+`<circle cx="405" cy="55" r="5" fill="white" stroke="#784dc7" stroke-width="2"/><circle cx="405" cy="220" r="5" fill="white" stroke="#784dc7" stroke-width="2"/>`;
+      if(eqView==='open'){
+        drawing+=`<circle cx="100" cy="123" r="27" fill="white" stroke="#784dc7" stroke-width="2.5"/>`+svgText(100,130,'E','#784dc7',20)+line('M405 68V207','#784dc7',1.5)+svgText(471,145,'U₃х','#784dc7',18)+svgText(270,250,'Eэк = E · R₂ / (R₁ + R₂)','#17243a',16);
+        $('eq-description').textContent='R₃ отключён. Напряжение холостого хода на открытых выводах равно ЭДС эквивалентного генератора.';
+      }else{
+        drawing+=line('M100 96V150','#784dc7',5)+svgText(68,128,'E = 0','#784dc7',13)+svgText(454,145,'Rвх','#784dc7',18)+svgText(270,250,'Rэк = R₁ ∥ R₂ = R₁R₂ / (R₁ + R₂)','#17243a',15);
+        $('eq-description').textContent='Идеальный источник напряжения заменён проводником. Со стороны выводов R₃ сопротивления R₁ и R₂ соединены параллельно. Это расчётное преобразование.';
+      }
+    }
+    $('equivalent-svg').innerHTML=drawing;
+    $('eq-e').textContent=fmt(eq.Eeq)+' В';$('eq-r').textContent=fmt(eq.Req)+' Ом';$('eq-isc').textContent=fmt(eq.Isc,4)+' А';
+    const x0=65,y0=235,w=415,h=180,imax=eq.Isc*1.12,umax=eq.Eeq*1.2;
+    const X=i=>x0+i/imax*w,Y=u=>y0-u/umax*h;
+    let chart='';
+    for(let j=0;j<=4;j++){
+      const u=j/4*umax,i=j/4*imax;
+      chart+=line(`M${x0} ${Y(u)}H${x0+w}`,'#e5eaf1',1)+svgText(x0-9,Y(u)+4,fmt(u,1),'#6b7c93',11,'end');
+      chart+=svgText(X(i),y0+23,fmt(i,3),'#6b7c93',11);
+    }
+    chart+=line(`M${x0} 32V${y0}H510`,'#8d9bae',1.5)+svgText(67,20,'U₃, В','#64738a',12)+svgText(506,275,'I₃, А','#64738a',12);
+    chart+=line(`M${x0} ${Y(eq.Eeq)}L${X(eq.Isc)} ${y0}`,'#784dc7',3);
+    chart+=svgText(108,Y(eq.Eeq)-12,'Х.Х.','#784dc7',12)+svgText(X(eq.Isc),y0-11,'КЗ','#784dc7',12);
+    if(powered){
+      const px=X(s.I3),py=Y(s.Uab);
+      chart+=line(`M${px} ${y0}V${py}H${x0}`,'#d6a684',1)+`<circle cx="${px}" cy="${py}" r="6" fill="#d56920" stroke="white" stroke-width="2"/>`;
+      const anchor=px>350?'end':'start',tx=px+(anchor==='end'?-12:12),ty=Math.max(22,py-16);
+      chart+=svgText(tx,ty,fmt(m.A3,4)+' А; '+fmt(m.V3)+' В','#b9591a',12,anchor);
+    }
+    $('load-chart').innerHTML=chart;
+  }
+  function project(){return {kind:'lab11-dc',version:1,config:{...c},samples,person:{name:$('student-name').value,group:$('student-group').value,notes:$('notes').value}}}
+  function download(text,type,name){const blob=new Blob([text],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),15000)}
+  function report(){
+    const p=project(),a=Lab11.analysis(samples,c),rows=a?valueRows(a):null;
+    const table11='<table><thead><tr><th>Режим</th><th>U, В</th><th>I₁, А</th><th>I₂, А</th><th>I₃, А</th><th>U₁, В</th><th>U₃, В</th></tr></thead><tbody>'+Lab11.MODES.map(k=>'<tr><td>'+names[k]+'</td>'+['V','A1','A2','A3','V1','V3'].map(key=>'<td>'+fmt(samples[k]?.readings[key],key[0]==='A'?4:2)+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
+    const body=`<p>Студент: ${esc(p.person.name||'не указан')} · Группа: ${esc(p.person.group||'не указана')}</p><p>Дата сохранения: ${esc(new Date().toLocaleString('ru-RU'))}. Записано опытов: ${Object.keys(samples).length}/3.</p><p>Уставка U = ${fmt(c.E)} В; R₁ = ${fmt(c.r1)} Ом; R₂ = ${fmt(c.r2)} Ом; R₃ = ${fmt(c.r3)} Ом; предел тока ${fmt(c.limit)} А. ${c.profile==='real'?'Реалистичные приборы':'Идеальная цепь'}.</p><h2>Таблица 11.1 и измерения Х.Х./КЗ</h2>${table11}`+
+      (rows?'<h2>Таблица 11.2 · Расчётные величины</h2>'+tableHtml(rows.calculated)+'<h2>Таблица 11.3 · Аналитический генератор</h2>'+tableHtml(rows.analytic)+'<h2>Таблица 11.4 · Генератор по опытам</h2>'+tableHtml(rows.experimental)+'<h2>Сравнение I₃</h2>'+tableHtml(comparisonValues(a).map(([name,v])=>[name,fmt(v,4)+' А']))+'<p>'+esc(summary(a))+'</p>':'<p>Серия не содержит измерений рабочего режима.</p>')+
+      '<h2>Наблюдения и вывод студента</h2><p class="notes">'+esc(p.person.notes||'Вывод пока не записан.')+'</p><h2>Параметры модели</h2><p>Источник методики: «Лабораторная работа №11.docx», рис. 11.1–11.3, таблицы 11.1–11.4. Это результат виртуального опыта, не измерение физического стенда. Сопротивления в расчётных таблицах определены по измерениям U/I.</p><p>Реалистичный режим: амперметры 0,1 Ом, вольтметры 10 МОм, провода каждой токовой ветви 0,06 Ом. Ошибки: V +0,15%, V₁ −0,1%, V₃ +0,2%, A₁ +0,1%, A₂ −0,2%, A₃ +0,15%. Шаг 0,01 В и 0,0001 А. В идеальном режиме влияния и ошибки приборов отключены; округление сохраняется. В CC и при превышении мощности резисторов записи в серию не выполняются.</p>';
+    return '<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Отчёт · Лабораторная №11</title><style>body{font:14px/1.55 Segoe UI,Arial,sans-serif;color:#17243a;max-width:950px;margin:35px auto;padding:0 20px}h1{font-size:26px}h2{font-size:18px;margin-top:28px}table{width:100%;border-collapse:collapse;font-size:12px}td,th{padding:8px;border:1px solid #d8dfe9;text-align:right}td:first-child,th:first-child{text-align:left}th{background:#f1f4f8}.notes{white-space:pre-wrap}@media print{body{margin:0;padding:0}h2{break-after:avoid}tr{break-inside:avoid}}</style><h1>Лабораторная работа №11</h1><p>Исследование линейной разветвлённой цепи постоянного тока</p>'+body+'</html>';
+  }
+  function applyProject(p){
+    powered=false;c=p.config;samples=p.samples;mode=!samples.load?'load':!samples.open?'open':!samples.short?'short':'load';
+    syncConfig();$('student-name').value=p.person.name;$('student-group').value=p.person.group;$('notes').value=p.person.notes;
+    clearAnswers();update();renderJournal();tab('journal');message('Опыт загружен. Выход источника выключен.');
+  }
+  function syncConfig(){for(const el of $$('[data-config]')){el.value=c[el.dataset.config];el.removeAttribute('aria-invalid')}$('profile').value=c.profile}
+  function clearAnswers(){for(const id of ['answer-kcl','answer-req','answer-ieq'])$(id).value='';$('answer-feedback').textContent='';showSolution=false}
+  function checkAnswers(){
+    const a=Lab11.analysis(samples,c);if(!a){$('answer-feedback').textContent='Сначала запишите рабочий режим.';return}
+    const checks=[['answer-kcl',a.Ik,0.0001,'I₃ по Кирхгофу'],['answer-req',a.ReqExp,0.02,'Rэк'],['answer-ieq',a.Iexp,0.0001,'I₃ по опытам']];
+    const messages=[];
+    for(const [id,target,absolute,label] of checks){
+      const text=$(id).value.trim();if(!text)continue;
+      const value=Number(text.replace(',','.'));
+      if(target===null)messages.push(label+': нужны опыты Х.Х. и КЗ.');
+      else if(!Number.isFinite(value)||value<0)messages.push(label+': введите неотрицательное число.');
+      else messages.push(label+(Math.abs(value-target)<=Math.max(absolute,Math.abs(target)*.005)?': верно.':': проверьте подстановку и единицы.'));
+    }
+    $('answer-feedback').textContent=messages.join(' ')||'Введите хотя бы один результат. Допуск проверки: 0,5% или один шаг округления.';
+  }
+  function zoomCircuit(expanded){const panel=document.querySelector('.circuit-panel');panel.classList.toggle('expanded',expanded);$('zoom-circuit').textContent=expanded?'Свернуть':'Крупнее';$('zoom-circuit').setAttribute('aria-expanded',expanded)}
+  $('zoom-circuit').addEventListener('click',()=>zoomCircuit($('zoom-circuit').getAttribute('aria-expanded')!=='true'));
+  document.addEventListener('keydown',event=>{if(event.key==='Escape')zoomCircuit(false)});
+  $('power').addEventListener('click',()=>{if(!powered&&$$('[data-config][aria-invalid="true"]').length){message('Проверьте значение регулятора.',true);return}powered=!powered;message('');update()});
+  $$('[data-mode]').forEach(el=>el.addEventListener('click',()=>{if(powered)return;mode=el.dataset.mode;selectedMeter(mode==='short'?'A3':'V3');message('');update()}));
+  function changeConfig(el,commit=false){
+    const key=el.dataset.config;
+    if(samples.load||(powered&&key.startsWith('r'))){syncConfig();return}
+    try{
+      if(el.value.trim()==='')throw Error('Введите число от '+el.min+' до '+el.max+'.');
+      c=Lab11.config({...c,[key]:Number(el.value)});el.removeAttribute('aria-invalid');
+      $$('[data-config]').filter(other=>other!==el&&other.dataset.config===key).forEach(other=>{other.value=c[key];other.removeAttribute('aria-invalid')});
+      message('');update();
+    }catch(error){
+      if(commit){el.value=c[key];el.removeAttribute('aria-invalid')}else el.setAttribute('aria-invalid','true');
+      message(error.message,true);renderStatus();
+    }
+  }
+  $$('[data-config]').forEach(el=>{el.addEventListener('input',()=>changeConfig(el));if(el.type==='number')el.addEventListener('blur',()=>{if(el.getAttribute('aria-invalid')==='true')changeConfig(el,true)})});
+  $('profile').addEventListener('change',()=>{if(powered||samples.load){syncConfig();return}c.profile=$('profile').value;update()});
+  $$('[data-meter]').forEach(el=>{el.addEventListener('click',()=>selectedMeter(el.dataset.meter));if(el.tagName!=='BUTTON')el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectedMeter(el.dataset.meter)}})});
+  $$('[data-tab]').forEach(el=>{el.addEventListener('click',()=>tab(el.dataset.tab));el.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const tabs=$$('[data-tab]'),index=tabs.indexOf(el),next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(index+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tab(tabs[next].dataset.tab);tabs[next].focus()}})});
+  $$('[data-eq]').forEach(el=>el.addEventListener('click',()=>{eqView=el.dataset.eq;$$('[data-eq]').forEach(b=>b.setAttribute('aria-pressed',b===el));renderEquivalent()}));
+  $('motion').addEventListener('change',()=>{motion=$('motion').checked});
+  $('capture').addEventListener('click',capture);
+  $('show-solution').addEventListener('click',()=>{if(!samples.load){toast('Сначала запишите измерения рабочего режима.');return}showSolution=!showSolution;renderCalculations()});
+  $('check-answers').addEventListener('click',checkAnswers);
+  $('help-button').addEventListener('click',()=>{tab('method');$('view-method').scrollIntoView({behavior:reduced.matches?'auto':'smooth',block:'start'})});
+  $('save-report').addEventListener('click',()=>{download(report(),'text/html;charset=utf-8','Лабораторная-11-отчёт.html');toast('Отчёт сохранён как HTML. Его можно открыть и распечатать.');});
+  $('save-project').addEventListener('click',()=>download(JSON.stringify(project(),null,2),'application/json','Лабораторная-11-опыт.json'));
+  $('load-project').addEventListener('click',()=>{$('project-file').value='';$('project-file').click()});
+  $('project-file').addEventListener('change',async()=>{
+    const file=$('project-file').files[0];if(!file)return;
+    try{if(file.size>100000)throw Error('Файл опыта слишком большой.');const p=Lab11.validateProject(JSON.parse(await file.text()));applyProject(p);toast('Измерения восстановлены.')}catch(error){toast('Файл не загружен: '+error.message)}
+  });
+  $('new-series').addEventListener('click',()=>$('reset-dialog').showModal());
+  $('cancel-reset').addEventListener('click',()=>$('reset-dialog').close());
+  $('confirm-reset').addEventListener('click',()=>{$('reset-dialog').close();samples={};powered=false;mode='load';$('notes').value='';clearAnswers();message('Новая серия. Можно изменить номиналы.');update();renderJournal()});
+  function toggleReveal(){
+    const valEl=$('selected-value');
+    if(!valEl)return;
+    const isBlurred=valEl.classList.toggle('blurred');
+    if($('toggle-value-btn'))$('toggle-value-btn').textContent=isBlurred?'👁 Проверить себя':'🔒 Скрыть подсказку';
+  }
+  $('toggle-value-btn')?.addEventListener('click',toggleReveal);
+  $('selected-value')?.addEventListener('click',toggleReveal);
+  function animate(now){
+    const dt=lastFrame?Math.min((now-lastFrame)/1000,.08):0;lastFrame=now;
+    const isA=selected[0]==='A';
+    const currentVal=m[selected]||0;
+    const target=isA?Math.min(1.02,(currentVal*1000)/300):Math.min(1.02,currentVal/30);
+    gaugeFraction=reduced.matches?target:gaugeFraction+(target-gaugeFraction)*(1-Math.exp(-dt/0.16));
+    $('gauge-needle').setAttribute('x2',(120-81*Math.cos(gaugeFraction*Math.PI)).toFixed(2));
+    $('gauge-needle').setAttribute('y2',(123-81*Math.sin(gaugeFraction*Math.PI)).toFixed(2));
+    const currents=[s.I1,s.I2,s.I3],scale=100/Math.max(...currents,.1);
+    for(let i=0;i<3;i++){
+      const flow=$('flow-'+(i+1)),visible=powered&&motion&&!reduced.matches&&currents[i]>1e-9;
+      flow.style.opacity=visible?'.9':'0';
+      if(visible){phase[i]=(phase[i]+dt*currents[i]*scale)%26;flow.style.strokeDashoffset=(-phase[i]).toFixed(2)}
+    }
+    requestAnimationFrame(animate);
+  }
+  syncConfig();update();renderJournal();tab('journal');requestAnimationFrame(animate);
+})();
+
+</script>
+</body>
+</html>
