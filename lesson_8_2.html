@@ -871,30 +871,52 @@
         steps: [{"step": 0, "label": "Тизер", "desc": "Введение: Разделение задач контроля знаний", "text": "Оценка знаний требует строгого разделения педагогических задач. Вопросы для удержания внимания на лекции и аттестационные билеты для экзамена строятся по принципиально разным законам.", "time": "00:00 – 00:11", "audioTime": 0.0, "duration": 11.08, "prompter": "Оценка знаний требует строгого разделения педагогических задач. Вопросы для удержания внимания на лекции и аттестационные билеты для экзамена строятся по принципиально разным законам."}, {"step": 1, "label": "Колонка 1", "desc": "1. Формирующее оценивание (Внутри лекции)", "text": "Внутри лекции тесты выполняют обучающую функцию. Если студент ошибся, система тут же объясняет физическую причину и направляет к нужному тезису.", "time": "00:11 – 00:21", "audioTime": 11.48, "duration": 10.04, "prompter": "Внутри лекции тесты выполняют обучающую функцию. Если студент ошибся, система тут же объясняет физическую причину и направляет к нужному тезису."}, {"step": 2, "label": "Колонка 2", "desc": "2. Итоговое оценивание (ФОС кафедры)", "text": "Фонд оценочных средств кафедры ориентирован на комплексную проверку. Здесь исключены очевидные подсказки, а задачи требуют совместного применения нескольких законов.", "time": "00:21 – 00:32", "audioTime": 21.92, "duration": 10.36, "prompter": "Фонд оценочных средств кафедры ориентирован на комплексную проверку. Здесь исключены очевидные подсказки, а задачи требуют совместного применения нескольких законов."}, {"step": 3, "label": "Колонка 3", "desc": "3. Матрица компетенций", "text": "Искусственный интеллект автоматически связывает каждый вопрос с кодом компетенции образовательного стандарта, формируя готовый кафедральный паспорт фонда оценочных средств.", "time": "00:32 – 00:42", "audioTime": 32.68, "duration": 10.24, "prompter": "Искусственный интеллект автоматически связывает каждый вопрос с кодом компетенции образовательного стандарта, формируя готовый кафедральный паспорт фонда оценочных средств."}],
         render: function(step) {
           return `
+            <div class="slide-header">
+              <div class="badge-group">
+                <span class="badge" style="font-size: 16px; padding: 6px 14px; background: #6366f122; color: #6366f1; border: 1px solid #6366f144;">${this.category}</span>
+                <span class="badge badge-muted" style="font-size: 16px; padding: 6px 14px;">${this.subCategory}</span>
+              </div>
+              <div class="slide-counter" style="font-size: 16px;">${this.counter}</div>
+            </div>
+            <div class="title-block">
+              <h1 class="slide-title" style="font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 8px;">${this.title}</h1>
+              <p class="slide-subtitle" style="font-size: 22px; color: #94a3b8; font-weight: 500;">${this.subtitle}</p>
+            </div>
+
             ${step === 0 ? `
-              <!-- HERO STEP 0 (Intro teaser) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0.6) 70%); border-radius: 20px; border: 1px solid rgba(99, 102, 241, 0.3);">
-                <div style="font-size: 56px; margin-bottom: 20px;">🎓</div>
-                <div style="display: inline-block; padding: 6px 16px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 20px; color: #a5b4fc; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
-                  Вводный обзор • Экрана 1 из 5
+              <!-- STEP 0 HERO TEASER (Full Height 100%) -->
+              <div class="glass-card" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 36px 40px; border-top: 6px solid #6366f1; background: radial-gradient(circle at 50% 10%, #6366f118 0%, transparent 70%), rgba(15, 23, 42, 0.85); min-height: 0;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                      <span style="font-size: 46px;">📘</span>
+                      <div>
+                        <div style="font-size: 14px; font-weight: 800; color: #6366f1; text-transform: uppercase; letter-spacing: 1.2px;">${this.category}</div>
+                        <div style="font-size: 28px; font-weight: 900; color: #fff;">${this.title}</div>
+                      </div>
+                    </div>
+                    <span style="background: #6366f122; border: 1px solid #6366f155; color: #6366f1; padding: 8px 20px; border-radius: 12px; font-weight: 800; font-size: 16px;">Тема 8.2</span>
+                  </div>
+                  <div style="font-size: 24px; line-height: 1.6; color: #e2e8f0; font-weight: 500; margin-bottom: 30px; border-left: 4px solid #6366f1; padding-left: 24px;">
+                    ${this.steps[0].prompter}
+                  </div>
                 </div>
-                <h1 style="font-size: 38px; font-weight: 800; color: #fff; max-width: 900px; line-height: 1.3; margin-bottom: 20px;">
-                  Архитектура фонда оценочных средств (ФОС)
-                </h1>
-                <p style="font-size: 20px; color: #cbd5e1; max-width: 820px; line-height: 1.6; margin-bottom: 30px;">
-                  Оценка знаний требует строгого разделения педагогических задач. Вопросы для удержания внимания на лекции и аттестационные билеты для экзамена строятся по принципиально разным законам.
-                </p>
-                <div style="display: flex; gap: 12px; align-items: center; color: #94a3b8; font-size: 14px; font-weight: 600;">
-                  <span>▶️ Нажмите Пробел или кнопку воспроизведения</span>
+
+                <div style="display: flex; align-items: center; gap: 14px; background: rgba(30, 41, 59, 0.7); border: 1px dashed #6366f166; border-radius: 16px; padding: 18px 24px;">
+                  <span style="font-size: 26px;">💡</span>
+                  <div style="font-size: 19px; color: #cbd5e1; font-weight: 600; flex: 1;">
+                    Разделение формирующего и итогового контроля обеспечивает комфортное обучение и объективную аттестацию.
+                  </div>
+                  
                 </div>
               </div>
             ` : `
-              <!-- 3 COLUMNS MASTER SHELL (Steps 1, 2, 3) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 18px;">
-                <div style="flex: 1; display: flex; gap: 20px; align-items: stretch; min-height: 0;">
-
+              <!-- PROGRESSIVE 3-COLUMN REVEAL (STRETCHED TO BOTTOM 100%) -->
+              <div class="slide-body" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 0; height: 100%;">
+                <div class="card-row" style="flex: 1; display: flex; flex-direction: row; gap: 24px; min-height: 0; margin-bottom: 20px;">
+                  
                   <!-- COL 1 (Visible from Step 1) -->
-                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #38bdf8; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px;">
+                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #38bdf8; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px; ${step < 1 ? 'visibility: hidden; opacity: 0; pointer-events: none;' : ''}">
                     <div>
                       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                         <span style="font-size: 38px;">🎯</span>
@@ -939,6 +961,7 @@
                     <div style="margin-top: 14px; padding: 10px 14px; background: rgba(15, 23, 42, 0.6); border-radius: 10px; border-left: 3px solid #10b981; font-size: 14px; font-weight: 700; color: #10b981;">
                       Стандарт: Матрица компетенций
                     </div>
+                    
                   </div>
 
                 </div>
@@ -964,30 +987,52 @@
         steps: [{"step": 0, "label": "Тизер", "desc": "Введение: Автоматизация импорта тестов", "text": "Ручной перенос тестов в систему Moodle — один из самых утомительных видов преподавательской рутины. Искусственный интеллект позволяет генерировать готовые файлы импорта за считанные секунды.", "time": "00:00 – 00:11", "audioTime": 0.0, "duration": 11.52, "prompter": "Ручной перенос тестов в систему Moodle — один из самых утомительных видов преподавательской рутины. Искусственный интеллект позволяет генерировать готовые файлы импорта за считанные секунды."}, {"step": 1, "label": "Колонка 1", "desc": "1. Синтаксис формата GIFT", "text": "Формат GIFT представляет собой простой текстовый стандарт. Нейросеть генерирует разметку ответов, штрафных баллов и подробных комментариев для студента в один клик.", "time": "00:11 – 00:22", "audioTime": 11.92, "duration": 10.84, "prompter": "Формат GIFT представляет собой простой текстовый стандарт. Нейросеть генерирует разметку ответов, штрафных баллов и подробных комментариев для студента в один клик."}, {"step": 2, "label": "Колонка 2", "desc": "2. Структура Moodle XML", "text": "Формат Moodle XML позволяет включать в вопросы сложные формулы LaTeX и векторные схемы, а также задавать диапазон допустимой погрешности вычислений для инженерных задач.", "time": "00:23 – 00:34", "audioTime": 23.16, "duration": 11.6, "prompter": "Формат Moodle XML позволяет включать в вопросы сложные формулы LaTeX и векторные схемы, а также задавать диапазон допустимой погрешности вычислений для инженерных задач."}, {"step": 3, "label": "Колонка 3", "desc": "3. Мгновенный импорт на кафедральный сервер", "text": "Сгенерированный файл импортируется в Moodle за один шаг. Преподаватель экономит десятки часов рутинного копирования и вставки формул из Word.", "time": "00:35 – 00:43", "audioTime": 35.16, "duration": 8.72, "prompter": "Сгенерированный файл импортируется в Moodle за один шаг. Преподаватель экономит десятки часов рутинного копирования и вставки формул из Word."}],
         render: function(step) {
           return `
+            <div class="slide-header">
+              <div class="badge-group">
+                <span class="badge" style="font-size: 16px; padding: 6px 14px; background: #0284c722; color: #0284c7; border: 1px solid #0284c744;">${this.category}</span>
+                <span class="badge badge-muted" style="font-size: 16px; padding: 6px 14px;">${this.subCategory}</span>
+              </div>
+              <div class="slide-counter" style="font-size: 16px;">${this.counter}</div>
+            </div>
+            <div class="title-block">
+              <h1 class="slide-title" style="font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 8px;">${this.title}</h1>
+              <p class="slide-subtitle" style="font-size: 22px; color: #94a3b8; font-weight: 500;">${this.subtitle}</p>
+            </div>
+
             ${step === 0 ? `
-              <!-- HERO STEP 0 (Intro teaser) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0.6) 70%); border-radius: 20px; border: 1px solid rgba(99, 102, 241, 0.3);">
-                <div style="font-size: 56px; margin-bottom: 20px;">🎓</div>
-                <div style="display: inline-block; padding: 6px 16px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 20px; color: #a5b4fc; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
-                  Вводный обзор • Экрана 1 из 5
+              <!-- STEP 0 HERO TEASER (Full Height 100%) -->
+              <div class="glass-card" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 36px 40px; border-top: 6px solid #0284c7; background: radial-gradient(circle at 50% 10%, #0284c718 0%, transparent 70%), rgba(15, 23, 42, 0.85); min-height: 0;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                      <span style="font-size: 46px;">📘</span>
+                      <div>
+                        <div style="font-size: 14px; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 1.2px;">${this.category}</div>
+                        <div style="font-size: 28px; font-weight: 900; color: #fff;">${this.title}</div>
+                      </div>
+                    </div>
+                    <span style="background: #0284c722; border: 1px solid #0284c755; color: #0284c7; padding: 8px 20px; border-radius: 12px; font-weight: 800; font-size: 16px;">Тема 8.2</span>
+                  </div>
+                  <div style="font-size: 24px; line-height: 1.6; color: #e2e8f0; font-weight: 500; margin-bottom: 30px; border-left: 4px solid #0284c7; padding-left: 24px;">
+                    ${this.steps[0].prompter}
+                  </div>
                 </div>
-                <h1 style="font-size: 38px; font-weight: 800; color: #fff; max-width: 900px; line-height: 1.3; margin-bottom: 20px;">
-                  Автоматическая генерация тестов для университетских LMS
-                </h1>
-                <p style="font-size: 20px; color: #cbd5e1; max-width: 820px; line-height: 1.6; margin-bottom: 30px;">
-                  Ручной перенос тестов в систему Moodle — один из самых утомительных видов преподавательской рутины. Искусственный интеллект позволяет генерировать готовые файлы импорта за считанные секунды.
-                </p>
-                <div style="display: flex; gap: 12px; align-items: center; color: #94a3b8; font-size: 14px; font-weight: 600;">
-                  <span>▶️ Нажмите Пробел или кнопку воспроизведения</span>
+
+                <div style="display: flex; align-items: center; gap: 14px; background: rgba(30, 41, 59, 0.7); border: 1px dashed #0284c766; border-radius: 16px; padding: 18px 24px;">
+                  <span style="font-size: 26px;">💡</span>
+                  <div style="font-size: 19px; color: #cbd5e1; font-weight: 600; flex: 1;">
+                    Пакетный экспорт в GIFT и Moodle XML превращает многодневный перенос тестов в секундную операцию.
+                  </div>
+                  
                 </div>
               </div>
             ` : `
-              <!-- 3 COLUMNS MASTER SHELL (Steps 1, 2, 3) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 18px;">
-                <div style="flex: 1; display: flex; gap: 20px; align-items: stretch; min-height: 0;">
-
+              <!-- PROGRESSIVE 3-COLUMN REVEAL (STRETCHED TO BOTTOM 100%) -->
+              <div class="slide-body" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 0; height: 100%;">
+                <div class="card-row" style="flex: 1; display: flex; flex-direction: row; gap: 24px; min-height: 0; margin-bottom: 20px;">
+                  
                   <!-- COL 1 (Visible from Step 1) -->
-                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #0284c7; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px;">
+                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #0284c7; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px; ${step < 1 ? 'visibility: hidden; opacity: 0; pointer-events: none;' : ''}">
                     <div>
                       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                         <span style="font-size: 38px;">📝</span>
@@ -1032,6 +1077,7 @@
                     <div style="margin-top: 14px; padding: 10px 14px; background: rgba(15, 23, 42, 0.6); border-radius: 10px; border-left: 3px solid #34d399; font-size: 14px; font-weight: 700; color: #34d399;">
                       Эффект: Пакетный импорт
                     </div>
+                    
                   </div>
 
                 </div>
@@ -1057,30 +1103,52 @@
         steps: [{"step": 0, "label": "Тизер", "desc": "Введение: Стандарт объективного тестирования", "text": "Чтобы исключить передачу готовых ответов между студентами, в нашем курсе применён строгий академический стандарт тестирования: избыточный банк из 18 вопросов со случайной выборкой семи заданий.", "time": "00:00 – 00:12", "audioTime": 0.0, "duration": 12.68, "prompter": "Чтобы исключить передачу готовых ответов между студентами, в нашем курсе применён строгий академический стандарт тестирования: избыточный банк из 18 вопросов со случайной выборкой семи заданий."}, {"step": 1, "label": "Колонка 1", "desc": "1. Комбинаторная защита", "text": "При банке в 18 вопросов студент получает один из тридцати тысяч уникальных вариантов билета. Это делает коллективное списывание математически бессмысленным.", "time": "00:13 – 00:23", "audioTime": 13.08, "duration": 10.84, "prompter": "При банке в 18 вопросов студент получает один из тридцати тысяч уникальных вариантов билета. Это делает коллективное списывание математически бессмысленным."}, {"step": 2, "label": "Колонка 2", "desc": "2. Трёхуровневая шкала попыток", "text": "Наша шкала прозрачна: за решение с первой попытки даётся три балла, со второй — два, с третьей — один. Это поощряет глубокое обдумывание, а не слепой перебор вариантов.", "time": "00:24 – 00:35", "audioTime": 24.32, "duration": 11.0, "prompter": "Наша шкала прозрачна: за решение с первой попытки даётся три балла, со второй — два, с третьей — один. Это поощряет глубокое обдумывание, а не слепой перебор вариантов."}, {"step": 3, "label": "Колонка 3", "desc": "3. Контекстные подсказки при неудаче", "text": "При ошибке тренажёр не ставит крест, а даёт наводящую подсказку на закон или формулу. Студент учится прямо в процессе выполнения проверочной работы.", "time": "00:35 – 00:45", "audioTime": 35.72, "duration": 9.36, "prompter": "При ошибке тренажёр не ставит крест, а даёт наводящую подсказку на закон или формулу. Студент учится прямо в процессе выполнения проверочной работы."}],
         render: function(step) {
           return `
+            <div class="slide-header">
+              <div class="badge-group">
+                <span class="badge" style="font-size: 16px; padding: 6px 14px; background: #8b5cf622; color: #8b5cf6; border: 1px solid #8b5cf644;">${this.category}</span>
+                <span class="badge badge-muted" style="font-size: 16px; padding: 6px 14px;">${this.subCategory}</span>
+              </div>
+              <div class="slide-counter" style="font-size: 16px;">${this.counter}</div>
+            </div>
+            <div class="title-block">
+              <h1 class="slide-title" style="font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 8px;">${this.title}</h1>
+              <p class="slide-subtitle" style="font-size: 22px; color: #94a3b8; font-weight: 500;">${this.subtitle}</p>
+            </div>
+
             ${step === 0 ? `
-              <!-- HERO STEP 0 (Intro teaser) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0.6) 70%); border-radius: 20px; border: 1px solid rgba(99, 102, 241, 0.3);">
-                <div style="font-size: 56px; margin-bottom: 20px;">🎓</div>
-                <div style="display: inline-block; padding: 6px 16px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 20px; color: #a5b4fc; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
-                  Вводный обзор • Экрана 1 из 5
+              <!-- STEP 0 HERO TEASER (Full Height 100%) -->
+              <div class="glass-card" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 36px 40px; border-top: 6px solid #8b5cf6; background: radial-gradient(circle at 50% 10%, #8b5cf618 0%, transparent 70%), rgba(15, 23, 42, 0.85); min-height: 0;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                      <span style="font-size: 46px;">📘</span>
+                      <div>
+                        <div style="font-size: 14px; font-weight: 800; color: #8b5cf6; text-transform: uppercase; letter-spacing: 1.2px;">${this.category}</div>
+                        <div style="font-size: 28px; font-weight: 900; color: #fff;">${this.title}</div>
+                      </div>
+                    </div>
+                    <span style="background: #8b5cf622; border: 1px solid #8b5cf655; color: #8b5cf6; padding: 8px 20px; border-radius: 12px; font-weight: 800; font-size: 16px;">Тема 8.2</span>
+                  </div>
+                  <div style="font-size: 24px; line-height: 1.6; color: #e2e8f0; font-weight: 500; margin-bottom: 30px; border-left: 4px solid #8b5cf6; padding-left: 24px;">
+                    ${this.steps[0].prompter}
+                  </div>
                 </div>
-                <h1 style="font-size: 38px; font-weight: 800; color: #fff; max-width: 900px; line-height: 1.3; margin-bottom: 20px;">
-                  Архитектура объективного контроля: Банк 18 / Выдача 7
-                </h1>
-                <p style="font-size: 20px; color: #cbd5e1; max-width: 820px; line-height: 1.6; margin-bottom: 30px;">
-                  Чтобы исключить передачу готовых ответов между студентами, в нашем курсе применён строгий академический стандарт тестирования: избыточный банк из 18 вопросов со случайной выборкой семи заданий.
-                </p>
-                <div style="display: flex; gap: 12px; align-items: center; color: #94a3b8; font-size: 14px; font-weight: 600;">
-                  <span>▶️ Нажмите Пробел или кнопку воспроизведения</span>
+
+                <div style="display: flex; align-items: center; gap: 14px; background: rgba(30, 41, 59, 0.7); border: 1px dashed #8b5cf666; border-radius: 16px; padding: 18px 24px;">
+                  <span style="font-size: 26px;">💡</span>
+                  <div style="font-size: 19px; color: #cbd5e1; font-weight: 600; flex: 1;">
+                    Стандарт «Банк 18 / Выдача 7» с потолком в 21 балл гарантирует академическую честность и дидактическую глубину.
+                  </div>
+                  
                 </div>
               </div>
             ` : `
-              <!-- 3 COLUMNS MASTER SHELL (Steps 1, 2, 3) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 18px;">
-                <div style="flex: 1; display: flex; gap: 20px; align-items: stretch; min-height: 0;">
-
+              <!-- PROGRESSIVE 3-COLUMN REVEAL (STRETCHED TO BOTTOM 100%) -->
+              <div class="slide-body" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 0; height: 100%;">
+                <div class="card-row" style="flex: 1; display: flex; flex-direction: row; gap: 24px; min-height: 0; margin-bottom: 20px;">
+                  
                   <!-- COL 1 (Visible from Step 1) -->
-                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #8b5cf6; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px;">
+                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #8b5cf6; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px; ${step < 1 ? 'visibility: hidden; opacity: 0; pointer-events: none;' : ''}">
                     <div>
                       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                         <span style="font-size: 38px;">🎲</span>
@@ -1125,6 +1193,7 @@
                     <div style="margin-top: 14px; padding: 10px 14px; background: rgba(15, 23, 42, 0.6); border-radius: 10px; border-left: 3px solid #10b981; font-size: 14px; font-weight: 700; color: #10b981;">
                       Педагогика: Подсказки при ошибке
                     </div>
+                    
                   </div>
 
                 </div>
@@ -1150,30 +1219,52 @@
         steps: [{"step": 0, "label": "Тизер", "desc": "Введение: Кафедральный ассистент по протоколу MCP", "text": "Один из самых мощных прорывов современного искусственного интеллекта — протокол MCP. Он позволяет подключить языковую модель напрямую к локальным кафедральным файлам, превращая её в персонального репетитора для каждого студента.", "time": "00:00 – 00:14", "audioTime": 0.0, "duration": 14.36, "prompter": "Один из самых мощных прорывов современного искусственного интеллекта — протокол MCP. Он позволяет подключить языковую модель напрямую к локальным кафедральным файлам, превращая её в персонального репетитора для каждого студента."}, {"step": 1, "label": "Колонка 1", "desc": "1. Изоляция знаний (Локальный RAG)", "text": "Подключение через протокол MCP гарантирует, что ассистент отвечает строго по текстам ваших методичек, давая точные ссылки на страницы и формулы курса.", "time": "00:14 – 00:24", "audioTime": 14.76, "duration": 9.92, "prompter": "Подключение через протокол MCP гарантирует, что ассистент отвечает строго по текстам ваших методичек, давая точные ссылки на страницы и формулы курса."}, {"step": 2, "label": "Колонка 2", "desc": "2. Сократический метод диалога", "text": "Грамотно настроенный ИИ-тьютор не решает задачу за студента. Он действует сократическим методом: задаёт наводящие вопросы, помогая учащемуся рассуждать самостоятельно.", "time": "00:25 – 00:36", "audioTime": 25.08, "duration": 11.52, "prompter": "Грамотно настроенный ИИ-тьютор не решает задачу за студента. Он действует сократическим методом: задаёт наводящие вопросы, помогая учащемуся рассуждать самостоятельно."}, {"step": 3, "label": "Колонка 3", "desc": "3. Снятие нагрузки с преподавателя", "text": "Персональный тьютор берет на себя рутинные вопросы по оформлению и базовым формулам. Преподаватель освобождает часы для глубоких научных консультаций и проектной работы.", "time": "00:37 – 00:47", "audioTime": 37.0, "duration": 10.48, "prompter": "Персональный тьютор берет на себя рутинные вопросы по оформлению и базовым формулам. Преподаватель освобождает часы для глубоких научных консультаций и проектной работы."}],
         render: function(step) {
           return `
+            <div class="slide-header">
+              <div class="badge-group">
+                <span class="badge" style="font-size: 16px; padding: 6px 14px; background: #06b6d422; color: #06b6d4; border: 1px solid #06b6d444;">${this.category}</span>
+                <span class="badge badge-muted" style="font-size: 16px; padding: 6px 14px;">${this.subCategory}</span>
+              </div>
+              <div class="slide-counter" style="font-size: 16px;">${this.counter}</div>
+            </div>
+            <div class="title-block">
+              <h1 class="slide-title" style="font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 8px;">${this.title}</h1>
+              <p class="slide-subtitle" style="font-size: 22px; color: #94a3b8; font-weight: 500;">${this.subtitle}</p>
+            </div>
+
             ${step === 0 ? `
-              <!-- HERO STEP 0 (Intro teaser) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0.6) 70%); border-radius: 20px; border: 1px solid rgba(99, 102, 241, 0.3);">
-                <div style="font-size: 56px; margin-bottom: 20px;">🎓</div>
-                <div style="display: inline-block; padding: 6px 16px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 20px; color: #a5b4fc; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
-                  Вводный обзор • Экрана 1 из 5
+              <!-- STEP 0 HERO TEASER (Full Height 100%) -->
+              <div class="glass-card" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 36px 40px; border-top: 6px solid #06b6d4; background: radial-gradient(circle at 50% 10%, #06b6d418 0%, transparent 70%), rgba(15, 23, 42, 0.85); min-height: 0;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                      <span style="font-size: 46px;">📘</span>
+                      <div>
+                        <div style="font-size: 14px; font-weight: 800; color: #06b6d4; text-transform: uppercase; letter-spacing: 1.2px;">${this.category}</div>
+                        <div style="font-size: 28px; font-weight: 900; color: #fff;">${this.title}</div>
+                      </div>
+                    </div>
+                    <span style="background: #06b6d422; border: 1px solid #06b6d455; color: #06b6d4; padding: 8px 20px; border-radius: 12px; font-weight: 800; font-size: 16px;">Тема 8.2</span>
+                  </div>
+                  <div style="font-size: 24px; line-height: 1.6; color: #e2e8f0; font-weight: 500; margin-bottom: 30px; border-left: 4px solid #06b6d4; padding-left: 24px;">
+                    ${this.steps[0].prompter}
+                  </div>
                 </div>
-                <h1 style="font-size: 38px; font-weight: 800; color: #fff; max-width: 900px; line-height: 1.3; margin-bottom: 20px;">
-                  Индивидуальный тьютор на базе Model Context Protocol (MCP)
-                </h1>
-                <p style="font-size: 20px; color: #cbd5e1; max-width: 820px; line-height: 1.6; margin-bottom: 30px;">
-                  Один из самых мощных прорывов современного искусственного интеллекта — протокол MCP. Он позволяет подключить языковую модель напрямую к локальным кафедральным файлам, превращая её в персонального репетитора для каждого студента.
-                </p>
-                <div style="display: flex; gap: 12px; align-items: center; color: #94a3b8; font-size: 14px; font-weight: 600;">
-                  <span>▶️ Нажмите Пробел или кнопку воспроизведения</span>
+
+                <div style="display: flex; align-items: center; gap: 14px; background: rgba(30, 41, 59, 0.7); border: 1px dashed #06b6d466; border-radius: 16px; padding: 18px 24px;">
+                  <span style="font-size: 26px;">💡</span>
+                  <div style="font-size: 19px; color: #cbd5e1; font-weight: 600; flex: 1;">
+                    Протокол MCP превращает языковую модель в строгого кафедрального наставника, работающего 24/7.
+                  </div>
+                  
                 </div>
               </div>
             ` : `
-              <!-- 3 COLUMNS MASTER SHELL (Steps 1, 2, 3) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 18px;">
-                <div style="flex: 1; display: flex; gap: 20px; align-items: stretch; min-height: 0;">
-
+              <!-- PROGRESSIVE 3-COLUMN REVEAL (STRETCHED TO BOTTOM 100%) -->
+              <div class="slide-body" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 0; height: 100%;">
+                <div class="card-row" style="flex: 1; display: flex; flex-direction: row; gap: 24px; min-height: 0; margin-bottom: 20px;">
+                  
                   <!-- COL 1 (Visible from Step 1) -->
-                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #06b6d4; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px;">
+                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #06b6d4; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px; ${step < 1 ? 'visibility: hidden; opacity: 0; pointer-events: none;' : ''}">
                     <div>
                       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                         <span style="font-size: 38px;">📚</span>
@@ -1218,6 +1309,7 @@
                     <div style="margin-top: 14px; padding: 10px 14px; background: rgba(15, 23, 42, 0.6); border-radius: 10px; border-left: 3px solid #3b82f6; font-size: 14px; font-weight: 700; color: #3b82f6;">
                       Эффективность: 80% рутины снято
                     </div>
+                    
                   </div>
 
                 </div>
@@ -1243,30 +1335,52 @@
         steps: [{"step": 0, "label": "Тизер", "desc": "Введение: Академическая этика и цифровой суверенитет", "text": "Внедрение искусственного интеллекта в университет требует честного осознания рисков. Разберём правила академической этики и границы применимости ИИ в обучении будущих инженеров.", "time": "00:00 – 00:11", "audioTime": 0.0, "duration": 11.52, "prompter": "Внедрение искусственного интеллекта в университет требует честного осознания рисков. Разберём правила академической этики и границы применимости ИИ в обучении будущих инженеров."}, {"step": 1, "label": "Колонка 1", "desc": "1. Проблема когнитивной атрофии", "text": "Если учащийся бездумно доверяет вычисления нейросети, фундамент инженерного мышления не формируется. Искусственный интеллект должен быть спарринг-партнёром, а не мыслительным протезом.", "time": "00:11 – 00:23", "audioTime": 11.92, "duration": 11.76, "prompter": "Если учащийся бездумно доверяет вычисления нейросети, фундамент инженерного мышления не формируется. Искусственный интеллект должен быть спарринг-партнёром, а не мыслительным протезом."}, {"step": 2, "label": "Колонка 2", "desc": "2. Открытость источников и промптов", "text": "Академический стандарт требует прозрачности: студент указывает, в каких частях работы применялся ИИ, и демонстрирует, какие ошибки нейросети он выявил и исправил вручную.", "time": "00:24 – 00:36", "audioTime": 24.08, "duration": 12.0, "prompter": "Академический стандарт требует прозрачности: студент указывает, в каких частях работы применялся ИИ, и демонстрирует, какие ошибки нейросети он выявил и исправил вручную."}, {"step": 3, "label": "Колонка 3", "desc": "3. Локальное развёртывание и суверенитет", "text": "Развёртывание открытых локальных моделей на серверах университета обеспечивает защиту данных и академическую независимость от зарубежных облачных сервисов.", "time": "00:36 – 00:46", "audioTime": 36.48, "duration": 9.84, "prompter": "Развёртывание открытых локальных моделей на серверах университета обеспечивает защиту данных и академическую независимость от зарубежных облачных сервисов."}],
         render: function(step) {
           return `
+            <div class="slide-header">
+              <div class="badge-group">
+                <span class="badge" style="font-size: 16px; padding: 6px 14px; background: #10b98122; color: #10b981; border: 1px solid #10b98144;">${this.category}</span>
+                <span class="badge badge-muted" style="font-size: 16px; padding: 6px 14px;">${this.subCategory}</span>
+              </div>
+              <div class="slide-counter" style="font-size: 16px;">${this.counter}</div>
+            </div>
+            <div class="title-block">
+              <h1 class="slide-title" style="font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 8px;">${this.title}</h1>
+              <p class="slide-subtitle" style="font-size: 22px; color: #94a3b8; font-weight: 500;">${this.subtitle}</p>
+            </div>
+
             ${step === 0 ? `
-              <!-- HERO STEP 0 (Intro teaser) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0.6) 70%); border-radius: 20px; border: 1px solid rgba(99, 102, 241, 0.3);">
-                <div style="font-size: 56px; margin-bottom: 20px;">🎓</div>
-                <div style="display: inline-block; padding: 6px 16px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 20px; color: #a5b4fc; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
-                  Вводный обзор • Экрана 1 из 5
+              <!-- STEP 0 HERO TEASER (Full Height 100%) -->
+              <div class="glass-card" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 36px 40px; border-top: 6px solid #10b981; background: radial-gradient(circle at 50% 10%, #10b98118 0%, transparent 70%), rgba(15, 23, 42, 0.85); min-height: 0;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                      <span style="font-size: 46px;">📘</span>
+                      <div>
+                        <div style="font-size: 14px; font-weight: 800; color: #10b981; text-transform: uppercase; letter-spacing: 1.2px;">${this.category}</div>
+                        <div style="font-size: 28px; font-weight: 900; color: #fff;">${this.title}</div>
+                      </div>
+                    </div>
+                    <span style="background: #10b98122; border: 1px solid #10b98155; color: #10b981; padding: 8px 20px; border-radius: 12px; font-weight: 800; font-size: 16px;">Тема 8.2</span>
+                  </div>
+                  <div style="font-size: 24px; line-height: 1.6; color: #e2e8f0; font-weight: 500; margin-bottom: 30px; border-left: 4px solid #10b981; padding-left: 24px;">
+                    ${this.steps[0].prompter}
+                  </div>
                 </div>
-                <h1 style="font-size: 38px; font-weight: 800; color: #fff; max-width: 900px; line-height: 1.3; margin-bottom: 20px;">
-                  Границы допустимого: где помощь ИИ переходит в подмену мысли
-                </h1>
-                <p style="font-size: 20px; color: #cbd5e1; max-width: 820px; line-height: 1.6; margin-bottom: 30px;">
-                  Внедрение искусственного интеллекта в университет требует честного осознания рисков. Разберём правила академической этики и границы применимости ИИ в обучении будущих инженеров.
-                </p>
-                <div style="display: flex; gap: 12px; align-items: center; color: #94a3b8; font-size: 14px; font-weight: 600;">
-                  <span>▶️ Нажмите Пробел или кнопку воспроизведения</span>
+
+                <div style="display: flex; align-items: center; gap: 14px; background: rgba(30, 41, 59, 0.7); border: 1px dashed #10b98166; border-radius: 16px; padding: 18px 24px;">
+                  <span style="font-size: 26px;">💡</span>
+                  <div style="font-size: 19px; color: #cbd5e1; font-weight: 600; flex: 1;">
+                    Грамотная культура применения ИИ в вузе развивает критическое мышление и укрепляет научный суверенитет.
+                  </div>
+                  
                 </div>
               </div>
             ` : `
-              <!-- 3 COLUMNS MASTER SHELL (Steps 1, 2, 3) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 18px;">
-                <div style="flex: 1; display: flex; gap: 20px; align-items: stretch; min-height: 0;">
-
+              <!-- PROGRESSIVE 3-COLUMN REVEAL (STRETCHED TO BOTTOM 100%) -->
+              <div class="slide-body" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 0; height: 100%;">
+                <div class="card-row" style="flex: 1; display: flex; flex-direction: row; gap: 24px; min-height: 0; margin-bottom: 20px;">
+                  
                   <!-- COL 1 (Visible from Step 1) -->
-                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #f43f5e; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px;">
+                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #f43f5e; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px; ${step < 1 ? 'visibility: hidden; opacity: 0; pointer-events: none;' : ''}">
                     <div>
                       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                         <span style="font-size: 38px;">🧠</span>
@@ -1311,6 +1425,7 @@
                     <div style="margin-top: 14px; padding: 10px 14px; background: rgba(15, 23, 42, 0.6); border-radius: 10px; border-left: 3px solid #10b981; font-size: 14px; font-weight: 700; color: #10b981;">
                       Суверенитет: Локальный контур
                     </div>
+                    
                   </div>
 
                 </div>

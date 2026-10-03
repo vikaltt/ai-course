@@ -871,30 +871,52 @@
         steps: [{"step": 0, "label": "Тизер", "desc": "Введение: Реальный баланс времени при создании курса", "text": "Пришло время заглянуть на внутреннюю кухню нашего курса. Мы собрали реальную статистику работы над шестнадцатью академическими часами и честно покажем баланс затрат времени.", "time": "00:00 – 00:10", "audioTime": 0.0, "duration": 10.28, "prompter": "Пришло время заглянуть на внутреннюю кухню нашего курса. Мы собрали реальную статистику работы над шестнадцатью академическими часами и честно покажем баланс затрат времени."}, {"step": 1, "label": "Колонка 1", "desc": "1. Традиционный путь создания (Человек)", "text": "Традиционное создание курса такого объёма требует свыше трёхсот пятидесяти часов: недели уходят на ручной дизайн слайдов, запись диктора и монтаж видеодорожек.", "time": "00:10 – 00:20", "audioTime": 10.68, "duration": 10.2, "prompter": "Традиционное создание курса такого объёма требует свыше трёхсот пятидесяти часов: недели уходят на ручной дизайн слайдов, запись диктора и монтаж видеодорожек."}, {"step": 2, "label": "Колонка 2", "desc": "2. Тандем с агентным ИИ: 45 часов", "text": "В тандеме с агентным искусственным интеллектом разработка заняла около сорока пяти часов. Роботизированный пайплайн взял на себя девяносто процентов черновой технической рутины.", "time": "00:21 – 00:31", "audioTime": 21.28, "duration": 10.64, "prompter": "В тандеме с агентным искусственным интеллектом разработка заняла около сорока пяти часов. Роботизированный пайплайн взял на себя девяносто процентов черновой технической рутины."}, {"step": 3, "label": "Колонка 3", "desc": "3. Куда ушло время преподавателя", "text": "Сэкономленные часы автор инвестировал в главное — в качество образования: выверку физических моделей, методическую логику и оттачивание практических заданий.", "time": "00:32 – 00:43", "audioTime": 32.32, "duration": 11.08, "prompter": "Сэкономленные часы автор инвестировал в главное — в качество образования: выверку физических моделей, методическую логику и оттачивание практических заданий."}],
         render: function(step) {
           return `
+            <div class="slide-header">
+              <div class="badge-group">
+                <span class="badge" style="font-size: 16px; padding: 6px 14px; background: #6366f122; color: #6366f1; border: 1px solid #6366f144;">${this.category}</span>
+                <span class="badge badge-muted" style="font-size: 16px; padding: 6px 14px;">${this.subCategory}</span>
+              </div>
+              <div class="slide-counter" style="font-size: 16px;">${this.counter}</div>
+            </div>
+            <div class="title-block">
+              <h1 class="slide-title" style="font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 8px;">${this.title}</h1>
+              <p class="slide-subtitle" style="font-size: 22px; color: #94a3b8; font-weight: 500;">${this.subtitle}</p>
+            </div>
+
             ${step === 0 ? `
-              <!-- HERO STEP 0 (Intro teaser) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0.6) 70%); border-radius: 20px; border: 1px solid rgba(99, 102, 241, 0.3);">
-                <div style="font-size: 56px; margin-bottom: 20px;">🎓</div>
-                <div style="display: inline-block; padding: 6px 16px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 20px; color: #a5b4fc; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
-                  Вводный обзор • Экрана 1 из 5
+              <!-- STEP 0 HERO TEASER (Full Height 100%) -->
+              <div class="glass-card" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 36px 40px; border-top: 6px solid #6366f1; background: radial-gradient(circle at 50% 10%, #6366f118 0%, transparent 70%), rgba(15, 23, 42, 0.85); min-height: 0;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                      <span style="font-size: 46px;">📘</span>
+                      <div>
+                        <div style="font-size: 14px; font-weight: 800; color: #6366f1; text-transform: uppercase; letter-spacing: 1.2px;">${this.category}</div>
+                        <div style="font-size: 28px; font-weight: 900; color: #fff;">${this.title}</div>
+                      </div>
+                    </div>
+                    <span style="background: #6366f122; border: 1px solid #6366f155; color: #6366f1; padding: 8px 20px; border-radius: 12px; font-weight: 800; font-size: 16px;">Тема 8.3</span>
+                  </div>
+                  <div style="font-size: 24px; line-height: 1.6; color: #e2e8f0; font-weight: 500; margin-bottom: 30px; border-left: 4px solid #6366f1; padding-left: 24px;">
+                    ${this.steps[0].prompter}
+                  </div>
                 </div>
-                <h1 style="font-size: 38px; font-weight: 800; color: #fff; max-width: 900px; line-height: 1.3; margin-bottom: 20px;">
-                  Хроника проекта: сколько времени на самом деле сберёг ИИ
-                </h1>
-                <p style="font-size: 20px; color: #cbd5e1; max-width: 820px; line-height: 1.6; margin-bottom: 30px;">
-                  Пришло время заглянуть на внутреннюю кухню нашего курса. Мы собрали реальную статистику работы над шестнадцатью академическими часами и честно покажем баланс затрат времени.
-                </p>
-                <div style="display: flex; gap: 12px; align-items: center; color: #94a3b8; font-size: 14px; font-weight: 600;">
-                  <span>▶️ Нажмите Пробел или кнопку воспроизведения</span>
+
+                <div style="display: flex; align-items: center; gap: 14px; background: rgba(30, 41, 59, 0.7); border: 1px dashed #6366f166; border-radius: 16px; padding: 18px 24px;">
+                  <span style="font-size: 26px;">💡</span>
+                  <div style="font-size: 19px; color: #cbd5e1; font-weight: 600; flex: 1;">
+                    Тандем с агентным ИИ сокращает время производства курса в 7 раз, освобождая время для глубокой методической работы.
+                  </div>
+                  
                 </div>
               </div>
             ` : `
-              <!-- 3 COLUMNS MASTER SHELL (Steps 1, 2, 3) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 18px;">
-                <div style="flex: 1; display: flex; gap: 20px; align-items: stretch; min-height: 0;">
-
+              <!-- PROGRESSIVE 3-COLUMN REVEAL (STRETCHED TO BOTTOM 100%) -->
+              <div class="slide-body" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 0; height: 100%;">
+                <div class="card-row" style="flex: 1; display: flex; flex-direction: row; gap: 24px; min-height: 0; margin-bottom: 20px;">
+                  
                   <!-- COL 1 (Visible from Step 1) -->
-                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #f43f5e; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px;">
+                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #f43f5e; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px; ${step < 1 ? 'visibility: hidden; opacity: 0; pointer-events: none;' : ''}">
                     <div>
                       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                         <span style="font-size: 38px;">⏳</span>
@@ -939,6 +961,7 @@
                     <div style="margin-top: 14px; padding: 10px 14px; background: rgba(15, 23, 42, 0.6); border-radius: 10px; border-left: 3px solid #10b981; font-size: 14px; font-weight: 700; color: #10b981;">
                       Фокус: Академическое качество
                     </div>
+                    
                   </div>
 
                 </div>
@@ -964,30 +987,52 @@
         steps: [{"step": 0, "label": "Тизер", "desc": "Введение: Реальный сбой и автономное устранение", "text": "Разработка сложного софта никогда не обходится без технических сбоев. Разберём реальный инцидент из жизни нашего проекта, когда ИИ-агент самостоятельно обнаружил ошибку и вернул систему в строй.", "time": "00:00 – 00:12", "audioTime": 0.0, "duration": 12.92, "prompter": "Разработка сложного софта никогда не обходится без технических сбоев. Разберём реальный инцидент из жизни нашего проекта, когда ИИ-агент самостоятельно обнаружил ошибку и вернул систему в строй."}, {"step": 1, "label": "Колонка 1", "desc": "1. Возникновение поломки", "text": "При очередном тестовом прогоне плеера скрипт автоматизации упал с системной ошибкой: браузерный драйвер перестал отвечать на команды операционной системы.", "time": "00:13 – 00:23", "audioTime": 13.32, "duration": 10.0, "prompter": "При очередном тестовом прогоне плеера скрипт автоматизации упал с системной ошибкой: браузерный драйвер перестал отвечать на команды операционной системы."}, {"step": 2, "label": "Колонка 2", "desc": "2. Автономная диагностика агента", "text": "Агент не стал беспокоить преподавателя техническими деталями. Он самостоятельно исследовал журналы ошибок, локализовал причину сбоя и переустановил окружение.", "time": "00:23 – 00:33", "audioTime": 23.72, "duration": 9.76, "prompter": "Агент не стал беспокоить преподавателя техническими деталями. Он самостоятельно исследовал журналы ошибок, локализовал причину сбоя и переустановил окружение."}, {"step": 3, "label": "Колонка 3", "desc": "3. Фиксация артефакта", "text": "Весь процесс самовосстановления системы был записан на видео и сохранён в архиве проекта, наглядно подтверждая надёжность автономного агентного подхода.", "time": "00:33 – 00:43", "audioTime": 33.88, "duration": 9.28, "prompter": "Весь процесс самовосстановления системы был записан на видео и сохранён в архиве проекта, наглядно подтверждая надёжность автономного агентного подхода."}],
         render: function(step) {
           return `
+            <div class="slide-header">
+              <div class="badge-group">
+                <span class="badge" style="font-size: 16px; padding: 6px 14px; background: #0284c722; color: #0284c7; border: 1px solid #0284c744;">${this.category}</span>
+                <span class="badge badge-muted" style="font-size: 16px; padding: 6px 14px;">${this.subCategory}</span>
+              </div>
+              <div class="slide-counter" style="font-size: 16px;">${this.counter}</div>
+            </div>
+            <div class="title-block">
+              <h1 class="slide-title" style="font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 8px;">${this.title}</h1>
+              <p class="slide-subtitle" style="font-size: 22px; color: #94a3b8; font-weight: 500;">${this.subtitle}</p>
+            </div>
+
             ${step === 0 ? `
-              <!-- HERO STEP 0 (Intro teaser) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0.6) 70%); border-radius: 20px; border: 1px solid rgba(99, 102, 241, 0.3);">
-                <div style="font-size: 56px; margin-bottom: 20px;">🎓</div>
-                <div style="display: inline-block; padding: 6px 16px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 20px; color: #a5b4fc; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
-                  Вводный обзор • Экрана 1 из 5
+              <!-- STEP 0 HERO TEASER (Full Height 100%) -->
+              <div class="glass-card" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 36px 40px; border-top: 6px solid #0284c7; background: radial-gradient(circle at 50% 10%, #0284c718 0%, transparent 70%), rgba(15, 23, 42, 0.85); min-height: 0;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                      <span style="font-size: 46px;">📘</span>
+                      <div>
+                        <div style="font-size: 14px; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 1.2px;">${this.category}</div>
+                        <div style="font-size: 28px; font-weight: 900; color: #fff;">${this.title}</div>
+                      </div>
+                    </div>
+                    <span style="background: #0284c722; border: 1px solid #0284c755; color: #0284c7; padding: 8px 20px; border-radius: 12px; font-weight: 800; font-size: 16px;">Тема 8.3</span>
+                  </div>
+                  <div style="font-size: 24px; line-height: 1.6; color: #e2e8f0; font-weight: 500; margin-bottom: 30px; border-left: 4px solid #0284c7; padding-left: 24px;">
+                    ${this.steps[0].prompter}
+                  </div>
                 </div>
-                <h1 style="font-size: 38px; font-weight: 800; color: #fff; max-width: 900px; line-height: 1.3; margin-bottom: 20px;">
-                  Инцидент в пайплайне: как агент локализовал и устранил сбой
-                </h1>
-                <p style="font-size: 20px; color: #cbd5e1; max-width: 820px; line-height: 1.6; margin-bottom: 30px;">
-                  Разработка сложного софта никогда не обходится без технических сбоев. Разберём реальный инцидент из жизни нашего проекта, когда ИИ-агент самостоятельно обнаружил ошибку и вернул систему в строй.
-                </p>
-                <div style="display: flex; gap: 12px; align-items: center; color: #94a3b8; font-size: 14px; font-weight: 600;">
-                  <span>▶️ Нажмите Пробел или кнопку воспроизведения</span>
+
+                <div style="display: flex; align-items: center; gap: 14px; background: rgba(30, 41, 59, 0.7); border: 1px dashed #0284c766; border-radius: 16px; padding: 18px 24px;">
+                  <span style="font-size: 26px;">💡</span>
+                  <div style="font-size: 19px; color: #cbd5e1; font-weight: 600; flex: 1;">
+                    Автономные субагенты способны самостоятельно локализовать системные сбои и восстанавливать работоспособность среды.
+                  </div>
+                  
                 </div>
               </div>
             ` : `
-              <!-- 3 COLUMNS MASTER SHELL (Steps 1, 2, 3) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 18px;">
-                <div style="flex: 1; display: flex; gap: 20px; align-items: stretch; min-height: 0;">
-
+              <!-- PROGRESSIVE 3-COLUMN REVEAL (STRETCHED TO BOTTOM 100%) -->
+              <div class="slide-body" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 0; height: 100%;">
+                <div class="card-row" style="flex: 1; display: flex; flex-direction: row; gap: 24px; min-height: 0; margin-bottom: 20px;">
+                  
                   <!-- COL 1 (Visible from Step 1) -->
-                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #f43f5e; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px;">
+                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #f43f5e; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px; ${step < 1 ? 'visibility: hidden; opacity: 0; pointer-events: none;' : ''}">
                     <div>
                       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                         <span style="font-size: 38px;">💥</span>
@@ -1032,6 +1077,7 @@
                     <div style="margin-top: 14px; padding: 10px 14px; background: rgba(15, 23, 42, 0.6); border-radius: 10px; border-left: 3px solid #10b981; font-size: 14px; font-weight: 700; color: #10b981;">
                       Итог: Задокументированный кейс
                     </div>
+                    
                   </div>
 
                 </div>
@@ -1057,30 +1103,52 @@
         steps: [{"step": 0, "label": "Тизер", "desc": "Введение: Git как защита от потери наработок", "text": "Работая с нейросетями, легко увлечься генерацией и случайно испортить работающий модуль. Система контроля версий Git — единственный надёжный щит от потери кафедральных наработок.", "time": "00:00 – 00:11", "audioTime": 0.0, "duration": 11.88, "prompter": "Работая с нейросетями, легко увлечься генерацией и случайно испортить работающий модуль. Система контроля версий Git — единственный надёжный щит от потери кафедральных наработок."}, {"step": 1, "label": "Колонка 1", "desc": "1. Опасность неконтролируемых правок", "text": "Внося точечные правки в сложный код, нейросеть может случайно повредить работающую логику. Без системы версионирования преподаватель рискует потерять дни труда.", "time": "00:12 – 00:22", "audioTime": 12.28, "duration": 10.36, "prompter": "Внося точечные правки в сложный код, нейросеть может случайно повредить работающую логику. Без системы версионирования преподаватель рискует потерять дни труда."}, {"step": 2, "label": "Колонка 2", "desc": "2. Атомарные коммиты (Точки сохранения)", "text": "В нашем проекте действует строгое правило: каждый проверенный слайд или модуль тут же фиксируется в Git. При возникновении ошибки мы возвращаемся назад в один клик.", "time": "00:23 – 00:33", "audioTime": 23.04, "duration": 10.08, "prompter": "В нашем проекте действует строгое правило: каждый проверенный слайд или модуль тут же фиксируется в Git. При возникновении ошибки мы возвращаемся назад в один клик."}, {"step": 3, "label": "Колонка 3", "desc": "3. Модульная структура репозитория", "text": "Чёткое разделение репозитория на скрипты сборки, сценарии и веб-публикацию позволяет легко обновлять отдельные темы курса, не затрагивая остальные части программы.", "time": "00:33 – 00:44", "audioTime": 33.52, "duration": 10.84, "prompter": "Чёткое разделение репозитория на скрипты сборки, сценарии и веб-публикацию позволяет легко обновлять отдельные темы курса, не затрагивая остальные части программы."}],
         render: function(step) {
           return `
+            <div class="slide-header">
+              <div class="badge-group">
+                <span class="badge" style="font-size: 16px; padding: 6px 14px; background: #8b5cf622; color: #8b5cf6; border: 1px solid #8b5cf644;">${this.category}</span>
+                <span class="badge badge-muted" style="font-size: 16px; padding: 6px 14px;">${this.subCategory}</span>
+              </div>
+              <div class="slide-counter" style="font-size: 16px;">${this.counter}</div>
+            </div>
+            <div class="title-block">
+              <h1 class="slide-title" style="font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 8px;">${this.title}</h1>
+              <p class="slide-subtitle" style="font-size: 22px; color: #94a3b8; font-weight: 500;">${this.subtitle}</p>
+            </div>
+
             ${step === 0 ? `
-              <!-- HERO STEP 0 (Intro teaser) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0.6) 70%); border-radius: 20px; border: 1px solid rgba(99, 102, 241, 0.3);">
-                <div style="font-size: 56px; margin-bottom: 20px;">🎓</div>
-                <div style="display: inline-block; padding: 6px 16px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 20px; color: #a5b4fc; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
-                  Вводный обзор • Экрана 1 из 5
+              <!-- STEP 0 HERO TEASER (Full Height 100%) -->
+              <div class="glass-card" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 36px 40px; border-top: 6px solid #8b5cf6; background: radial-gradient(circle at 50% 10%, #8b5cf618 0%, transparent 70%), rgba(15, 23, 42, 0.85); min-height: 0;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                      <span style="font-size: 46px;">📘</span>
+                      <div>
+                        <div style="font-size: 14px; font-weight: 800; color: #8b5cf6; text-transform: uppercase; letter-spacing: 1.2px;">${this.category}</div>
+                        <div style="font-size: 28px; font-weight: 900; color: #fff;">${this.title}</div>
+                      </div>
+                    </div>
+                    <span style="background: #8b5cf622; border: 1px solid #8b5cf655; color: #8b5cf6; padding: 8px 20px; border-radius: 12px; font-weight: 800; font-size: 16px;">Тема 8.3</span>
+                  </div>
+                  <div style="font-size: 24px; line-height: 1.6; color: #e2e8f0; font-weight: 500; margin-bottom: 30px; border-left: 4px solid #8b5cf6; padding-left: 24px;">
+                    ${this.steps[0].prompter}
+                  </div>
                 </div>
-                <h1 style="font-size: 38px; font-weight: 800; color: #fff; max-width: 900px; line-height: 1.3; margin-bottom: 20px;">
-                  Система контроля версий Git как страховка от деградации курса
-                </h1>
-                <p style="font-size: 20px; color: #cbd5e1; max-width: 820px; line-height: 1.6; margin-bottom: 30px;">
-                  Работая с нейросетями, легко увлечься генерацией и случайно испортить работающий модуль. Система контроля версий Git — единственный надёжный щит от потери кафедральных наработок.
-                </p>
-                <div style="display: flex; gap: 12px; align-items: center; color: #94a3b8; font-size: 14px; font-weight: 600;">
-                  <span>▶️ Нажмите Пробел или кнопку воспроизведения</span>
+
+                <div style="display: flex; align-items: center; gap: 14px; background: rgba(30, 41, 59, 0.7); border: 1px dashed #8b5cf666; border-radius: 16px; padding: 18px 24px;">
+                  <span style="font-size: 26px;">💡</span>
+                  <div style="font-size: 19px; color: #cbd5e1; font-weight: 600; flex: 1;">
+                    Git гарантирует абсолютную безопасность разработки: ни одна удачная версия и формула не пропадет бесследно.
+                  </div>
+                  
                 </div>
               </div>
             ` : `
-              <!-- 3 COLUMNS MASTER SHELL (Steps 1, 2, 3) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 18px;">
-                <div style="flex: 1; display: flex; gap: 20px; align-items: stretch; min-height: 0;">
-
+              <!-- PROGRESSIVE 3-COLUMN REVEAL (STRETCHED TO BOTTOM 100%) -->
+              <div class="slide-body" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 0; height: 100%;">
+                <div class="card-row" style="flex: 1; display: flex; flex-direction: row; gap: 24px; min-height: 0; margin-bottom: 20px;">
+                  
                   <!-- COL 1 (Visible from Step 1) -->
-                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #f59e0b; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px;">
+                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #f59e0b; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px; ${step < 1 ? 'visibility: hidden; opacity: 0; pointer-events: none;' : ''}">
                     <div>
                       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                         <span style="font-size: 38px;">⚠️</span>
@@ -1125,6 +1193,7 @@
                     <div style="margin-top: 14px; padding: 10px 14px; background: rgba(15, 23, 42, 0.6); border-radius: 10px; border-left: 3px solid #10b981; font-size: 14px; font-weight: 700; color: #10b981;">
                       Архитектура: Изоляция модулей
                     </div>
+                    
                   </div>
 
                 </div>
@@ -1150,30 +1219,52 @@
         steps: [{"step": 0, "label": "Тизер", "desc": "Введение: Проектная конституция важнее случайных промптов", "text": "Многие считают, что успех работы с нейросетью зависит от хитроумных формулировок промптов. Наш опыт доказал: решающее значение имеет строгая проектная конституция.", "time": "00:00 – 00:10", "audioTime": 0.0, "duration": 10.6, "prompter": "Многие считают, что успех работы с нейросетью зависит от хитроумных формулировок промптов. Наш опыт доказал: решающее значение имеет строгая проектная конституция."}, {"step": 1, "label": "Колонка 1", "desc": "1. Проблема плавающих требований", "text": "В обычных диалогах нейросеть быстро теряет фокус: начинает менять цветовую гамму, стиль речи и терминологию, заставляя пользователя повторять вводные правила.", "time": "00:11 – 00:20", "audioTime": 11.0, "duration": 9.72, "prompter": "В обычных диалогах нейросеть быстро теряет фокус: начинает менять цветовую гамму, стиль речи и терминологию, заставляя пользователя повторять вводные правила."}, {"step": 2, "label": "Колонка 2", "desc": "2. Постоянная конституция (AGENTS.md)", "text": "В нашем проекте все стандарты зафиксированы в единой конституции AGENTS.md. Искусственный интеллект с первого такта знает запрет на речевые клише и требования к академическому стилю.", "time": "00:21 – 00:32", "audioTime": 21.12, "duration": 11.8, "prompter": "В нашем проекте все стандарты зафиксированы в единой конституции AGENTS.md. Искусственный интеллект с первого такта знает запрет на речевые клише и требования к академическому стилю."}, {"step": 3, "label": "Колонка 3", "desc": "3. Принцип автономного делегирования", "text": "Преподаватель работает как генеральный конструктор: он обсуждает методику и принимает результаты, в то время как фоновые скрипты молча выполняют техническую работу.", "time": "00:33 – 00:43", "audioTime": 33.32, "duration": 9.88, "prompter": "Преподаватель работает как генеральный конструктор: он обсуждает методику и принимает результаты, в то время как фоновые скрипты молча выполняют техническую работу."}],
         render: function(step) {
           return `
+            <div class="slide-header">
+              <div class="badge-group">
+                <span class="badge" style="font-size: 16px; padding: 6px 14px; background: #06b6d422; color: #06b6d4; border: 1px solid #06b6d444;">${this.category}</span>
+                <span class="badge badge-muted" style="font-size: 16px; padding: 6px 14px;">${this.subCategory}</span>
+              </div>
+              <div class="slide-counter" style="font-size: 16px;">${this.counter}</div>
+            </div>
+            <div class="title-block">
+              <h1 class="slide-title" style="font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 8px;">${this.title}</h1>
+              <p class="slide-subtitle" style="font-size: 22px; color: #94a3b8; font-weight: 500;">${this.subtitle}</p>
+            </div>
+
             ${step === 0 ? `
-              <!-- HERO STEP 0 (Intro teaser) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0.6) 70%); border-radius: 20px; border: 1px solid rgba(99, 102, 241, 0.3);">
-                <div style="font-size: 56px; margin-bottom: 20px;">🎓</div>
-                <div style="display: inline-block; padding: 6px 16px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 20px; color: #a5b4fc; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
-                  Вводный обзор • Экрана 1 из 5
+              <!-- STEP 0 HERO TEASER (Full Height 100%) -->
+              <div class="glass-card" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 36px 40px; border-top: 6px solid #06b6d4; background: radial-gradient(circle at 50% 10%, #06b6d418 0%, transparent 70%), rgba(15, 23, 42, 0.85); min-height: 0;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                      <span style="font-size: 46px;">📘</span>
+                      <div>
+                        <div style="font-size: 14px; font-weight: 800; color: #06b6d4; text-transform: uppercase; letter-spacing: 1.2px;">${this.category}</div>
+                        <div style="font-size: 28px; font-weight: 900; color: #fff;">${this.title}</div>
+                      </div>
+                    </div>
+                    <span style="background: #06b6d422; border: 1px solid #06b6d455; color: #06b6d4; padding: 8px 20px; border-radius: 12px; font-weight: 800; font-size: 16px;">Тема 8.3</span>
+                  </div>
+                  <div style="font-size: 24px; line-height: 1.6; color: #e2e8f0; font-weight: 500; margin-bottom: 30px; border-left: 4px solid #06b6d4; padding-left: 24px;">
+                    ${this.steps[0].prompter}
+                  </div>
                 </div>
-                <h1 style="font-size: 38px; font-weight: 800; color: #fff; max-width: 900px; line-height: 1.3; margin-bottom: 20px;">
-                  Конституция проекта против случайных промптов
-                </h1>
-                <p style="font-size: 20px; color: #cbd5e1; max-width: 820px; line-height: 1.6; margin-bottom: 30px;">
-                  Многие считают, что успех работы с нейросетью зависит от хитроумных формулировок промптов. Наш опыт доказал: решающее значение имеет строгая проектная конституция.
-                </p>
-                <div style="display: flex; gap: 12px; align-items: center; color: #94a3b8; font-size: 14px; font-weight: 600;">
-                  <span>▶️ Нажмите Пробел или кнопку воспроизведения</span>
+
+                <div style="display: flex; align-items: center; gap: 14px; background: rgba(30, 41, 59, 0.7); border: 1px dashed #06b6d466; border-radius: 16px; padding: 18px 24px;">
+                  <span style="font-size: 26px;">💡</span>
+                  <div style="font-size: 19px; color: #cbd5e1; font-weight: 600; flex: 1;">
+                    Чёткий проектный регламент в AGENTS.md важнее сотен разрозненных подсказок и обеспечивает стабильность результата.
+                  </div>
+                  
                 </div>
               </div>
             ` : `
-              <!-- 3 COLUMNS MASTER SHELL (Steps 1, 2, 3) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 18px;">
-                <div style="flex: 1; display: flex; gap: 20px; align-items: stretch; min-height: 0;">
-
+              <!-- PROGRESSIVE 3-COLUMN REVEAL (STRETCHED TO BOTTOM 100%) -->
+              <div class="slide-body" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 0; height: 100%;">
+                <div class="card-row" style="flex: 1; display: flex; flex-direction: row; gap: 24px; min-height: 0; margin-bottom: 20px;">
+                  
                   <!-- COL 1 (Visible from Step 1) -->
-                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #f43f5e; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px;">
+                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #f43f5e; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px; ${step < 1 ? 'visibility: hidden; opacity: 0; pointer-events: none;' : ''}">
                     <div>
                       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                         <span style="font-size: 38px;">🌪️</span>
@@ -1218,6 +1309,7 @@
                     <div style="margin-top: 14px; padding: 10px 14px; background: rgba(15, 23, 42, 0.6); border-radius: 10px; border-left: 3px solid #3b82f6; font-size: 14px; font-weight: 700; color: #3b82f6;">
                       Организация: Оркестратор + воркеры
                     </div>
+                    
                   </div>
 
                 </div>
@@ -1243,30 +1335,52 @@
         steps: [{"step": 0, "label": "Тизер", "desc": "Введение: Эволюция роли университетского преподавателя", "text": "Завершая теоретическую часть нашего шестнадцатичасового курса, ответим на главный вопрос: заменит ли искусственный интеллект преподавателя вуза? Ответ однозначен — нет, но он кардинально изменит характер его труда.", "time": "00:00 – 00:16", "audioTime": 0.0, "duration": 16.6, "prompter": "Завершая теоретическую часть нашего шестнадцатичасового курса, ответим на главный вопрос: заменит ли искусственный интеллект преподавателя вуза? Ответ однозначен — нет, но он кардинально изменит характер его труда."}, {"step": 1, "label": "Колонка 1", "desc": "1. Освобождение от цифровой рутины", "text": "Искусственный интеллект навсегда забирает на себя механическую рутину: выравнивание полей, вёрстку типовых слайдов и ручной перенос вопросов в веб-формы.", "time": "00:17 – 00:28", "audioTime": 17.0, "duration": 11.28, "prompter": "Искусственный интеллект навсегда забирает на себя механическую рутину: выравнивание полей, вёрстку типовых слайдов и ручной перенос вопросов в веб-формы."}, {"step": 2, "label": "Колонка 2", "desc": "2. Фокус на педагогическом дизайне", "text": "Педагог выходит на принципиально новый уровень: он становится архитектором смыслов, формирующим образовательную траекторию и вдохновляющим студентов на научный поиск.", "time": "00:28 – 00:39", "audioTime": 28.68, "duration": 10.44, "prompter": "Педагог выходит на принципиально новый уровень: он становится архитектором смыслов, формирующим образовательную траекторию и вдохновляющим студентов на научный поиск."}, {"step": 3, "label": "Колонка 3", "desc": "3. Гуманитарный базис высшей школы", "text": "Инженерная интуиция, научная этика и страсть к познанию передаются только от человека к человеку. Искусственный интеллект остаётся лишь совершенным резцом в руках истинного Мастера.", "time": "00:39 – 00:53", "audioTime": 39.52, "duration": 14.08, "prompter": "Инженерная интуиция, научная этика и страсть к познанию передаются только от человека к человеку. Искусственный интеллект остаётся лишь совершенным резцом в руках истинного Мастера."}],
         render: function(step) {
           return `
+            <div class="slide-header">
+              <div class="badge-group">
+                <span class="badge" style="font-size: 16px; padding: 6px 14px; background: #10b98122; color: #10b981; border: 1px solid #10b98144;">${this.category}</span>
+                <span class="badge badge-muted" style="font-size: 16px; padding: 6px 14px;">${this.subCategory}</span>
+              </div>
+              <div class="slide-counter" style="font-size: 16px;">${this.counter}</div>
+            </div>
+            <div class="title-block">
+              <h1 class="slide-title" style="font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 8px;">${this.title}</h1>
+              <p class="slide-subtitle" style="font-size: 22px; color: #94a3b8; font-weight: 500;">${this.subtitle}</p>
+            </div>
+
             ${step === 0 ? `
-              <!-- HERO STEP 0 (Intro teaser) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0.6) 70%); border-radius: 20px; border: 1px solid rgba(99, 102, 241, 0.3);">
-                <div style="font-size: 56px; margin-bottom: 20px;">🎓</div>
-                <div style="display: inline-block; padding: 6px 16px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 20px; color: #a5b4fc; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
-                  Вводный обзор • Экрана 1 из 5
+              <!-- STEP 0 HERO TEASER (Full Height 100%) -->
+              <div class="glass-card" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 36px 40px; border-top: 6px solid #10b981; background: radial-gradient(circle at 50% 10%, #10b98118 0%, transparent 70%), rgba(15, 23, 42, 0.85); min-height: 0;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                      <span style="font-size: 46px;">📘</span>
+                      <div>
+                        <div style="font-size: 14px; font-weight: 800; color: #10b981; text-transform: uppercase; letter-spacing: 1.2px;">${this.category}</div>
+                        <div style="font-size: 28px; font-weight: 900; color: #fff;">${this.title}</div>
+                      </div>
+                    </div>
+                    <span style="background: #10b98122; border: 1px solid #10b98155; color: #10b981; padding: 8px 20px; border-radius: 12px; font-weight: 800; font-size: 16px;">Тема 8.3</span>
+                  </div>
+                  <div style="font-size: 24px; line-height: 1.6; color: #e2e8f0; font-weight: 500; margin-bottom: 30px; border-left: 4px solid #10b981; padding-left: 24px;">
+                    ${this.steps[0].prompter}
+                  </div>
                 </div>
-                <h1 style="font-size: 38px; font-weight: 800; color: #fff; max-width: 900px; line-height: 1.3; margin-bottom: 20px;">
-                  Преподаватель будущего: от оператора клавиатуры к архитектору смыслов
-                </h1>
-                <p style="font-size: 20px; color: #cbd5e1; max-width: 820px; line-height: 1.6; margin-bottom: 30px;">
-                  Завершая теоретическую часть нашего шестнадцатичасового курса, ответим на главный вопрос: заменит ли искусственный интеллект преподавателя вуза? Ответ однозначен — нет, но он кардинально изменит характер его труда.
-                </p>
-                <div style="display: flex; gap: 12px; align-items: center; color: #94a3b8; font-size: 14px; font-weight: 600;">
-                  <span>▶️ Нажмите Пробел или кнопку воспроизведения</span>
+
+                <div style="display: flex; align-items: center; gap: 14px; background: rgba(30, 41, 59, 0.7); border: 1px dashed #10b98166; border-radius: 16px; padding: 18px 24px;">
+                  <span style="font-size: 26px;">💡</span>
+                  <div style="font-size: 19px; color: #cbd5e1; font-weight: 600; flex: 1;">
+                    ИИ не заменит преподавателя, но преподаватель, владеющий ИИ, заменит того, кто им не владеет.
+                  </div>
+                  
                 </div>
               </div>
             ` : `
-              <!-- 3 COLUMNS MASTER SHELL (Steps 1, 2, 3) -->
-              <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 18px;">
-                <div style="flex: 1; display: flex; gap: 20px; align-items: stretch; min-height: 0;">
-
+              <!-- PROGRESSIVE 3-COLUMN REVEAL (STRETCHED TO BOTTOM 100%) -->
+              <div class="slide-body" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 0; height: 100%;">
+                <div class="card-row" style="flex: 1; display: flex; flex-direction: row; gap: 24px; min-height: 0; margin-bottom: 20px;">
+                  
                   <!-- COL 1 (Visible from Step 1) -->
-                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #f59e0b; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px;">
+                  <div class="glass-card ${step === 1 ? 'highlighted' : ''}" style="flex: 1; height: 100%; border-top: 6px solid #f59e0b; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 26px; ${step < 1 ? 'visibility: hidden; opacity: 0; pointer-events: none;' : ''}">
                     <div>
                       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                         <span style="font-size: 38px;">⌨️</span>
@@ -1311,6 +1425,7 @@
                     <div style="margin-top: 14px; padding: 10px 14px; background: rgba(15, 23, 42, 0.6); border-radius: 10px; border-left: 3px solid #10b981; font-size: 14px; font-weight: 700; color: #10b981;">
                       Главное: Наставник незаменим
                     </div>
+                    
                   </div>
 
                 </div>
