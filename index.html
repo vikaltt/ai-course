@@ -1079,17 +1079,87 @@
       </div>
     </div>
 
-    <!-- MODULE 8 (In Development) -->
-    <div class="module-card locked">
-      <div class="module-header">
+    <!-- MODULE 8 (Active) -->
+    <div class="module-card" id="module8_card" style="border: 1px solid rgba(16, 185, 129, 0.4); background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);">
+      <div class="module-header" style="border-bottom: 1px solid rgba(16, 185, 129, 0.2); padding-bottom: 16px; margin-bottom: 20px;">
         <div>
-          <div class="module-num">Модуль 8 • Занятие 8 (В разработке)</div>
-          <div class="module-title">Итоговый практикум: сборка полного учебно-методического комплекса</div>
-          <div class="module-desc">
-            Итоговая аттестация, интеграция всех созданных компонентов курса (презентации, тесты, симуляции, видео) в единый кафедральный комплекс.
+          <div class="module-num" style="color: #34d399; font-weight: 800;">Модуль 8 • Занятие 8</div>
+          <div class="module-title" style="font-size: 22px;">Итоговый практикум: сборка полного учебно-методического комплекса</div>
+          <div class="module-desc" style="color: #cbd5e1; font-size: 14px;">
+            Сквозной пайплайн: превращение кафедральной методички в интерактивный УМК, генерация ФОС и тестов Moodle, персональный ИИ-тьютор через MCP, академический аудит и итоговый аттестационный практикум.
           </div>
         </div>
-        <span class="module-badge badge-locked">🔒 В разработке</span>
+        <span class="module-badge badge-active" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);">✨ Итоговый модуль</span>
+      </div>
+
+      <div class="lessons-grid">
+        <!-- Lesson 8.1 -->
+        <div class="lesson-item" id="card_l8_p1">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-ready" id="badge_l8_p1">Доступно</span>
+            </div>
+            <div class="lesson-title">Часть 8.1: Сквозной пайплайн: от методички к УМК</div>
+            <div class="lesson-desc">
+              Единый источник правды (SSOT), извлечение дидактических единиц, опорный конспект формата А4, автономный портал и пятиуровневый фильтр валидации.
+            </div>
+          </div>
+          <a href="lesson_8_1.html" class="btn-lesson btn-play" id="btn_l8_p1">
+            ▶ Смотреть урок
+          </a>
+        </div>
+
+        <!-- Lesson 8.2 -->
+        <div class="lesson-item" id="card_l8_p2">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-ready" id="badge_l8_p2">Доступно</span>
+            </div>
+            <div class="lesson-title">Часть 8.2: ФОС, тесты Moodle и ИИ-тьютор MCP</div>
+            <div class="lesson-desc">
+              Архитектура ФОС (текущий vs итоговый), экспорт в GIFT и Moodle XML, стандарт «Банк 18 / Выдача 7», сократический тьютор MCP и цифровой суверенитет.
+            </div>
+          </div>
+          <a href="lesson_8_2.html" class="btn-lesson btn-play" id="btn_l8_p2">
+            ▶ Смотреть урок
+          </a>
+        </div>
+
+        <!-- Lesson 8.3 -->
+        <div class="lesson-item" id="card_l8_p3">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-ready" id="badge_l8_p3">Доступно</span>
+            </div>
+            <div class="lesson-title">Часть 8.3: За кулисами ИИ: отладка и архитектор</div>
+            <div class="lesson-desc">
+              Хроника 350ч vs 45ч, инцидент Playwright и самопочинка агента, страховка Git, конституция AGENTS.md и преподаватель как архитектор смыслов.
+            </div>
+          </div>
+          <a href="lesson_8_3.html" class="btn-lesson btn-play" id="btn_l8_p3">
+            ▶ Смотреть урок
+          </a>
+        </div>
+
+        <!-- Lesson 8.4 (Final Practicum) -->
+        <div class="lesson-item quiz-card" id="card_l8_p4">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration" style="color: #34d399;">🎓 Итоговая аттестация • 7 кейсов</span>
+              <span class="lesson-status-badge status-ready" id="badge_l8_p4">Доступно</span>
+            </div>
+            <div class="lesson-title" style="color: #6ee7b7;">Часть 8.4: Итоговый тренажёр-практикум курса</div>
+            <div class="lesson-desc" style="color: #a7f3d0;">
+              Комплексный экзаменационный тренажёр по всем 8 модулям программы: термины, промпты, вёрстка, видео, симуляторы и методика. Банк 18 / Выдача 7 (макс. 21 балл).
+            </div>
+          </div>
+          <a href="lesson_8_4.html" class="btn-lesson btn-play" id="btn_l8_p4" style="background: linear-gradient(135deg, #059669, #10b981);">
+            🎯 Начать аттестацию
+          </a>
+        </div>
       </div>
     </div>
 
@@ -1119,7 +1189,7 @@
         }
       }
 
-      // 2. Lessons 1-7 (28 parts)
+      // 2. Lessons 1-8 (32 parts)
       const lessonIds = [
         'l1_p1', 'l1_p2', 'l1_p3', 'l1_p4',
         'l2_p1', 'l2_p2', 'l2_p3', 'l2_p4',
@@ -1127,7 +1197,8 @@
         'l4_p1', 'l4_p2', 'l4_p3', 'l4_p4',
         'l5_p1', 'l5_p2', 'l5_p3', 'l5_p4',
         'l6_p1', 'l6_p2', 'l6_p3', 'l6_p4',
-        'l7_p1', 'l7_p2', 'l7_p3', 'l7_p4'
+        'l7_p1', 'l7_p2', 'l7_p3', 'l7_p4',
+        'l8_p1', 'l8_p2', 'l8_p3', 'l8_p4'
       ];
 
       const p = lessonIds.map(id => localStorage.getItem(`ai_course_${id}_completed`) === 'true');
@@ -1163,8 +1234,10 @@
       // 3. Update Current Stage Text
       const stageText = document.getElementById('currentStageText');
       if (stageText) {
-        if (totalCompleted >= 29) {
-          stageText.innerText = 'Все 7 модулей и Пролог завершены! 🎉';
+        if (totalCompleted >= 33) {
+          stageText.innerText = 'Курс полностью завершён! Все 8 модулей освоены! 🎓';
+        } else if (p[27]) { // Module 7 done
+          stageText.innerText = 'Модуль 8. Занятие 8';
         } else if (p[23]) { // Module 6 done
           stageText.innerText = 'Модуль 7. Занятие 7';
         } else if (p[19]) { // Module 5 done
@@ -1192,7 +1265,8 @@
         { id: 'module4_card', start: 12, end: 15 },
         { id: 'module5_card', start: 16, end: 19 },
         { id: 'module6_card', start: 20, end: 23 },
-        { id: 'module7_card', start: 24, end: 27 }
+        { id: 'module7_card', start: 24, end: 27 },
+        { id: 'module8_card', start: 28, end: 31 }
       ];
       moduleBounds.forEach(mod => {
         const card = document.getElementById(mod.id);
@@ -1209,8 +1283,8 @@
         }
       });
 
-      // 4. Update Progress Bar (29 parts total)
-      const totalAvailable = 29;
+      // 4. Update Progress Bar (33 parts total: 1 prologue + 32 parts)
+      const totalAvailable = 33;
       const pct = Math.round((totalCompleted / totalAvailable) * 100);
       const barFill = document.getElementById('progressBarFill');
       const statusText = document.getElementById('progressStatusText');
@@ -1228,7 +1302,8 @@
           'l4_p1', 'l4_p2', 'l4_p3', 'l4_p4',
           'l5_p1', 'l5_p2', 'l5_p3', 'l5_p4',
           'l6_p1', 'l6_p2', 'l6_p3', 'l6_p4',
-          'l7_p1', 'l7_p2', 'l7_p3', 'l7_p4'
+          'l7_p1', 'l7_p2', 'l7_p3', 'l7_p4',
+          'l8_p1', 'l8_p2', 'l8_p3', 'l8_p4'
         ];
         allIds.forEach(id => localStorage.removeItem(`ai_course_${id}_completed`));
         localStorage.removeItem('ai_course_completed_list');
