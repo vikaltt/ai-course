@@ -490,7 +490,7 @@
   <!-- Top Navigation Header -->
   <header>
     <div style="display: flex; align-items: center; gap: 16px;">
-      <a href="index.html" class="btn" style="text-decoration:none;" title="К каталогу курса">📋 Каталог</a>
+      <a href="../../../web/index.html" class="btn" style="text-decoration:none;" title="К каталогу курса">📋 Каталог</a>
       <div style="font-weight: 800; font-size: 18px; color: #38bdf8; display: flex; align-items: center; gap: 10px;">
         <span style="font-size: 20px;">🤖</span> Лекция 7. Часть 4: Интерактивный практикум и тест
       </div>
@@ -612,7 +612,7 @@
         </div>
       `;
 
-      markCurrentContext();
+      // // markCurrentContext();
     }
 
     function handleSelect(chosenId) {
@@ -854,6 +854,7 @@
     }
 
     function toggleReviewerDrawer() {}
+    function markCurrentContext() {}
     window.addEventListener('keydown', (e) => {
       
       if ((e.key === 'f' || e.key === 'F' || e.key === 'а' || e.key === 'А') && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
@@ -865,7 +866,7 @@
     // Initialize session on load
     window.addEventListener('DOMContentLoaded', () => {
       startNewSession();
-      // updateNotesBadge();
+      // // updateNotesBadge();
     });
   </script>
 </body>
