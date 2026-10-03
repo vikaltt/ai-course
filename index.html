@@ -6,6 +6,12 @@
   <title>Искусственный интеллект для подготовки учебных материалов | 16-часовой курс</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="alternate icon" href="favicon.ico">
+  <meta name="description" content="16-часовой практический онлайн-курс по применению искусственного интеллекта для подготовки учебных материалов. От базовых принципов до генерации презентаций, тестов и интерактивных симуляций.">
+  <meta property="og:title" content="ИИ для подготовки учебных материалов — 16-часовой курс">
+  <meta property="og:description" content="Практический курс для преподавателей: от истории ИИ и промпт-инжиниринга до создания интерактивных лабораторий и видео-аватаров.">
+  <meta property="og:image" content="portal_preview.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -346,6 +352,17 @@
       color: #475569;
       font-size: 13px;
     }
+
+    /* Mobile Hero adaptation (C1) */
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 28px; letter-spacing: -0.5px; }
+      .hero p { font-size: 16px; }
+      .progress-card { flex-direction: column; gap: 16px; }
+      .module-title { font-size: 20px; }
+    }
+
+    /* Hidden reset button — accessible via Ctrl+Shift+R */
+    .reset-btn { display: none; }
   </style>
 </head>
 <body>
@@ -1026,6 +1043,7 @@
 
     <footer>
       16-часовой учебный курс по искусственному интеллекту • Разработано для преподавателей • 2026
+      <br><a href="https://github.com/vikaltt/ai-course" target="_blank" style="color:#64748b;text-decoration:none;font-size:12px;">GitHub</a>
     </footer>
   </div>
 
@@ -1114,6 +1132,31 @@
         }
       }
 
+      // 3b. Update Module Badges (B5)
+      const moduleBounds = [
+        { id: 'module1_card', start: 0, end: 3 },
+        { id: 'module2_card', start: 4, end: 7 },
+        { id: 'module3_card', start: 8, end: 11 },
+        { id: 'module4_card', start: 12, end: 15 },
+        { id: 'module5_card', start: 16, end: 19 },
+        { id: 'module6_card', start: 20, end: 23 },
+        { id: 'module7_card', start: 24, end: 27 }
+      ];
+      moduleBounds.forEach(mod => {
+        const card = document.getElementById(mod.id);
+        if (!card) return;
+        const badge = card.querySelector('.module-badge');
+        if (!badge) return;
+        const allDone = p.slice(mod.start, mod.end + 1).every(Boolean);
+        if (allDone) {
+          badge.className = 'module-badge';
+          badge.style.background = 'rgba(16, 185, 129, 0.15)';
+          badge.style.color = '#10b981';
+          badge.style.border = '1px solid rgba(16, 185, 129, 0.3)';
+          badge.innerText = '✓ Модуль завершён';
+        }
+      });
+
       // 4. Update Progress Bar (29 parts total)
       const totalAvailable = 29;
       const pct = Math.round((totalCompleted / totalAvailable) * 100);
@@ -1140,6 +1183,14 @@
         updateLMSState();
       }
     }
+
+    // Hidden reset shortcut: Ctrl+Shift+R (A2)
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'R') {
+        e.preventDefault();
+        resetProgress();
+      }
+    });
 
     // Run on load
     updateLMSState();

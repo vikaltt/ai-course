@@ -1,2 +1,3 @@
 test_snapshots/
-*.png
+test_snapshots/*.png
+
