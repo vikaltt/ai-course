@@ -328,26 +328,7 @@
       to { transform: translateY(-8px); }
     }
 
-    /* Reviewer Slide-over Drawer */
-    .reviewer-drawer {
-      position: fixed;
-      top: 0;
-      right: -420px;
-      width: 400px;
-      height: 100vh;
-      background: rgba(11, 17, 32, 0.98);
-      border-left: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
-      z-index: 2000;
-      transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      display: flex;
-      flex-direction: column;
-      backdrop-filter: blur(20px);
-    }
-
-    .reviewer-drawer.open {
-      right: 0;
-    }
+    
 
     .drawer-header {
       padding: 16px 20px;
@@ -457,7 +438,8 @@
       line-height: 1.4;
       color: #f8fafc;
     }
-      @media (max-width: 640px) {
+  
+    @media (max-width: 640px) {
       header {
         padding: 10px 14px !important;
       }
@@ -500,6 +482,7 @@
         font-size: 13px !important;
       }
     }
+
   </style>
 </head>
 <body>
@@ -507,15 +490,12 @@
   <!-- Top Navigation Header -->
   <header>
     <div style="display: flex; align-items: center; gap: 16px;">
-      <a href="index.html" class="btn">📋 Каталог</a>
+      <a href="index.html" class="btn" style="text-decoration:none;" title="К каталогу курса">📋 Каталог</a>
       <div style="font-weight: 800; font-size: 18px; color: #38bdf8; display: flex; align-items: center; gap: 10px;">
         <span style="font-size: 20px;">🤖</span> Лекция 2. Часть 4: Интерактивный практикум и тест
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 10px;">
-      <button class="btn" onclick="toggleReviewerDrawer()" title="Панель рецензента (M)">
-        🚩 Замечания (M) <span id="notesBadge" style="background:#ef4444; color:#fff; border-radius:10px; padding:1px 6px; font-size:11px; font-weight:800; display:inline-block;">0</span>
-      </button>
       <button class="btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="Полноэкранный режим (F)">
         ⛶ Во весь экран
       </button>
@@ -873,105 +853,9 @@
       }
     }
 
-    // Reviewer Notes Storage & Handling
-    const NOTES_STORAGE_KEY = 'ai_course_notes_l2_p4';
-    let reviewerNotes = JSON.parse(localStorage.getItem(NOTES_STORAGE_KEY) || '[]');
-
-    function toggleReviewerDrawer() {
-      const d = document.getElementById('reviewerDrawer');
-      d.classList.toggle('open');
-      if (d.classList.contains('open')) {
-        markCurrentContext();
-        renderNotesList();
-        setTimeout(() => document.getElementById('noteInput').focus(), 200);
-      }
-    }
-
-    function markCurrentContext() {
-      const qNum = currentIdx + 1;
-      const sNum = currentIdx + 1;
-      const slideEl = document.getElementById('captureSlide');
-      const timeEl = document.getElementById('captureTime');
-      const quoteEl = document.getElementById('captureQuote');
-      if (slideEl) slideEl.innerText = `ВОПРОС ${qNum} ИЗ ${SESSION_COUNT}`;
-      if (timeEl) timeEl.innerText = `СИТУАЦИЯ ${sNum}`;
-      if (sessionQuestions.length > currentIdx && quoteEl) {
-        const q = sessionQuestions[currentIdx];
-        quoteEl.innerText = `«${q.situation.substring(0, 100)}...»`;
-      }
-    }
-
-    function saveNote() {
-      const input = document.getElementById('noteInput');
-      const text = input.value.trim();
-      if (!text) return;
-
-      const note = {
-        id: Date.now(),
-        slide: `Вопрос ${currentIdx + 1}`,
-        time: `Ситуация ${currentIdx + 1}`,
-        quote: document.getElementById('captureQuote').innerText,
-        text: text,
-        timestamp: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
-      };
-
-      reviewerNotes.push(note);
-      localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(reviewerNotes));
-      input.value = '';
-      renderNotesList();
-      updateNotesBadge();
-    }
-
-    function deleteNote(id) {
-      reviewerNotes = reviewerNotes.filter(n => n.id !== id);
-      localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(reviewerNotes));
-      renderNotesList();
-      updateNotesBadge();
-    }
-
-    function quickTag(tag) {
-      const input = document.getElementById('noteInput');
-      input.value = `[${tag}] ${input.value}`;
-      input.focus();
-    }
-
-    function renderNotesList() {
-      const list = document.getElementById('notesList');
-      if (!list) return;
-      if (reviewerNotes.length === 0) {
-        list.innerHTML = '<div style="color:#64748b; font-size:13px; text-align:center; padding:20px 0;">Заметок пока нет. Нажмите Enter, чтобы добавить.</div>';
-        return;
-      }
-      list.innerHTML = reviewerNotes.map(n => `
-        <div class="note-item">
-          <div class="note-item-header">
-            <span>${n.slide} • ${n.time}</span>
-            <span class="note-item-delete" onclick="deleteNote(${n.id})">✕ Удалить</span>
-          </div>
-          <div class="note-item-text">${n.text}</div>
-        </div>
-      `).join('');
-    }
-
-    function updateNotesBadge() {
-      const badge = document.getElementById('notesBadge');
-      if (badge) badge.innerText = reviewerNotes.length;
-    }
-
-    function copyNotesMarkdown() {
-      if (reviewerNotes.length === 0) {
-        alert('Нет заметок для копирования');
-        return;
-      }
-      const md = reviewerNotes.map(n => `- **${n.slide} (${n.time})**: ${n.text}`).join('\n');
-      navigator.clipboard.writeText(md).then(() => alert('Заметки скопированы в буфер!'));
-    }
-
+    function toggleReviewerDrawer() {}
     window.addEventListener('keydown', (e) => {
-      if ((e.key === 'm' || e.key === 'M' || e.key === 'ь' || e.key === 'Ь') && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
-        e.preventDefault();
-        toggleReviewerDrawer();
-      }
+      
       if ((e.key === 'f' || e.key === 'F' || e.key === 'а' || e.key === 'А') && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
         e.preventDefault();
         toggleFullscreen();
@@ -981,42 +865,8 @@
     // Initialize session on load
     window.addEventListener('DOMContentLoaded', () => {
       startNewSession();
-      updateNotesBadge();
+      // updateNotesBadge();
     });
   </script>
-
-  <!-- Reviewer Slide-over Drawer -->
-      <button class="btn" style="padding: 4px 8px; font-size: 12px;" onclick="toggleReviewerDrawer()">✕</button>
-    </div>
-
-    <div class="drawer-body">
-      <div class="capture-box">
-        <div class="capture-meta">
-          <span id="captureSlide">ВОПРОС 1</span>
-          <span id="captureTime">СИТУАЦИЯ 1</span>
-        </div>
-        <div class="capture-quote" id="captureQuote">
-          Нажмите кнопку «M» или зафиксируйте замечание к текущему вопросу.
-        </div>
-        <input type="text" class="capture-input" id="noteInput" placeholder="Что исправить? (Нажмите Enter для сохранения)..." onkeydown="if(event.key === 'Enter') { event.preventDefault(); saveNote(); }">
-        <div style="display: flex; gap: 8px;">
-          <button class="btn btn-primary" style="flex:1; justify-content:center; background:#0284c7; color:#fff; border:none; padding:8px 12px; border-radius:6px; font-weight:700; cursor:pointer;" onclick="saveNote()">+ Сохранить метку</button>
-          <button class="btn" style="background:#1e293b; color:#fff; border:1px solid #334155; padding:6px 10px; border-radius:6px; cursor:pointer;" onclick="quickTag('Формулировка')">Формулировка</button>
-          <button class="btn" style="background:#1e293b; color:#fff; border:1px solid #334155; padding:6px 10px; border-radius:6px; cursor:pointer;" onclick="quickTag('Озвучка')">Озвучка</button>
-          <button class="btn" style="background:#1e293b; color:#fff; border:1px solid #334155; padding:6px 10px; border-radius:6px; cursor:pointer;" onclick="quickTag('Ответ')">Ответ</button>
-        </div>
-      </div>
-
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-size: 13px; font-weight: 700; color: #94a3b8;">Список правок:</span>
-        <button class="btn" style="background:#1e293b; color:#fff; border:1px solid #334155; font-size: 11px; padding: 4px 8px; border-radius:6px; cursor:pointer;" onclick="copyNotesMarkdown()">📋 Скопировать для чата</button>
-      </div>
-
-      <div class="notes-list" id="notesList">
-        <!-- Populated dynamically -->
-      </div>
-    </div>
-  </div>
-
 </body>
 </html>
