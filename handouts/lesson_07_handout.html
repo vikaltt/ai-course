@@ -1,0 +1,519 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>РЁРїР°СЂРіР°Р»РєР° A4: УРОК 7. ИНТЕРАКТИВ, ВЕБ-ЛАБОРАТОРИИ, ГОЛОС И АГЕНТНЫЙ QA | РљСѓСЂСЃ РїРѕ РР</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>рџ“„</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #090d16;
+      color: #0f172a;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 60px;
+    }
+
+    /* Screen Action Bar (hidden in print) */
+    .action-bar {
+      width: 210mm;
+      max-width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 12px 18px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .action-bar a, .action-bar button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-catalog {
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .btn-catalog:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .btn-print {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #fff;
+      border: 1px solid #38bdf8;
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
+    }
+    .btn-print:hover {
+      background: linear-gradient(135deg, #0369a1, #1d4ed8);
+      transform: translateY(-1px);
+    }
+
+    /* A4 Paper Container */
+    .page-a4 {
+      width: 210mm;
+      height: 297mm;
+      max-height: 297mm;
+      background: #ffffff;
+      color: #0f172a;
+      padding: 11mm 13mm 9mm;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Header */
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid #0284c7;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
+
+    .header-left {
+      flex: 1;
+      padding-right: 14px;
+    }
+
+    .meta-tag {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #0284c7;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    h1.doc-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+
+    .doc-subtitle {
+      font-size: 11.5px;
+      color: #475569;
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
+    .header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .qr-container {
+      width: 66px;
+      height: 66px;
+      background: #fff;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qr-container svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .qr-label {
+      font-size: 8px;
+      font-weight: 700;
+      color: #64748b;
+      margin-top: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    /* Section Headings */
+    .section-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .section-title span.badge-num {
+      background: #0284c7;
+      color: #fff;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8.5px;
+    }
+
+    /* Block 1: 5 Theses */
+    .theses-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px 10px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 7px 10px;
+      margin-bottom: 8px;
+    }
+    .thesis-item {
+      font-size: 10px;
+      line-height: 1.35;
+      color: #1e293b;
+    }
+    .thesis-item:last-child {
+      grid-column: span 2;
+    }
+    .thesis-item strong {
+      color: #0284c7;
+      font-weight: 700;
+    }
+
+    /* Block 2: Prompt Templates */
+    .prompts-container {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .prompt-box {
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      background: #ffffff;
+      padding: 5px 9px;
+    }
+    .prompt-box.highlight {
+      border-left: 3px solid #0284c7;
+      background: #f0f9ff;
+    }
+
+    .prompt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+    .prompt-name {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .prompt-dest {
+      font-size: 8.5px;
+      font-weight: 700;
+      color: #0284c7;
+      background: #e0f2fe;
+      padding: 1px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .code-block {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 8.8px;
+      line-height: 1.32;
+      padding: 5px 7px;
+      border-radius: 5px;
+      white-space: pre-wrap;
+    }
+    .code-block.light {
+      background: #ffffff;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+    }
+
+    /* Block 3: Verification Checklist Bar */
+    .checklist-bar {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 9px;
+      margin-bottom: 6px;
+    }
+    .checklist-title {
+      font-size: 10px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+    }
+    .checklist-col {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 4px 5px;
+    }
+    .checklist-col-title {
+      font-size: 9px;
+      font-weight: 800;
+      color: #0284c7;
+      margin-bottom: 2px;
+    }
+    .checklist-col-desc {
+      font-size: 7.8px;
+      color: #64748b;
+      line-height: 1.25;
+    }
+
+    /* Footer */
+    .doc-footer {
+      border-top: 1px solid #e2e8f0;
+      padding-top: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8.2px;
+      color: #94a3b8;
+    }
+    .doc-footer strong {
+      color: #64748b;
+    }
+
+    /* PRINT SPECIFICATION */
+    @page {
+      size: A4 portrait;
+      margin: 10mm;
+    }
+
+    @media print {
+      body {
+        background: #fff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .action-bar {
+        display: none !important;
+      }
+      .page-a4 {
+        width: 100% !important;
+        height: 100% !important;
+        max-height: none !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        page-break-after: avoid !important;
+        page-break-inside: avoid !important;
+      }
+      .code-block {
+        background: #f1f5f9 !important;
+        color: #0f172a !important;
+        border: 1px solid #cbd5e1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Navigation Toolbar (Hidden on Print) -->
+  <div class="action-bar no-print">
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <a href="../index.html" class="btn-catalog">рџ“‹ РљР°С‚Р°Р»РѕРі РєСѓСЂСЃР°</a>
+      <a href="../lesson_7_1.html" class="btn-catalog">в–¶ РћС‚РєСЂС‹С‚СЊ РЈСЂРѕРє 7 РѕРЅР»Р°Р№РЅ</a>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <span style="color: #94a3b8; font-size: 12px;">Р›РёСЃС‚ РѕРїС‚РёРјРёР·РёСЂРѕРІР°РЅ РїРѕРґ РїРµС‡Р°С‚СЊ РЅР° 1 СЃС‚СЂР°РЅРёС†Сѓ Рђ4</span>
+      <button onclick="window.print()" class="btn-print">рџ–ЁпёЏ Р Р°СЃРїРµС‡Р°С‚Р°С‚СЊ / РЎРѕС…СЂР°РЅРёС‚СЊ РІ PDF</button>
+    </div>
+  </div>
+
+  <!-- Single A4 Sheet Container -->
+  <div class="page-a4">
+
+    <!-- Top Header -->
+    <div class="doc-header">
+      <div class="header-left">
+        <div class="meta-tag">
+          <span>рџЋ“</span> РљР°С„РµРґСЂР°Р»СЊРЅР°СЏ С€РїР°СЂРіР°Р»РєР° вЂў Р’С‹СЃС€РµРµ РѕР±СЂР°Р·РѕРІР°РЅРёРµ (Р’РџРћ)
+        </div>
+        <h1 class="doc-title">УРОК 7. ИНТЕРАКТИВ, ВЕБ-ЛАБОРАТОРИИ, ГОЛОС И АГЕНТНЫЙ QA</h1>
+        <p class="doc-subtitle">
+          Превращение Word-методичек в симуляторы HTML/JS/SVG, пошаговая озвучка (Atomic Voiceover) и автономный браузерный QA.
+        </p>
+      </div>
+
+      <div class="header-right">
+        <div class="qr-container">
+          
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="145" height="145">
+	<!-- Created with https://api.qrserver.com (QR Code API, see goQR.me/api for information) -->
+	<title>QR Code</title>
+	<desc>https://vikaltt.github.io/ai-course/lesson_7_1.html</desc>
+	<rect style="fill:rgb(255, 255, 255);fill-opacity:1" x="0" y="0" width="145" height="145" />
+	<g id="elements">
+		<path style="fill:rgb(0, 0, 0)" d="M 0,0 l 5,0 0,5 -5,0 z M 5,0 l 5,0 0,5 -5,0 z M 10,0 l 5,0 0,5 -5,0 z M 15,0 l 5,0 0,5 -5,0 z M 20,0 l 5,0 0,5 -5,0 z M 25,0 l 5,0 0,5 -5,0 z M 30,0 l 5,0 0,5 -5,0 z M 55,0 l 5,0 0,5 -5,0 z M 65,0 l 5,0 0,5 -5,0 z M 80,0 l 5,0 0,5 -5,0 z M 85,0 l 5,0 0,5 -5,0 z M 90,0 l 5,0 0,5 -5,0 z M 95,0 l 5,0 0,5 -5,0 z M 110,0 l 5,0 0,5 -5,0 z M 115,0 l 5,0 0,5 -5,0 z M 120,0 l 5,0 0,5 -5,0 z M 125,0 l 5,0 0,5 -5,0 z M 130,0 l 5,0 0,5 -5,0 z M 135,0 l 5,0 0,5 -5,0 z M 140,0 l 5,0 0,5 -5,0 z M 0,5 l 5,0 0,5 -5,0 z M 30,5 l 5,0 0,5 -5,0 z M 40,5 l 5,0 0,5 -5,0 z M 45,5 l 5,0 0,5 -5,0 z M 50,5 l 5,0 0,5 -5,0 z M 70,5 l 5,0 0,5 -5,0 z M 75,5 l 5,0 0,5 -5,0 z M 80,5 l 5,0 0,5 -5,0 z M 85,5 l 5,0 0,5 -5,0 z M 110,5 l 5,0 0,5 -5,0 z M 140,5 l 5,0 0,5 -5,0 z M 0,10 l 5,0 0,5 -5,0 z M 10,10 l 5,0 0,5 -5,0 z M 15,10 l 5,0 0,5 -5,0 z M 20,10 l 5,0 0,5 -5,0 z M 30,10 l 5,0 0,5 -5,0 z M 45,10 l 5,0 0,5 -5,0 z M 80,10 l 5,0 0,5 -5,0 z M 90,10 l 5,0 0,5 -5,0 z M 95,10 l 5,0 0,5 -5,0 z M 110,10 l 5,0 0,5 -5,0 z M 120,10 l 5,0 0,5 -5,0 z M 125,10 l 5,0 0,5 -5,0 z M 130,10 l 5,0 0,5 -5,0 z M 140,10 l 5,0 0,5 -5,0 z M 0,15 l 5,0 0,5 -5,0 z M 10,15 l 5,0 0,5 -5,0 z M 15,15 l 5,0 0,5 -5,0 z M 20,15 l 5,0 0,5 -5,0 z M 30,15 l 5,0 0,5 -5,0 z M 40,15 l 5,0 0,5 -5,0 z M 45,15 l 5,0 0,5 -5,0 z M 55,15 l 5,0 0,5 -5,0 z M 60,15 l 5,0 0,5 -5,0 z M 65,15 l 5,0 0,5 -5,0 z M 70,15 l 5,0 0,5 -5,0 z M 85,15 l 5,0 0,5 -5,0 z M 110,15 l 5,0 0,5 -5,0 z M 120,15 l 5,0 0,5 -5,0 z M 125,15 l 5,0 0,5 -5,0 z M 130,15 l 5,0 0,5 -5,0 z M 140,15 l 5,0 0,5 -5,0 z M 0,20 l 5,0 0,5 -5,0 z M 10,20 l 5,0 0,5 -5,0 z M 15,20 l 5,0 0,5 -5,0 z M 20,20 l 5,0 0,5 -5,0 z M 30,20 l 5,0 0,5 -5,0 z M 55,20 l 5,0 0,5 -5,0 z M 85,20 l 5,0 0,5 -5,0 z M 90,20 l 5,0 0,5 -5,0 z M 95,20 l 5,0 0,5 -5,0 z M 100,20 l 5,0 0,5 -5,0 z M 110,20 l 5,0 0,5 -5,0 z M 120,20 l 5,0 0,5 -5,0 z M 125,20 l 5,0 0,5 -5,0 z M 130,20 l 5,0 0,5 -5,0 z M 140,20 l 5,0 0,5 -5,0 z M 0,25 l 5,0 0,5 -5,0 z M 30,25 l 5,0 0,5 -5,0 z M 40,25 l 5,0 0,5 -5,0 z M 50,25 l 5,0 0,5 -5,0 z M 60,25 l 5,0 0,5 -5,0 z M 70,25 l 5,0 0,5 -5,0 z M 75,25 l 5,0 0,5 -5,0 z M 80,25 l 5,0 0,5 -5,0 z M 90,25 l 5,0 0,5 -5,0 z M 100,25 l 5,0 0,5 -5,0 z M 110,25 l 5,0 0,5 -5,0 z M 140,25 l 5,0 0,5 -5,0 z M 0,30 l 5,0 0,5 -5,0 z M 5,30 l 5,0 0,5 -5,0 z M 10,30 l 5,0 0,5 -5,0 z M 15,30 l 5,0 0,5 -5,0 z M 20,30 l 5,0 0,5 -5,0 z M 25,30 l 5,0 0,5 -5,0 z M 30,30 l 5,0 0,5 -5,0 z M 40,30 l 5,0 0,5 -5,0 z M 50,30 l 5,0 0,5 -5,0 z M 60,30 l 5,0 0,5 -5,0 z M 70,30 l 5,0 0,5 -5,0 z M 80,30 l 5,0 0,5 -5,0 z M 90,30 l 5,0 0,5 -5,0 z M 100,30 l 5,0 0,5 -5,0 z M 110,30 l 5,0 0,5 -5,0 z M 115,30 l 5,0 0,5 -5,0 z M 120,30 l 5,0 0,5 -5,0 z M 125,30 l 5,0 0,5 -5,0 z M 130,30 l 5,0 0,5 -5,0 z M 135,30 l 5,0 0,5 -5,0 z M 140,30 l 5,0 0,5 -5,0 z M 70,35 l 5,0 0,5 -5,0 z M 75,35 l 5,0 0,5 -5,0 z M 80,35 l 5,0 0,5 -5,0 z M 100,35 l 5,0 0,5 -5,0 z M 0,40 l 5,0 0,5 -5,0 z M 5,40 l 5,0 0,5 -5,0 z M 10,40 l 5,0 0,5 -5,0 z M 15,40 l 5,0 0,5 -5,0 z M 20,40 l 5,0 0,5 -5,0 z M 30,40 l 5,0 0,5 -5,0 z M 35,40 l 5,0 0,5 -5,0 z M 40,40 l 5,0 0,5 -5,0 z M 45,40 l 5,0 0,5 -5,0 z M 50,40 l 5,0 0,5 -5,0 z M 65,40 l 5,0 0,5 -5,0 z M 70,40 l 5,0 0,5 -5,0 z M 75,40 l 5,0 0,5 -5,0 z M 85,40 l 5,0 0,5 -5,0 z M 100,40 l 5,0 0,5 -5,0 z M 105,40 l 5,0 0,5 -5,0 z M 115,40 l 5,0 0,5 -5,0 z M 125,40 l 5,0 0,5 -5,0 z M 135,40 l 5,0 0,5 -5,0 z M 0,45 l 5,0 0,5 -5,0 z M 5,45 l 5,0 0,5 -5,0 z M 10,45 l 5,0 0,5 -5,0 z M 20,45 l 5,0 0,5 -5,0 z M 40,45 l 5,0 0,5 -5,0 z M 45,45 l 5,0 0,5 -5,0 z M 55,45 l 5,0 0,5 -5,0 z M 70,45 l 5,0 0,5 -5,0 z M 80,45 l 5,0 0,5 -5,0 z M 85,45 l 5,0 0,5 -5,0 z M 90,45 l 5,0 0,5 -5,0 z M 95,45 l 5,0 0,5 -5,0 z M 100,45 l 5,0 0,5 -5,0 z M 105,45 l 5,0 0,5 -5,0 z M 110,45 l 5,0 0,5 -5,0 z M 115,45 l 5,0 0,5 -5,0 z M 120,45 l 5,0 0,5 -5,0 z M 140,45 l 5,0 0,5 -5,0 z M 25,50 l 5,0 0,5 -5,0 z M 30,50 l 5,0 0,5 -5,0 z M 35,50 l 5,0 0,5 -5,0 z M 40,50 l 5,0 0,5 -5,0 z M 45,50 l 5,0 0,5 -5,0 z M 60,50 l 5,0 0,5 -5,0 z M 65,50 l 5,0 0,5 -5,0 z M 75,50 l 5,0 0,5 -5,0 z M 80,50 l 5,0 0,5 -5,0 z M 85,50 l 5,0 0,5 -5,0 z M 110,50 l 5,0 0,5 -5,0 z M 115,50 l 5,0 0,5 -5,0 z M 120,50 l 5,0 0,5 -5,0 z M 0,55 l 5,0 0,5 -5,0 z M 5,55 l 5,0 0,5 -5,0 z M 10,55 l 5,0 0,5 -5,0 z M 15,55 l 5,0 0,5 -5,0 z M 20,55 l 5,0 0,5 -5,0 z M 35,55 l 5,0 0,5 -5,0 z M 40,55 l 5,0 0,5 -5,0 z M 45,55 l 5,0 0,5 -5,0 z M 50,55 l 5,0 0,5 -5,0 z M 60,55 l 5,0 0,5 -5,0 z M 70,55 l 5,0 0,5 -5,0 z M 105,55 l 5,0 0,5 -5,0 z M 120,55 l 5,0 0,5 -5,0 z M 125,55 l 5,0 0,5 -5,0 z M 135,55 l 5,0 0,5 -5,0 z M 0,60 l 5,0 0,5 -5,0 z M 5,60 l 5,0 0,5 -5,0 z M 15,60 l 5,0 0,5 -5,0 z M 20,60 l 5,0 0,5 -5,0 z M 30,60 l 5,0 0,5 -5,0 z M 35,60 l 5,0 0,5 -5,0 z M 45,60 l 5,0 0,5 -5,0 z M 55,60 l 5,0 0,5 -5,0 z M 60,60 l 5,0 0,5 -5,0 z M 65,60 l 5,0 0,5 -5,0 z M 70,60 l 5,0 0,5 -5,0 z M 75,60 l 5,0 0,5 -5,0 z M 80,60 l 5,0 0,5 -5,0 z M 85,60 l 5,0 0,5 -5,0 z M 90,60 l 5,0 0,5 -5,0 z M 95,60 l 5,0 0,5 -5,0 z M 125,60 l 5,0 0,5 -5,0 z M 130,60 l 5,0 0,5 -5,0 z M 0,65 l 5,0 0,5 -5,0 z M 15,65 l 5,0 0,5 -5,0 z M 20,65 l 5,0 0,5 -5,0 z M 35,65 l 5,0 0,5 -5,0 z M 40,65 l 5,0 0,5 -5,0 z M 45,65 l 5,0 0,5 -5,0 z M 50,65 l 5,0 0,5 -5,0 z M 55,65 l 5,0 0,5 -5,0 z M 70,65 l 5,0 0,5 -5,0 z M 80,65 l 5,0 0,5 -5,0 z M 85,65 l 5,0 0,5 -5,0 z M 90,65 l 5,0 0,5 -5,0 z M 95,65 l 5,0 0,5 -5,0 z M 100,65 l 5,0 0,5 -5,0 z M 110,65 l 5,0 0,5 -5,0 z M 115,65 l 5,0 0,5 -5,0 z M 120,65 l 5,0 0,5 -5,0 z M 140,65 l 5,0 0,5 -5,0 z M 10,70 l 5,0 0,5 -5,0 z M 15,70 l 5,0 0,5 -5,0 z M 30,70 l 5,0 0,5 -5,0 z M 40,70 l 5,0 0,5 -5,0 z M 45,70 l 5,0 0,5 -5,0 z M 60,70 l 5,0 0,5 -5,0 z M 65,70 l 5,0 0,5 -5,0 z M 75,70 l 5,0 0,5 -5,0 z M 85,70 l 5,0 0,5 -5,0 z M 115,70 l 5,0 0,5 -5,0 z M 125,70 l 5,0 0,5 -5,0 z M 130,70 l 5,0 0,5 -5,0 z M 10,75 l 5,0 0,5 -5,0 z M 20,75 l 5,0 0,5 -5,0 z M 25,75 l 5,0 0,5 -5,0 z M 35,75 l 5,0 0,5 -5,0 z M 40,75 l 5,0 0,5 -5,0 z M 50,75 l 5,0 0,5 -5,0 z M 55,75 l 5,0 0,5 -5,0 z M 70,75 l 5,0 0,5 -5,0 z M 100,75 l 5,0 0,5 -5,0 z M 105,75 l 5,0 0,5 -5,0 z M 135,75 l 5,0 0,5 -5,0 z M 15,80 l 5,0 0,5 -5,0 z M 25,80 l 5,0 0,5 -5,0 z M 30,80 l 5,0 0,5 -5,0 z M 40,80 l 5,0 0,5 -5,0 z M 45,80 l 5,0 0,5 -5,0 z M 50,80 l 5,0 0,5 -5,0 z M 55,80 l 5,0 0,5 -5,0 z M 60,80 l 5,0 0,5 -5,0 z M 65,80 l 5,0 0,5 -5,0 z M 70,80 l 5,0 0,5 -5,0 z M 75,80 l 5,0 0,5 -5,0 z M 80,80 l 5,0 0,5 -5,0 z M 85,80 l 5,0 0,5 -5,0 z M 100,80 l 5,0 0,5 -5,0 z M 125,80 l 5,0 0,5 -5,0 z M 130,80 l 5,0 0,5 -5,0 z M 0,85 l 5,0 0,5 -5,0 z M 5,85 l 5,0 0,5 -5,0 z M 20,85 l 5,0 0,5 -5,0 z M 25,85 l 5,0 0,5 -5,0 z M 40,85 l 5,0 0,5 -5,0 z M 45,85 l 5,0 0,5 -5,0 z M 50,85 l 5,0 0,5 -5,0 z M 55,85 l 5,0 0,5 -5,0 z M 60,85 l 5,0 0,5 -5,0 z M 65,85 l 5,0 0,5 -5,0 z M 80,85 l 5,0 0,5 -5,0 z M 90,85 l 5,0 0,5 -5,0 z M 95,85 l 5,0 0,5 -5,0 z M 100,85 l 5,0 0,5 -5,0 z M 110,85 l 5,0 0,5 -5,0 z M 115,85 l 5,0 0,5 -5,0 z M 120,85 l 5,0 0,5 -5,0 z M 130,85 l 5,0 0,5 -5,0 z M 140,85 l 5,0 0,5 -5,0 z M 0,90 l 5,0 0,5 -5,0 z M 15,90 l 5,0 0,5 -5,0 z M 20,90 l 5,0 0,5 -5,0 z M 25,90 l 5,0 0,5 -5,0 z M 30,90 l 5,0 0,5 -5,0 z M 40,90 l 5,0 0,5 -5,0 z M 45,90 l 5,0 0,5 -5,0 z M 65,90 l 5,0 0,5 -5,0 z M 70,90 l 5,0 0,5 -5,0 z M 75,90 l 5,0 0,5 -5,0 z M 80,90 l 5,0 0,5 -5,0 z M 90,90 l 5,0 0,5 -5,0 z M 100,90 l 5,0 0,5 -5,0 z M 115,90 l 5,0 0,5 -5,0 z M 120,90 l 5,0 0,5 -5,0 z M 130,90 l 5,0 0,5 -5,0 z M 0,95 l 5,0 0,5 -5,0 z M 10,95 l 5,0 0,5 -5,0 z M 60,95 l 5,0 0,5 -5,0 z M 70,95 l 5,0 0,5 -5,0 z M 75,95 l 5,0 0,5 -5,0 z M 80,95 l 5,0 0,5 -5,0 z M 105,95 l 5,0 0,5 -5,0 z M 135,95 l 5,0 0,5 -5,0 z M 0,100 l 5,0 0,5 -5,0 z M 10,100 l 5,0 0,5 -5,0 z M 30,100 l 5,0 0,5 -5,0 z M 35,100 l 5,0 0,5 -5,0 z M 40,100 l 5,0 0,5 -5,0 z M 45,100 l 5,0 0,5 -5,0 z M 50,100 l 5,0 0,5 -5,0 z M 65,100 l 5,0 0,5 -5,0 z M 70,100 l 5,0 0,5 -5,0 z M 75,100 l 5,0 0,5 -5,0 z M 80,100 l 5,0 0,5 -5,0 z M 85,100 l 5,0 0,5 -5,0 z M 95,100 l 5,0 0,5 -5,0 z M 100,100 l 5,0 0,5 -5,0 z M 105,100 l 5,0 0,5 -5,0 z M 110,100 l 5,0 0,5 -5,0 z M 115,100 l 5,0 0,5 -5,0 z M 120,100 l 5,0 0,5 -5,0 z M 130,100 l 5,0 0,5 -5,0 z M 135,100 l 5,0 0,5 -5,0 z M 140,100 l 5,0 0,5 -5,0 z M 40,105 l 5,0 0,5 -5,0 z M 55,105 l 5,0 0,5 -5,0 z M 60,105 l 5,0 0,5 -5,0 z M 65,105 l 5,0 0,5 -5,0 z M 80,105 l 5,0 0,5 -5,0 z M 85,105 l 5,0 0,5 -5,0 z M 90,105 l 5,0 0,5 -5,0 z M 100,105 l 5,0 0,5 -5,0 z M 120,105 l 5,0 0,5 -5,0 z M 125,105 l 5,0 0,5 -5,0 z M 130,105 l 5,0 0,5 -5,0 z M 135,105 l 5,0 0,5 -5,0 z M 140,105 l 5,0 0,5 -5,0 z M 0,110 l 5,0 0,5 -5,0 z M 5,110 l 5,0 0,5 -5,0 z M 10,110 l 5,0 0,5 -5,0 z M 15,110 l 5,0 0,5 -5,0 z M 20,110 l 5,0 0,5 -5,0 z M 25,110 l 5,0 0,5 -5,0 z M 30,110 l 5,0 0,5 -5,0 z M 40,110 l 5,0 0,5 -5,0 z M 50,110 l 5,0 0,5 -5,0 z M 65,110 l 5,0 0,5 -5,0 z M 70,110 l 5,0 0,5 -5,0 z M 75,110 l 5,0 0,5 -5,0 z M 80,110 l 5,0 0,5 -5,0 z M 90,110 l 5,0 0,5 -5,0 z M 95,110 l 5,0 0,5 -5,0 z M 100,110 l 5,0 0,5 -5,0 z M 110,110 l 5,0 0,5 -5,0 z M 120,110 l 5,0 0,5 -5,0 z M 125,110 l 5,0 0,5 -5,0 z M 130,110 l 5,0 0,5 -5,0 z M 0,115 l 5,0 0,5 -5,0 z M 30,115 l 5,0 0,5 -5,0 z M 50,115 l 5,0 0,5 -5,0 z M 55,115 l 5,0 0,5 -5,0 z M 80,115 l 5,0 0,5 -5,0 z M 95,115 l 5,0 0,5 -5,0 z M 100,115 l 5,0 0,5 -5,0 z M 120,115 l 5,0 0,5 -5,0 z M 140,115 l 5,0 0,5 -5,0 z M 0,120 l 5,0 0,5 -5,0 z M 10,120 l 5,0 0,5 -5,0 z M 15,120 l 5,0 0,5 -5,0 z M 20,120 l 5,0 0,5 -5,0 z M 30,120 l 5,0 0,5 -5,0 z M 40,120 l 5,0 0,5 -5,0 z M 50,120 l 5,0 0,5 -5,0 z M 55,120 l 5,0 0,5 -5,0 z M 70,120 l 5,0 0,5 -5,0 z M 85,120 l 5,0 0,5 -5,0 z M 90,120 l 5,0 0,5 -5,0 z M 100,120 l 5,0 0,5 -5,0 z M 105,120 l 5,0 0,5 -5,0 z M 110,120 l 5,0 0,5 -5,0 z M 115,120 l 5,0 0,5 -5,0 z M 120,120 l 5,0 0,5 -5,0 z M 130,120 l 5,0 0,5 -5,0 z M 135,120 l 5,0 0,5 -5,0 z M 0,125 l 5,0 0,5 -5,0 z M 10,125 l 5,0 0,5 -5,0 z M 15,125 l 5,0 0,5 -5,0 z M 20,125 l 5,0 0,5 -5,0 z M 30,125 l 5,0 0,5 -5,0 z M 40,125 l 5,0 0,5 -5,0 z M 50,125 l 5,0 0,5 -5,0 z M 65,125 l 5,0 0,5 -5,0 z M 70,125 l 5,0 0,5 -5,0 z M 80,125 l 5,0 0,5 -5,0 z M 85,125 l 5,0 0,5 -5,0 z M 90,125 l 5,0 0,5 -5,0 z M 95,125 l 5,0 0,5 -5,0 z M 100,125 l 5,0 0,5 -5,0 z M 105,125 l 5,0 0,5 -5,0 z M 125,125 l 5,0 0,5 -5,0 z M 130,125 l 5,0 0,5 -5,0 z M 140,125 l 5,0 0,5 -5,0 z M 0,130 l 5,0 0,5 -5,0 z M 10,130 l 5,0 0,5 -5,0 z M 15,130 l 5,0 0,5 -5,0 z M 20,130 l 5,0 0,5 -5,0 z M 30,130 l 5,0 0,5 -5,0 z M 40,130 l 5,0 0,5 -5,0 z M 45,130 l 5,0 0,5 -5,0 z M 65,130 l 5,0 0,5 -5,0 z M 70,130 l 5,0 0,5 -5,0 z M 75,130 l 5,0 0,5 -5,0 z M 80,130 l 5,0 0,5 -5,0 z M 95,130 l 5,0 0,5 -5,0 z M 105,130 l 5,0 0,5 -5,0 z M 110,130 l 5,0 0,5 -5,0 z M 115,130 l 5,0 0,5 -5,0 z M 120,130 l 5,0 0,5 -5,0 z M 125,130 l 5,0 0,5 -5,0 z M 130,130 l 5,0 0,5 -5,0 z M 135,130 l 5,0 0,5 -5,0 z M 0,135 l 5,0 0,5 -5,0 z M 30,135 l 5,0 0,5 -5,0 z M 40,135 l 5,0 0,5 -5,0 z M 55,135 l 5,0 0,5 -5,0 z M 70,135 l 5,0 0,5 -5,0 z M 100,135 l 5,0 0,5 -5,0 z M 110,135 l 5,0 0,5 -5,0 z M 125,135 l 5,0 0,5 -5,0 z M 135,135 l 5,0 0,5 -5,0 z M 0,140 l 5,0 0,5 -5,0 z M 5,140 l 5,0 0,5 -5,0 z M 10,140 l 5,0 0,5 -5,0 z M 15,140 l 5,0 0,5 -5,0 z M 20,140 l 5,0 0,5 -5,0 z M 25,140 l 5,0 0,5 -5,0 z M 30,140 l 5,0 0,5 -5,0 z M 40,140 l 5,0 0,5 -5,0 z M 50,140 l 5,0 0,5 -5,0 z M 65,140 l 5,0 0,5 -5,0 z M 75,140 l 5,0 0,5 -5,0 z M 85,140 l 5,0 0,5 -5,0 z M 95,140 l 5,0 0,5 -5,0 z M 105,140 l 5,0 0,5 -5,0 z M 110,140 l 5,0 0,5 -5,0 z M 115,140 l 5,0 0,5 -5,0 z M 120,140 l 5,0 0,5 -5,0 z M 125,140 l 5,0 0,5 -5,0 z M 130,140 l 5,0 0,5 -5,0 z " />
+	</g>
+</svg>
+
+        </div>
+        <div class="qr-label">РћРЅР»Р°Р№РЅ-РїР»РµРµСЂ</div>
+      </div>
+    </div>
+
+    <!-- Section 1: 5 Theses -->
+    <div>
+      <div class="section-title">
+        <span class="badge-num">1</span>
+        5 РљР»СЋС‡РµРІС‹С… С‚РµР·РёСЃРѕРІ Р»РµРєС†РёРѕРЅРЅРѕРіРѕ Р±Р»РѕРєР°
+      </div>
+      <div class="theses-grid">
+        <div class="thesis-item">
+          <strong>1. Интерактив против PDF:</strong> Автономный расчетный стенд на HTML5/SVG развивает инженерную интуицию студента на порядок глубже статического чтения формул.
+        </div>        <div class="thesis-item">
+          <strong>2. Физическая модель в коде:</strong> Расчет цепи (законы Кирхгофа, эквивалентный генератор Тевенена, векторные диаграммы) выполняется в реальном времени на чистом JS.
+        </div>        <div class="thesis-item">
+          <strong>3. Автономный агентный QA:</strong> Агент сам открывает виртуальный браузер (Playwright), кликает переключатели, анализирует консоль на ошибки и пишет видео сессии.
+        </div>        <div class="thesis-item">
+          <strong>4. Атомарная озвучка (Atomic Voiceover):</strong> Нарезка дорожки на короткие фразы по слайдам. Правка одного ударения требует пересинтеза 1 фразы, а не всего часа речи.
+        </div>        <div class="thesis-item">
+          <strong>5. Страховочный трос Git:</strong> Хранение версий спасает проект при технических сбоях кода и позволяет гарантированно вернуться к рабочей точке в один клик.
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Ready-to-Use Prompts -->
+    <div>
+      <div class="section-title">
+        <span class="badge-num">2</span>
+        РљР°С„РµРґСЂР°Р»СЊРЅС‹Рµ РїСЂРѕРјРїС‚-С€Р°Р±Р»РѕРЅС‹ (СЃРєРѕРїРёСЂСѓР№С‚Рµ Рё РЅР°СЃС‚СЂРѕР№С‚Рµ РЅРµР№СЂРѕСЃРµС‚СЊ)
+      </div>
+
+      <div class="prompts-container">
+        <div class="prompt-box highlight">
+          <div class="prompt-header">
+            <span class="prompt-name">⚙️ Шаблон 1: Профиль разработчика интерактивных симуляторов</span>
+            <span class="prompt-dest">Вставить в Custom Instructions аккаунта</span>
+          </div>
+          <div class="code-block">Роль: Старший разработчик интерактивных учебных симуляторов (HTML5 / Vanilla JavaScript / SVG).
+Кодовый регламент:
+1. Никаких тяжелых сторонних библиотек: чистый JavaScript и векторная графика SVG.
+2. Все физические уравнения должны быть строгими и защищенными от деления на ноль (режимы ХХ и КЗ).
+3. Автономность: код обязан запускаться локально двойным кликом без необходимости веб-сервера.</div>
+        </div>        <div class="prompt-box ">
+          <div class="prompt-header">
+            <span class="prompt-name">🎯 Шаблон 2: ТЗ на создание виртуального лабораторного стенда</span>
+            <span class="prompt-dest">Для генерации HTML-симулятора из методички</span>
+          </div>
+          <div class="code-block">На основе текста кафедральной методички создай автономный интерактивный веб-стенд (HTML5/SVG).
+Требования:
+1. Векторная принципиальная электрическая схема с анимацией направления токов;
+2. Интерактивные ползунки регулировки параметров (R1, R2, напряжение источника);
+3. Стрелочные приборы со шкалой (амперметр, вольтметр) и цифровые табло;
+4. Блок автоматической проверки баланса мощностей в реальном времени.</div>
+        </div>        <div class="prompt-box ">
+          <div class="prompt-header">
+            <span class="prompt-name">📑 Шаблон 3: Сценарий пошаговой дикторской озвучки слайдов</span>
+            <span class="prompt-dest">Для генерации аудиофайлов лекции</span>
+          </div>
+          <div class="code-block">Подготовь дикторский текст для пошаговой озвучки 5 слайдов презентации.
+Правила:
+1. Длина реплики на слайд — строго 60–80 слов (хронометраж ~35–45 секунд);
+2. Темп академический, спокойный, интонационные паузы между ключевыми терминами;
+3. Для всех аббревиатур и формул укажи фонетическую подсказку для синтезатора (например: «Э-ДЭ-ЭС», «омега-тэ»).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Verification Checklist Bar -->
+    <div>
+      <div class="checklist-bar">
+        <div class="checklist-title">
+          <span>рџ›ЎпёЏ Р­РљРЎРџР Р•РЎРЎ-Р§Р•Рљ-Р›РРЎРў РџР Р•РџРћР”РђР’РђРўР•Р›РЇ: 5 Р РЈР‘Р•Р–Р•Р™ РџР РћР’Р•Р РљР РњРђРўР•Р РРђР›РћР’ РР</span>
+          <span style="font-size: 8px; color: #0284c7; text-transform: uppercase;">РћР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ РєРѕРЅС‚СЂРѕР»СЊ РїРµСЂРµРґ СЃС‚СѓРґРµРЅС‚Р°РјРё</span>
+        </div>
+        <div class="checklist-grid">
+          <div class="checklist-col">
+            <div class="checklist-col-title">рџ“ђ 1. РљРѕРЅСЃС‚Р°РЅС‚С‹</div>
+            <div class="checklist-col-desc">РЎРІРµСЂРєР° С„РѕСЂРјСѓР» Рё С‚Р°Р±Р»РёС‡РЅС‹С… РєРѕРЅСЃС‚Р°РЅС‚ СЃ РєР°С„РµРґСЂР°Р»СЊРЅС‹РјРё СЃРїСЂР°РІРѕС‡РЅРёРєР°РјРё.</div>
+          </div>
+          <div class="checklist-col">
+            <div class="checklist-col-title">рџ“Џ 2. Р Р°Р·РјРµСЂРЅРѕСЃС‚Рё</div>
+            <div class="checklist-col-desc">РђРЅР°Р»РёР· СЂР°Р·РјРµСЂРЅРѕСЃС‚РµР№ РІРµР»РёС‡РёРЅ РІ РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹С… РІС‹РєР»Р°РґРєР°С… РїРѕ Р“РћРЎРў 8.417 (РЎР).</div>
+          </div>
+          <div class="checklist-col">
+            <div class="checklist-col-title">рџ“‘ 3. РќРѕСЂРјРѕРєРѕРЅС‚СЂРѕР»СЊ</div>
+            <div class="checklist-col-desc">РЎРѕРѕС‚РІРµС‚СЃС‚РІРёРµ Р“РћРЎРў 7.32 (РќРР ), Р“РћРЎРў 2.105 (Р•РЎРљР”) Рё Р“РћРЎРў 19.xxx (Р•РЎРџР”).</div>
+          </div>
+          <div class="checklist-col">
+            <div class="checklist-col-title">рџ¤– 4. Dual-LLM</div>
+            <div class="checklist-col-desc">РљСЂРѕСЃСЃ-РїСЂРѕРІРµСЂРєР° СЃР»РѕР¶РЅРѕРіРѕ РІС‹РІРѕРґР° РІС‚РѕСЂРѕР№ РЅРµР·Р°РІРёСЃРёРјРѕР№ РјРѕРґРµР»СЊСЋ-СЂРµС†РµРЅР·РµРЅС‚РѕРј.</div>
+          </div>
+          <div class="checklist-col">
+            <div class="checklist-col-title">рџ”Ќ 5. РСЃС‚РѕС‡РЅРёРєРё</div>
+            <div class="checklist-col-desc">РџРѕРёСЃРє DOI Рё Р°РІС‚РѕСЂРѕРІ РІ Р±Р°Р·Р°С… eLibrary (Р РРќР¦) Рё Scopus РЅР° СЂРµР°Р»СЊРЅРѕСЃС‚СЊ СЃСЃС‹Р»РѕРє.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Document Footer -->
+    <div class="doc-footer">
+      <div><strong>РљСѓСЂСЃ:</strong> В«РСЃРєСѓСЃСЃС‚РІРµРЅРЅС‹Р№ РёРЅС‚РµР»Р»РµРєС‚ РґР»СЏ РїРѕРґРіРѕС‚РѕРІРєРё СѓС‡РµР±РЅС‹С… РјР°С‚РµСЂРёР°Р»РѕРІВ» вЂў 16 Р°РєР°РґРµРјРёС‡РµСЃРєРёС… С‡Р°СЃРѕРІ</div>
+      <div><strong>Р¤РѕСЂРјР°С‚:</strong> РџРµС‡Р°С‚РЅС‹Р№ Р»РёСЃС‚ Рђ4 (1 СЃС‚СЂР°РЅРёС†Р°) вЂў <strong>РћРЅР»Р°Р№РЅ:</strong> https://vikaltt.github.io/ai-course/</div>
+      <div><strong>РљР°С„РµРґСЂР°:</strong> 2026 Рі.</div>
+    </div>
+
+  </div>
+
+</body>
+</html>
