@@ -384,6 +384,13 @@
       <p>
         От базовых принципов и истории развития до практической генерации презентаций, методических пособий, тестов и совместной работы с интеллектуальными агентами.
       </p>
+      <div style="margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
+        <button onclick="openVerificationModal()" style="display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 12px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 4px 16px rgba(56, 189, 248, 0.15);" onmouseover="this.style.background='rgba(56, 189, 248, 0.22)'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='rgba(56, 189, 248, 0.12)'; this.style.transform='translateY(0)';">
+          <span style="font-size: 18px;">🛡️</span>
+          <span>Памятка преподавателя: Регламент верификации ИИ</span>
+          <span style="background: rgba(56, 189, 248, 0.2); font-size: 11px; padding: 2px 8px; border-radius: 6px; text-transform: uppercase; font-weight: 800;">5 рубежей</span>
+        </button>
+      </div>
     </div>
 
     <!-- Progress Card -->
@@ -513,7 +520,7 @@
             </div>
             <div class="lesson-title" style="color: #6ee7b7;">Часть 1.4: Интерактивный практикум и тест</div>
             <div class="lesson-desc" style="color: #a7f3d0;">
-              Комплексный тренажёр-практикум по материалам всей Лекции 1. Случайная выборка 7 вопросов из базы 18, 3 попытки с подсказками и методический разбор.
+              Комплексный тренажёр-практикум по материалам всей Лекции 1: разбор прикладных ситуаций, 3 попытки на задание с подсказками и методический анализ ответов.
             </div>
           </div>
           <a href="lesson_1_4.html" class="btn-lesson btn-play" id="btn_l1_p4" style="background: linear-gradient(135deg, #0284c7, #10b981);">
@@ -681,7 +688,7 @@
             </div>
             <div class="lesson-title" style="color: #6ee7b7;">Часть 3.4: Интерактивный практикум: Агентные системы и MCP</div>
             <div class="lesson-desc" style="color: #a7f3d0;">
-              Комплексный тренажёр-практикум по архитектуре агентов и протоколу MCP. Случайная выборка 7 вопросов из базы 18, 3 попытки с подсказками и методический разбор.
+              Комплексный тренажёр-практикум по архитектуре агентов и протоколу MCP: решение прикладных задач с подсказками и методический разбор решений.
             </div>
           </div>
           <a href="lesson_3_4.html" class="btn-lesson btn-play" id="btn_l3_p4" style="background: linear-gradient(135deg, #0284c7, #10b981);">
@@ -765,7 +772,7 @@
             </div>
             <div class="lesson-title" style="color: #6ee7b7;">Часть 4.4: Интерактивный практикум: Лаборатория промпт-инжиниринга</div>
             <div class="lesson-desc" style="color: #a7f3d0;">
-              Комплексный тренажёр по составлению промптов для педагогов: исправление наивных запросов, Few-Shot калибровка, CoT-разборы и анализ мультимодальных схем. Банк 18 / Выдача 7.
+              Комплексный тренажёр по составлению промптов для педагогов: исправление наивных запросов, Few-Shot калибровка, CoT-разборы и анализ мультимодальных схем.
             </div>
           </div>
           <a href="lesson_4_4.html" class="btn-lesson btn-play" id="btn_l4_p4" style="background: linear-gradient(135deg, #0284c7, #10b981);">
@@ -849,7 +856,7 @@
             </div>
             <div class="lesson-title" style="color: #6ee7b7;">Часть 5.4: Интерактивный практикум и тест</div>
             <div class="lesson-desc" style="color: #a7f3d0;">
-              Комплексный тренажёр: анализ вызовов инструментов (Tool Calls), поиск сбоев интерфейса и экспорт результатов. Банк 18 / Выдача 7.
+              Комплексный тренажёр: анализ вызовов инструментов (Tool Calls), поиск сбоев интерфейса и экспорт результатов.
             </div>
           </div>
           <a href="lesson_5_4.html" class="btn-lesson btn-play" id="btn_l5_p4" style="background: linear-gradient(135deg, #0284c7, #10b981);">
@@ -933,7 +940,7 @@
             </div>
             <div class="lesson-title" style="color: #6ee7b7;">Часть 6.4: Интерактивный практикум и тест</div>
             <div class="lesson-desc" style="color: #a7f3d0;">
-              Тренажёр по визуальному квантованию, LaTeX-типографике, компоновке флекс-карточек и дидактической калибровке. Банк 18 / Выдача 7.
+              Тренажёр по визуальному квантованию, LaTeX-типографике, компоновке флекс-карточек и дидактической калибровке учебных слайдов.
             </div>
           </div>
           <a href="lesson_6_4.html" class="btn-lesson btn-play" id="btn_l6_p4" style="background: linear-gradient(135deg, #0284c7, #10b981);">
@@ -1021,7 +1028,7 @@
             </div>
             <div class="lesson-title" style="color: #6ee7b7;">Часть 7.4: Интерактивный практикум и тест</div>
             <div class="lesson-desc" style="color: #a7f3d0;">
-              Комплексный тренажёр: анализ симуляций, аудит агентного QA, дидактика видео-аватаров и проверка пайплайна видеомонтажа. Банк 18 / Выдача 7.
+              Комплексный тренажёр: анализ симуляций, аудит агентного QA, дидактика видео-аватаров и проверка пайплайна видеомонтажа.
             </div>
           </div>
           <a href="lesson_7_4.html" class="btn-lesson btn-play" id="btn_l7_p4" style="background: linear-gradient(135deg, #0284c7, #10b981);">
@@ -1163,7 +1170,7 @@
             </div>
             <div class="lesson-title" style="color: #6ee7b7;">Часть 8.4: Итоговый тренажёр-практикум курса</div>
             <div class="lesson-desc" style="color: #a7f3d0;">
-              Комплексный экзаменационный тренажёр по всем 8 модулям программы: термины, промпты, вёрстка, видео, симуляторы и методика. Банк 18 / Выдача 7 (макс. 21 балл).
+              Комплексный экзаменационный тренажёр по всем 8 модулям программы: термины, промпты, вёрстка, видео, симуляторы и методика.
             </div>
           </div>
           <a href="lesson_8_4.html" class="btn-lesson btn-play" id="btn_l8_p4" style="background: linear-gradient(135deg, #059669, #10b981);">
@@ -1331,6 +1338,145 @@
 
     // Run on load
     updateLMSState();
+  </script>
+
+  <!-- MODAL: TEACHER VERIFICATION CHECKLIST -->
+  <div id="verificationModal" style="display: none; position: fixed; inset: 0; background: rgba(3, 7, 18, 0.88); backdrop-filter: blur(14px); z-index: 99999; justify-content: center; align-items: center; padding: 20px;" onclick="closeVerificationModal(event)">
+    <div style="background: #0b1329; border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 20px; max-width: 960px; width: 100%; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.85);" onclick="event.stopPropagation()">
+      <!-- Header -->
+      <div style="padding: 24px 28px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); display: flex; justify-content: space-between; align-items: center; background: rgba(15, 23, 42, 0.6);">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span style="font-size: 32px;">🛡️</span>
+          <div>
+            <div style="font-size: 12px; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Академический регламент кафедры</div>
+            <h2 style="font-size: 20px; font-weight: 800; color: #fff; margin: 0;">Чек-лист преподавателя: 5 рубежей контроля достоверности ИИ</h2>
+          </div>
+        </div>
+        <button onclick="closeVerificationModal()" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #94a3b8; font-size: 20px; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.2)'; this.style.color='#ef4444';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.color='#94a3b8';">✕</button>
+      </div>
+
+      <!-- Body -->
+      <div style="padding: 24px 28px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px;">
+        <div style="background: rgba(56, 189, 248, 0.08); border-left: 4px solid #38bdf8; padding: 12px 16px; border-radius: 8px; font-size: 14px; color: #cbd5e1; line-height: 1.45;">
+          <strong style="color: #38bdf8;">Главное правило высшей школы:</strong> Искусственный интеллект — инструмент черновой генерации, а не экспертный источник. Преподаватель и студент несут персональную ответственность за каждое число, формулу, термин и ссылку.
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+          <!-- 1 -->
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px;">
+            <div style="font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+              <span>📐</span> 1. Константы и формулы
+            </div>
+            <div style="font-size: 13px; color: #94a3b8; line-height: 1.4;">
+              Ручная сверка расчетных формул, табличных физико-математических констант и граничных условий со справочниками кафедры.
+            </div>
+          </div>
+
+          <!-- 2 -->
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px;">
+            <div style="font-size: 15px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+              <span>📏</span> 2. Анализ размерностей (СИ)
+            </div>
+            <div style="font-size: 13px; color: #94a3b8; line-height: 1.4;">
+              Контроль единиц физических величин на каждом шаге промежуточных преобразований по ГОСТ 8.417-2002.
+            </div>
+          </div>
+
+          <!-- 3 -->
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px;">
+            <div style="font-size: 15px; font-weight: 800; color: #818cf8; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+              <span>📑</span> 3. Нормоконтроль ГОСТ/ЕСКД
+            </div>
+            <div style="font-size: 13px; color: #94a3b8; line-height: 1.4;">
+              Проверка оформления пояснительных записок, схем и чертежей по ГОСТ 7.32 (НИР), ГОСТ 2.105 (ЕСКД) и ГОСТ 19.xxx.
+            </div>
+          </div>
+
+          <!-- 4 -->
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px;">
+            <div style="font-size: 15px; font-weight: 800; color: #10b981; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+              <span>🤖</span> 4. Dual-LLM валидация
+            </div>
+            <div style="font-size: 13px; color: #94a3b8; line-height: 1.4;">
+              Передача сгенерированного текста во вторую независимую языковую модель с системным промптом строгого рецензента.
+            </div>
+          </div>
+
+          <!-- 5 -->
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px;">
+            <div style="font-size: 15px; font-weight: 800; color: #f59e0b; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+              <span>🔍</span> 5. Аудит первоисточников
+            </div>
+            <div style="font-size: 13px; color: #94a3b8; line-height: 1.4;">
+              Проверка реального существования всех цитируемых статей, монографий, DOI и авторов в базах eLibrary (РИНЦ) и Scopus.
+            </div>
+          </div>
+        </div>
+
+        <!-- Prompt Card -->
+        <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <div style="font-size: 14px; font-weight: 700; color: #f8fafc; display: flex; align-items: center; gap: 8px;">
+              <span>📋</span> Кафедральный промпт для Dual-LLM проверки:
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <a href="assets/teacher_verification_checklist.md" download="teacher_verification_checklist.md" style="text-decoration: none; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); color: #cbd5e1; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.color='#cbd5e1';">
+                <span>📥</span> Скачать регламент (.md)
+              </a>
+              <button id="copyPromptBtn" onclick="copyReviewerPrompt()" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s;">
+                Копировать промпт
+              </button>
+            </div>
+          </div>
+          <pre id="reviewerPromptText" style="background: #030712; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px; font-family: monospace; font-size: 12px; color: #94a3b8; white-space: pre-wrap; line-height: 1.5; margin: 0;">Роль: Строгий академический рецензент кафедры и нормоконтролер.
+Задача: Проведи критический аудит следующего фрагмента учебного материала/расчета.
+Проверь:
+1. Корректность физико-математических формул и размерностей величин по ГОСТ 8.417.
+2. Достоверность числовых значений и табличных констант.
+3. Соответствие терминологии стандартам РФ (ГОСТ/ЕСКД).
+4. Реальность существования всех библиографических ссылок (DOI, авторы, издания).
+Укажи найденные несоответствия со ссылкой на первоисточники и предложи исправленный вариант.</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openVerificationModal() {
+      const modal = document.getElementById('verificationModal');
+      if (modal) modal.style.display = 'flex';
+    }
+    function closeVerificationModal(e) {
+      if (!e || e.target.id === 'verificationModal' || e.target.tagName === 'BUTTON') {
+        const modal = document.getElementById('verificationModal');
+        if (modal) modal.style.display = 'none';
+      }
+    }
+    function copyReviewerPrompt() {
+      const promptText = document.getElementById('reviewerPromptText').innerText;
+      navigator.clipboard.writeText(promptText).then(() => {
+        const btn = document.getElementById('copyPromptBtn');
+        if (btn) {
+          const orig = btn.innerText;
+          btn.innerText = '✓ Скопировано!';
+          btn.style.background = 'rgba(16, 185, 129, 0.2)';
+          btn.style.borderColor = '#10b981';
+          btn.style.color = '#10b981';
+          setTimeout(() => {
+            btn.innerText = orig;
+            btn.style.background = 'rgba(56, 189, 248, 0.15)';
+            btn.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+            btn.style.color = '#38bdf8';
+          }, 2000);
+        }
+      });
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('verificationModal');
+        if (modal && modal.style.display === 'flex') modal.style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
