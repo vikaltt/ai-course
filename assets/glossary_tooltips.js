@@ -1052,7 +1052,7 @@
         margin-left: 2px;
       }
 
-      /* Floating Tooltip Card */
+      /* Floating Tooltip Card: Solid opaque background for 100% readability */
       #glossaryTooltipCard {
         position: fixed;
         z-index: 999999;
@@ -1214,7 +1214,6 @@
       exampleEl.style.display = 'none';
     }
 
-    // Dynamic measurement for precise placement
     tooltipEl.style.visibility = 'hidden';
     tooltipEl.classList.add('active');
     const cardRect = tooltipEl.getBoundingClientRect();
@@ -1255,12 +1254,18 @@
     activeTrigger = null;
   }
 
-  // 4. Slide Content Highlighter
+  // 4. Synchronous Content Highlighter (Zero Paint Delay = Zero Flicker)
   let isScanning = false;
+  let activeObserver = null;
 
   function highlightTermsInContainer(rootEl) {
     if (!rootEl || isScanning) return;
     isScanning = true;
+
+    // Temporarily disconnect observer to avoid self-triggering
+    if (activeObserver) {
+      activeObserver.disconnect();
+    }
 
     try {
       const ignoredTags = new Set(['SCRIPT', 'STYLE', 'BUTTON', 'INPUT', 'PRE', 'CODE', 'SVG', 'TEXTAREA']);
@@ -1351,6 +1356,10 @@
       console.warn('Glossary highlight error:', err);
     } finally {
       isScanning = false;
+      // Reconnect observer immediately
+      if (activeObserver && rootEl) {
+        activeObserver.observe(rootEl, { childList: true, subtree: true });
+      }
     }
   }
 
@@ -1371,22 +1380,24 @@
 
     const targetRoot = document.getElementById('slide-root') || document.getElementById('appContainer');
     if (targetRoot) {
-      setTimeout(() => highlightTermsInContainer(targetRoot), 150);
+      // Synchronous run for initial DOM
+      highlightTermsInContainer(targetRoot);
 
-      const observer = new MutationObserver((mutations) => {
+      activeObserver = new MutationObserver((mutations) => {
         if (isScanning) return;
-        let hasRelevantChange = false;
+        let hasDirectChildChange = false;
         for (const m of mutations) {
           if (m.type === 'childList') {
-            hasRelevantChange = true;
+            hasDirectChildChange = true;
             break;
           }
         }
-        if (hasRelevantChange) {
-          setTimeout(() => highlightTermsInContainer(targetRoot), 80);
+        if (hasDirectChildChange) {
+          // Synchronous execution in the same microtask before browser repaint
+          highlightTermsInContainer(targetRoot);
         }
       });
-      observer.observe(targetRoot, { childList: true, subtree: true });
+      activeObserver.observe(targetRoot, { childList: true, subtree: true });
     }
   }
 
