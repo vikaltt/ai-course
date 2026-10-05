@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Практикум 8.4: Итоговый практикум и аттестация по курсу</title>
+  <title>Практикум 8.4: Итоговая самопроверка</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="alternate icon" href="favicon.ico">
   <style>
@@ -492,7 +492,7 @@
   <header>
     <div style="display: flex; align-items: center; gap: 16px;">
       <div style="font-weight: 800; font-size: 18px; color: #38bdf8; display: flex; align-items: center; gap: 10px;">
-        <img src="favicon.svg" width="22" height="22" style="border-radius: 4px; box-shadow: 0 0 8px rgba(56,189,248,0.4);" alt="ИИ"> Лекция 8. Часть 4: Интерактивный практикум и тест
+        <img src="favicon.svg" width="22" height="22" style="border-radius: 4px; box-shadow: 0 0 8px rgba(56,189,248,0.4);" alt="ИИ"> Итоговая самопроверка
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 10px;">
@@ -720,20 +720,13 @@
     function renderResults() {
       stopSpeech();
       document.getElementById('progressBar').style.width = '100%';
-      document.getElementById('stepCounter').innerText = 'Практикум завершён!';
+      document.getElementById('stepCounter').innerText = 'Самопроверка завершена';
 
       const maxScore = SESSION_COUNT * 3;
       const pct = Math.round((score / maxScore) * 100);
 
-      let trophy = '🎓';
-      let title = 'Базовый уровень освоения';
-      if (pct >= 85) {
-        trophy = '🏆';
-        title = 'Эксперт инструментов и методов ИИ';
-      } else if (pct >= 65) {
-        trophy = '⭐';
-        title = 'Уверенный преподаватель-практик';
-      }
+      const trophy = '✓';
+      const title = 'Итоговая самопроверка';
 
       // Save completion status
       try {
@@ -746,14 +739,14 @@
           <div class="trophy-icon">${trophy}</div>
           <h1 style="font-size: 34px; font-weight: 900; color: #fff;">${title}</h1>
           <p style="font-size: 19px; color: #94a3b8; max-width: 650px; line-height: 1.5;">
-            Поздравляем! Вы успешно завершили итоговый аттестационный практикум 16-часового курса «Искусственный интеллект для подготовки учебных материалов». Компетенции архитектора цифровых УМК, промпт-инжиниринга, создания слайдов, модульного синтеза, виртуальных лабораторий и фонда оценочных средств полностью сформированы!
+            Самопроверка завершена. Ниже — результат попытки и темы для повторения.
           </p>
 
           <div style="background: rgba(56, 189, 248, 0.12); border: 2px solid #38bdf8; border-radius: 20px; padding: 20px 40px; margin: 8px 0;">
             <div style="font-size: 48px; font-weight: 900; color: #38bdf8; font-family: 'JetBrains Mono', monospace;">
               ${score} / ${maxScore}
             </div>
-            <div style="font-size: 16px; color: #cbd5e1; font-weight: 700;">${pct}% успешных ответов</div>
+            <div style="font-size: 16px; color: #cbd5e1; font-weight: 700;">${pct}% от максимума баллов</div>
           </div>
 
           <div style="width: 100%; max-width: 700px; text-align: left; background: rgba(3, 7, 18, 0.5); border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.08);">
@@ -772,10 +765,11 @@
 
           <div style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 12px;">
             <a href="index.html" class="btn btn-primary" style="padding: 14px 26px; font-size: 16px; background: linear-gradient(135deg, #059669, #10b981); text-decoration: none;">
-              🎉 Курс полностью завершён! В каталог
+              ← Вернуться к обзору
             </a>
+            <a class="btn btn-primary" href="certificate.html" style="padding: 14px 26px; font-size: 16px; text-decoration:none;">Получить сертификат о прохождении обзорного курса</a>
             <button class="btn btn-primary" onclick="startNewSession()" style="padding: 14px 26px; font-size: 16px;">
-              🔄 Пройти другой вариант (7 новых вопросов из банка 18)
+              🔄 Пройти другой вариант (7 вопросов из банка 18)
             </button>
             <button class="btn" onclick="copyProtocol()" style="padding: 14px 20px;">
               📋 Скопировать протокол
@@ -786,8 +780,8 @@
     }
 
     function copyProtocol() {
-      let text = '=== ИТОГОВЫЙ ПРОТОКОЛ АТТЕСТАЦИИ: КУРС ПО ИИ (УРОК 8: СБОРКА ПОЛНОГО УМК И РОЛЬ ПРЕПОДАВАТЕЛЯ) ===\n';
-      text += `Итоговый результат: ${score} из ${SESSION_COUNT * 3} баллов\n`;
+      let text = '=== ИТОГ САМОПРОВЕРКИ: ОБЗОР ИИ ДЛЯ ПОДГОТОВКИ УЧЕБНЫХ МАТЕРИАЛОВ ===\n';
+      text += `Результат: ${score} из ${SESSION_COUNT * 3} баллов\n`;
       text += `Дата: ${new Date().toLocaleString('ru-RU')}\n\n`;
       userHistory.forEach((h, i) => {
         text += `${i+1}. ${h.badge}: ${h.earned} б. (попыток: ${h.attempts})\n`;

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Искусственный интеллект для подготовки учебных материалов | 16-часовой курс</title>
+  <title>ИИ для подготовки учебных материалов — обзор курса</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="alternate icon" href="favicon.ico">
-  <meta name="description" content="16-часовой практический онлайн-курс по применению искусственного интеллекта для подготовки учебных материалов. От базовых принципов до генерации презентаций, тестов и интерактивных симуляций.">
-  <meta property="og:title" content="ИИ для подготовки учебных материалов — 16-часовой курс">
-  <meta property="og:description" content="Практический курс для преподавателей: от истории ИИ и промпт-инжиниринга до создания интерактивных лабораторий и видео-аватаров.">
+  <meta name="description" content="Обзор реального проекта: от электротехнической методички к интерактивным лекциям, лабораториям и проверяемым материалам с помощью ИИ.">
+  <meta property="og:title" content="ИИ для подготовки учебных материалов — обзор курса">
+  <meta property="og:description" content="Обзор реального проекта: от электротехнической методички к интерактивным лекциям и лабораториям с помощью ИИ.">
   <meta property="og:image" content="portal_preview.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -35,7 +35,6 @@
       color: var(--text-main);
       font-family: 'Inter', -apple-system, sans-serif;
       min-height: 100vh;
-      overflow-x: hidden;
       background-image: 
         radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.12) 0%, transparent 40%),
         radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.1) 0%, transparent 45%);
@@ -384,6 +383,80 @@
 
     /* Hidden reset button — accessible via Ctrl+Shift+R */
     .reset-btn { display: none; }
+
+    .container, .hero, .progress-info, .module-card, .module-header,
+    .module-header > div, .module-summary, .module-summary-label,
+    .module-summary-title, .lesson-item { min-width: 0; }
+    .brand { flex-wrap: wrap; min-width: 0; }
+    .hero h1, .module-title, .module-desc, .lesson-title, .lesson-desc,
+    .module-summary-title { overflow-wrap: anywhere; }
+    .progress-next { display: flex; gap: 5px; flex-wrap: wrap; color: #94a3b8; font-size: 14px; font-weight: 700; }
+    .progress-next span { color: #38bdf8; }
+    .overview-resources { margin-top: 16px; }
+    .overview-resources > summary { display: inline-block; padding: 9px 12px; border: 1px solid rgba(255,255,255,.15); border-radius: 10px; color: #cbd5e1; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .overview-resources[open] > summary { margin-bottom: 6px; }
+    .start-continue {
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-top: 18px; padding: 12px 18px; border-radius: 12px;
+      background: linear-gradient(135deg, #0284c7, #10b981); color: #fff;
+      text-decoration: none; font-weight: 800; line-height: 1.35;
+    }
+    .module-accordion { padding: 0; overflow: clip; }
+    .module-summary {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 14px; min-height: 76px; padding: 18px 22px;
+      cursor: pointer; list-style: none;
+    }
+    .module-summary::-webkit-details-marker { display: none; }
+    .module-summary::before { content: '＋'; flex: 0 0 auto; color: var(--primary); font-size: 20px; font-weight: 700; }
+    .module-accordion[open] > .module-summary::before { content: '−'; }
+    .module-summary-label { display: flex; flex-direction: column; gap: 4px; }
+    .module-summary-num { color: var(--primary); font-size: 11px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+    .module-summary-title { color: #fff; font-size: 17px; font-weight: 800; line-height: 1.35; }
+    .module-summary-status { flex: 0 0 auto; max-width: 130px; padding: 5px 9px; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; color: #cbd5e1; font-size: 11px; font-weight: 700; text-align: center; }
+    .module-summary-status[data-state="In progress"] { color: #fbbf24; border-color: rgba(245,158,11,.35); }
+    .module-summary-status[data-state="Completed"] { color: #34d399; border-color: rgba(16,185,129,.35); }
+    .module-accordion > .module-header { margin: 0 22px; padding: 20px 0 16px; }
+    .module-accordion > .lessons-grid { padding: 0 22px 22px; }
+    .module-accordion .module-header { flex-wrap: wrap; gap: 14px; }
+    .module-accordion .module-header > div:last-child { flex-wrap: wrap; }
+    .module-badge, .btn-handout-link { white-space: normal; text-align: center; }
+    .lessons-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+    .lesson-top { flex-wrap: wrap; gap: 8px; align-items: flex-start; }
+    .lesson-status-badge { white-space: normal; text-align: center; }
+    .special-section { margin-top: 22px; }
+    .special-section > .module-header { flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 600px) {
+      .container { padding: 22px 14px 48px; }
+      .top-nav { align-items: flex-start; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+      .brand { gap: 8px; font-size: 17px; }
+      .brand-badge { font-size: 10px; }
+      .hero { margin-bottom: 14px; }
+      .hero-tag { max-width: 100%; white-space: normal; line-height: 1.3; margin-bottom: 10px; }
+      .hero h1 { font-size: clamp(26px, 7.5vw, 30px); line-height: 1.08; letter-spacing: -.35px; margin-bottom: 9px; }
+      .hero p { font-size: 15px; line-height: 1.35; }
+      .start-continue { margin-top: 10px; padding: 9px 14px; }
+      .overview-resources { margin-top: 8px; }
+      .overview-resources > summary { padding: 7px 10px; }
+      .progress-card { flex-direction: column; align-items: stretch; gap: 5px; padding: 10px 14px; margin-bottom: 14px; }
+      .progress-info { min-width: 0; width: 100%; }
+      .progress-title { font-size: 11px; margin-bottom: 3px; }
+      .progress-status { font-size: 15px; line-height: 1.25; }
+      .progress-bar-container { margin-top: 6px; }
+      .progress-next { align-self: flex-start; font-size: 13px; line-height: 1.2; }
+      .module-card { border-radius: 15px; margin-bottom: 16px; }
+      .module-summary { min-height: 68px; gap: 8px; padding: 14px; }
+      .module-summary::before { font-size: 17px; }
+      .module-summary-title { font-size: 15px; }
+      .module-summary-status { max-width: 88px; padding: 4px 7px; font-size: 10px; }
+      .module-accordion > .module-header { margin: 0 14px; padding-top: 16px; }
+      .module-accordion > .lessons-grid { padding: 0 14px 14px; }
+      .module-title { font-size: 19px; }
+      .lesson-item { padding: 16px; }
+      .lesson-top { align-items: flex-start; }
+      .lesson-duration { overflow-wrap: anywhere; }
+      .start-continue { width: 100%; }
+    }
   </style>
 </head>
 <body>
@@ -393,19 +466,22 @@
     <div class="top-nav">
       <div class="brand">
         <img src="favicon.svg" width="28" height="28" style="vertical-align: middle; border-radius: 6px; box-shadow: 0 0 10px rgba(56,189,248,0.4);" alt="ИИ"> ИИ для преподавателей
-        <span class="brand-badge">16 часов</span>
+        <span class="brand-badge">Обзор проекта</span>
       </div>
       <button class="reset-btn" onclick="resetProgress()" title="Сбросить прогресс для тестирования">Сбросить прогресс ⟲</button>
     </div>
 
     <!-- Hero Header -->
     <div class="hero">
-      <div class="hero-tag">🎓 Практический онлайн-курс</div>
+      <div class="hero-tag">🎓 Обзор возможностей ИИ на реальном проекте</div>
       <h1>Искусственный интеллект для подготовки учебных материалов</h1>
       <p>
-        От базовых принципов и истории развития до практической генерации презентаций, методических пособий, тестов и совместной работы с интеллектуальными агентами.
+        Как методичка по электротехнике стала интерактивным курсом: ИИ-инструменты, примеры и проверка результатов.
       </p>
-      <div style="margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
+      <a class="start-continue" id="startContinueButton" href="prologue.html">Начать обзор: открыть первую часть →</a>
+<details class="overview-resources">
+        <summary>Материалы обзора: чек-лист, памятки и словарь</summary>
+        <div style="margin-top: 14px; display: flex; gap: 12px; flex-wrap: wrap;">
         <button onclick="openVerificationModal()" style="display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 12px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 4px 16px rgba(56, 189, 248, 0.15);" onmouseover="this.style.background='rgba(56, 189, 248, 0.22)'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='rgba(56, 189, 248, 0.12)'; this.style.transform='translateY(0)';">
           <span style="font-size: 18px;">🛡️</span>
           <span>Чек-лист преподавателя: 5 шагов проверки ИИ</span>
@@ -421,65 +497,30 @@
           <span>Словарь терминов ИИ (58 понятий)</span>
           <span style="background: rgba(168, 85, 247, 0.2); font-size: 11px; padding: 2px 8px; border-radius: 6px; text-transform: uppercase; font-weight: 800;">Понятийный аппарат</span>
         </button>
-      </div>
+        </div>
+      </details>
     </div>
 
     <!-- Progress Card -->
     <div class="progress-card">
       <div class="progress-info">
-        <div class="progress-title">Ваш прогресс освоения</div>
+        <div class="progress-title">Прогресс обзора</div>
         <div class="progress-status" id="progressStatusText">
-          Завершено 0 из 4 доступных частей (0%)
+          Завершено 0 из 33 частей (0%)
         </div>
         <div class="progress-bar-container">
           <div class="progress-bar-fill" id="progressBarFill"></div>
         </div>
       </div>
-      <div style="text-align: right;">
-        <div style="font-size: 12px; color: #64748b; font-weight: 700; text-transform: uppercase;">Текущий этап</div>
-        <div style="font-size: 16px; font-weight: 800; color: #38bdf8;" id="currentStageText">Модуль 2. Занятие 2</div>
-      </div>
+      <div class="progress-next">Далее: <span id="currentStageText">Пролог курса</span></div>
     </div>
 
         <!-- PROLOGUE MODULE (Module 0.0) -->
-    <div class="module-card" id="module0_card" style="border: 1px solid rgba(56, 189, 248, 0.4); background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); box-shadow: 0 10px 30px rgba(56, 189, 248, 0.1);">
-      <div class="module-header" style="border-bottom: 1px solid rgba(56, 189, 248, 0.2); padding-bottom: 16px; margin-bottom: 20px;">
-        <div>
-          <div class="module-num" style="color: #38bdf8; font-weight: 800;">Пролог курса • С чего всё началось</div>
-          <div class="module-title" style="font-size: 22px;">От Word-методички по электротехнике к интерактивным лабораториям</div>
-          <div class="module-desc" style="color: #cbd5e1; font-size: 14px;">
-            Подлинная история рождения этого курса: как кафедральный файл методички был скормлен нейросети и превратился в живые симуляторы электрических цепей (Лабораторные работы №11 и №12) без привлечения программистов.
-          </div>
-        </div>
-        <span class="module-badge badge-active" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4);">✨ Предыстория автора</span>
-      </div>
 
-      <div class="lessons-grid" style="grid-template-columns: 1fr;">
-        <div class="lesson-item" id="card_prologue" style="background: rgba(11, 15, 25, 0.7); border: 1px solid rgba(56, 189, 248, 0.25);">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
-            <div style="flex: 1; min-width: 280px;">
-              <div class="lesson-top">
-                <span class="lesson-duration" style="color: #38bdf8;">⏱ ~7 минут • 5 экранов со скриншотами</span>
-                <span class="lesson-status-badge status-ready" id="badge_prologue">Доступно</span>
-              </div>
-              <div class="lesson-title" style="font-size: 18px; color: #fff;">Вводная лекция-пролог: «От идеи к 16-часовому курсу»</div>
-              <div class="lesson-desc" style="margin-bottom: 0;">
-                Разбор реального кейса: анализ методички, инженерное ТЗ, постоянный ток и законы Кирхгофа (Лаб 11), переменный ток и векторные диаграммы (Лаб 12).
-              </div>
-            </div>
-            <div style="min-width: 200px; display: flex; align-items: center;">
-              <a href="prologue.html" class="btn-lesson btn-play" id="btn_prologue" style="background: linear-gradient(135deg, #0284c7, #38bdf8); font-size: 15px; padding: 12px 24px;">
-                ▶ Смотреть пролог
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- MODULE 1 -->
-    <div class="module-card">
-      <div class="module-header">
+    <details class="module-card module-accordion " id="module1_card">
+      <summary class="module-summary"><span class="module-summary-label"><span class="module-summary-num">Модуль 1 • Занятие 1</span><span class="module-summary-title">Что такое ИИ: от правил к машинному обучению</span></span><span class="module-summary-status" id="module1_summary_status" data-state="Not started">Не начат</span></summary><div class="module-header">
         <div>
           <div class="module-num">Модуль 1 • Занятие 1</div>
           <div class="module-title">Что такое ИИ: от правил к машинному обучению</div>
@@ -562,11 +603,11 @@
           </a>
         </div>
       </div>
-    </div>
+    </details>
 
     <!-- MODULE 2 (Active) -->
-    <div class="module-card" id="module2_card">
-      <div class="module-header">
+    <details class="module-card module-accordion " id="module2_card">
+      <summary class="module-summary"><span class="module-summary-label"><span class="module-summary-num">Модуль 2 • Занятие 2</span><span class="module-summary-title">Возможности и ограничения современных моделей</span></span><span class="module-summary-status" id="module2_summary_status" data-state="Not started">Не начат</span></summary><div class="module-header">
         <div>
           <div class="module-num">Модуль 2 • Занятие 2</div>
           <div class="module-title">Возможности и ограничения современных моделей</div>
@@ -622,7 +663,7 @@
               <span class="lesson-duration">⏱ ~9 минут</span>
               <span class="lesson-status-badge status-ready" id="badge_l2_p3">Доступно</span>
             </div>
-            <div class="lesson-title">Часть 2.3: Ландшафт моделей 2026 и доступ в РФ</div>
+            <div class="lesson-title">Часть 2.3: Выбор инструмента под задачу: экосистема нейросетей</div>
             <div class="lesson-desc">
               Сравнение флагманов 2026 года (GPT-6 Astra, Claude Fable, DeepSeek-V4.1, Z.ai GLM-5), облачные и локальные решения, экосистема маркетплейсов (Plati.Market) без запрещённых технологий.
             </div>
@@ -649,11 +690,11 @@
           </a>
         </div>
       </div>
-    </div>
+    </details>
 
         <!-- MODULE 3 (Active) -->
-    <div class="module-card" id="module3_card">
-      <div class="module-header">
+    <details class="module-card module-accordion " id="module3_card">
+      <summary class="module-summary"><span class="module-summary-label"><span class="module-summary-num">Модуль 3 • Занятие 3</span><span class="module-summary-title">Как всё устроено: «Мозг, Руки и Навыки» (Архитектура и MCP)</span></span><span class="module-summary-status" id="module3_summary_status" data-state="Not started">Не начат</span></summary><div class="module-header">
         <div>
           <div class="module-num">Модуль 3 • Занятие 3</div>
           <div class="module-title">Как всё устроено: «Мозг, Руки и Навыки» (Архитектура и MCP)</div>
@@ -736,16 +777,16 @@
           </a>
         </div>
       </div>
-    </div>
+    </details>
 
         <!-- MODULE 4 (Active) -->
-    <div class="module-card" id="module4_card">
-      <div class="module-header">
+    <details class="module-card module-accordion " id="module4_card">
+      <summary class="module-summary"><span class="module-summary-label"><span class="module-summary-num">Модуль 4 • Занятие 4</span><span class="module-summary-title">Запросы, диалог и промпт-инжиниринг для преподавателя</span></span><span class="module-summary-status" id="module4_summary_status" data-state="Not started">Не начат</span></summary><div class="module-header">
         <div>
           <div class="module-num">Модуль 4 • Занятие 4</div>
           <div class="module-title">Запросы, диалог и промпт-инжиниринг для преподавателя</div>
           <div class="module-desc">
-            Инженерный подход к диалогу с моделями: анатомия запроса, формулы RTIE и CLEAR, управление окном контекста, Few-Shot, Chain-of-Thought и мультимодальный анализ чертежей.
+            Инженерный подход к диалогу с моделями: анатомия запроса, каркас RTCE (Роль, Задача, Контекст, Ограничения), управление окном контекста, Few-Shot, Chain-of-Thought и мультимодальный анализ чертежей.
           </div>
         </div>
         <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
@@ -762,9 +803,9 @@
               <span class="lesson-duration">⏱ ~8 минут</span>
               <span class="lesson-status-badge status-ready" id="badge_l4_p1">Доступно</span>
             </div>
-            <div class="lesson-title">Часть 4.1: Основы промптинга: анатомия запроса и формулы RTIE / CLEAR</div>
+            <div class="lesson-title">Часть 4.1: Анатомия промпта: Роль, Задача, Контекст и Ограничения (RTCE)</div>
             <div class="lesson-desc">
-              Анатомия профессионального промпта: роль, задача, инструкция, ограничения и формат. Практические шаблоны формул RTIE и CLEAR для подготовки лекций и методичек.
+              Анатомия профессионального промпта: роль, задача, инструкция, ограничения и формат. Структура RTCE и примеры её применения при подготовке лекций и методичек.
             </div>
           </div>
           <a href="lesson_4_1.html" class="btn-lesson btn-play" id="btn_l4_p1">
@@ -823,11 +864,11 @@
           </a>
         </div>
       </div>
-    </div>
+    </details>
 
     <!-- MODULE 5 (Active) -->
-    <div class="module-card" id="module5_card">
-      <div class="module-header">
+    <details class="module-card module-accordion " id="module5_card">
+      <summary class="module-summary"><span class="module-summary-label"><span class="module-summary-num">Модуль 5 • Занятие 5</span><span class="module-summary-title">Анатомия интерфейса, инструменты и управление диалогом</span></span><span class="module-summary-status" id="module5_summary_status" data-state="Not started">Не начат</span></summary><div class="module-header">
         <div>
           <div class="module-num" style="color: #38bdf8;">Модуль 5 • Занятие 5</div>
           <div class="module-title">Анатомия интерфейса, инструменты и управление диалогом</div>
@@ -910,11 +951,11 @@
           </a>
         </div>
       </div>
-    </div>
+    </details>
 
     <!-- MODULE 6 (Active) -->
-    <div class="module-card" id="module6_card">
-      <div class="module-header">
+    <details class="module-card module-accordion " id="module6_card">
+      <summary class="module-summary"><span class="module-summary-label"><span class="module-summary-num">Модуль 6 • Занятие 6</span><span class="module-summary-title">От методички к презентации: извлечение ядра, верстка и код</span></span><span class="module-summary-status" id="module6_summary_status" data-state="Not started">Не начат</span></summary><div class="module-header">
         <div>
           <div class="module-num" style="color: #38bdf8;">Модуль 6 • Занятие 6</div>
           <div class="module-title">От методички к презентации: извлечение ядра, верстка и код</div>
@@ -970,7 +1011,7 @@
               <span class="lesson-duration">⏱ ~9 минут</span>
               <span class="lesson-status-badge status-ready" id="badge_l6_p3">Доступно</span>
             </div>
-            <div class="lesson-title">Часть 6.3: Интерактивные презентации: код и живой плеер</div>
+            <div class="lesson-title">Часть 6.3: Фактчекинг, редактура, версии и форматы выдачи</div>
             <div class="lesson-desc">
               Почему HTML/CSS побеждает PowerPoint: пошаговое раскрытие карточек, суфлёр, шторка рецензента и идеальная синхронизация с диктором.
             </div>
@@ -997,11 +1038,11 @@
           </a>
         </div>
       </div>
-    </div>
+    </details>
 
     <!-- MODULE 7 (Active) -->
-    <div class="module-card" id="module7_card" style="border: 1px solid rgba(168, 85, 247, 0.4); background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); box-shadow: 0 10px 30px rgba(168, 85, 247, 0.1);">
-      <div class="module-header" style="border-bottom: 1px solid rgba(168, 85, 247, 0.2); padding-bottom: 16px; margin-bottom: 20px;">
+    <details class="module-card module-accordion " id="module7_card" style="border: 1px solid rgba(168, 85, 247, 0.4); background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); box-shadow: 0 10px 30px rgba(168, 85, 247, 0.1);">
+      <summary class="module-summary"><span class="module-summary-label"><span class="module-summary-num">Модуль 7 • Занятие 7</span><span class="module-summary-title">Интерактив, голос и видео: от симуляций к живому аватару лектора</span></span><span class="module-summary-status" id="module7_summary_status" data-state="Not started">Не начат</span></summary><div class="module-header" style="border-bottom: 1px solid rgba(168, 85, 247, 0.2); padding-bottom: 16px; margin-bottom: 20px;">
         <div>
           <div class="module-num" style="color: #c084fc; font-weight: 800;">Модуль 7 • Занятие 7</div>
           <div class="module-title" style="font-size: 22px;">Интерактив, голос и видео: от симуляций к живому аватару лектора</div>
@@ -1088,11 +1129,139 @@
           </a>
         </div>
       </div>
-    </div>
+    </details>
 
     <!-- VIRTUAL LABORATORIES (Interactive CAE/TOE Simulators) -->
-    <div class="module-card" id="module-labs" style="border-color: rgba(99, 102, 241, 0.4); background: linear-gradient(180deg, rgba(30, 27, 75, 0.45) 0%, rgba(15, 23, 42, 0.7) 100%);">
-      <div class="module-header">
+
+
+    <!-- MODULE 8 (Active) -->
+    <details class="module-card module-accordion " id="module8_card" style="border: 1px solid rgba(16, 185, 129, 0.4); background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);">
+      <summary class="module-summary"><span class="module-summary-label"><span class="module-summary-num">Модуль 8 • Занятие 8</span><span class="module-summary-title">Итоговый практикум: сборка полного учебно-методического комплекса</span></span><span class="module-summary-status" id="module8_summary_status" data-state="Not started">Не начат</span></summary><div class="module-header" style="border-bottom: 1px solid rgba(16, 185, 129, 0.2); padding-bottom: 16px; margin-bottom: 20px;">
+        <div>
+          <div class="module-num" style="color: #34d399; font-weight: 800;">Модуль 8 • Занятие 8</div>
+          <div class="module-title" style="font-size: 22px;">Итоговый практикум: сборка полного учебно-методического комплекса</div>
+          <div class="module-desc" style="color: #cbd5e1; font-size: 14px;">
+            Сквозной пайплайн: превращение кафедральной методички в интерактивный УМК, генерация ФОС и тестов Moodle, персональный ИИ-тьютор через MCP, академический аудит и итоговый аттестационный практикум.
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <a href="handouts/lesson_08_handout.html" class="btn-handout-link" target="_blank" title="Открыть памятку преподавателя А4">📄 Памятка А4</a>
+          <span class="module-badge badge-active" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);">✨ Итоговый модуль</span>
+        </div>
+      </div>
+
+      <div class="lessons-grid">
+        <!-- Lesson 8.1 -->
+        <div class="lesson-item" id="card_l8_p1">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-ready" id="badge_l8_p1">Доступно</span>
+            </div>
+            <div class="lesson-title">Часть 8.1: Сквозной пайплайн: от методички к УМК</div>
+            <div class="lesson-desc">
+              Единый источник правды (SSOT), извлечение дидактических единиц, опорный конспект формата А4, автономный портал и пятиуровневый фильтр валидации.
+              <div style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;">
+                <a href="lab-11-virtual.html" target="_blank" style="text-decoration:none; font-size:11px; font-weight:700; color:#c7d2fe; background:rgba(99,102,241,0.2); border:1px solid rgba(99,102,241,0.35); padding:3px 8px; border-radius:6px;">🔬 Стенд 11 ↗</a>
+                <a href="lab-12-sinusoidal.html" target="_blank" style="text-decoration:none; font-size:11px; font-weight:700; color:#7dd3fc; background:rgba(14,165,233,0.2); border:1px solid rgba(14,165,233,0.35); padding:3px 8px; border-radius:6px;">⚡ Стенд 12 ↗</a>
+              </div>
+            </div>
+          </div>
+          <a href="lesson_8_1.html" class="btn-lesson btn-play" id="btn_l8_p1">
+            ▶ Смотреть урок
+          </a>
+        </div>
+
+        <!-- Lesson 8.2 -->
+        <div class="lesson-item" id="card_l8_p2">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-ready" id="badge_l8_p2">Доступно</span>
+            </div>
+            <div class="lesson-title">Часть 8.2: ФОС, тесты Moodle и ИИ-тьютор MCP</div>
+            <div class="lesson-desc">
+              Архитектура ФОС (текущий vs итоговый), экспорт в GIFT и Moodle XML, схема этого курса «Банк 18 / Выдача 7», сократический тьютор MCP и цифровой суверенитет.
+            </div>
+          </div>
+          <a href="lesson_8_2.html" class="btn-lesson btn-play" id="btn_l8_p2">
+            ▶ Смотреть урок
+          </a>
+        </div>
+
+        <!-- Lesson 8.3 -->
+        <div class="lesson-item" id="card_l8_p3">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration">⏱ ~8 минут</span>
+              <span class="lesson-status-badge status-ready" id="badge_l8_p3">Доступно</span>
+            </div>
+            <div class="lesson-title">Часть 8.3: За кулисами ИИ: отладка и архитектор</div>
+            <div class="lesson-desc">
+              Хроника 350ч vs 45ч, инцидент Playwright и самопочинка агента, страховка Git, конституция AGENTS.md и преподаватель как архитектор смыслов.
+            </div>
+          </div>
+          <a href="lesson_8_3.html" class="btn-lesson btn-play" id="btn_l8_p3">
+            ▶ Смотреть урок
+          </a>
+        </div>
+
+        <!-- Lesson 8.4 (Final Practicum) -->
+        <div class="lesson-item quiz-card" id="card_l8_p4">
+          <div>
+            <div class="lesson-top">
+              <span class="lesson-duration" style="color: #34d399;">Самопроверка • 7 кейсов</span>
+              <span class="lesson-status-badge status-ready" id="badge_l8_p4">Доступно</span>
+            </div>
+            <div class="lesson-title" style="color: #6ee7b7;">Часть 8.4: Итоговый тренажёр-практикум курса</div>
+            <div class="lesson-desc" style="color: #a7f3d0;">
+              Итоговая самопроверка по темам обзора: термины, запросы, подготовка материалов, интерактивные примеры и методика проверки.
+            </div>
+          </div>
+          <a href="lesson_8_4.html" class="btn-lesson btn-play" id="btn_l8_p4" style="background: linear-gradient(135deg, #059669, #10b981);">
+            Начать самопроверку
+          </a>
+        </div>
+      </div>
+    </details>
+
+<details class="module-card module-accordion prologue-section" id="module0_card" style="border: 1px solid rgba(56, 189, 248, 0.4); background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); box-shadow: 0 10px 30px rgba(56, 189, 248, 0.1);">
+      <summary class="module-summary"><span class="module-summary-label"><span class="module-summary-num">Пролог • История проекта</span><span class="module-summary-title">От электротехнической методички к интерактивным материалам</span></span><span class="module-summary-status" id="prologue_summary_status" data-state="Not started">Не начат</span></summary><div class="module-header" style="border-bottom: 1px solid rgba(56, 189, 248, 0.2); padding-bottom: 16px; margin-bottom: 20px;">
+        <div>
+          <div class="module-num" style="color: #38bdf8; font-weight: 800;">Пролог курса • С чего всё началось</div>
+          <div class="module-title" style="font-size: 22px;">От Word-методички по электротехнике к интерактивным лабораториям</div>
+          <div class="module-desc" style="color: #cbd5e1; font-size: 14px;">
+            Подлинная история рождения этого курса: как кафедральный файл методички был скормлен нейросети и превратился в живые симуляторы электрических цепей (Лабораторные работы №11 и №12) без привлечения программистов.
+          </div>
+        </div>
+        <span class="module-badge badge-active" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4);">✨ Предыстория автора</span>
+      </div>
+
+      <div class="lessons-grid" style="grid-template-columns: 1fr;">
+        <div class="lesson-item" id="card_prologue" style="background: rgba(11, 15, 25, 0.7); border: 1px solid rgba(56, 189, 248, 0.25);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+            <div style="flex: 1; min-width: 280px;">
+              <div class="lesson-top">
+                <span class="lesson-duration" style="color: #38bdf8;">⏱ ~7 минут • 5 экранов со скриншотами</span>
+                <span class="lesson-status-badge status-ready" id="badge_prologue">Доступно</span>
+              </div>
+              <div class="lesson-title" style="font-size: 18px; color: #fff;">Вводная лекция-пролог: «От идеи к 16-часовому курсу»</div>
+              <div class="lesson-desc" style="margin-bottom: 0;">
+                Разбор реального кейса: анализ методички, инженерное ТЗ, постоянный ток и законы Кирхгофа (Лаб 11), переменный ток и векторные диаграммы (Лаб 12).
+              </div>
+            </div>
+            <div style="min-width: 200px; display: flex; align-items: center;">
+              <a href="prologue.html" class="btn-lesson btn-play" id="btn_prologue" style="background: linear-gradient(135deg, #0284c7, #38bdf8); font-size: 15px; padding: 12px 24px;">
+                ▶ Смотреть пролог
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+<details class="module-card module-accordion labs-section" id="module-labs" style="border-color: rgba(99, 102, 241, 0.4); background: linear-gradient(180deg, rgba(30, 27, 75, 0.45) 0%, rgba(15, 23, 42, 0.7) 100%);">
+      <summary class="module-summary"><span class="module-summary-label"><span class="module-summary-num">Примеры • Лаборатории</span><span class="module-summary-title">Виртуальные лаборатории электротехники</span></span><span class="module-summary-status" id="labs_summary_status" data-state="2 стенда">2 стенда</span></summary><div class="module-header">
         <div>
           <div class="module-num" style="color: #a5b4fc;">🧪 Кафедральный практикум • Виртуальные лаборатории электротехники</div>
           <div class="module-title">Интерактивные стенды и симуляторы электротехники</div>
@@ -1142,98 +1311,8 @@
           </a>
         </div>
       </div>
-    </div>
+    </details>
 
-    <!-- MODULE 8 (Active) -->
-    <div class="module-card" id="module8_card" style="border: 1px solid rgba(16, 185, 129, 0.4); background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);">
-      <div class="module-header" style="border-bottom: 1px solid rgba(16, 185, 129, 0.2); padding-bottom: 16px; margin-bottom: 20px;">
-        <div>
-          <div class="module-num" style="color: #34d399; font-weight: 800;">Модуль 8 • Занятие 8</div>
-          <div class="module-title" style="font-size: 22px;">Итоговый практикум: сборка полного учебно-методического комплекса</div>
-          <div class="module-desc" style="color: #cbd5e1; font-size: 14px;">
-            Сквозной пайплайн: превращение кафедральной методички в интерактивный УМК, генерация ФОС и тестов Moodle, персональный ИИ-тьютор через MCP, академический аудит и итоговый аттестационный практикум.
-          </div>
-        </div>
-        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-          <a href="handouts/lesson_08_handout.html" class="btn-handout-link" target="_blank" title="Открыть памятку преподавателя А4">📄 Памятка А4</a>
-          <span class="module-badge badge-active" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);">✨ Итоговый модуль</span>
-        </div>
-      </div>
-
-      <div class="lessons-grid">
-        <!-- Lesson 8.1 -->
-        <div class="lesson-item" id="card_l8_p1">
-          <div>
-            <div class="lesson-top">
-              <span class="lesson-duration">⏱ ~8 минут</span>
-              <span class="lesson-status-badge status-ready" id="badge_l8_p1">Доступно</span>
-            </div>
-            <div class="lesson-title">Часть 8.1: Сквозной пайплайн: от методички к УМК</div>
-            <div class="lesson-desc">
-              Единый источник правды (SSOT), извлечение дидактических единиц, опорный конспект формата А4, автономный портал и пятиуровневый фильтр валидации.
-              <div style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;">
-                <a href="lab-11-virtual.html" target="_blank" style="text-decoration:none; font-size:11px; font-weight:700; color:#c7d2fe; background:rgba(99,102,241,0.2); border:1px solid rgba(99,102,241,0.35); padding:3px 8px; border-radius:6px;">🔬 Стенд 11 ↗</a>
-                <a href="lab-12-sinusoidal.html" target="_blank" style="text-decoration:none; font-size:11px; font-weight:700; color:#7dd3fc; background:rgba(14,165,233,0.2); border:1px solid rgba(14,165,233,0.35); padding:3px 8px; border-radius:6px;">⚡ Стенд 12 ↗</a>
-              </div>
-            </div>
-          </div>
-          <a href="lesson_8_1.html" class="btn-lesson btn-play" id="btn_l8_p1">
-            ▶ Смотреть урок
-          </a>
-        </div>
-
-        <!-- Lesson 8.2 -->
-        <div class="lesson-item" id="card_l8_p2">
-          <div>
-            <div class="lesson-top">
-              <span class="lesson-duration">⏱ ~8 минут</span>
-              <span class="lesson-status-badge status-ready" id="badge_l8_p2">Доступно</span>
-            </div>
-            <div class="lesson-title">Часть 8.2: ФОС, тесты Moodle и ИИ-тьютор MCP</div>
-            <div class="lesson-desc">
-              Архитектура ФОС (текущий vs итоговый), экспорт в GIFT и Moodle XML, стандарт «Банк 18 / Выдача 7», сократический тьютор MCP и цифровой суверенитет.
-            </div>
-          </div>
-          <a href="lesson_8_2.html" class="btn-lesson btn-play" id="btn_l8_p2">
-            ▶ Смотреть урок
-          </a>
-        </div>
-
-        <!-- Lesson 8.3 -->
-        <div class="lesson-item" id="card_l8_p3">
-          <div>
-            <div class="lesson-top">
-              <span class="lesson-duration">⏱ ~8 минут</span>
-              <span class="lesson-status-badge status-ready" id="badge_l8_p3">Доступно</span>
-            </div>
-            <div class="lesson-title">Часть 8.3: За кулисами ИИ: отладка и архитектор</div>
-            <div class="lesson-desc">
-              Хроника 350ч vs 45ч, инцидент Playwright и самопочинка агента, страховка Git, конституция AGENTS.md и преподаватель как архитектор смыслов.
-            </div>
-          </div>
-          <a href="lesson_8_3.html" class="btn-lesson btn-play" id="btn_l8_p3">
-            ▶ Смотреть урок
-          </a>
-        </div>
-
-        <!-- Lesson 8.4 (Final Practicum) -->
-        <div class="lesson-item quiz-card" id="card_l8_p4">
-          <div>
-            <div class="lesson-top">
-              <span class="lesson-duration" style="color: #34d399;">🎓 Итоговая аттестация • 7 кейсов</span>
-              <span class="lesson-status-badge status-ready" id="badge_l8_p4">Доступно</span>
-            </div>
-            <div class="lesson-title" style="color: #6ee7b7;">Часть 8.4: Итоговый тренажёр-практикум курса</div>
-            <div class="lesson-desc" style="color: #a7f3d0;">
-              Комплексный экзаменационный тренажёр по всем 8 модулям программы: термины, промпты, вёрстка, видео, симуляторы и методика.
-            </div>
-          </div>
-          <a href="lesson_8_4.html" class="btn-lesson btn-play" id="btn_l8_p4" style="background: linear-gradient(135deg, #059669, #10b981);">
-            🎯 Начать аттестацию
-          </a>
-        </div>
-      </div>
-    </div>
 
     <footer>
       16-часовой учебный курс по искусственному интеллекту • Разработано для преподавателей • 2026
@@ -1241,12 +1320,18 @@
     </footer>
   </div>
 
+  <script src="assets/course_overview.js"></script>
   <script>
         function updateLMSState() {
       // 1. Prologue
-      const prologueDone = localStorage.getItem('ai_course_prologue_completed') === 'true';
+      const prologueDone = CourseOverview.safeCompleted('ai_course_prologue_completed');
       const badgePrologue = document.getElementById('badge_prologue');
       const btnPrologue = document.getElementById('btn_prologue');
+      const prologueSummary = document.getElementById('prologue_summary_status');
+      if (prologueSummary) {
+        prologueSummary.innerText = prologueDone ? 'Завершён' : 'Не начат';
+        prologueSummary.dataset.state = prologueDone ? 'Completed' : 'Not started';
+      }
       if (badgePrologue && btnPrologue) {
         if (prologueDone) {
           badgePrologue.className = 'lesson-status-badge status-completed';
@@ -1273,7 +1358,7 @@
         'l8_p1', 'l8_p2', 'l8_p3', 'l8_p4'
       ];
 
-      const p = lessonIds.map(id => localStorage.getItem(`ai_course_${id}_completed`) === 'true');
+      const p = lessonIds.map(id => CourseOverview.safeCompleted(`ai_course_${id}_completed`));
       let totalCompleted = (prologueDone ? 1 : 0) + p.filter(Boolean).length;
 
       lessonIds.forEach((id, idx) => {
@@ -1303,31 +1388,15 @@
         }
       });
 
-      // 3. Update Current Stage Text
+      // 3. Show the next unfinished part and keep a working fallback if storage is blocked.
       const stageText = document.getElementById('currentStageText');
-      if (stageText) {
-        if (totalCompleted >= 33) {
-          stageText.innerText = 'Курс полностью завершён! Все 8 модулей освоены! 🎓';
-        } else if (p[27]) { // Module 7 done
-          stageText.innerText = 'Модуль 8. Занятие 8';
-        } else if (p[23]) { // Module 6 done
-          stageText.innerText = 'Модуль 7. Занятие 7';
-        } else if (p[19]) { // Module 5 done
-          stageText.innerText = 'Модуль 6. Занятие 6';
-        } else if (p[15]) { // Module 4 done
-          stageText.innerText = 'Модуль 5. Занятие 5';
-        } else if (p[11]) { // Module 3 done
-          stageText.innerText = 'Модуль 4. Занятие 4';
-        } else if (p[7]) { // Module 2 done
-          stageText.innerText = 'Модуль 3. Занятие 3';
-        } else if (p[3]) { // Module 1 done
-          stageText.innerText = 'Модуль 2. Занятие 2';
-        } else if (prologueDone) {
-          stageText.innerText = 'Модуль 1. Занятие 1';
-        } else {
-          stageText.innerText = 'Пролог курса';
-        }
+      const nextPart = CourseOverview.firstIncompletePart([prologueDone, ...p]);
+      const continueButton = document.getElementById('startContinueButton');
+      if (continueButton) {
+        continueButton.href = nextPart;
+        continueButton.innerText = totalCompleted >= 33 ? 'Обзор завершён — открыть пролог снова →' : `Продолжить обзор: ${nextPart === 'prologue.html' ? 'пролог' : 'часть ' + nextPart.match(/lesson_(\d+_\d+)/)[1].replace('_', '.')} →`;
       }
+      if (stageText) stageText.innerText = totalCompleted >= 33 ? 'Обзор завершён' : nextPart === 'prologue.html' ? 'Пролог курса' : `Часть ${nextPart.match(/lesson_(\d+_\d+)/)[1].replace('_', '.')}`;
 
       // 3b. Update Module Badges (B5)
       const moduleBounds = [
@@ -1345,13 +1414,17 @@
         if (!card) return;
         const badge = card.querySelector('.module-badge');
         if (!badge) return;
-        const allDone = p.slice(mod.start, mod.end + 1).every(Boolean);
-        if (allDone) {
-          badge.className = 'module-badge';
-          badge.style.background = 'rgba(16, 185, 129, 0.15)';
-          badge.style.color = '#10b981';
-          badge.style.border = '1px solid rgba(16, 185, 129, 0.3)';
-          badge.innerText = '✓ Модуль завершён';
+        const moduleProgress = p.slice(mod.start, mod.end + 1);
+        const state = CourseOverview.moduleStatus(moduleProgress);
+        badge.className = 'module-badge ' + (state === 'Completed' ? '' : state === 'In progress' ? 'badge-active' : 'badge-locked');
+        badge.style.background = state === 'Completed' ? 'rgba(16, 185, 129, 0.15)' : '';
+        badge.style.color = state === 'Completed' ? '#10b981' : '';
+        badge.style.border = state === 'Completed' ? '1px solid rgba(16, 185, 129, 0.3)' : '';
+        badge.innerText = state === 'Completed' ? 'Завершён' : state === 'In progress' ? 'В процессе' : 'Не начат';
+        const summaryStatus = document.getElementById(mod.id.replace('_card', '_summary_status'));
+        if (summaryStatus) {
+          summaryStatus.innerText = state === 'Completed' ? 'Завершён' : state === 'In progress' ? 'В процессе' : 'Не начат';
+          summaryStatus.dataset.state = state;
         }
       });
 
@@ -1361,12 +1434,12 @@
       const barFill = document.getElementById('progressBarFill');
       const statusText = document.getElementById('progressStatusText');
       if (barFill) barFill.style.width = pct + '%';
-      if (statusText) statusText.innerText = `Завершено ${totalCompleted} из ${totalAvailable} доступных частей (${pct}%)`;
+      if (statusText) statusText.innerText = `Завершено ${totalCompleted} из ${totalAvailable} частей обзора (${pct}%)`;
     }
 
     function resetProgress() {
       if (confirm('Сбросить весь сохраненный прогресс обучения для проверки?')) {
-        localStorage.removeItem('ai_course_prologue_completed');
+        CourseOverview.safeRemove('ai_course_prologue_completed');
         const allIds = [
           'l1_p1', 'l1_p2', 'l1_p3', 'l1_p4',
           'l2_p1', 'l2_p2', 'l2_p3', 'l2_p4',
@@ -1377,8 +1450,8 @@
           'l7_p1', 'l7_p2', 'l7_p3', 'l7_p4',
           'l8_p1', 'l8_p2', 'l8_p3', 'l8_p4'
         ];
-        allIds.forEach(id => localStorage.removeItem(`ai_course_${id}_completed`));
-        localStorage.removeItem('ai_course_completed_list');
+        allIds.forEach(id => CourseOverview.safeRemove(`ai_course_${id}_completed`));
+        CourseOverview.safeRemove('ai_course_completed_list');
         updateLMSState();
       }
     }
@@ -1713,7 +1786,7 @@
   </script>
 
   <script>
-    const GLOSSARY_ITEMS = [{"id":"model","term":"Модель (Model / LLM)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Большая математическая нейросетевая программа, обученная на гигантских массивах текста предсказывать наиболее вероятное продолжение фразы.","analogy":"Очень начитанный выпускник университета с феноменальной ассоциативной памятью, но без собственного физического тела и органов чувств.","example":"Преподаватель задаёт вопрос по электротехнике, и модель генерирует ответ на основе статистических закономерностей из прочитанных учебников.","keywords":["модель","llm","нейросеть","model","language model","трансформер"]},{"id":"token","term":"Токен (Token / Tokenization)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Базовая смысловая единица текста для языковой модели — слово, слог, морфема или корень длиной 3–4 символа.","analogy":"Слоговая азбука или кубики детского конструктора, из которых нейросеть по кусочкам собирает слова и предложения.","example":"В одном русском слове «Электротехника» модель видит 4–5 токенов; лимиты запросов и тарификация API измеряются строго в тысячах токенов.","keywords":["токен","токенизация","token","tokenization","стоимость","объем"]},{"id":"context-window","term":"Контекстное окно (Context Window)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Предельный объём текста («оперативная память»), который нейросеть способна одновременно удерживать в одном диалоге.","analogy":"Рабочий стол исследователя: пока документов немного, всё на виду; когда стол завален сотнями листов, старые записи падают на пол и забываются.","example":"Если прикрепить к чату учебник на 500 страниц, модель с окном 8K токенов просто не прочитает его, а модель с окном 1M токенов удержит книгу целиком.","keywords":["контекстное окно","контекст","память","context window","лимит памяти"]},{"id":"hallucination","term":"Галлюцинация (Hallucination)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Генерация моделью внешне убедительных, но фактически ложных утверждений, вымышленных формул, авторов или номеров стандартов.","analogy":"Студент на экзамене, который не знает точного ответа, но бойко и наукообразно придумывает несуществующий закон физики с серьёзным лицом.","example":"Модель уверенно цитирует «статью Иванова 2021 года в Вестнике МЭИ» с недействующим DOI — факт требует обязательной проверки преподавателем.","keywords":["галлюцинация","галлюцинации","ошибка","hallucination","ложь","выдумка","достоверность"]},{"id":"next-token-prediction","term":"Next-Token Prediction (Предсказание токена)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Фундаментальный принцип работы современных нейросетей: пошаговый вероятностный выбор следующего наиболее подходящего слова.","analogy":"Функция автодополнения (Т9) в смартфоне, доведённая суперкомпьютерами до уровня виртуозного продолжения научных трактатов.","example":"Модель не «думает» в человеческом смысле, а вычисляет вероятности: после слов «Первый закон...» с вероятностью 85% следует слово «Кирхгофа».","keywords":["next-token","предсказание","вероятность","статистика","т9"]},{"id":"moe","term":"MoE (Mixture of Experts / Смесь экспертов)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Архитектура нейросети, где модель разделена на десятки специализированных блоков, из которых под каждый запрос включаются только 2–3.","analogy":"Консилиум профессоров кафедры: при вопросе по математике слово дают математику, а остальные специалисты слушают и не тратят энергию.","example":"Модель DeepSeek-V3 имеет 671 млрд параметров, но на каждый токен запускает только 37 млрд, работая быстрее и дешевле монолитных сетей.","keywords":["moe","mixture of experts","эксперты","смесь экспертов","архитектура"]},{"id":"thinking-mode","term":"Thinking Mode (Режим рассуждений)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Режим работы новейших моделей (DeepSeek-R1, GLM-4.5, OpenAI o1), где модель перед выводом ответа строит скрытую цепочку самопроверки.","analogy":"Черновик инженера: прежде чем записать формулу в чистовик, он решает уравнение на черновике, ищет противоречия и исправляет знаки.","example":"При расчёте разветвлённой цепи модель 10 секунд «думает про себя», проверяя баланс мощностей, и только затем выдаёт безошибочный числовой ответ.","keywords":["thinking mode","рассуждения","черновик","thinking","r1","o1"]},{"id":"open-source","term":"Open-Source модели (Открытый вес)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Нейросети, чьи математические веса и архитектура опубликованы в открытом доступе для свободного скачивания и автономного запуска.","analogy":"Методическое пособие с открытым исходным кодом, которое любая кафедра может бесплатно скачать, изменить под себя и запускать на своих ПК.","example":"Модели семейств DeepSeek, Qwen и GLM можно развернуть на кафедральном сервере без отправки данных студентов на зарубежные сервера.","keywords":["open-source","открытые модели","веса","deepseek","qwen","локально"]},{"id":"proprietary","term":"Проприетарные модели (Закрытые облака)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Коммерческие закрытые модели компаний (OpenAI, Anthropic), доступные исключительно через подписку на сайте или платные облачные запросы.","analogy":"Аренда лаборатории в закрытом исследовательском центре: вы получаете результат, но не можете заглянуть внутрь приборов и забрать их к себе.","example":"ChatGPT Plus (GPT-6) или Claude Pro — мощные инструменты, но требуют постоянной оплаты подписки и доступа в глобальную сеть.","keywords":["проприетарные","proprietary","закрытые","chatgpt","claude","облако"]},{"id":"dataset","term":"Датасет (Dataset)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Тщательно собранная, структурированная и размеченная база данных (тексты, книги, задачи), на которой обучается нейросеть.","analogy":"Университетская библиотека учебников и задачников с эталонными ответами, которую студент обязан проштудировать перед сдачей сессии.","example":"Датасет ImageNet из 14 млн размеченных фотографий запустил революцию глубокого обучения и позволил компьютерам распознавать образы.","keywords":["датасет","dataset","обучающая выборка","данные","разметка"]},{"id":"symbolic-ai","term":"Символический ИИ (Symbolic AI / ИИ правил)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Классическое направление ИИ, основанное на жёстких детерминированных правилах вида «Если... то...» без самообучения на данных.","analogy":"Свод законов или строгая инструкция по охране труда: каждое действие заранее прописано человеком, шаг влево или вправо не предусмотрен.","example":"Шахматная программа Deep Blue (1997) или экспертные медицинские системы 1980-х годов, проверяющие симптомы по жёсткой логической схеме.","keywords":["символический ии","symbolic ai","правила","экспертные системы","deep blue","логика"]},{"id":"prompt","term":"Промпт (Prompt / Запрос)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Входной текстовый запрос, инструкция или контекст, направляемый пользователем языковой модели для решения конкретной задачи.","analogy":"Инженерное техническое задание (ТЗ) или формулировка темы курсового проекта, выданная научным руководителем студенту.","example":"«Составь 5 тестовых вопросов по закону Ома для студентов 2 курса электротехнического факультета с четырьмя дистракторами».","keywords":["промпт","prompt","запрос","инструкция","тз"]},{"id":"prompt-engineering","term":"Промпт-инжиниринг (Prompt Engineering)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Инженерная методика формулирования запросов с ролями, ограничениями и форматами для получения стабильного академического результата.","analogy":"Культура формулирования лабораторных регламентов и ГОСТов: чем строже описаны правила, тем меньше шансов на брак в итоговом изделии.","example":"Добавление к вопросу ролевого контекста («Ты — доцент кафедры») и формата («Выведи ответ строго в таблице») повышает качество в разы.","keywords":["промпт-инжиниринг","инжиниринг","методика","prompt engineering"]},{"id":"rtce","term":"Каркас RTCE (Role, Task, Context, Expectation)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Кафедральный 4-модульный стандарт надёжного промпта: Роль (Role), Задача (Task), Контекст (Context), Ожидаемый результат (Expectation).","analogy":"Бланк кафедрального задания на выпускную квалификационную работу: кто делает, что сделать, в каких условиях и в какой форме сдать.","example":"R: Методист кафедры. T: Напиши пояснительную записку. C: Студенты 1 курса. E: 2 страницы текста без вводных слов и с формулами в LaTeX.","keywords":["rtce","каркас","шаблон","структура промпта"]},{"id":"zero-shot","term":"Zero-Shot («С нуля» / без примеров)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Запрос к нейросети в лоб, без передачи единого примера ожидаемого оформления или эталонного ответа.","analogy":"Преподаватель говорит дипломнику: «Сделай презентацию красиво», не показав ни одного кафедрального образца.","example":"«Напиши тест по электродинамике». Модель выдаст вопросы в своём случайном формате, который придётся долго переделывать вручную.","keywords":["zero-shot","без примеров","прямой запрос"]},{"id":"few-shot","term":"Few-Shot (Обучение на примерах)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Техника промптинга, при которой модели передают 2–3 готовых эталонных образца перед формулировкой основного задания.","analogy":"Методичка с образцом оформления: студент видит пример оформления задачи №1 и №2 и строго по аналогии оформляет задачу №3.","example":"Передаём модели 2 образцовых тестовых билета в формате Moodle, и она безошибочно генерирует следующие 20 вопросов в том же формате.","keywords":["few-shot","примеры","образцы","калибровка"]},{"id":"chain-of-thought","term":"Chain-of-Thought (CoT / Цепочка рассуждений)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Метод управления логикой, заставляющий модель выписывать промежуточные этапы решения задачи перед выдачей итогового ответа.","analogy":"Классическое требование преподавателя математики: «Покажи промежуточные выкладки и решение, а не просто пиши ответ в конце тетради».","example":"Инструкция «Решай задачу пошагово, выводя законы Кирхгофа для каждого узла» исключает арифметические промахи модели.","keywords":["chain-of-thought","cot","цепочка рассуждений","пошагово","рассуждения"]},{"id":"custom-instructions","term":"Custom Instructions (Пользовательские инструкции)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Постоянный профиль настроек в аккаунте ИИ, который автоматически прикрепляется в начало каждого нового диалога.","analogy":"Постоянная должностная инструкция на рабочем столе ассистента: «Всегда обращайся на Вы, оформляй формулы по ГОСТу, отвечай лаконично».","example":"Преподаватель единожды настраивает профиль «Академический методист ВПО», и модель никогда больше не начинает реплики с приветствий и пустых комплиментов.","keywords":["custom instructions","инструкции аккаунта","профиль","настройки"]},{"id":"system-prompt","term":"Системный промпт (System Prompt)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Базовая скрытая директива разработчика или администратора, имеющая наивысший приоритет над сообщениями пользователя.","analogy":"Конституция или устав университета: правила внутреннего распорядка, которые ни один студент или лектор не может отменить.","example":"В системном промпте чат-бота дисциплины прописывается: «Категорически запрещено решать задачу за студента — задавай только наводящие вопросы».","keywords":["системный промпт","system prompt","директива","ограничения"]},{"id":"anti-fluff","term":"Anti-Fluff Protocol (Протокол анти-воды)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Свод запретов на словесный мусор: отсечение ритуальных приветствий, комплиментов («Отличный вопрос!»), вводных фраз и морализаторства.","analogy":"Строгий академический стиль научной монографии: изложение начинается строго с формулировки теоремы или тезиса без лирических отступлений.","example":"Благодаря протоколу модель отвечает сразу структурированным списком или таблицей, экономя время преподавателя и полезное место на слайде.","keywords":["anti-fluff","анти-вода","лаконичность","без воды","протокол"]},{"id":"agentic-ai","term":"Агентный ИИ (Agentic AI)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Автономная система на базе ИИ, способная самостоятельно декомпозировать цель, запускать внешние программы, тестировать себя и исправлять ошибки.","analogy":"Квалифицированный инженер-лаборант: вы ставите задачу подготовить стенд к паре, а он сам находит приборы, соединяет схему и проверяет предохранители.","example":"Агент получает задачу «Собрать плеер лекции по методичке», сам пишет код HTML/JS, запускает браузер, кликает кнопки и рапортует об успехе.","keywords":["агентный ии","agentic ai","агент","автономия","субагент"]},{"id":"harness","term":"Harness (Агентная среда / «Упряжь»)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Программное окружение вокруг языковой модели (Antigravity, Claude Code, Cursor), которое предоставляет нейросети файлы, терминал и инструменты.","analogy":"Кабинет учёного со столом, шкафами с папками, компьютером и телефоном — без этой рабочей комнаты учёный не может передать свои мысли миру.","example":"Сама по себе модель в окне браузера может только печатать буквы; помещённая в Harness, она получает доступ к редактированию файлов на диске.","keywords":["harness","харнесс","агентная среда","оболочка","среда разработки"]},{"id":"tools","term":"Инструменты (Tools / Tool Calling)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Механизм, при котором языковая модель сама формирует команду вызова внешней утилиты (калькулятора, поиска в интернете, компилятора).","analogy":"Руки и измерительные приборы инженера: когда голова понимает, что нужно измерить напряжение, рука берёт вольтметр и щупы.","example":"Вместо приближённого подсчёта в уме нейросеть вызывает команду Python-калькулятора и получает строгое математическое значение до 6 знаков.","keywords":["tools","tool calling","инструменты","вызов функций","тулколлинг"]},{"id":"mcp","term":"MCP (Model Context Protocol)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Открытый индустриальный стандарт подключения внешних источников данных (локальных папок, баз данных, браузера) к любой нейросети.","analogy":"Универсальный разъём USB Type-C для искусственного интеллекта: один штекер подходит ко всем моделям и периферийным устройствам.","example":"Благодаря MCP локальный ассистент безопасно читает кафедральную папку с методичками, не требуя сложной настройки серверов и баз данных.","keywords":["mcp","model context protocol","протокол","стандарт","подключение"]},{"id":"skills","term":"Навыки (Skills)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Изолированные пакеты инструкций, скриптов и правил, подключаемые к агенту по требованию для решения узкоспециализированных задач.","analogy":"Инструкция по технике безопасности или должностной регламент работы на конкретном сложном испытательном стенде.","example":"Скилл «HyperFrames» учит агента создавать кинематографические презентации с таймингами 1.5 секунды и режимом автоскрытия панелей.","keywords":["skills","навыки","скиллы","регламент","правила"]},{"id":"api","term":"API (Application Programming Interface)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Стандартизированный программный интерфейс, через который скрипты обмениваются запросами и данными с нейросетевыми серверами.","analogy":"Окно выдачи кафедральной библиотеки: программа подаёт стандартный формуляр с запросом и мгновенно получает нужный том данных в ответ.","example":"Скрипт генерации голоса отправляет по API текст лекции в Google Cloud и через секунду получает обратно аудиодорожку MP3.","keywords":["api","шлюз","интерфейс","запросы","ключ api"]},{"id":"headless-browser","term":"Headless браузер / Playwright","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Специальный режим веб-браузера без отрисовки графического окна на экране, управляемый программами автоматического тестирования.","analogy":"Ночной автоматический контроль лаборатории: датчики и роботы проверяют все розетки и приборы в темноте без присутствия человека.","example":"Агент запускает Playwright в фоне, открывает созданную страницу урока 7.1, делает клики по кнопкам и убеждается, что в консоли нет ошибок.","keywords":["headless","playwright","браузер","автотест","тестирование"]},{"id":"qa","term":"QA (Quality Assurance / Контроль качества)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Система процедур и автоматических проверок, гарантирующая работоспособность ссылок, таймингов, кнопок и отсутствие багов в материале.","analogy":"Кафедральный нормоконтроль перед защитой диплома: проверка чертежей, шрифтов, формул и комплектности пояснительной записки.","example":"Перед сдачей лекции преподавателю агент проводит QA-тест: проверяет наличие аудио во всех 5 слайдах и работу горячих клавиш.","keywords":["qa","quality assurance","контроль качества","нормоконтроль","тесты"]},{"id":"human-in-the-loop","term":"Human-in-the-Loop (Человек в контуре)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Базовый принцип академической безопасности: ни один учебный материал не идёт студентам без финальной экспертной приёмки преподавателем.","analogy":"Подпись заведующего кафедрой на титульном листе: как бы хорошо ни был написан отчёт, юридическую силу ему даёт только живая подпись эксперта.","example":"ИИ готовит черновик теста и проверяет его скриптами, но верность дидактики и отсутствие скрытых ошибок лично утверждает лектор.","keywords":["human-in-the-loop","человек в контуре","роль человека","контроль","экспертиза"]},{"id":"pipeline","term":"Пайплайн (Pipeline / Конвейер)","category":"formats","categoryName":"Форматы и разметка","shortDef":"Непрерывный автоматизированный конвейер: результат работы одного этапа сразу передаётся на вход следующему без ручной рутины.","analogy":"Заводская сборочная линия: штамповка деталей → сварка кузова → покраска → установка мотора → итоговый контроль ОТК.","example":"Сценарий в Markdown → синтез речи TTS → сборка веб-плеера → автопрогон в Playwright → публикация на сайте кафедры.","keywords":["пайплайн","pipeline","конвейер","цепочка","автоматизация"]},{"id":"markdown","term":"Markdown (.md)","category":"formats","categoryName":"Форматы и разметка","shortDef":"Универсальный легковесный текстовый формат разметки, превращающий простой текст с символами `#`, `*`, `-` в аккуратно оформленные документы.","analogy":"Корректорская разметка на полях рукописи простым карандашом: волнистая черта — курсив, двойная — заголовок, кружок — список.","example":"Вместо тяжёлых файлов Word сценарии лекций и промпты хранятся в Markdown: они открываются мгновенно на любом устройстве и не сбивают верстку.","keywords":["markdown","md","разметка","формат","текст"]},{"id":"latex","term":"LaTeX / MathJax","category":"formats","categoryName":"Форматы и разметка","shortDef":"Международный стандарт академического набора сложных математических формул и уравнений в виде текстовых команд.","analogy":"Нотная грамота для математики: точная система знаков, которая везде читается и печатается одинаково безупречно.","example":"Запись `\\frac{U^2}{R}` в браузере или Moodle превращается через библиотеку MathJax в идеально отрисованную типографскую дробь.","keywords":["latex","mathjax","формулы","математика","дроби","уравнения"]},{"id":"svg","term":"SVG (Scalable Vector Graphics)","category":"formats","categoryName":"Форматы и разметка","shortDef":"Формат векторной графики, где чертежи и схемы описаны математическими формулами, а не пикселями, сохраняя идеальную резкость.","analogy":"Чертёж тушью на миллиметровке по координатам: сколько ни приближай через лупу, линия остаётся абсолютно тонкой и чёткой.","example":"Электрическая схема в SVG весит всего 10 Кб, великолепно выглядит на 4K-мониторе и позволяет анимировать стрелки приборов через скрипты.","keywords":["svg","векторная графика","вектор","схемы","чертежи","масштабирование"]},{"id":"lms","term":"LMS (Learning Management System)","category":"formats","categoryName":"Форматы и разметка","shortDef":"Университетская цифровая платформа управления учебным процессом (Moodle, ЭОС ВУЗа), где публикуются курсы, тесты и оценки.","analogy":"Электронный деканат и учебный корпус в одном окне: аудитории с материалами, журнал успеваемости и сдача контрольных работ.","example":"Преподаватель загружает сгенерированный тестовый пакет в университетский Moodle для автоматической аттестации потока студентов.","keywords":["lms","moodle","эос","система обучения","дистанционное обучение"]},{"id":"gift-moodle-xml","term":"GIFT и Moodle XML","category":"formats","categoryName":"Форматы и разметка","shortDef":"Специализированные форматы разметки тестовых баз для мгновенного пакетного импорта сотен вопросов в систему Moodle.","analogy":"Стандартизированный упаковочный контейнер для экспресс-доставки: приехал на склад, открыл — и все 100 приборов встали на свои полки.","example":"ИИ генерирует 50 вопросов в коде Moodle XML, преподаватель нажимает «Импорт» в Moodle, и через 3 секунды банк тестов готов к тестированию.","keywords":["gift","moodle xml","xml","тесты","импорт тестов","банк вопросов"]},{"id":"rag","term":"RAG (Retrieval-Augmented Generation)","category":"formats","categoryName":"Форматы и разметка","shortDef":"Технология «поиска перед ответом»: модель сначала находит точные цитаты в загруженных кафедральных файлах и отвечает строго по ним.","analogy":"Экзамен с правом заглядывать в утверждённый справочник: студент сначала открывает методичку на нужной странице, а потом формулирует ответ.","example":"При вопросе о лабораторной работе RAG находит текст Лаб №11 и гарантирует, что ИИ не перепутает номиналы резисторов и схему моста.","keywords":["rag","поиск","база знаний","методички","retrieval"]},{"id":"json","term":"JSON (JavaScript Object Notation)","category":"formats","categoryName":"Форматы и разметка","shortDef":"Простой текстовый формат хранения структурированных данных в виде пар «ключ: значение» и упорядоченных списков.","analogy":"Кафедральная картотека с четко подписанными графами: Фамилия, Номер билета, Оценка, Дата сдачи.","example":"Файл `manifest.json` в каждом уроке курса хранит заголовки слайдов, точные таймкоды аудиодорожек и тексты карточек для плеера.","keywords":["json","манифест","структура","данные","формат"]},{"id":"multimodality","term":"Мультимодальность (Multimodal / Vision)","category":"multimodal","categoryName":"Мультимодальность и медиа","shortDef":"Способность нейросети одновременно воспринимать разнородные типы данных: текст, фотографии схем, графики, рукописи и аудио.","analogy":"Зрение и слух преподавателя: он может одновременно читать реферат студента, смотреть на показания осциллографа и слушать устный ответ.","example":"Сфотографируйте рукописный вывод формулы с доски и отправьте в модель — зрение нейросети распознает символы и переведёт их в LaTeX.","keywords":["мультимодальность","vision","зрение","распознавание","схемы","осциллограммы"]},{"id":"tts","term":"TTS (Text-to-Speech / Синтез речи)","category":"multimodal","categoryName":"Мультимодальность и медиа","shortDef":"Нейросетевая технология озвучивания печатного текста естественным человеческим голосом с правильной интонацией и темпом.","analogy":"Профессиональный диктор у микрофона в студии звукозаписи, готовый без усталости начитать сотни страниц кафедральных лекций.","example":"Все 8 уроков курса озвучены моделью Google Gemini Flash-Lite TTS (голос Charon) с академической дикцией и соблюдением пауз.","keywords":["tts","синтез речи","озвучка","голос","аудио","дикция"]},{"id":"atomic-voiceover","term":"Атомарная озвучка (Atomic Voiceover)","category":"multimodal","categoryName":"Мультимодальность и медиа","shortDef":"Стандарт аудиопроизводства: лекция нарезается на независимые короткие фразы, позволяя переозвучить одно слово без перезаписи всего урока.","analogy":"Модульный конструктор: если треснул один кирпичик в стене, вы заменяете только его, а не сносите весь дом до фундамента.","example":"Если диктор ошибся в ударении фамилии учёного на 15-й минуте, пересинтезируется строго этот 5-секундный фрагмент, а 99% звука остаётся прежним.","keywords":["атомарная озвучка","atomic voiceover","нарезка","регламент","исправление звука"]},{"id":"ai-avatar","term":"AI-Avatar (Виртуальный лектор)","category":"multimodal","categoryName":"Мультимодальность и медиа","shortDef":"Сгенерированная моделью видеозапись говорящего человека с точной синхронизацией мимики и движений губ под произносимый звук.","analogy":"Цифровой дублёр преподавателя в онлайн-студии, который может провести вводный инструктаж перед началом лабораторной работы.","example":"Аватар уместен для мотивационного вступления к лекции, но вреден при разборе формул, где лицо лектора отвлекает взгляд от чертежа.","keywords":["ai-avatar","аватар","диктор","видео","говорящее лицо"]},{"id":"master-player-shell","term":"Master Player Shell (Мастер-плеер)","category":"multimodal","categoryName":"Мультимодальность и медиа","shortDef":"Единый унифицированный веб-плеер курса с фиксированным двухрядным баром, вкладками 1–5, автоскрытием за 1.5 с и режимом кинотеатра.","analogy":"Единая аудиторная кафедральная доска: где бы ни проходила пара, элементы управления, мел и указка всегда лежат на одном и том же месте.","example":"Все 24 лекционные части курса построены на 100% идентичном каркасе плеера, обеспечивая привычное и предсказуемое управление.","keywords":["master player shell","мастер-плеер","оболочка плеера","эталонный плеер","плеер"]},{"id":"step-0-hero","term":"Step 0 Hero Teaser (Вводный тизер)","category":"multimodal","categoryName":"Мультимодальность и медиа","shortDef":"Стартовое мотивационное состояние каждого слайда: краткий вводный анонс лектора на 10–15 секунд перед раскрытием колонок.","analogy":"Вводное слово лектора перед началом доказательства теоремы: «Сейчас мы разберём, почему этот закон спас энергосистему города».","example":"На Шаге 0 на экране горит крупная карточка с сутью темы, звучит вступительный голос, а затем интерфейс переходит к детальным шагам 1–3.","keywords":["step 0","hero teaser","тизер","шаг 0","анонс"]},{"id":"git","term":"Git (Система контроля версий)","category":"versioning","categoryName":"Контроль версий и локальный запуск","shortDef":"Программа для отслеживания и фиксации истории изменений в файлах курса, дающая возможность вернуться к любому прошлому состоянию.","analogy":"Журнал регистрации изменений в конструкторской документации или точки сохранения (Savepoints) в компьютерной игре.","example":"Если нейросеть при обновлении кода случайно испортила интерактивный плеер, команда отката в Git за 1 секунду возвращает рабочую версию.","keywords":["git","контроль версий","версионность","история изменений"]},{"id":"commit","term":"Коммит (Commit)","category":"versioning","categoryName":"Контроль версий и локальный запуск","shortDef":"Зафиксированный в истории снимок всех файлов проекта с уникальным шифром и обязательным комментарием автора о сути правок.","analogy":"Заверенная печатью и подписью дата сдачи новой редакции кафедральной методички в печать.","example":"Коммит с комментарием `fix: update formulas in lesson 4.3` сохраняет точное рабочее состояние файлов после исправления математики.","keywords":["коммит","commit","сохранение","точка фиксации"]},{"id":"rollback","term":"Точка отката (Rollback / Savepoint)","category":"versioning","categoryName":"Контроль версий и локальный запуск","shortDef":"Возврат кодовой базы или текстов курса к заведомо исправному состоянию, сделанному до неудачной генерации или ошибки.","analogy":"Кнопка «Отменить последнее действие» (Ctrl+Z), но действующая в масштабе сотен файлов всего курса одновременно.","example":"Когда в ходе разработки курса агент сломал запуск плееров, команда `git restore` мгновенно ликвидировала последствия неудачной попытки.","keywords":["откат","rollback","savepoint","восстановление","безопасность"]},{"id":"ollama","term":"Ollama / LM Studio","category":"versioning","categoryName":"Контроль версий и локальный запуск","shortDef":"Бесплатные программы для запуска современных нейросетей непосредственно на локальном компьютере преподавателя без интернета.","analogy":"Автономный бензиновый генератор на полевой исследовательской станции: электричество есть всегда, даже если отключили центральную сеть.","example":"Установив Ollama с моделью Qwen или DeepSeek, преподаватель может анализировать конфиденциальные экзаменационные ведомости без утечки во внешнюю сеть.","keywords":["ollama","lm studio","локально","офлайн","приватность"]},{"id":"repo","term":"Репозиторий (Repository / Repo)","category":"versioning","categoryName":"Контроль версий и локальный запуск","shortDef":"Специализированный каталог проекта, содержащий все учебные материалы, код плееров, аудио и полную историю изменений Git.","analogy":"Официальный архив кафедры, где в строгом порядке хранятся все утверждённые рукописи, чертежи и хроника их пересмотра за годы.","example":"Репозиторий курса на GitHub Pages автоматически публикует интерактивный сайт, доступный студентам по ссылке со смартфона.","keywords":["репозиторий","repo","папка проекта","архив","github"]},{"id":"gpt-6","term":"GPT-6 Astra (OpenAI)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Флагманская мультимодальная модель осени 2026 года от OpenAI с глубокими возможностями автономного выполнения сложных компьютерных задач.","analogy":"Ведущий профессор крупного международного исследовательского института с колоссальным кругозором во всех областях науки.","example":"Используется для комплексного проектирования учебных планов, сложного программирования симуляторов и глубокого логического анализа.","keywords":["gpt-6","gpt","openai","astra","chatgpt"]},{"id":"claude-fable","term":"Claude Fable 5.1 (Anthropic)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Флагманская модель компании Anthropic (архитектура Mythos), признанный лидер по строгости логики, чистоте кода и академической сдержанности.","analogy":"Главный научный редактор академического издательства: педантичен к формулировкам, не терпит отсебятины и строго следует нормативам.","example":"Идеальна для генерации сценариев лекций, нормоконтроля формул и написания чистого кода интерактивных веб-лабораторий.","keywords":["claude","anthropic","fable","claude code","чистота кода"]},{"id":"deepseek","term":"DeepSeek (V3, V4, R1)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Ведущее открытое семейство математических моделей из Китая, совершившее революцию в экономичности вычислений и глубине рассуждений.","analogy":"Гениальный математик-олимпиадник, который находит самое элегантное и короткое решение сложнейшего уравнения за минимальное время.","example":"DeepSeek-R1 демонстрирует рекордную точность при решении физических расчетных задач и составлении фонда оценочных средств.","keywords":["deepseek","r1","v3","v4","китай","математика"]},{"id":"zai-glm","term":"Z.ai / GLM-5 (Zhipu AI)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Экосистема моделей Университета Цинхуа: бесплатный неограниченный API (GLM-4-Flash), распознавание рукописей и прямой доступ из РФ.","analogy":"Открытый университетский научно-образовательный портал, предоставляющий бесплатные лаборатории каждому преподавателю и студенту.","example":"Лучший выбор для массового внедрения в вузах: прямая регистрация без зарубежных карт и бесплатный доступ к мощному API.","keywords":["zai","glm","glm-5","zhipu","цинхуа","бесплатный api"]},{"id":"qwen","term":"Qwen (Alibaba)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Мощное открытое семейство моделей от Alibaba, обладающее выдающимся качеством понимания русского языка и широкой линейкой размеров.","analogy":"Универсальный полиглот и инженер-энциклопедист, способный работать как на огромном сервере, так и на офисном ноутбуке.","example":"Компактные версии Qwen 2.5 идеально подходят для локального запуска через Ollama на ПК преподавателя для проверки контрольных работ.","keywords":["qwen","alibaba","алибаба","русский язык","открытая модель"]},{"id":"kimi","term":"Kimi (Moonshot AI)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Семейство моделей с рекордным контекстным окном (от 2 млн токенов), способное целиком анализировать многотомные диссертации и архивы.","analogy":"Архивист с феноменальной памятью: способен за 5 секунд прочесть 10 томов научно-технических отчётов и найти точную цитату на странице 842.","example":"Преподаватель загружает в Kimi пятилетний архив кафедральных отчётов и за один запрос получает сводную сравнительную таблицу показателей.","keywords":["kimi","moonshot","большой контекст","2 миллиона токенов"]},{"id":"yandexgpt-gigachat","term":"YandexGPT и GigaChat","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Флагманские российские языковые модели от Яндекса и Сбера, полностью сертифицированные под законодательство РФ о персданных и образовании.","analogy":"Отечественный сертифицированный программный комплекс из реестра Минцифры, гарантирующий 100% юридическую чистоту применения в вузе.","example":"Оптимальны для обработки служебной документации, ведомостей деканата и материалов, содержащих персональные данные сотрудников и студентов.","keywords":["yandexgpt","gigachat","сбер","яндекс","рф","персданные","реестр"]},{"id":"distractors","term":"Дистракторы (Distractors)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Неправильные, но внешне правдоподобные варианты ответов в тестах, специально отражающие типичные методические заблуждения студентов.","analogy":"Ложные дорожные указатели на перекрёстке, которые сбивают с толку только того водителя, который не выучил правила движения.","example":"В вопросе по закону Ома $I = U/R$ дистрактором служит формула $I = U \\cdot R$ (путаница деления и умножения — частая студенческая ошибка).","keywords":["дистракторы","distractors","тесты","варианты ответов","дидактика"]},{"id":"socratic-tutor","term":"Сократический ИИ-тьютор","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Педагогическая методика настройки бота, при которой он не решает задачу за студента, а ведёт его наводящими вопросами по шагам.","analogy":"Опытный преподаватель на консультации: он никогда не берет ручку из рук студента, а спрашивает: «А что говорит нам первый закон? А какой знак у ЭДС?»","example":"Студент пишет: «Посчитай мне ток цепи», а тьютор отвечает: «Сначала определим, как соединены резисторы R1 и R2 — последовательно или параллельно?».","keywords":["сократический тьютор","тьютор","сократ","наводящие вопросы","педагогика"]},{"id":"moravec-paradox","term":"Парадокс Моравека (Moravec's Paradox)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Исторический феномен ИИ: компьютеру вычислительно легко решать сложнейшие логические задачи (шахматы, интегралы), но трудно — распознать кошку или рукопись.","analogy":"Профессор математики, легко берущий тройные интегралы в уме, но спотыкающийся о ступеньку и с трудом разбирающий почерк первокурсника.","example":"Deep Blue обыграл Каспарова в 1997 году методом комбинаторного перебора, но не мог отличить шахматную пешку от шашки на ощупь.","keywords":["парадокс моравека","моравек","история ии","символический ии"]}];
+    const GLOSSARY_ITEMS = [{"id":"model","term":"Модель (Model / LLM)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Большая математическая нейросетевая программа, обученная на гигантских массивах текста предсказывать наиболее вероятное продолжение фразы.","analogy":"Очень начитанный выпускник университета с феноменальной ассоциативной памятью, но без собственного физического тела и органов чувств.","example":"Преподаватель задаёт вопрос по электротехнике, и модель генерирует ответ на основе статистических закономерностей из прочитанных учебников.","keywords":["модель","llm","нейросеть","model","language model","трансформер"]},{"id":"token","term":"Токен (Token / Tokenization)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Текстовая единица, на которую выбранный токенизатор разбивает текст; границы токенов зависят от модели и языка.","analogy":"Слоговая азбука или кубики детского конструктора, из которых нейросеть по кусочкам собирает слова и предложения.","example":"Слово «Электротехника» может разбиваться на разное число токенов в разных моделях. Разбиение и тарификацию проверяйте в документации выбранного сервиса.","keywords":["токен","токенизация","token","tokenization","стоимость","объем"]},{"id":"context-window","term":"Контекстное окно (Context Window)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Предельный объём текста («оперативная память»), который нейросеть способна одновременно удерживать в одном диалоге.","analogy":"Рабочий стол исследователя: пока документов немного, всё на виду; когда стол завален сотнями листов, старые записи падают на пол и забываются.","example":"Если прикрепить к чату учебник на 500 страниц, модель с окном 8K токенов просто не прочитает его, а модель с окном 1M токенов удержит книгу целиком.","keywords":["контекстное окно","контекст","память","context window","лимит памяти"]},{"id":"hallucination","term":"Галлюцинация (Hallucination)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Генерация моделью внешне убедительных, но фактически ложных утверждений, вымышленных формул, авторов или номеров стандартов.","analogy":"Студент на экзамене, который не знает точного ответа, но бойко и наукообразно придумывает несуществующий закон физики с серьёзным лицом.","example":"Модель уверенно цитирует «статью Иванова 2021 года в Вестнике МЭИ» с недействующим DOI — факт требует обязательной проверки преподавателем.","keywords":["галлюцинация","галлюцинации","ошибка","hallucination","ложь","выдумка","достоверность"]},{"id":"next-token-prediction","term":"Next-Token Prediction (Предсказание токена)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Принцип работы языковых моделей, при котором текст генерируется последовательным выбором следующих токенов с учётом контекста.","analogy":"Функция автодополнения (Т9) в смартфоне, доведённая суперкомпьютерами до уровня виртуозного продолжения научных трактатов.","example":"При продолжении фразы «Первый закон...» модель выбирает вариант с учётом контекста; конкретные вероятности зависят от модели и настроек.","keywords":["next-token","предсказание","вероятность","статистика","т9"]},{"id":"moe","term":"MoE (Mixture of Experts / Смесь экспертов)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Архитектура нейросети, где модель разделена на десятки специализированных блоков, из которых под каждый запрос включаются только 2–3.","analogy":"Консилиум профессоров кафедры: при вопросе по математике слово дают математику, а остальные специалисты слушают и не тратят энергию.","example":"Модель DeepSeek-V3 имеет 671 млрд параметров, но на каждый токен запускает только 37 млрд, работая быстрее и дешевле монолитных сетей.","keywords":["moe","mixture of experts","эксперты","смесь экспертов","архитектура"]},{"id":"thinking-mode","term":"Thinking Mode (Режим рассуждений)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Режим работы модели, в котором перед ответом могут выполняться дополнительные этапы рассуждения; доступные сведения об этом процессе зависят от реализации.","analogy":"Черновик инженера помогает проверить ход решения и знаки, но сам по себе не подтверждает правильность ответа.","example":"При расчёте разветвлённой цепи режим рассуждений может показать дополнительные этапы решения. Формулы, исходные данные и итог нужно проверять отдельно.","keywords":["thinking mode","рассуждения","черновик","thinking","r1","o1"]},{"id":"open-source","term":"Модели с открытыми весами (Open-Weight)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Модели, веса которых доступны для загрузки. Доступность исходного кода, обучающих данных и документации различается; права на использование определяются лицензией.","analogy":"Пособие с доступным для скачивания текстом: возможность копировать, менять и распространять зависит от условий лицензии.","example":"Доступность весов сама по себе не означает разрешение на любое использование. Проверяйте лицензию конкретной модели и её ограничения.","keywords":["open-source","открытые модели","веса","deepseek","qwen","локально"]},{"id":"proprietary","term":"Проприетарные модели (Закрытые облака)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Коммерческие закрытые модели компаний (OpenAI, Anthropic), доступные исключительно через подписку на сайте или платные облачные запросы.","analogy":"Аренда лаборатории в закрытом исследовательском центре: вы получаете результат, но не можете заглянуть внутрь приборов и забрать их к себе.","example":"ChatGPT Plus (GPT-6) или Claude Pro — мощные инструменты, но требуют постоянной оплаты подписки и доступа в глобальную сеть.","keywords":["проприетарные","proprietary","закрытые","chatgpt","claude","облако"]},{"id":"dataset","term":"Датасет (Dataset)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Тщательно собранная, структурированная и размеченная база данных (тексты, книги, задачи), на которой обучается нейросеть.","analogy":"Университетская библиотека учебников и задачников с эталонными ответами, которую студент обязан проштудировать перед сдачей сессии.","example":"Датасет ImageNet из 14 млн размеченных фотографий запустил революцию глубокого обучения и позволил компьютерам распознавать образы.","keywords":["датасет","dataset","обучающая выборка","данные","разметка"]},{"id":"symbolic-ai","term":"Символический ИИ (Symbolic AI / ИИ правил)","category":"architecture","categoryName":"Архитектура и природа ИИ","shortDef":"Классическое направление ИИ, основанное на жёстких детерминированных правилах вида «Если... то...» без самообучения на данных.","analogy":"Свод законов или строгая инструкция по охране труда: каждое действие заранее прописано человеком, шаг влево или вправо не предусмотрен.","example":"Шахматная программа Deep Blue (1997) или экспертные медицинские системы 1980-х годов, проверяющие симптомы по жёсткой логической схеме.","keywords":["символический ии","symbolic ai","правила","экспертные системы","deep blue","логика"]},{"id":"prompt","term":"Промпт (Prompt / Запрос)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Входной текстовый запрос, инструкция или контекст, направляемый пользователем языковой модели для решения конкретной задачи.","analogy":"Инженерное техническое задание (ТЗ) или формулировка темы курсового проекта, выданная научным руководителем студенту.","example":"«Составь 5 тестовых вопросов по закону Ома для студентов 2 курса электротехнического факультета с четырьмя дистракторами».","keywords":["промпт","prompt","запрос","инструкция","тз"]},{"id":"prompt-engineering","term":"Промпт-инжиниринг (Prompt Engineering)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Инженерная методика формулирования запросов с ролями, ограничениями и форматами для получения стабильного академического результата.","analogy":"Культура формулирования лабораторных регламентов и ГОСТов: чем строже описаны правила, тем меньше шансов на брак в итоговом изделии.","example":"Добавление к вопросу ролевого контекста («Ты — доцент кафедры») и формата («Выведи ответ строго в таблице») повышает качество в разы.","keywords":["промпт-инжиниринг","инжиниринг","методика","prompt engineering"]},{"id":"rtce","term":"Каркас RTCE (Role, Task, Context, Expectation)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Кафедральный 4-модульный стандарт надёжного промпта: Роль (Role), Задача (Task), Контекст (Context), Ожидаемый результат (Expectation).","analogy":"Бланк кафедрального задания на выпускную квалификационную работу: кто делает, что сделать, в каких условиях и в какой форме сдать.","example":"R: Методист кафедры. T: Напиши пояснительную записку. C: Студенты 1 курса. E: 2 страницы текста без вводных слов и с формулами в LaTeX.","keywords":["rtce","каркас","шаблон","структура промпта"]},{"id":"zero-shot","term":"Zero-Shot («С нуля» / без примеров)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Запрос к нейросети в лоб, без передачи единого примера ожидаемого оформления или эталонного ответа.","analogy":"Преподаватель говорит дипломнику: «Сделай презентацию красиво», не показав ни одного кафедрального образца.","example":"«Напиши тест по электродинамике». Модель выдаст вопросы в своём случайном формате, который придётся долго переделывать вручную.","keywords":["zero-shot","без примеров","прямой запрос"]},{"id":"few-shot","term":"Few-Shot (Обучение на примерах)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Техника промптинга, при которой модели передают 2–3 готовых эталонных образца перед формулировкой основного задания.","analogy":"Методичка с образцом оформления: студент видит пример оформления задачи №1 и №2 и строго по аналогии оформляет задачу №3.","example":"Передаём модели 2 образцовых тестовых билета в формате Moodle, и она безошибочно генерирует следующие 20 вопросов в том же формате.","keywords":["few-shot","примеры","образцы","калибровка"]},{"id":"chain-of-thought","term":"Chain-of-Thought (CoT / Цепочка рассуждений)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Метод управления логикой, заставляющий модель выписывать промежуточные этапы решения задачи перед выдачей итогового ответа.","analogy":"Классическое требование преподавателя математики: «Покажи промежуточные выкладки и решение, а не просто пиши ответ в конце тетради».","example":"Инструкция «Решай задачу пошагово, выводя законы Кирхгофа для каждого узла» исключает арифметические промахи модели.","keywords":["chain-of-thought","cot","цепочка рассуждений","пошагово","рассуждения"]},{"id":"custom-instructions","term":"Custom Instructions (Пользовательские инструкции)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Постоянный профиль настроек в аккаунте ИИ, который автоматически прикрепляется в начало каждого нового диалога.","analogy":"Постоянная должностная инструкция на рабочем столе ассистента: «Всегда обращайся на Вы, оформляй формулы по ГОСТу, отвечай лаконично».","example":"Преподаватель единожды настраивает профиль «Академический методист ВПО», и модель никогда больше не начинает реплики с приветствий и пустых комплиментов.","keywords":["custom instructions","инструкции аккаунта","профиль","настройки"]},{"id":"system-prompt","term":"Системный промпт (System Prompt)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Базовая скрытая директива разработчика или администратора, имеющая наивысший приоритет над сообщениями пользователя.","analogy":"Конституция или устав университета: правила внутреннего распорядка, которые ни один студент или лектор не может отменить.","example":"В системном промпте чат-бота дисциплины прописывается: «Категорически запрещено решать задачу за студента — задавай только наводящие вопросы».","keywords":["системный промпт","system prompt","директива","ограничения"]},{"id":"anti-fluff","term":"Anti-Fluff Protocol (Протокол анти-воды)","category":"prompting","categoryName":"Промпт-инжиниринг","shortDef":"Свод запретов на словесный мусор: отсечение ритуальных приветствий, комплиментов («Отличный вопрос!»), вводных фраз и морализаторства.","analogy":"Строгий академический стиль научной монографии: изложение начинается строго с формулировки теоремы или тезиса без лирических отступлений.","example":"Благодаря протоколу модель отвечает сразу структурированным списком или таблицей, экономя время преподавателя и полезное место на слайде.","keywords":["anti-fluff","анти-вода","лаконичность","без воды","протокол"]},{"id":"agentic-ai","term":"Агентный ИИ (Agentic AI)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Автономная система на базе ИИ, способная самостоятельно декомпозировать цель, запускать внешние программы, тестировать себя и исправлять ошибки.","analogy":"Квалифицированный инженер-лаборант: вы ставите задачу подготовить стенд к паре, а он сам находит приборы, соединяет схему и проверяет предохранители.","example":"Агент получает задачу «Собрать плеер лекции по методичке», сам пишет код HTML/JS, запускает браузер, кликает кнопки и рапортует об успехе.","keywords":["агентный ии","agentic ai","агент","автономия","субагент"]},{"id":"harness","term":"Harness (Агентная среда / «Упряжь»)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Программное окружение вокруг языковой модели (Antigravity, Claude Code, Cursor), которое предоставляет нейросети файлы, терминал и инструменты.","analogy":"Кабинет учёного со столом, шкафами с папками, компьютером и телефоном — без этой рабочей комнаты учёный не может передать свои мысли миру.","example":"Сама по себе модель в окне браузера может только печатать буквы; помещённая в Harness, она получает доступ к редактированию файлов на диске.","keywords":["harness","харнесс","агентная среда","оболочка","среда разработки"]},{"id":"tools","term":"Инструменты (Tools / Tool Calling)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Механизм, при котором языковая модель сама формирует команду вызова внешней утилиты (калькулятора, поиска в интернете, компилятора).","analogy":"Руки и измерительные приборы инженера: когда голова понимает, что нужно измерить напряжение, рука берёт вольтметр и щупы.","example":"Вместо приближённого подсчёта в уме нейросеть вызывает команду Python-калькулятора и получает строгое математическое значение до 6 знаков.","keywords":["tools","tool calling","инструменты","вызов функций","тулколлинг"]},{"id":"mcp","term":"MCP (Model Context Protocol)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Открытый индустриальный стандарт подключения внешних источников данных (локальных папок, баз данных, браузера) к любой нейросети.","analogy":"Универсальный разъём USB Type-C для искусственного интеллекта: один штекер подходит ко всем моделям и периферийным устройствам.","example":"Благодаря MCP локальный ассистент безопасно читает кафедральную папку с методичками, не требуя сложной настройки серверов и баз данных.","keywords":["mcp","model context protocol","протокол","стандарт","подключение"]},{"id":"skills","term":"Навыки (Skills)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Изолированные пакеты инструкций, скриптов и правил, подключаемые к агенту по требованию для решения узкоспециализированных задач.","analogy":"Инструкция по технике безопасности или должностной регламент работы на конкретном сложном испытательном стенде.","example":"Скилл «HyperFrames» учит агента создавать кинематографические презентации с таймингами 1.5 секунды и режимом автоскрытия панелей.","keywords":["skills","навыки","скиллы","регламент","правила"]},{"id":"api","term":"API (Application Programming Interface)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Стандартизированный программный интерфейс, через который скрипты обмениваются запросами и данными с нейросетевыми серверами.","analogy":"Окно выдачи кафедральной библиотеки: программа подаёт стандартный формуляр с запросом и мгновенно получает нужный том данных в ответ.","example":"Скрипт генерации голоса отправляет по API текст лекции в Google Cloud и через секунду получает обратно аудиодорожку MP3.","keywords":["api","шлюз","интерфейс","запросы","ключ api"]},{"id":"headless-browser","term":"Headless браузер / Playwright","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Специальный режим веб-браузера без отрисовки графического окна на экране, управляемый программами автоматического тестирования.","analogy":"Ночной автоматический контроль лаборатории: датчики и роботы проверяют все розетки и приборы в темноте без присутствия человека.","example":"Агент запускает Playwright в фоне, открывает созданную страницу урока 7.1, делает клики по кнопкам и убеждается, что в консоли нет ошибок.","keywords":["headless","playwright","браузер","автотест","тестирование"]},{"id":"qa","term":"QA (Quality Assurance / Контроль качества)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Система процедур и автоматических проверок, гарантирующая работоспособность ссылок, таймингов, кнопок и отсутствие багов в материале.","analogy":"Кафедральный нормоконтроль перед защитой диплома: проверка чертежей, шрифтов, формул и комплектности пояснительной записки.","example":"Перед сдачей лекции преподавателю агент проводит QA-тест: проверяет наличие аудио во всех 5 слайдах и работу горячих клавиш.","keywords":["qa","quality assurance","контроль качества","нормоконтроль","тесты"]},{"id":"human-in-the-loop","term":"Human-in-the-Loop (Человек в контуре)","category":"agents","categoryName":"Агентные среды и инструменты","shortDef":"Базовый принцип академической безопасности: ни один учебный материал не идёт студентам без финальной экспертной приёмки преподавателем.","analogy":"Подпись заведующего кафедрой на титульном листе: как бы хорошо ни был написан отчёт, юридическую силу ему даёт только живая подпись эксперта.","example":"ИИ готовит черновик теста и проверяет его скриптами, но верность дидактики и отсутствие скрытых ошибок лично утверждает лектор.","keywords":["human-in-the-loop","человек в контуре","роль человека","контроль","экспертиза"]},{"id":"pipeline","term":"Пайплайн (Pipeline / Конвейер)","category":"formats","categoryName":"Форматы и разметка","shortDef":"Непрерывный автоматизированный конвейер: результат работы одного этапа сразу передаётся на вход следующему без ручной рутины.","analogy":"Заводская сборочная линия: штамповка деталей → сварка кузова → покраска → установка мотора → итоговый контроль ОТК.","example":"Сценарий в Markdown → синтез речи TTS → сборка веб-плеера → автопрогон в Playwright → публикация на сайте кафедры.","keywords":["пайплайн","pipeline","конвейер","цепочка","автоматизация"]},{"id":"markdown","term":"Markdown (.md)","category":"formats","categoryName":"Форматы и разметка","shortDef":"Универсальный легковесный текстовый формат разметки, превращающий простой текст с символами `#`, `*`, `-` в аккуратно оформленные документы.","analogy":"Корректорская разметка на полях рукописи простым карандашом: волнистая черта — курсив, двойная — заголовок, кружок — список.","example":"Вместо тяжёлых файлов Word сценарии лекций и промпты хранятся в Markdown: они открываются мгновенно на любом устройстве и не сбивают верстку.","keywords":["markdown","md","разметка","формат","текст"]},{"id":"latex","term":"LaTeX / MathJax","category":"formats","categoryName":"Форматы и разметка","shortDef":"Международный стандарт академического набора сложных математических формул и уравнений в виде текстовых команд.","analogy":"Нотная грамота для математики: точная система знаков, которая везде читается и печатается одинаково безупречно.","example":"Запись `\\frac{U^2}{R}` в браузере или Moodle превращается через библиотеку MathJax в идеально отрисованную типографскую дробь.","keywords":["latex","mathjax","формулы","математика","дроби","уравнения"]},{"id":"svg","term":"SVG (Scalable Vector Graphics)","category":"formats","categoryName":"Форматы и разметка","shortDef":"Формат векторной графики, где чертежи и схемы описаны математическими формулами, а не пикселями, сохраняя идеальную резкость.","analogy":"Чертёж тушью на миллиметровке по координатам: сколько ни приближай через лупу, линия остаётся абсолютно тонкой и чёткой.","example":"Электрическая схема в SVG весит всего 10 Кб, великолепно выглядит на 4K-мониторе и позволяет анимировать стрелки приборов через скрипты.","keywords":["svg","векторная графика","вектор","схемы","чертежи","масштабирование"]},{"id":"lms","term":"LMS (Learning Management System)","category":"formats","categoryName":"Форматы и разметка","shortDef":"Университетская цифровая платформа управления учебным процессом (Moodle, ЭОС ВУЗа), где публикуются курсы, тесты и оценки.","analogy":"Электронный деканат и учебный корпус в одном окне: аудитории с материалами, журнал успеваемости и сдача контрольных работ.","example":"Преподаватель загружает сгенерированный тестовый пакет в университетский Moodle для автоматической аттестации потока студентов.","keywords":["lms","moodle","эос","система обучения","дистанционное обучение"]},{"id":"gift-moodle-xml","term":"GIFT и Moodle XML","category":"formats","categoryName":"Форматы и разметка","shortDef":"Специализированные форматы разметки тестовых баз для мгновенного пакетного импорта сотен вопросов в систему Moodle.","analogy":"Стандартизированный упаковочный контейнер для экспресс-доставки: приехал на склад, открыл — и все 100 приборов встали на свои полки.","example":"ИИ генерирует 50 вопросов в коде Moodle XML, преподаватель нажимает «Импорт» в Moodle, и через 3 секунды банк тестов готов к тестированию.","keywords":["gift","moodle xml","xml","тесты","импорт тестов","банк вопросов"]},{"id":"rag","term":"RAG (Retrieval-Augmented Generation)","category":"formats","categoryName":"Форматы и разметка","shortDef":"Технология «поиска перед ответом»: модель сначала находит точные цитаты в загруженных кафедральных файлах и отвечает строго по ним.","analogy":"Экзамен с правом заглядывать в утверждённый справочник: студент сначала открывает методичку на нужной странице, а потом формулирует ответ.","example":"При вопросе о лабораторной работе RAG находит текст Лаб №11 и гарантирует, что ИИ не перепутает номиналы резисторов и схему моста.","keywords":["rag","поиск","база знаний","методички","retrieval"]},{"id":"json","term":"JSON (JavaScript Object Notation)","category":"formats","categoryName":"Форматы и разметка","shortDef":"Простой текстовый формат хранения структурированных данных в виде пар «ключ: значение» и упорядоченных списков.","analogy":"Кафедральная картотека с четко подписанными графами: Фамилия, Номер билета, Оценка, Дата сдачи.","example":"Файл `manifest.json` в каждом уроке курса хранит заголовки слайдов, точные таймкоды аудиодорожек и тексты карточек для плеера.","keywords":["json","манифест","структура","данные","формат"]},{"id":"multimodality","term":"Мультимодальность (Multimodal / Vision)","category":"multimodal","categoryName":"Мультимодальность и медиа","shortDef":"Способность нейросети одновременно воспринимать разнородные типы данных: текст, фотографии схем, графики, рукописи и аудио.","analogy":"Зрение и слух преподавателя: он может одновременно читать реферат студента, смотреть на показания осциллографа и слушать устный ответ.","example":"Сфотографируйте рукописный вывод формулы с доски и отправьте в модель — зрение нейросети распознает символы и переведёт их в LaTeX.","keywords":["мультимодальность","vision","зрение","распознавание","схемы","осциллограммы"]},{"id":"tts","term":"TTS (Text-to-Speech / Синтез речи)","category":"multimodal","categoryName":"Мультимодальность и медиа","shortDef":"Нейросетевая технология озвучивания печатного текста естественным человеческим голосом с правильной интонацией и темпом.","analogy":"Профессиональный диктор у микрофона в студии звукозаписи, готовый без усталости начитать сотни страниц кафедральных лекций.","example":"Все 8 уроков курса озвучены моделью Google Gemini Flash-Lite TTS (голос Charon) с академической дикцией и соблюдением пауз.","keywords":["tts","синтез речи","озвучка","голос","аудио","дикция"]},{"id":"atomic-voiceover","term":"Атомарная озвучка (Atomic Voiceover)","category":"multimodal","categoryName":"Мультимодальность и медиа","shortDef":"Стандарт аудиопроизводства: лекция нарезается на независимые короткие фразы, позволяя переозвучить одно слово без перезаписи всего урока.","analogy":"Модульный конструктор: если треснул один кирпичик в стене, вы заменяете только его, а не сносите весь дом до фундамента.","example":"Если диктор ошибся в ударении фамилии учёного на 15-й минуте, пересинтезируется строго этот 5-секундный фрагмент, а 99% звука остаётся прежним.","keywords":["атомарная озвучка","atomic voiceover","нарезка","регламент","исправление звука"]},{"id":"ai-avatar","term":"AI-Avatar (Виртуальный лектор)","category":"multimodal","categoryName":"Мультимодальность и медиа","shortDef":"Сгенерированная моделью видеозапись говорящего человека с точной синхронизацией мимики и движений губ под произносимый звук.","analogy":"Цифровой дублёр преподавателя в онлайн-студии, который может провести вводный инструктаж перед началом лабораторной работы.","example":"Аватар уместен для мотивационного вступления к лекции, но вреден при разборе формул, где лицо лектора отвлекает взгляд от чертежа.","keywords":["ai-avatar","аватар","диктор","видео","говорящее лицо"]},{"id":"master-player-shell","term":"Master Player Shell (Мастер-плеер)","category":"multimodal","categoryName":"Мультимодальность и медиа","shortDef":"Единый унифицированный веб-плеер курса с фиксированным двухрядным баром, вкладками 1–5, автоскрытием за 1.5 с и режимом кинотеатра.","analogy":"Единая аудиторная кафедральная доска: где бы ни проходила пара, элементы управления, мел и указка всегда лежат на одном и том же месте.","example":"Все 24 лекционные части курса построены на 100% идентичном каркасе плеера, обеспечивая привычное и предсказуемое управление.","keywords":["master player shell","мастер-плеер","оболочка плеера","эталонный плеер","плеер"]},{"id":"step-0-hero","term":"Step 0 Hero Teaser (Вводный тизер)","category":"multimodal","categoryName":"Мультимодальность и медиа","shortDef":"Стартовое мотивационное состояние каждого слайда: краткий вводный анонс лектора на 10–15 секунд перед раскрытием колонок.","analogy":"Вводное слово лектора перед началом доказательства теоремы: «Сейчас мы разберём, почему этот закон спас энергосистему города».","example":"На Шаге 0 на экране горит крупная карточка с сутью темы, звучит вступительный голос, а затем интерфейс переходит к детальным шагам 1–3.","keywords":["step 0","hero teaser","тизер","шаг 0","анонс"]},{"id":"git","term":"Git (Система контроля версий)","category":"versioning","categoryName":"Контроль версий и локальный запуск","shortDef":"Программа для отслеживания и фиксации истории изменений в файлах курса, дающая возможность вернуться к любому прошлому состоянию.","analogy":"Журнал регистрации изменений в конструкторской документации или точки сохранения (Savepoints) в компьютерной игре.","example":"Если нейросеть при обновлении кода случайно испортила интерактивный плеер, команда отката в Git за 1 секунду возвращает рабочую версию.","keywords":["git","контроль версий","версионность","история изменений"]},{"id":"commit","term":"Коммит (Commit)","category":"versioning","categoryName":"Контроль версий и локальный запуск","shortDef":"Зафиксированный в истории снимок всех файлов проекта с уникальным шифром и обязательным комментарием автора о сути правок.","analogy":"Заверенная печатью и подписью дата сдачи новой редакции кафедральной методички в печать.","example":"Коммит с комментарием `fix: update formulas in lesson 4.3` сохраняет точное рабочее состояние файлов после исправления математики.","keywords":["коммит","commit","сохранение","точка фиксации"]},{"id":"rollback","term":"Точка отката (Rollback / Savepoint)","category":"versioning","categoryName":"Контроль версий и локальный запуск","shortDef":"Возврат кодовой базы или текстов курса к заведомо исправному состоянию, сделанному до неудачной генерации или ошибки.","analogy":"Кнопка «Отменить последнее действие» (Ctrl+Z), но действующая в масштабе сотен файлов всего курса одновременно.","example":"Когда в ходе разработки курса агент сломал запуск плееров, команда `git restore` мгновенно ликвидировала последствия неудачной попытки.","keywords":["откат","rollback","savepoint","восстановление","безопасность"]},{"id":"ollama","term":"Ollama / LM Studio","category":"versioning","categoryName":"Контроль версий и локальный запуск","shortDef":"Бесплатные программы для запуска современных нейросетей непосредственно на локальном компьютере преподавателя без интернета.","analogy":"Автономный бензиновый генератор на полевой исследовательской станции: электричество есть всегда, даже если отключили центральную сеть.","example":"Установив Ollama с моделью Qwen или DeepSeek, преподаватель может анализировать конфиденциальные экзаменационные ведомости без утечки во внешнюю сеть.","keywords":["ollama","lm studio","локально","офлайн","приватность"]},{"id":"repo","term":"Репозиторий (Repository / Repo)","category":"versioning","categoryName":"Контроль версий и локальный запуск","shortDef":"Специализированный каталог проекта, содержащий все учебные материалы, код плееров, аудио и полную историю изменений Git.","analogy":"Официальный архив кафедры, где в строгом порядке хранятся все утверждённые рукописи, чертежи и хроника их пересмотра за годы.","example":"Репозиторий курса на GitHub Pages автоматически публикует интерактивный сайт, доступный студентам по ссылке со смартфона.","keywords":["репозиторий","repo","папка проекта","архив","github"]},{"id":"gpt-6","term":"GPT-6 Astra (OpenAI)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Флагманская мультимодальная модель осени 2026 года от OpenAI с глубокими возможностями автономного выполнения сложных компьютерных задач.","analogy":"Ведущий профессор крупного международного исследовательского института с колоссальным кругозором во всех областях науки.","example":"Используется для комплексного проектирования учебных планов, сложного программирования симуляторов и глубокого логического анализа.","keywords":["gpt-6","gpt","openai","astra","chatgpt"]},{"id":"claude-fable","term":"Claude Fable 5.1 (Anthropic)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Флагманская модель компании Anthropic (архитектура Mythos), признанный лидер по строгости логики, чистоте кода и академической сдержанности.","analogy":"Главный научный редактор академического издательства: педантичен к формулировкам, не терпит отсебятины и строго следует нормативам.","example":"Идеальна для генерации сценариев лекций, нормоконтроля формул и написания чистого кода интерактивных веб-лабораторий.","keywords":["claude","anthropic","fable","claude code","чистота кода"]},{"id":"deepseek","term":"DeepSeek (V3, V4, R1)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Ведущее открытое семейство математических моделей из Китая, совершившее революцию в экономичности вычислений и глубине рассуждений.","analogy":"Гениальный математик-олимпиадник, который находит самое элегантное и короткое решение сложнейшего уравнения за минимальное время.","example":"DeepSeek-R1 демонстрирует рекордную точность при решении физических расчетных задач и составлении фонда оценочных средств.","keywords":["deepseek","r1","v3","v4","китай","математика"]},{"id":"zai-glm","term":"Z.ai / GLM-5 (Zhipu AI)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Экосистема моделей Университета Цинхуа: бесплатный неограниченный API (GLM-4-Flash), распознавание рукописей и прямой доступ из РФ.","analogy":"Открытый университетский научно-образовательный портал, предоставляющий бесплатные лаборатории каждому преподавателю и студенту.","example":"Лучший выбор для массового внедрения в вузах: прямая регистрация без зарубежных карт и бесплатный доступ к мощному API.","keywords":["zai","glm","glm-5","zhipu","цинхуа","бесплатный api"]},{"id":"qwen","term":"Qwen (Alibaba)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Мощное открытое семейство моделей от Alibaba, обладающее выдающимся качеством понимания русского языка и широкой линейкой размеров.","analogy":"Универсальный полиглот и инженер-энциклопедист, способный работать как на огромном сервере, так и на офисном ноутбуке.","example":"Компактные версии Qwen 2.5 идеально подходят для локального запуска через Ollama на ПК преподавателя для проверки контрольных работ.","keywords":["qwen","alibaba","алибаба","русский язык","открытая модель"]},{"id":"kimi","term":"Kimi (Moonshot AI)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Семейство моделей с рекордным контекстным окном (от 2 млн токенов), способное целиком анализировать многотомные диссертации и архивы.","analogy":"Архивист с феноменальной памятью: способен за 5 секунд прочесть 10 томов научно-технических отчётов и найти точную цитату на странице 842.","example":"Преподаватель загружает в Kimi пятилетний архив кафедральных отчётов и за один запрос получает сводную сравнительную таблицу показателей.","keywords":["kimi","moonshot","большой контекст","2 миллиона токенов"]},{"id":"yandexgpt-gigachat","term":"YandexGPT и GigaChat","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"YandexGPT и GigaChat — сервисы генеративного ИИ от Яндекса и Сбера. Условия обработки данных зависят от конкретного продукта, тарифа и настроек; перед использованием проверьте актуальную документацию.","analogy":"Два набора сервисов российских компаний. Их статус и условия обработки данных нужно отдельно проверять для выбранного продукта и сценария использования.","example":"Для примеров используйте обезличенные сведения. Не загружайте персональные данные студентов без согласования с вузом и проверки условий обработки данных выбранного сервиса.","keywords":["yandexgpt","gigachat","сбер","яндекс","рф","персданные","реестр"]},{"id":"distractors","term":"Дистракторы (Distractors)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Неправильные, но внешне правдоподобные варианты ответов в тестах, специально отражающие типичные методические заблуждения студентов.","analogy":"Ложные дорожные указатели на перекрёстке, которые сбивают с толку только того водителя, который не выучил правила движения.","example":"В вопросе по закону Ома $I = U/R$ дистрактором служит формула $I = U \\cdot R$ (путаница деления и умножения — частая студенческая ошибка).","keywords":["дистракторы","distractors","тесты","варианты ответов","дидактика"]},{"id":"socratic-tutor","term":"Сократический ИИ-тьютор","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Педагогическая методика настройки бота, при которой он не решает задачу за студента, а ведёт его наводящими вопросами по шагам.","analogy":"Опытный преподаватель на консультации: он никогда не берет ручку из рук студента, а спрашивает: «А что говорит нам первый закон? А какой знак у ЭДС?»","example":"Студент пишет: «Посчитай мне ток цепи», а тьютор отвечает: «Сначала определим, как соединены резисторы R1 и R2 — последовательно или параллельно?».","keywords":["сократический тьютор","тьютор","сократ","наводящие вопросы","педагогика"]},{"id":"moravec-paradox","term":"Парадокс Моравека (Moravec's Paradox)","category":"models","categoryName":"Модели 2026 и дидактика","shortDef":"Исторический феномен ИИ: компьютеру вычислительно легко решать сложнейшие логические задачи (шахматы, интегралы), но трудно — распознать кошку или рукопись.","analogy":"Профессор математики, легко берущий тройные интегралы в уме, но спотыкающийся о ступеньку и с трудом разбирающий почерк первокурсника.","example":"Deep Blue обыграл Каспарова в 1997 году методом комбинаторного перебора, но не мог отличить шахматную пешку от шашки на ощупь.","keywords":["парадокс моравека","моравек","история ии","символический ии"]}];
     let activeGlossaryCategory = 'all';
 
     function openGlossaryModal() {

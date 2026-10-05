@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Сертификат о прохождении обзорного курса.">
+  <title>Свидетельство о завершении обзора</title>
+  <link rel="stylesheet" href="assets/certificate.css">
+</head>
+<body>
+  <main class="page">
+    <section class="form-card">
+      <h1>Сертификат о прохождении обзорного курса</h1>
+      <p class="intro">Введите имя и фамилию, чтобы подготовить личный сертификат. Данные остаются в этой вкладке и не отправляются на сервер.</p>
+      <p class="notice" id="certificateStatus" role="status">Проверяем завершение самопроверки…</p>
+      <form id="certificateForm" novalidate>
+        <div class="fields">
+          <label for="firstName">Имя<input id="firstName" name="firstName" autocomplete="given-name" maxlength="50" required></label>
+          <label for="lastName">Фамилия<input id="lastName" name="lastName" autocomplete="family-name" maxlength="50" required></label>
+        </div>
+        <p class="error" id="nameError" aria-live="polite"></p>
+        <div class="actions">
+          <button type="submit">Показать сертификат</button>
+          <button type="button" id="printCertificate" disabled>Печать / сохранить PDF</button>
+          <a class="link-button" href="index.html">В каталог</a>
+        </div>
+      </form>
+    </section>
+    <section class="certificate" id="certificatePreview" aria-label="Предпросмотр сертификата">
+      <p class="eyebrow">Сертификат о прохождении обзорного курса</p>
+      <h2>Обзор завершён</h2>
+      <p>Настоящим подтверждается, что</p>
+      <p class="person" id="personName"></p>
+      <p class="statement">завершил(а) самопроверку и ознакомился(лась) с обзором возможностей ИИ для подготовки учебных материалов.</p>
+      <p class="course">«Искусственный интеллект для подготовки учебных материалов»</p>
+      <p class="date" id="certificateDate"></p>
+    </section>
+    <p class="backline"><a class="link-button" href="index.html">← Вернуться к обзору</a></p>
+  </main>
+  <script src="assets/course_overview.js"></script>
+  <script src="assets/certificate.js"></script>
+</body>
+</html>
