@@ -515,8 +515,40 @@
       <div class="progress-next">Далее: <span id="currentStageText">Пролог курса</span></div>
     </div>
 
-        <!-- PROLOGUE MODULE (Module 0.0) -->
+<details class="module-card module-accordion prologue-section" id="module0_card" style="border: 1px solid rgba(56, 189, 248, 0.4); background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); box-shadow: 0 10px 30px rgba(56, 189, 248, 0.1);">
+      <summary class="module-summary"><span class="module-summary-label"><span class="module-summary-num">Пролог • История проекта</span><span class="module-summary-title">От электротехнической методички к интерактивным материалам</span></span><span class="module-summary-status" id="prologue_summary_status" data-state="Not started">Не начат</span></summary><div class="module-header" style="border-bottom: 1px solid rgba(56, 189, 248, 0.2); padding-bottom: 16px; margin-bottom: 20px;">
+        <div>
+          <div class="module-num" style="color: #38bdf8; font-weight: 800;">Пролог курса • С чего всё началось</div>
+          <div class="module-title" style="font-size: 22px;">От Word-методички по электротехнике к интерактивным лабораториям</div>
+          <div class="module-desc" style="color: #cbd5e1; font-size: 14px;">
+            Подлинная история рождения этого курса: как кафедральный файл методички был скормлен нейросети и превратился в живые симуляторы электрических цепей (Лабораторные работы №11 и №12) без привлечения программистов.
+          </div>
+        </div>
+        <span class="module-badge badge-active" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4);">✨ Предыстория автора</span>
+      </div>
 
+      <div class="lessons-grid" style="grid-template-columns: 1fr;">
+        <div class="lesson-item" id="card_prologue" style="background: rgba(11, 15, 25, 0.7); border: 1px solid rgba(56, 189, 248, 0.25);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+            <div style="flex: 1; min-width: 280px;">
+              <div class="lesson-top">
+                <span class="lesson-duration" style="color: #38bdf8;">⏱ ~7 минут • 5 экранов со скриншотами</span>
+                <span class="lesson-status-badge status-ready" id="badge_prologue">Доступно</span>
+              </div>
+              <div class="lesson-title" style="font-size: 18px; color: #fff;">Вводная лекция-пролог: «От идеи к 16-часовому курсу»</div>
+              <div class="lesson-desc" style="margin-bottom: 0;">
+                Разбор реального кейса: анализ методички, инженерное ТЗ, постоянный ток и законы Кирхгофа (Лаб 11), переменный ток и векторные диаграммы (Лаб 12).
+              </div>
+            </div>
+            <div style="min-width: 200px; display: flex; align-items: center;">
+              <a href="prologue.html" class="btn-lesson btn-play" id="btn_prologue" style="background: linear-gradient(135deg, #0284c7, #38bdf8); font-size: 15px; padding: 12px 24px;">
+                ▶ Смотреть пролог
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
 
     <!-- MODULE 1 -->
     <details class="module-card module-accordion " id="module1_card">
@@ -1225,40 +1257,7 @@
       </div>
     </details>
 
-<details class="module-card module-accordion prologue-section" id="module0_card" style="border: 1px solid rgba(56, 189, 248, 0.4); background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%); box-shadow: 0 10px 30px rgba(56, 189, 248, 0.1);">
-      <summary class="module-summary"><span class="module-summary-label"><span class="module-summary-num">Пролог • История проекта</span><span class="module-summary-title">От электротехнической методички к интерактивным материалам</span></span><span class="module-summary-status" id="prologue_summary_status" data-state="Not started">Не начат</span></summary><div class="module-header" style="border-bottom: 1px solid rgba(56, 189, 248, 0.2); padding-bottom: 16px; margin-bottom: 20px;">
-        <div>
-          <div class="module-num" style="color: #38bdf8; font-weight: 800;">Пролог курса • С чего всё началось</div>
-          <div class="module-title" style="font-size: 22px;">От Word-методички по электротехнике к интерактивным лабораториям</div>
-          <div class="module-desc" style="color: #cbd5e1; font-size: 14px;">
-            Подлинная история рождения этого курса: как кафедральный файл методички был скормлен нейросети и превратился в живые симуляторы электрических цепей (Лабораторные работы №11 и №12) без привлечения программистов.
-          </div>
-        </div>
-        <span class="module-badge badge-active" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4);">✨ Предыстория автора</span>
-      </div>
 
-      <div class="lessons-grid" style="grid-template-columns: 1fr;">
-        <div class="lesson-item" id="card_prologue" style="background: rgba(11, 15, 25, 0.7); border: 1px solid rgba(56, 189, 248, 0.25);">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
-            <div style="flex: 1; min-width: 280px;">
-              <div class="lesson-top">
-                <span class="lesson-duration" style="color: #38bdf8;">⏱ ~7 минут • 5 экранов со скриншотами</span>
-                <span class="lesson-status-badge status-ready" id="badge_prologue">Доступно</span>
-              </div>
-              <div class="lesson-title" style="font-size: 18px; color: #fff;">Вводная лекция-пролог: «От идеи к 16-часовому курсу»</div>
-              <div class="lesson-desc" style="margin-bottom: 0;">
-                Разбор реального кейса: анализ методички, инженерное ТЗ, постоянный ток и законы Кирхгофа (Лаб 11), переменный ток и векторные диаграммы (Лаб 12).
-              </div>
-            </div>
-            <div style="min-width: 200px; display: flex; align-items: center;">
-              <a href="prologue.html" class="btn-lesson btn-play" id="btn_prologue" style="background: linear-gradient(135deg, #0284c7, #38bdf8); font-size: 15px; padding: 12px 24px;">
-                ▶ Смотреть пролог
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </details>
 
 <details class="module-card module-accordion labs-section" id="module-labs" style="border-color: rgba(99, 102, 241, 0.4); background: linear-gradient(180deg, rgba(30, 27, 75, 0.45) 0%, rgba(15, 23, 42, 0.7) 100%);">
       <summary class="module-summary"><span class="module-summary-label"><span class="module-summary-num">Примеры • Лаборатории</span><span class="module-summary-title">Виртуальные лаборатории электротехники</span></span><span class="module-summary-status" id="labs_summary_status" data-state="2 стенда">2 стенда</span></summary><div class="module-header">
