@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Сертификат о прохождении обзорного курса.">
-  <title>Сертификат о прохождении обзорного курса</title>
-  <link rel="stylesheet" href="assets/certificate.css">
+  <meta name="description" content="Сертификат о прохождении курса «Искусственный интеллект для подготовки учебных материалов».">
+  <title>Сертификат о прохождении курса</title>
+  <link rel="stylesheet" href="assets/certificate.css?v=20261006-modern-2">
 </head>
 <body>
   <main class="page">
     <section class="form-card">
-      <h1>Сертификат о прохождении обзорного курса</h1>
+      <h1>Сертификат о прохождении курса</h1>
       <p class="intro">Введите имя и фамилию, чтобы подготовить личный сертификат. Данные остаются в этой вкладке и не отправляются на сервер.</p>
-      <p class="notice" id="certificateStatus" role="status">Проверяем завершение самопроверки…</p>
+      <p class="notice" id="certificateStatus" role="status">Проверяем доступность оформления…</p>
       <form id="certificateForm" novalidate>
         <div class="fields">
           <label for="firstName">Имя<input id="firstName" name="firstName" autocomplete="given-name" maxlength="50" required></label>
@@ -27,17 +27,22 @@
       </form>
     </section>
     <section class="certificate" id="certificatePreview" aria-label="Предпросмотр сертификата">
-      <p class="eyebrow">Сертификат о прохождении обзорного курса</p>
-      <h2>Обзор завершён</h2>
-      <p>Настоящим подтверждается, что</p>
-      <p class="person" id="personName"></p>
-      <p class="statement">завершил(а) самопроверку и ознакомился(лась) с обзором возможностей ИИ для подготовки учебных материалов.</p>
-      <p class="course">«Искусственный интеллект для подготовки учебных материалов»</p>
-      <p class="date" id="certificateDate"></p>
+      <aside class="certificate-rail" aria-label="Эмблема курса">
+        <img class="course-emblem" src="favicon.svg" alt="Эмблема курса">
+      </aside>
+      <div class="certificate-body">
+        <img class="university-logo" src="assets/vyatsu-logo.png" alt="Вятский государственный университет">
+        <h2>СЕРТИФИКАТ</h2>
+        <span class="title-rule" aria-hidden="true"></span>
+        <p class="person" id="personName"></p>
+        <p class="statement">прошёл(ла) курс</p>
+        <p class="course">Искусственный интеллект для подготовки учебных материалов</p>
+        <p class="date" id="certificateDate"></p>
+      </div>
     </section>
     <p class="backline"><a class="link-button" href="index.html">← Вернуться к обзору</a></p>
   </main>
   <script src="assets/course_overview.js"></script>
-  <script src="assets/certificate.js"></script>
+  <script src="assets/certificate.js?v=20261006-modern-2"></script>
 </body>
 </html>

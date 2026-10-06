@@ -9,10 +9,10 @@
 
   if (!CourseOverview.safeCompleted('ai_course_l8_p4_completed')) {
     form.hidden = true;
-    status.innerHTML = 'Сначала завершите итоговую самопроверку. <a href="lesson_8_4.html">Перейти к самопроверке</a>.';
+    status.innerHTML = 'Чтобы оформить сертификат, завершите заключительную часть курса. <a href="lesson_8_4.html">Перейти к заключительной части курса</a>.';
     return;
   }
-  status.textContent = 'Проверка завершена. Введите имя и фамилию для сертификата.';
+  status.textContent = 'Введите имя и фамилию, чтобы оформить сертификат.';
 
   form.addEventListener('submit', function (event) {
     event.preventDefault();

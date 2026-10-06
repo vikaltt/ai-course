@@ -1,34 +1,169 @@
-:root { color-scheme: dark; --paper: #fff; --ink: #122033; --muted: #546578; --accent: #126b82; }
+:root {
+  color-scheme: dark;
+  --navy: #0b1931;
+  --navy-light: #142a4b;
+  --paper: #f6f1e5;
+  --ink: #17243a;
+  --muted: #687386;
+  --gold: #c6a25d;
+  --gold-light: #e8d8ad;
+}
+
 * { box-sizing: border-box; }
-body { margin: 0; min-height: 100vh; background: #08111f; color: #f1f5f9; font-family: Inter, "Segoe UI", sans-serif; }
-.page { width: min(960px, calc(100% - 32px)); margin: 36px auto; }
-.form-card { padding: 24px; border: 1px solid #334155; border-radius: 16px; background: #111c2c; }
-h1 { margin: 0 0 8px; font-size: clamp(24px, 4vw, 34px); }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: #f1f5f9;
+  background: radial-gradient(ellipse at 12% 8%, rgba(42, 79, 128, .3), transparent 38%), #08111f;
+  font-family: Inter, "Segoe UI", sans-serif;
+}
+
+.page { width: min(1160px, calc(100% - 32px)); margin: clamp(20px, 4vw, 48px) auto; }
+.form-card { padding: clamp(18px, 3vw, 30px); border: 1px solid #334155; border-radius: 18px; background: linear-gradient(145deg, #152238, #101a2a); box-shadow: 0 18px 55px rgba(0, 0, 0, .25); }
+h1 { margin: 0 0 8px; font-size: clamp(24px, 4vw, 34px); letter-spacing: -.025em; }
 .intro, .notice { color: #cbd5e1; line-height: 1.55; }
+.notice { padding: 10px 13px; border-left: 3px solid var(--gold); background: rgba(198, 162, 93, .08); }
 .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 22px 0; }
 label { display: grid; gap: 7px; font-weight: 700; }
-input { min-width: 0; padding: 12px; border: 1px solid #64748b; border-radius: 8px; background: #07111e; color: white; font: inherit; }
+input { min-width: 0; padding: 12px; border: 1px solid #64748b; border-radius: 9px; background: #07111e; color: white; font: inherit; }
+input:focus-visible, button:focus-visible, .link-button:focus-visible { outline: 3px solid #e8d8ad; outline-offset: 3px; }
 .actions { display: flex; gap: 10px; flex-wrap: wrap; }
-button, .link-button { padding: 11px 16px; border: 0; border-radius: 8px; background: #0e7490; color: white; font: inherit; font-weight: 700; cursor: pointer; text-decoration: none; }
+button, .link-button { padding: 11px 16px; border: 0; border-radius: 9px; background: #155e75; color: white; font: inherit; font-weight: 700; cursor: pointer; text-decoration: none; transition: background .18s ease, transform .18s ease; }
+button:hover:not(:disabled) { background: #0e7490; transform: translateY(-1px); }
 button:disabled { opacity: .55; cursor: not-allowed; }
 .link-button { display: inline-block; background: transparent; border: 1px solid #64748b; }
+.link-button:hover { background: rgba(148, 163, 184, .1); }
 .error { min-height: 1.4em; color: #fca5a5; }
-.certificate { display: none; position: relative; margin: 28px 0; padding: 44px; aspect-ratio: 297 / 210; color: var(--ink); background: var(--paper); border: 10px double #78a9b6; text-align: center; align-items: center; justify-content: center; flex-direction: column; }
-.certificate.visible { display: flex; }
-.certificate::before { content: ""; position: absolute; inset: 14px; border: 1px solid #c7d9dc; pointer-events: none; }
-.eyebrow { margin: 0 0 12px; color: var(--accent); font-size: 13px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
-.certificate h2 { margin: 0 0 18px; font-family: Georgia, serif; font-size: clamp(30px, 5vw, 50px); font-weight: 500; }
-.person { max-width: 100%; margin: 4px 0; overflow-wrap: anywhere; font-family: Georgia, serif; font-size: clamp(25px, 4vw, 40px); font-weight: 700; }
-.statement { max-width: 700px; margin: 18px 0; color: var(--muted); line-height: 1.6; }
-.course { color: var(--ink); font-weight: 800; }
-.date { margin-top: 14px; color: var(--muted); }
+
+.certificate {
+  display: none;
+  position: relative;
+  grid-template-columns: minmax(150px, 23%) minmax(0, 1fr);
+  width: 100%;
+  margin: 30px 0;
+  overflow: hidden;
+  aspect-ratio: 297 / 210;
+  border: 1px solid rgba(198, 162, 93, .85);
+  border-radius: 10px;
+  color: var(--ink);
+  background: var(--paper);
+  box-shadow: 0 25px 75px rgba(0, 0, 0, .38);
+}
+
+.certificate.visible { display: grid; }
+.certificate::before { content: ""; position: absolute; z-index: 3; inset: 12px; border: 1px solid rgba(198, 162, 93, .6); pointer-events: none; }
+
+.certificate-rail {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: clamp(12px, 2vw, 24px);
+  overflow: hidden;
+  padding: 24px 12px;
+  color: var(--gold-light);
+  background: linear-gradient(155deg, #10264a 0%, #0a1730 58%, #081326 100%);
+  text-align: center;
+}
+
+.certificate-rail::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .32;
+  background-image:
+    linear-gradient(90deg, transparent 48%, rgba(132, 176, 210, .4) 49%, rgba(132, 176, 210, .4) 50%, transparent 51%),
+    linear-gradient(0deg, transparent 48%, rgba(132, 176, 210, .4) 49%, rgba(132, 176, 210, .4) 50%, transparent 51%),
+    radial-gradient(circle at 20% 20%, rgba(96, 165, 250, .4), transparent 54%);
+  background-size: 34px 34px, 34px 34px, 100% 100%;
+  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+}
+
+.certificate-rail::after { content: ""; position: absolute; inset: 13px 10px; border: 1px solid rgba(232, 216, 173, .24); pointer-events: none; }
+.course-emblem { position: relative; z-index: 1; display: block; width: clamp(48px, 8vw, 86px); height: auto; border-radius: 20%; box-shadow: 0 8px 25px rgba(56, 189, 248, .16); }
+.certificate-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: clamp(7px, 1.1vw, 13px);
+  min-width: 0;
+  padding: clamp(18px, 3.2vw, 42px) clamp(16px, 4.2vw, 56px);
+  text-align: center;
+}
+
+.certificate-body::after {
+  content: "";
+  position: absolute;
+  inset: 24px;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--gold), var(--gold)) right top / 54px 1px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right top / 1px 54px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) left bottom / 54px 1px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) left bottom / 1px 54px no-repeat;
+  opacity: .62;
+}
+
+.university-logo { display: block; width: min(360px, 76%); height: auto; mix-blend-mode: multiply; }
+.certificate h2 { margin: 0; color: #1b2b45; font-family: Georgia, "Times New Roman", serif; font-size: clamp(30px, 5.4vw, 58px); font-weight: 500; letter-spacing: .18em; line-height: 1.04; }
+.title-rule { display: block; width: clamp(56px, 9vw, 100px); height: 2px; background: var(--gold); }
+.person { max-width: 100%; margin: 0; overflow-wrap: anywhere; color: #102345; font-family: Georgia, "Times New Roman", serif; font-size: clamp(26px, 4.1vw, 48px); font-weight: 700; line-height: 1.08; }
+.statement { margin: 0; color: #8b6c31; font-size: clamp(13px, 1.4vw, 17px); font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+.course { max-width: 660px; margin: 0; color: var(--ink); font-size: clamp(15px, 1.8vw, 22px); font-weight: 700; line-height: 1.32; }
+.date { margin: clamp(3px, .6vw, 8px) 0 0; color: var(--muted); font-size: clamp(12px, 1.2vw, 15px); }
 .backline { margin-top: 16px; }
-@media (max-width: 600px) { .fields { grid-template-columns: 1fr; } .form-card { padding: 18px; } .certificate { padding: 28px 20px; } }
+
+@media (max-width: 600px) {
+  .fields { grid-template-columns: 1fr; }
+  .form-card { padding: 18px; }
+  .certificate { grid-template-columns: minmax(58px, 20%) minmax(0, 1fr); border-radius: 6px; }
+  .certificate::before { inset: 7px; }
+  .certificate-rail { gap: 9px; padding: 12px 4px; }
+  .certificate-rail::after { inset: 8px 5px; }
+  .course-emblem { width: clamp(36px, 12vw, 52px); }
+  .certificate-body { gap: clamp(5px, 1.1vw, 8px); padding: 12px 10px; }
+  .certificate-body::after { inset: 14px; background-size: 28px 1px, 1px 28px, 28px 1px, 1px 28px; }
+  .university-logo { width: 76%; }
+  .certificate h2 { font-size: clamp(18px, 6vw, 34px); letter-spacing: .12em; }
+  .person { font-size: clamp(15px, 4.3vw, 25px); }
+  .statement { font-size: clamp(9px, 2.4vw, 12px); letter-spacing: .05em; }
+  .course { font-size: clamp(10px, 2.6vw, 15px); line-height: 1.2; }
+  .date { margin-top: 1px; font-size: clamp(9px, 2.3vw, 12px); }
+}
+
 @page { size: A4 landscape; margin: 8mm; }
 @media print {
   :root { color-scheme: light; }
   body { min-height: 0; background: white; }
   .page { width: 100%; margin: 0; }
   .form-card, .backline { display: none !important; }
-  .certificate.visible { display: flex !important; width: 100%; height: 190mm; aspect-ratio: auto; margin: 0; padding: 18mm; page-break-inside: avoid; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .certificate.visible {
+    display: grid !important;
+    width: 100%;
+    height: 190mm;
+    aspect-ratio: auto;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    page-break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .certificate-rail { gap: 8mm; padding: 12mm 5mm; }
+  .course-emblem { width: 24mm; }
+  .certificate-body { gap: 3mm; padding: 12mm 17mm; }
+  .certificate-body::after { inset: 9mm; }
+  .university-logo { width: 74mm; }
+  .certificate h2 { font-size: 36pt; }
+  .person { font-size: 29pt; }
+  .statement { font-size: 12pt; }
+  .course { font-size: 16pt; }
+  .date { font-size: 11pt; }
 }
