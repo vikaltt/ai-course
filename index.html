@@ -478,7 +478,7 @@
       <p>
         Как методичка по электротехнике стала интерактивным курсом: ИИ-инструменты, примеры и проверка результатов.
       </p>
-      <a class="start-continue" id="startContinueButton" href="prologue.html">Начать обзор: открыть первую часть →</a>
+      <a class="start-continue" id="startContinueButton" href="prologue.html">Начать обзор с пролога →</a>
 <details class="overview-resources">
         <summary>Материалы обзора: чек-лист, памятки и словарь</summary>
         <div style="margin-top: 14px; display: flex; gap: 12px; flex-wrap: wrap;">
@@ -1321,6 +1321,7 @@
   </div>
 
   <script src="assets/course_overview.js"></script>
+  <script src="assets/course_resume.js"></script>
   <script>
         function updateLMSState() {
       // 1. Prologue
@@ -1388,15 +1389,15 @@
         }
       });
 
-      // 3. Show the next unfinished part and keep a working fallback if storage is blocked.
+      // 3. Resume the last opened part, falling back to saved completion progress.
       const stageText = document.getElementById('currentStageText');
-      const nextPart = CourseOverview.firstIncompletePart([prologueDone, ...p]);
+      const target = CourseResume.buttonTarget([prologueDone, ...p]);
       const continueButton = document.getElementById('startContinueButton');
       if (continueButton) {
-        continueButton.href = nextPart;
-        continueButton.innerText = totalCompleted >= 33 ? 'Обзор завершён — открыть пролог снова →' : `Продолжить обзор: ${nextPart === 'prologue.html' ? 'пролог' : 'часть ' + nextPart.match(/lesson_(\d+_\d+)/)[1].replace('_', '.')} →`;
+        continueButton.href = target.href;
+        continueButton.innerText = target.label;
       }
-      if (stageText) stageText.innerText = totalCompleted >= 33 ? 'Обзор завершён' : nextPart === 'prologue.html' ? 'Пролог курса' : `Часть ${nextPart.match(/lesson_(\d+_\d+)/)[1].replace('_', '.')}`;
+      if (stageText) stageText.innerText = totalCompleted >= 33 ? 'Обзор завершён' : target.href === 'prologue.html' ? 'Пролог курса' : `Часть ${target.href.match(/lesson_(\d+_\d+)/)[1].replace('_', '.')}`;
 
       // 3b. Update Module Badges (B5)
       const moduleBounds = [
@@ -1452,6 +1453,7 @@
         ];
         allIds.forEach(id => CourseOverview.safeRemove(`ai_course_${id}_completed`));
         CourseOverview.safeRemove('ai_course_completed_list');
+        CourseResume.clearLastVisited();
         updateLMSState();
       }
     }
