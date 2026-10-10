@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -1517,7 +1517,7 @@
               <span>📑</span> 3. Нормоконтроль ГОСТ/ЕСКД
             </div>
             <div style="font-size: 13px; color: #94a3b8; line-height: 1.4;">
-              Проверка оформления пояснительных записок, схем и чертежей по ГОСТ 7.32 (НИР), ГОСТ 2.105 (ЕСКД) и ГОСТ 19.xxx.
+              Проверка оформления пояснительных записок, схем и чертежей по ГОСТ 7.32 (НИР), ГОСТ 2.105 (ЕСКД) и ГОСТ 19.101-77.
             </div>
           </div>
 
@@ -1557,14 +1557,18 @@
               </button>
             </div>
           </div>
-          <pre id="reviewerPromptText" style="background: #030712; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px; font-family: monospace; font-size: 12px; color: #94a3b8; white-space: pre-wrap; line-height: 1.5; margin: 0;">Роль: Строгий академический рецензент кафедры и нормоконтролер.
-Задача: Проведи критический аудит следующего фрагмента учебного материала/расчета.
+          <pre id="reviewerPromptText" style="background: #030712; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px; font-family: monospace; font-size: 12px; color: #94a3b8; white-space: pre-wrap; line-height: 1.5; margin: 0;">Роль: строгий рецензент учебных материалов по электротехнике технического университета.
+Задача: найди ошибки в приведённом фрагменте.
 Проверь:
-1. Корректность физико-математических формул и размерностей величин по ГОСТ 8.417.
-2. Достоверность числовых значений и табличных констант.
-3. Соответствие терминологии стандартам РФ (ГОСТ/ЕСКД).
-4. Реальность существования всех библиографических ссылок (DOI, авторы, издания).
-Укажи найденные несоответствия со ссылкой на первоисточники и предложи исправленный вариант.</pre>
+1. Формулы и размерности величин по ГОСТ 8.417.
+2. Числовые значения и константы.
+3. Терминологию по действующим ГОСТ.
+4. Ссылки и источники.
+Правила:
+- Если не уверен, так и скажи прямо, не придумывай.
+- Не придумывай номера стандартов, DOI, авторов и страницы.
+- Если не можешь проверить источник, пометь «не проверено».
+Формат: таблица «место | проблема | исправление | уверенность (высокая / средняя / низкая)». Отдельным списком перечисли то, что ты не смог проверить.</pre>
         </div>
       </div>
     </div>
@@ -1631,8 +1635,8 @@
         <a href="handouts/lesson_05_handout.html" target="_blank" style="text-decoration: none; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s;" onmouseover="this.style.borderColor='#38bdf8'; this.style.background='rgba(56,189,248,0.06)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.background='rgba(255,255,255,0.03)';">
           <div>
             <div style="font-size: 11px; font-weight: 800; color: #38bdf8; text-transform: uppercase;">Урок 5 • Занятие 5</div>
-            <div style="font-size: 14px; font-weight: 700; color: #fff; margin-top: 2px;">Подготовка материалов и рабочих программ (УМКД / РПД)</div>
-            <div style="font-size: 12px; color: #94a3b8; margin-top: 4px;">ФГОС ВО 3++, таксономия Блума, матрица компетенций и Git.</div>
+            <div style="font-size: 14px; font-weight: 700; color: #fff; margin-top: 2px;">Интерфейс ИИ-систем, инструменты и управление диалогом</div>
+            <div style="font-size: 12px; color: #94a3b8; margin-top: 4px;">Промпт-интерфейс, Tool Use, проверка вычислений, ветвление диалога и экспорт.</div>
           </div>
           <span style="font-size: 20px; color: #38bdf8; padding-left: 10px;">↗</span>
         </a>
@@ -1641,8 +1645,8 @@
         <a href="handouts/lesson_06_handout.html" target="_blank" style="text-decoration: none; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s;" onmouseover="this.style.borderColor='#38bdf8'; this.style.background='rgba(56,189,248,0.06)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.background='rgba(255,255,255,0.03)';">
           <div>
             <div style="font-size: 11px; font-weight: 800; color: #38bdf8; text-transform: uppercase;">Урок 6 • Занятие 6</div>
-            <div style="font-size: 14px; font-weight: 700; color: #fff; margin-top: 2px;">Фонд оценочных средств (ФОС) и генерация тестов</div>
-            <div style="font-size: 12px; color: #94a3b8; margin-top: 4px;">Дидактика дистракторов, расчетные кейсы, БРС и 5 рубежей ФОС.</div>
+            <div style="font-size: 14px; font-weight: 700; color: #fff; margin-top: 2px;">От методички к презентации: ядро, вёрстка, проверка</div>
+            <div style="font-size: 12px; color: #94a3b8; margin-top: 4px;">Дидактическое ядро, LaTeX, HTML против PowerPoint, фактчекинг и Git.</div>
           </div>
           <span style="font-size: 20px; color: #38bdf8; padding-left: 10px;">↗</span>
         </a>
