@@ -1426,9 +1426,9 @@
                         
                         <div class="avatar-interactive-zone" style="width: 100%; height: 175px; background: #000; border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; cursor: pointer;" onclick="event.stopPropagation(); openAvatarModal(currentCameoModel || 'heygen');" title="Нажмите, чтобы развернуть во весь экран">
                           <!-- Видео аватара -->
-                          <video id="avatarCameoVideo" src="../assets/avatar_heygen.mp4" autoplay loop muted playsinline style="max-height: 100%; max-width: 100%; object-fit: contain; display: block; margin: 0 auto; pointer-events: none;"></video>
+                          <video id="avatarCameoVideo" src="assets/avatar_heygen.mp4" autoplay loop muted playsinline style="max-height: 100%; max-width: 100%; object-fit: contain; display: block; margin: 0 auto; pointer-events: none;"></video>
                           <!-- Фото исходника (по умолчанию скрыто) -->
-                          <img id="avatarCameoPhoto" src="../assets/lecturer_portrait.jpg" alt="Исходное фото" style="max-height: 100%; max-width: 100%; object-fit: contain; display: none; margin: 0 auto; pointer-events: none;">
+                          <img id="avatarCameoPhoto" src="assets/lecturer_portrait.jpg" alt="Исходное фото" style="max-height: 100%; max-width: 100%; object-fit: contain; display: none; margin: 0 auto; pointer-events: none;">
                           
                           <!-- Бейдж текущего режима в левом верхнем углу -->
                           <div id="avatarCameoBadge" style="position: absolute; top: 6px; left: 6px; background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255,255,255,0.25); color: #38bdf8; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; backdrop-filter: blur(4px);">
@@ -2438,7 +2438,7 @@
         if (img) img.style.display = 'none';
         if (v) {
           v.style.display = 'block';
-          v.src = '../assets/avatar_heygen.mp4';
+          v.src = 'assets/avatar_heygen.mp4';
           v.play().catch(e => console.log('Autoplay:', e));
         }
         if (badge) {
@@ -2464,7 +2464,7 @@
         if (img) img.style.display = 'none';
         if (v) {
           v.style.display = 'block';
-          v.src = '../assets/avatar_demo.mp4';
+          v.src = 'assets/avatar_demo.mp4';
           v.play().catch(e => console.log('Autoplay:', e));
         }
         if (badge) {
@@ -2702,7 +2702,7 @@
           </div>
 
           <div class="modal-video-box" style="border: 1px solid rgba(255,255,255,0.15);">
-            <img id="modalImgPhoto" src="../assets/lecturer_portrait.jpg" alt="Исходное фото лектора" style="max-height: 100%; max-width: 100%; object-fit: contain; display: block;">
+            <img id="modalImgPhoto" src="assets/lecturer_portrait.jpg" alt="Исходное фото лектора" style="max-height: 100%; max-width: 100%; object-fit: contain; display: block;">
           </div>
         </div>
 
@@ -2726,7 +2726,7 @@
           </div>
 
           <div class="modal-video-box" style="border: 1px solid rgba(56, 189, 248, 0.35);">
-            <video id="modalVideoHeyGen" src="../assets/avatar_heygen.mp4" playsinline loop style="max-height: 100%; max-width: 100%; object-fit: contain; display: block;"></video>
+            <video id="modalVideoHeyGen" src="assets/avatar_heygen.mp4" playsinline loop style="max-height: 100%; max-width: 100%; object-fit: contain; display: block;"></video>
             
             <button id="modalHeyGenAudioBtn" onclick="toggleModalHeyGenAudio()" style="position: absolute; bottom: 10px; right: 10px; background: rgba(15, 23, 42, 0.9); border: 1px solid #38bdf8; color: #38bdf8; padding: 6px 12px; border-radius: 7px; font-size: 11px; font-weight: 800; cursor: pointer; backdrop-filter: blur(6px); display: flex; align-items: center; gap: 5px;">
               🔊 Включить речь Charon
@@ -2754,7 +2754,7 @@
           </div>
 
           <div class="modal-video-box" style="border: 1px solid rgba(192, 132, 252, 0.35);">
-            <video id="modalVideoKling" src="../assets/avatar_demo.mp4" playsinline loop muted style="max-height: 100%; max-width: 100%; object-fit: contain; display: block;"></video>
+            <video id="modalVideoKling" src="assets/avatar_demo.mp4" playsinline loop muted style="max-height: 100%; max-width: 100%; object-fit: contain; display: block;"></video>
             
             <div style="position: absolute; bottom: 10px; right: 10px; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(192, 132, 252, 0.4); color: #c084fc; padding: 5px 10px; border-radius: 7px; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 4px;">
               <span>🔇 Немое видео (звука нет по архитектуре)</span>
