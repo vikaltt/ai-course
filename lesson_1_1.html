@@ -2816,6 +2816,7 @@
               }
             }).catch(err => {
               isPlaying = false;
+              releaseWakeLock();
               if (playBtn) playBtn.innerText = '▶ Воспроизвести';
               console.warn('Auto-play blocked:', err);
             });
@@ -2892,6 +2893,60 @@
     // =========================================================================
     // AUDIO ENGINE
     // =========================================================================
+    // =========================================================================
+    // SCREEN WAKE LOCK & KEEP-AWAKE
+    // =========================================================================
+    let wakeLock = null;
+
+    async function requestWakeLock() {
+      try {
+        if ('wakeLock' in navigator) {
+          wakeLock = await navigator.wakeLock.request('screen');
+          wakeLock.addEventListener('release', () => { wakeLock = null; });
+        }
+      } catch (err) {
+        console.warn('Wake Lock error:', err);
+      }
+    }
+
+    function releaseWakeLock() {
+      if (wakeLock) {
+        wakeLock.release().catch(() => {});
+        wakeLock = null;
+      }
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        const audio = getAudioElement();
+        if (audio && !audio.paused) {
+          audio.pause();
+          isPlaying = false;
+          releaseWakeLock();
+          releaseWakeLock();
+          const playBtn = document.getElementById('playBtn');
+          if (playBtn) playBtn.innerText = 'в–¶ Р’РѕСЃРїСЂРѕРёР·РІРµСЃС‚Рё';
+        }
+      }
+    });
+
+    window.addEventListener('pagehide', () => {
+      const audio = getAudioElement();
+      if (audio && !audio.paused) {
+        audio.pause();
+        isPlaying = false;
+        releaseWakeLock();
+        releaseWakeLock();
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setupAudioForCurrentSlide();
+    });
+    window.addEventListener('load', () => {
+      setupAudioForCurrentSlide();
+    });
+
     function getAudioElement() {
       return document.getElementById(`audio${currentSlide}`);
     }
@@ -2922,6 +2977,8 @@
       };
 
       audio.onended = () => {
+       releaseWakeLock();
+        releaseWakeLock();
         if (currentSlide < 5) {
           switchSlide(currentSlide + 1, true);
         } else {
@@ -2938,6 +2995,7 @@
     }
 
     function toggleAudio() {
+      setupAudioForCurrentSlide();
       const audio = getAudioElement();
       if (!audio) return;
       const playBtn = document.getElementById('playBtn');
@@ -2945,6 +3003,7 @@
       if (!audio.paused) {
         audio.pause();
         isPlaying = false;
+        releaseWakeLock();
         if (playBtn) playBtn.innerText = '▶ Воспроизвести';
         if (isFullscreenActive()) {
           resetCinemaIdleTimer();
@@ -2962,8 +3021,10 @@
           p.then(() => {
             isPlaying = true;
             if (playBtn) playBtn.innerText = '⏸ Пауза';
+            requestWakeLock();
           }).catch(err => {
             isPlaying = false;
+            releaseWakeLock();
             if (playBtn) playBtn.innerText = '▶ Воспроизвести';
             console.warn('Audio play blocked:', err);
           });

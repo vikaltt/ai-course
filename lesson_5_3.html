@@ -2253,6 +2253,7 @@
               }
             }).catch(err => {
               isPlaying = false;
+              releaseWakeLock();
               if (playBtn) playBtn.innerText = '▶ Воспроизвести';
               console.warn('Auto-play blocked:', err);
             });
@@ -2329,6 +2330,60 @@
     // =========================================================================
     // AUDIO ENGINE
     // =========================================================================
+        // =========================================================================
+    // SCREEN WAKE LOCK & KEEP-AWAKE
+    // =========================================================================
+    let wakeLock = null;
+
+    async function requestWakeLock() {
+      try {
+        if ('wakeLock' in navigator) {
+          wakeLock = await navigator.wakeLock.request('screen');
+          wakeLock.addEventListener('release', () => { wakeLock = null; });
+        }
+      } catch (err) {
+        console.warn('Wake Lock error:', err);
+      }
+    }
+
+    function releaseWakeLock() {
+      if (wakeLock) {
+        wakeLock.release().catch(() => {});
+        wakeLock = null;
+      }
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        const audio = getAudioElement();
+        if (audio && !audio.paused) {
+          audio.pause();
+          isPlaying = false;
+          releaseWakeLock();
+          releaseWakeLock();
+          const playBtn = document.getElementById('playBtn');
+          if (playBtn) playBtn.innerText = '\u25B6 \u0412\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0441\u0442\u0438';
+        }
+      }
+    });
+
+    window.addEventListener('pagehide', () => {
+      const audio = getAudioElement();
+      if (audio && !audio.paused) {
+        audio.pause();
+        isPlaying = false;
+        releaseWakeLock();
+        releaseWakeLock();
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setupAudioForCurrentSlide();
+    });
+    window.addEventListener('load', () => {
+      setupAudioForCurrentSlide();
+    });
+
     function getAudioElement() {
       return document.getElementById(`audio${currentSlide}`);
     }
@@ -2359,6 +2414,7 @@
       };
 
       audio.onended = () => {
+        releaseWakeLock();
         if (currentSlide < 5) {
           switchSlide(currentSlide + 1, true);
         } else {
@@ -2375,6 +2431,7 @@
     }
 
     function toggleAudio() {
+      setupAudioForCurrentSlide();
       const audio = getAudioElement();
       if (!audio) return;
       const playBtn = document.getElementById('playBtn');
@@ -2382,6 +2439,7 @@
       if (!audio.paused) {
         audio.pause();
         isPlaying = false;
+        releaseWakeLock();
         if (playBtn) playBtn.innerText = '▶ Воспроизвести';
         if (isFullscreenActive()) {
           resetCinemaIdleTimer();
@@ -2399,8 +2457,10 @@
           p.then(() => {
             isPlaying = true;
             if (playBtn) playBtn.innerText = '⏸ Пауза';
+            requestWakeLock();
           }).catch(err => {
             isPlaying = false;
+            releaseWakeLock();
             if (playBtn) playBtn.innerText = '▶ Воспроизвести';
             console.warn('Audio play blocked:', err);
           });
