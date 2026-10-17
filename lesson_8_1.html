@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -779,6 +779,317 @@
       }
     }
 
+      /* =========================================================================
+       MOBILE PORTRAIT: SINGLE-CARD FULLSCREEN & RESPONSIVE AUTO-FORMATTING
+       ========================================================================= */
+    @media (max-width: 768px) and (orientation: portrait), (max-width: 600px) {
+      body {
+        height: 100dvh !important;
+      }
+      .header-title-text, .nav-tabs {
+        display: none !important;
+      }
+      .canvas-container {
+        padding: 6px 6px 4px 6px !important;
+        width: 100% !important;
+        height: auto !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        min-height: 0 !important;
+        box-sizing: border-box !important;
+      }
+      .slide-viewport {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        flex: 1 !important;
+        min-height: 0 !important;
+        border-radius: 14px !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        box-shadow: none !important;
+        position: relative !important;
+      }
+      .slide-canvas {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        transform: none !important;
+        padding: 14px 12px 12px 12px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        flex: 1 !important;
+        min-height: 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        background: #080e1e !important;
+      }
+      .bg-glow-1, .bg-glow-2 {
+        display: none !important;
+      }
+      #slide-root {
+        width: 100% !important;
+        height: 100% !important;
+        flex: 1 !important;
+        min-height: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+
+      /* Slide Header & Title */
+      .slide-header {
+        margin-bottom: 6px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        flex-shrink: 0 !important;
+      }
+      .slide-header .badge-group {
+        display: flex !important;
+        gap: 6px !important;
+        align-items: center !important;
+      }
+      .slide-header .badge {
+        font-size: 10px !important;
+        padding: 3px 8px !important;
+        border-radius: 6px !important;
+        letter-spacing: 0.3px !important;
+      }
+      .slide-header .slide-counter {
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        color: #64748b !important;
+      }
+      .title-block {
+        margin-bottom: 8px !important;
+        flex-shrink: 0 !important;
+      }
+      .slide-title {
+        font-size: 17px !important;
+        font-weight: 800 !important;
+        line-height: 1.22 !important;
+        margin-bottom: 3px !important;
+        color: #ffffff !important;
+      }
+      .slide-subtitle {
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        line-height: 1.3 !important;
+        color: #94a3b8 !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+      }
+
+      /* Slide Body: Flex Column Container */
+      .slide-body {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: 1 !important;
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        gap: 0 !important;
+      }
+
+      /* Single-Card Focus: Hide All Non-Highlighted Cards */
+      .slide-body > .glass-card:not(.highlighted) {
+        display: none !important;
+      }
+
+      /* Single-Card Focus: Expand the Active Highlighted Card */
+      .slide-body > .glass-card.highlighted {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        flex: 1 !important;
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        padding: 16px 14px !important;
+        border-radius: 16px !important;
+        box-shadow: 0 0 25px rgba(56, 189, 248, 0.25) !important;
+        transform: none !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        box-sizing: border-box !important;
+        overflow-y: auto !important;
+      }
+
+      /* Formatting Inside Active Card: Proportional & Full Fields */
+      .slide-body > .glass-card.highlighted > div:first-child {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: 1 !important;
+      }
+      .slide-body > .glass-card.highlighted > div:first-child > div:first-child {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-bottom: 10px !important;
+      }
+      .slide-body > .glass-card.highlighted > div:first-child > div:first-child span:first-child {
+        font-size: 32px !important;
+        line-height: 1 !important;
+      }
+      .slide-body > .glass-card.highlighted > div:first-child > div:first-child span:last-child {
+        font-size: 11px !important;
+        padding: 3px 8px !important;
+        border-radius: 6px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.4px !important;
+        text-transform: uppercase !important;
+      }
+      .slide-body > .glass-card.highlighted h3 {
+        font-size: 20px !important;
+        font-weight: 800 !important;
+        line-height: 1.25 !important;
+        margin-bottom: 10px !important;
+        color: #ffffff !important;
+      }
+      .slide-body > .glass-card.highlighted p {
+        font-size: 14.5px !important;
+        line-height: 1.45 !important;
+        color: #cbd5e1 !important;
+        margin-bottom: 12px !important;
+      }
+      .slide-body > .glass-card.highlighted div[style*="border-radius: 14px"],
+      .slide-body > .glass-card.highlighted div[style*="padding: 14px 18px"] {
+        padding: 12px 14px !important;
+        border-radius: 12px !important;
+        margin-bottom: 12px !important;
+        background: rgba(255, 255, 255, 0.04) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      }
+      .slide-body > .glass-card.highlighted div[style*="border-radius: 14px"] > div:first-child,
+      .slide-body > .glass-card.highlighted div[style*="padding: 14px 18px"] > div:first-child {
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.3px !important;
+        margin-bottom: 4px !important;
+      }
+      .slide-body > .glass-card.highlighted div[style*="border-radius: 14px"] > div:last-child,
+      .slide-body > .glass-card.highlighted div[style*="padding: 14px 18px"] > div:last-child {
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+        color: #e2e8f0 !important;
+      }
+      .slide-body > .glass-card.highlighted > div:last-child {
+        margin-top: auto !important;
+        padding: 10px 12px !important;
+        border-radius: 10px !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        line-height: 1.35 !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* Step 0 Hero Teaser Mobile Layout */
+      #slide-root > .glass-card {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        flex: 1 !important;
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        padding: 14px !important;
+        border-radius: 16px !important;
+        overflow-y: auto !important;
+        box-sizing: border-box !important;
+      }
+      #slide-root > .glass-card > div:first-child {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: 1 !important;
+      }
+      #slide-root > .glass-card > div:first-child > div:first-child {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-bottom: 10px !important;
+      }
+      #slide-root > .glass-card > div:first-child > div:first-child span:first-child {
+        font-size: 26px !important;
+      }
+      #slide-root > .glass-card > div:first-child > div:first-child div > div:first-child {
+        font-size: 10px !important;
+        letter-spacing: 0.5px !important;
+      }
+      #slide-root > .glass-card > div:first-child > div:first-child div > div:last-child {
+        font-size: 15px !important;
+        font-weight: 800 !important;
+        line-height: 1.25 !important;
+      }
+      #slide-root > .glass-card > div:first-child > div:first-child > span:last-child {
+        font-size: 10px !important;
+        padding: 3px 6px !important;
+        border-radius: 6px !important;
+        white-space: nowrap !important;
+      }
+      #slide-root > .glass-card div[style*="display: grid"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+        margin-bottom: 8px !important;
+      }
+      #slide-root > .glass-card div[style*="display: grid"] > div {
+        padding: 8px 10px !important;
+        border-radius: 8px !important;
+      }
+      #slide-root > .glass-card div[style*="display: grid"] > div > div:nth-child(1) {
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        margin-bottom: 2px !important;
+      }
+      #slide-root > .glass-card div[style*="display: grid"] > div > div:nth-child(2) {
+        font-size: 12px !important;
+        line-height: 1.3 !important;
+        margin-bottom: 2px !important;
+      }
+      #slide-root > .glass-card div[style*="display: grid"] > div > div:nth-child(3) {
+        font-size: 11px !important;
+        padding-top: 2px !important;
+      }
+      #slide-root > .glass-card div[style*="background: rgba(3, 7, 18, 0.55)"] {
+        padding: 8px 10px !important;
+        border-radius: 8px !important;
+        gap: 8px !important;
+        margin-bottom: 8px !important;
+      }
+      #slide-root > .glass-card div[style*="background: rgba(3, 7, 18, 0.55)"] span {
+        font-size: 20px !important;
+      }
+      #slide-root > .glass-card div[style*="background: rgba(3, 7, 18, 0.55)"] div {
+        font-size: 12px !important;
+        line-height: 1.35 !important;
+      }
+      #slide-root > .glass-card > div:last-child {
+        padding: 8px 10px !important;
+        border-radius: 8px !important;
+        margin-top: auto !important;
+        gap: 8px !important;
+      }
+      #slide-root > .glass-card > div:last-child span:first-child {
+        font-size: 18px !important;
+      }
+      #slide-root > .glass-card > div:last-child span:last-child {
+        font-size: 12px !important;
+        line-height: 1.35 !important;
+      }
+      .cinema-subtitle {
+        font-size: 13px !important;
+        padding: 6px 12px !important;
+        bottom: 10px !important;
+      }
+    }
   </style>
   <script src="assets/course_resume.js" defer></script>
 </head>
@@ -1520,6 +1831,10 @@
     window.addEventListener('touchstart', resetCinemaIdleTimer, { passive: true });
     window.addEventListener('touchend', resetCinemaIdleTimer, { passive: true });
 
+        function isMobilePortrait() {
+      return (window.innerWidth <= 768 && window.innerHeight > window.innerWidth) || window.innerWidth <= 600;
+    }
+
     function fitSlide() {
       const container = document.querySelector('.canvas-container');
       const viewport = document.getElementById('viewport');
@@ -1528,6 +1843,27 @@
       if (!container || !viewport || !canvas) return;
 
       const isFs = isFullscreenActive();
+      const isMobPort = isMobilePortrait();
+
+      if (isMobPort) {
+        viewport.style.width = '100%';
+        viewport.style.maxWidth = '100%';
+        viewport.style.height = '100%';
+        viewport.style.flex = '1';
+        canvas.style.transform = 'none';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.position = 'relative';
+        return;
+      }
+
+      // Reset desktop / landscape
+      viewport.style.maxWidth = '1600px';
+      viewport.style.flex = '';
+      canvas.style.position = 'absolute';
+      canvas.style.width = '1920px';
+      canvas.style.height = '1080px';
+
       let availW, availH;
 
       if (isFs) {
