@@ -2157,6 +2157,7 @@
           isPlaying = true;
           const playBtn = document.getElementById('playBtn');
           if (playBtn) playBtn.innerText = '⏸ Пауза';
+          requestWakeLock();
           const p = audio.play();
           if (p !== undefined) {
             p.then(() => {
@@ -2165,10 +2166,11 @@
               if (wasCinemaIdle) {
                 document.body.classList.add('cinema-idle');
               }
+              requestWakeLock();
             }).catch(err => {
               isPlaying = false;
               releaseWakeLock();
-              if (playBtn) playBtn.innerText = '▶ Воспроизвести';
+              if (playBtn) playBtn.innerText = '\u25B6 \u0412\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0441\u0442\u0438';
               console.warn('Auto-play blocked:', err);
             });
           }
@@ -2274,9 +2276,13 @@
           audio.pause();
           isPlaying = false;
           releaseWakeLock();
-          releaseWakeLock();
           const playBtn = document.getElementById('playBtn');
           if (playBtn) playBtn.innerText = '\u25B6 \u0412\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0441\u0442\u0438';
+        }
+      } else if (document.visibilityState === 'visible') {
+        const audio = getAudioElement();
+        if (audio && !audio.paused && isPlaying) {
+          requestWakeLock();
         }
       }
     });
@@ -2328,13 +2334,12 @@
       };
 
       audio.onended = () => {
-        releaseWakeLock();
         if (currentSlide < 5) {
           switchSlide(currentSlide + 1, true);
         } else {
           isPlaying = false;
           const playBtn = document.getElementById('playBtn');
-          if (playBtn) playBtn.innerText = '▶ Воспроизвести';
+          if (playBtn) playBtn.innerText = '\u25B6 \u0412\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0441\u0442\u0438';
           document.body.classList.remove('cinema-idle');
           clearTimeout(cinemaIdleTimer);
           markLessonCompleted();
@@ -2354,7 +2359,7 @@
         audio.pause();
         isPlaying = false;
         releaseWakeLock();
-        if (playBtn) playBtn.innerText = '▶ Воспроизвести';
+        if (playBtn) playBtn.innerText = '\u25B6 \u0412\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0441\u0442\u0438';
         if (isFullscreenActive()) {
           resetCinemaIdleTimer();
         }
@@ -2366,6 +2371,7 @@
         audio.playbackRate = playbackSpeed;
         isPlaying = true;
         if (playBtn) playBtn.innerText = '⏸ Пауза';
+        requestWakeLock();
         const p = audio.play();
         if (p !== undefined) {
           p.then(() => {
@@ -2375,7 +2381,7 @@
           }).catch(err => {
             isPlaying = false;
             releaseWakeLock();
-            if (playBtn) playBtn.innerText = '▶ Воспроизвести';
+            if (playBtn) playBtn.innerText = '\u25B6 \u0412\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0441\u0442\u0438';
             console.warn('Audio play blocked:', err);
           });
         }
@@ -2392,7 +2398,7 @@
       }
       isPlaying = false;
       const playBtn = document.getElementById('playBtn');
-      if (playBtn) playBtn.innerText = '▶ Воспроизвести';
+      if (playBtn) playBtn.innerText = '\u25B6 \u0412\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0441\u0442\u0438';
     }
 
     function seekDelta(deltaSec) {
