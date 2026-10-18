@@ -2312,6 +2312,7 @@
           isPlaying = true;
           const playBtn = document.getElementById('playBtn');
           if (playBtn) playBtn.innerText = '⏸ Пауза';
+          requestWakeLock();
           const p = audio.play();
           if (p !== undefined) {
             p.then(() => {
@@ -2320,10 +2321,11 @@
               if (wasCinemaIdle) {
                 document.body.classList.add('cinema-idle');
               }
+              requestWakeLock();
             }).catch(err => {
               isPlaying = false;
               releaseWakeLock();
-              if (playBtn) playBtn.innerText = '▶ Воспроизвести';
+              if (playBtn) playBtn.innerText = '\u25B6 \u0412\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0441\u0442\u0438';
               console.warn('Auto-play blocked:', err);
             });
           }
@@ -2429,9 +2431,13 @@
           audio.pause();
           isPlaying = false;
           releaseWakeLock();
-          releaseWakeLock();
           const playBtn = document.getElementById('playBtn');
-          if (playBtn) playBtn.innerText = 'в–¶ Р’РѕСЃРїСЂРѕРёР·РІРµСЃС‚Рё';
+          if (playBtn) playBtn.innerText = '\u25B6 \u0412\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0441\u0442\u0438';
+        }
+      } else if (document.visibilityState === 'visible') {
+        const audio = getAudioElement();
+        if (audio && !audio.paused && isPlaying) {
+          requestWakeLock();
         }
       }
     });
@@ -2441,7 +2447,6 @@
       if (audio && !audio.paused) {
         audio.pause();
         isPlaying = false;
-        releaseWakeLock();
         releaseWakeLock();
       }
     });
@@ -2522,6 +2527,7 @@
         audio.playbackRate = playbackSpeed;
         isPlaying = true;
         if (playBtn) playBtn.innerText = '⏸ Пауза';
+        requestWakeLock();
         const p = audio.play();
         if (p !== undefined) {
           p.then(() => {
