@@ -1175,7 +1175,7 @@
       }
     }
 
-      /* =========================================================================
+          /* =========================================================================
        MOBILE PORTRAIT: SINGLE-CARD FULLSCREEN & RESPONSIVE AUTO-FORMATTING
        ========================================================================= */
     @media (max-width: 768px) and (orientation: portrait), (max-width: 600px) {
@@ -1477,31 +1477,86 @@
       /* Step 0 Bottom Insight / Key Takeaway banner on mobile */
       #slide-root > .glass-card div[style*="border: 1px dashed"],
       .slide-inner > .glass-card div[style*="border: 1px dashed"],
+      #slide-root > .glass-card div[style*="dashed"],
+      .slide-inner > .glass-card div[style*="dashed"],
       #slide-root > .glass-card div[style*="background: #38bdf815"],
       .slide-inner > .glass-card div[style*="background: #38bdf815"] {
         padding: 12px 14px !important;
         border-radius: 12px !important;
-        gap: 10px !important;
+        gap: 8px 10px !important;
         margin-top: auto !important;
         flex-shrink: 0 !important;
         display: flex !important;
+        flex-wrap: wrap !important;
         align-items: center !important;
       }
-      #slide-root > .glass-card div[style*="border: 1px dashed"] span,
-      .slide-inner > .glass-card div[style*="border: 1px dashed"] span,
-      #slide-root > .glass-card div[style*="background: #38bdf815"] span,
-      .slide-inner > .glass-card div[style*="background: #38bdf815"] span {
-        font-size: 22px !important;
+      #slide-root > .glass-card div[style*="dashed"] > span,
+      .slide-inner > .glass-card div[style*="dashed"] > span,
+      #slide-root > .glass-card div[style*="background: #38bdf815"] > span,
+      .slide-inner > .glass-card div[style*="background: #38bdf815"] > span {
+        font-size: 20px !important;
         line-height: 1 !important;
+        flex-shrink: 0 !important;
       }
-      #slide-root > .glass-card div[style*="border: 1px dashed"] div,
-      .slide-inner > .glass-card div[style*="border: 1px dashed"] div,
-      #slide-root > .glass-card div[style*="background: #38bdf815"] div,
-      .slide-inner > .glass-card div[style*="background: #38bdf815"] div {
+      #slide-root > .glass-card div[style*="dashed"] > div:first-of-type,
+      .slide-inner > .glass-card div[style*="dashed"] > div:first-of-type,
+      #slide-root > .glass-card div[style*="background: #38bdf815"] > div:first-of-type,
+      .slide-inner > .glass-card div[style*="background: #38bdf815"] > div:first-of-type {
         font-size: 13.5px !important;
         line-height: 1.4 !important;
         font-weight: 600 !important;
         color: #cbd5e1 !important;
+        flex: 1 1 calc(100% - 36px) !important;
+        min-width: 0 !important;
+      }
+      /* Lab Buttons Container inside Step 0 Banner (Lessons 7.1, 8.1) */
+      #slide-root > .glass-card div[style*="dashed"] > div[style*="display: flex"],
+      .slide-inner > .glass-card div[style*="dashed"] > div[style*="display: flex"],
+      #slide-root > .glass-card div[style*="dashed"] > div:has(> a),
+      .slide-inner > .glass-card div[style*="dashed"] > div:has(> a) {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-top: 8px !important;
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 8px !important;
+      }
+      #slide-root > .glass-card div[style*="dashed"] a,
+      .slide-inner > .glass-card div[style*="dashed"] a {
+        flex: 1 1 0 !important;
+        min-width: 0 !important;
+        padding: 9px 8px !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        justify-content: center !important;
+        text-align: center !important;
+        white-space: nowrap !important;
+        border-radius: 8px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 5px !important;
+      }
+
+      /* Lab Stand Buttons in Multi-Column Step Cards (Card 3 in Lessons 7.1, 8.1) */
+      .card-row .glass-card div:has(> a[href*="lab-"]),
+      .card-row .glass-card div[style*="flex-wrap: wrap"]:has(> a[href*="lab-"]) {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 8px !important;
+        margin-top: 10px !important;
+      }
+      .card-row .glass-card a[href*="lab-"] {
+        width: 100% !important;
+        display: inline-flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 10px 12px !important;
+        font-size: 12.5px !important;
+        font-weight: 700 !important;
+        border-radius: 8px !important;
+        box-sizing: border-box !important;
       }
       #slide-root > .glass-card div[style*="display: grid"],
       .slide-inner > .glass-card div[style*="display: grid"] {
