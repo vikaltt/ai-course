@@ -779,7 +779,7 @@
       }
     }
 
-      /* =========================================================================
+          /* =========================================================================
        MOBILE PORTRAIT: SINGLE-CARD FULLSCREEN & RESPONSIVE AUTO-FORMATTING
        ========================================================================= */
     @media (max-width: 768px) and (orientation: portrait), (max-width: 600px) {
@@ -1058,35 +1058,54 @@
         margin-bottom: 8px !important;
       }
 
-      /* Icon & Title Header (for lessons 1-4, 6-8) */
+      /* Step 0 Hero Teasers (Lessons 2-4, 6-8): Hide redundant duplicate inner header (category, title, badge) */
+      #slide-root > .glass-card > div:first-child > div[style*="justify-content: space-between"],
+      .slide-inner > .glass-card > div:first-child > div[style*="justify-content: space-between"],
       #slide-root > .glass-card > div:first-child > div:first-child,
       .slide-inner > .glass-card > div:first-child > div:first-child {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        margin-bottom: 8px !important;
+        display: none !important;
       }
-      #slide-root > .glass-card > div:first-child > div:first-child span:first-child,
-      .slide-inner > .glass-card > div:first-child > div:first-child span:first-child {
-        font-size: 26px !important;
-      }
-      #slide-root > .glass-card > div:first-child > div:first-child div > div:first-child,
-      .slide-inner > .glass-card > div:first-child > div:first-child div > div:first-child {
-        font-size: 10px !important;
-        letter-spacing: 0.5px !important;
-      }
-      #slide-root > .glass-card > div:first-child > div:first-child div > div:last-child,
-      .slide-inner > .glass-card > div:first-child > div:first-child div > div:last-child {
+
+      /* Step 0 Prompter quote teaser styling on mobile */
+      #slide-root > .glass-card div[style*="border-left"],
+      .slide-inner > .glass-card div[style*="border-left"] {
         font-size: 15px !important;
-        font-weight: 800 !important;
-        line-height: 1.25 !important;
+        line-height: 1.5 !important;
+        margin-bottom: 14px !important;
+        padding-left: 14px !important;
+        border-left-width: 3px !important;
+        font-weight: 500 !important;
+        color: #f1f5f9 !important;
       }
-      #slide-root > .glass-card > div:first-child > div:first-child > span:last-child,
-      .slide-inner > .glass-card > div:first-child > div:first-child > span:last-child {
-        font-size: 10px !important;
-        padding: 3px 6px !important;
-        border-radius: 6px !important;
-        white-space: nowrap !important;
+
+      /* Step 0 Bottom Insight / Key Takeaway banner on mobile */
+      #slide-root > .glass-card div[style*="border: 1px dashed"],
+      .slide-inner > .glass-card div[style*="border: 1px dashed"],
+      #slide-root > .glass-card div[style*="background: #38bdf815"],
+      .slide-inner > .glass-card div[style*="background: #38bdf815"] {
+        padding: 12px 14px !important;
+        border-radius: 12px !important;
+        gap: 10px !important;
+        margin-top: auto !important;
+        flex-shrink: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      #slide-root > .glass-card div[style*="border: 1px dashed"] span,
+      .slide-inner > .glass-card div[style*="border: 1px dashed"] span,
+      #slide-root > .glass-card div[style*="background: #38bdf815"] span,
+      .slide-inner > .glass-card div[style*="background: #38bdf815"] span {
+        font-size: 22px !important;
+        line-height: 1 !important;
+      }
+      #slide-root > .glass-card div[style*="border: 1px dashed"] div,
+      .slide-inner > .glass-card div[style*="border: 1px dashed"] div,
+      #slide-root > .glass-card div[style*="background: #38bdf815"] div,
+      .slide-inner > .glass-card div[style*="background: #38bdf815"] div {
+        font-size: 13.5px !important;
+        line-height: 1.4 !important;
+        font-weight: 600 !important;
+        color: #cbd5e1 !important;
       }
       #slide-root > .glass-card div[style*="display: grid"],
       .slide-inner > .glass-card div[style*="display: grid"] {
@@ -1134,7 +1153,7 @@
         line-height: 1.35 !important;
       }
 
-      /* Footer Prompt (РќР°Р¶РјРёС‚Рµ РџСЂРѕР±РµР»...) */
+      /* Footer Prompt (Р СњР В°Р В¶Р СР С‘РЎвЂљР Вµ Р СџРЎР‚Р С•Р В±Р ВµР В»...) */
       #slide-root > .glass-card > div:last-child,
       .slide-inner > .glass-card > div:last-child {
         padding: 8px 10px !important;
@@ -1152,6 +1171,44 @@
         line-height: 1.35 !important;
         color: #94a3b8 !important;
       }
+      /* Multi-item Checklists & Verification Banners (e.g. Lesson 5.3) */
+      .audit-checklist-card {
+        padding: 12px 14px !important;
+        gap: 8px !important;
+        margin-top: 10px !important;
+        flex-shrink: 0 !important;
+      }
+      .audit-checklist-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+      }
+      .audit-checklist-title-group {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 4px !important;
+      }
+      .audit-checklist-title {
+        font-size: 13.5px !important;
+        line-height: 1.3 !important;
+      }
+      .audit-checklist-sub {
+        font-size: 11.5px !important;
+      }
+      .audit-checklist-badge {
+        align-self: flex-start !important;
+        font-size: 10px !important;
+        padding: 3px 8px !important;
+      }
+      .audit-checklist-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+      }
+      .audit-checklist-item {
+        padding: 8px 10px !important;
+      }
+
       .cinema-subtitle {
         font-size: 13px !important;
         padding: 6px 12px !important;
